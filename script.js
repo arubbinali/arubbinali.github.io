@@ -94,6 +94,75 @@ function updateColor() {
     requestAnimationFrame(updateColor);
 }
 
-// Start the animations
-animate();
+// Set up the new explosion effect
+const explosionDuration = 1000; // 1 second
+const maxExplosionParticles = 500;
+
+// Create a container for explosion particles
+const explosionContainer = document.createElement('div');
+explosionContainer.className = 'explosion';
+document.body.appendChild(explosionContainer);
+
+function createExplosion(x, y) {
+    const explosionGeometry = new THREE.BufferGeometry();
+    const explosionParticles = [];
+    const positions = [];
+
+    for (let i = 0; i < maxExplosionParticles; i++) {
+        const vertex = new THREE.Vector3();
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 2;
+
+        vertex.x = distance * Math.cos(angle);
+        vertex.y = distance * Math.sin(angle);
+        vertex.z = Math.random() * 2 - 1;
+
+        positions.push(vertex.x, vertex.y, vertex.z);
+    }
+
+    explosionGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+
+    const explosionMaterial = new THREE.PointsMaterial({
+        color: 0xff0000,
+        size: 0.1,
+        blending: THREE.AdditiveBlending,
+        transparent: true,
+        opacity: 1
+    });
+
+    const explosionSystem = new THREE.Points(explosionGeometry, explosionMaterial);
+    scene.add(explosionSystem);
+
+    setTimeout(() => {
+        scene.remove(explosionSystem);
+    }, explosionDuration);
+
+    // CSS animation for visual explosion effect
+    const explosionDiv = document.createElement('div');
+    explosionDiv.style.width = '100px';
+    explosionDiv.style.height = '100px';
+    explosionDiv.style.borderRadius = '50%';
+    explosionDiv.style.background = 'radial-gradient(circle, rgba(255,0,0,1) 0%, rgba(255,255,255,0) 70%)';
+    explosionDiv.style.position = 'absolute';
+    explosionDiv.style.top = `${y}px`;
+    explosionDiv.style.left = `${x}px`;
+    explosionDiv.style.transform = 'translate(-50%, -50%)';
+    explosionDiv.style.pointerEvents = 'none';
+    explosionDiv.style.animation = `explode ${explosionDuration}ms forwards`;
+    explosionContainer.appendChild(explosionDiv);
+
+    setTimeout(() => {
+        explosionContainer.removeChild(explosionDiv);
+    }, explosionDuration);
+}
+
+// Add event listener to the button
+document.getElementById('explosionButton').addEventListener('click', (event) => {
+    const rect = event.target.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+    createExplosion(x, y);
+});
+
 updateColor();
+animate();
