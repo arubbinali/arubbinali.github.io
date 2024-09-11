@@ -7,7 +7,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // Create sphere geometry with small dots (particles)
-const particleCount = 1000;
+const particleCount = 500;
 const geometry = new THREE.SphereGeometry(2, 32, 32);
 const particles = new THREE.BufferGeometry();
 const positions = [];
