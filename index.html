@@ -35,6 +35,17 @@
             text-decoration: underline;
         }
 
+        h4 {
+            opacity: 0; /* Initially invisible */
+            animation: fadeIn 2s forwards; /* Apply fade-in animation */
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1; /* Fully visible at the end of the animation */
+            }
+        }
+
         footer {
             text-align: center;
             padding: 10px 0;
