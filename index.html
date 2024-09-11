@@ -38,15 +38,29 @@
             text-align: center;
             max-width: 90%;
             z-index: 1;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
         }
 
         h1 {
             text-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+            color: #00ff00;
+            margin: 0;
             transition: text-shadow 0.3s ease;
         }
 
         h1:hover {
             text-shadow: 0 0 20px rgba(0, 255, 0, 1);
+        }
+
+        .bold-green {
+            color: #00ff00; /* Brighter green */
         }
 
         h4 a {
@@ -76,7 +90,10 @@
 <body>
     <!-- Spinning 3D Sphere Effect -->
     <div class="content">
-        <h1><strong class="bold-green"><img src="https://readme-typing-svg.herokuapp.com?font=roboto&color=00FF00&size=18&vCenter=true&height=20&lines=Hala%2C+I'm+Arub!;I+write+softwares+%26+drink+water%2C;There's+no+place+like+127.0.0.1" alt="Typing SVG" /></strong></h1>
+        <!-- Split green text into 3 separate tags for better centering -->
+        <h1><strong class="bold-green">Hala, I'm Arub!</strong></h1>
+        <h1><strong class="bold-green">I write software & drink water,</strong></h1>
+        <h1><strong class="bold-green">There's no place like 127.0.0.1</strong></h1>
         <h4>Well, there's nothing here for you since I'm caught up with school nowadays... but you could still check out my <a href="https://github.com/arubbinali/" target="_blank">GitHub</a></h4>
     </div>
     <footer>Arub © 2024</footer>
@@ -128,8 +145,8 @@
         // Animation variables
         let mouseX = 0;
         let mouseY = 0;
-        let randomRotationSpeed = 0.001; // Initial speed
-        const maxSpeed = 0.003; // Limit for random speed
+        let randomRotationSpeed = 0.0005; // Slower initial speed
+        const maxSpeed = 0.0015; // Limit for random speed, decreased for a calmer effect
 
         // Animate the sphere and make it react to cursor movement
         function animate() {
@@ -166,10 +183,10 @@
             camera.updateProjectionMatrix();
         });
 
-        // Color animation
+        // Color animation, slower transition
         let colorOffset = 0;
         function updateColor() {
-            colorOffset += 0.01;
+            colorOffset += 0.002; // Slower color change
             const color = new THREE.Color(`hsl(${(colorOffset * 360) % 360}, 100%, 50%)`);
             particleMaterial.color = color;
             requestAnimationFrame(updateColor);
