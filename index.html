@@ -11,7 +11,7 @@
         html, body {
             height: 100%;
             margin: 0;
-            scroll-behavior: smooth;
+            overflow: hidden;
         }
 
         body {
@@ -19,38 +19,28 @@
             font-family: 'Poppins', sans-serif;
             display: flex;
             flex-direction: column;
+            background-color: #0d1117;
         }
 
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: #0d1117;
-            background-size: cover;
-            z-index: -1; /* Push the particle background behind other elements */
+        canvas {
+            display: block;
         }
 
         .content {
-            flex: 1;
-            padding: 20px;
-            z-index: 1; /* Ensure content is above the particle background */
-        }
-
-        a {
-            color: #ff69b4;
-            text-decoration: none;
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-
-        a:hover {
-            text-decoration: underline;
-            color: #ff1493;
-            transform: scale(1.1);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            color: white;
         }
 
         h1 {
-            opacity: 0;
-            animation: fadeIn 3s forwards;
             text-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
             transition: text-shadow 0.3s ease;
         }
@@ -59,144 +49,120 @@
             text-shadow: 0 0 20px rgba(0, 255, 0, 1);
         }
 
-        h4 {
-            opacity: 0;
-            animation: fadeIn 5s forwards;
+        h4 a {
+            color: #ff69b4;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
+        h4 a:hover {
+            text-decoration: underline;
+            color: #ff1493;
+            transform: scale(1.1);
         }
 
         footer {
             text-align: center;
             padding: 10px 0;
-            background-color: transparent;
             color: white;
             font-size: 12px;
         }
     </style>
 </head>
 <body>
-    <!-- Particle Background -->
-    <div id="particles-js"></div>
-
     <div class="content">
         <h1><strong class="bold-green"><img src="https://readme-typing-svg.herokuapp.com?font=roboto&color=00FF00&size=18&vCenter=true&height=20&lines=Hala%2C+I'm+Arub!;I+write+softwares+%26+drink+water%2C;There's+no+place+like+127.0.0.1" alt="Typing SVG" /></strong></h1>
         <h4>Well, there's nothing here for you since I'm caught up with school nowadays... but you could still check out my <a href="https://github.com/arubbinali/" target="_blank">GitHub</a></h4>
     </div>
     <footer>Arub © 2024</footer>
 
-    <!-- Include particles.js library -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Include three.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        particlesJS("particles-js", {
-            "particles": {
-                "number": {
-                    "value": 100,
-                    "density": {
-                        "enable": true,
-                        "value_area": 800
-                    }
-                },
-                "color": {
-                    "value": "#ffffff"
-                },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
-                    },
-                    "polygon": {
-                        "nb_sides": 5
-                    }
-                },
-                "opacity": {
-                    "value": 0.5,
-                    "random": false,
-                    "anim": {
-                        "enable": false,
-                        "speed": 1,
-                        "opacity_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "size": {
-                    "value": 3,
-                    "random": true,
-                    "anim": {
-                        "enable": false,
-                        "speed": 40,
-                        "size_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#ffffff",
-                    "opacity": 0.4,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 6,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false,
-                    "attract": {
-                        "enable": false,
-                        "rotateX": 600,
-                        "rotateY": 1200
-                    }
-                }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": {
-                        "enable": true,
-                        "mode": "grab"
-                    },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "push"
-                    },
-                    "resize": true
-                },
-                "modes": {
-                    "grab": {
-                        "distance": 140,
-                        "line_linked": {
-                            "opacity": 1
-                        }
-                    },
-                    "bubble": {
-                        "distance": 400,
-                        "size": 40,
-                        "duration": 2,
-                        "opacity": 8,
-                        "speed": 3
-                    },
-                    "repulse": {
-                        "distance": 200,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
-                    }
-                }
-            },
-            "retina_detect": true
+        // Set up the scene, camera, and renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Create a sphere geometry with small dots (particles)
+        const particleCount = 1000;
+        const geometry = new THREE.SphereGeometry(2, 32, 32);
+        const particles = new THREE.BufferGeometry();
+        const positions = [];
+
+        for (let i = 0; i < particleCount; i++) {
+            const vertex = new THREE.Vector3();
+            const theta = THREE.MathUtils.randFloatSpread(360); // random angle in 360 degrees
+            const phi = THREE.MathUtils.randFloatSpread(360); // another random angle
+
+            vertex.x = 2 * Math.sin(theta) * Math.cos(phi);
+            vertex.y = 2 * Math.sin(theta) * Math.sin(phi);
+            vertex.z = 2 * Math.cos(theta);
+
+            positions.push(vertex.x, vertex.y, vertex.z);
+        }
+
+        particles.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+
+        const particleMaterial = new THREE.PointsMaterial({
+            color: 0xffffff,
+            size: 0.02,
+            blending: THREE.AdditiveBlending,
+            transparent: true,
+            opacity: 0.8
         });
+
+        const particleSystem = new THREE.Points(particles, particleMaterial);
+        scene.add(particleSystem);
+
+        camera.position.z = 5;
+
+        // Animation variables
+        let mouseX = 0;
+        let mouseY = 0;
+
+        // Animate the sphere and make it rotate
+        function animate() {
+            requestAnimationFrame(animate);
+
+            particleSystem.rotation.y += 0.001;
+            particleSystem.rotation.x += 0.001;
+
+            // Smooth follow effect for the mouse
+            particleSystem.rotation.y += (mouseX / window.innerWidth - 0.5) * 0.02;
+            particleSystem.rotation.x += (mouseY / window.innerHeight - 0.5) * 0.02;
+
+            renderer.render(scene, camera);
+        }
+
+        // Update mouse movement
+        document.addEventListener('mousemove', function(event) {
+            mouseX = event.clientX - window.innerWidth / 2;
+            mouseY = event.clientY - window.innerHeight / 2;
+        });
+
+        // Adjust camera and renderer when window is resized
+        window.addEventListener('resize', function() {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
+
+        // Color animation
+        let colorOffset = 0;
+        function updateColor() {
+            colorOffset += 0.01;
+            const color = new THREE.Color(`hsl(${(colorOffset * 360) % 360}, 100%, 50%)`);
+            particleMaterial.color = color;
+            requestAnimationFrame(updateColor);
+        }
+
+        // Start the animations
+        animate();
+        updateColor();
     </script>
 </body>
 </html>
