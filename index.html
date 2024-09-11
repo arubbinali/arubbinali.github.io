@@ -28,16 +28,16 @@
 
         .content {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            text-align: center;
+            max-width: 90%;
             z-index: 1;
-            color: white;
         }
 
         h1 {
@@ -62,14 +62,19 @@
         }
 
         footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
             text-align: center;
             padding: 10px 0;
+            background-color: #1c1f26;
             color: white;
             font-size: 12px;
         }
     </style>
 </head>
 <body>
+    <!-- Spinning 3D Sphere Effect -->
     <div class="content">
         <h1><strong class="bold-green"><img src="https://readme-typing-svg.herokuapp.com?font=roboto&color=00FF00&size=18&vCenter=true&height=20&lines=Hala%2C+I'm+Arub!;I+write+softwares+%26+drink+water%2C;There's+no+place+like+127.0.0.1" alt="Typing SVG" /></strong></h1>
         <h4>Well, there's nothing here for you since I'm caught up with school nowadays... but you could still check out my <a href="https://github.com/arubbinali/" target="_blank">GitHub</a></h4>
@@ -87,7 +92,7 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        // Create a sphere geometry with small dots (particles)
+        // Create sphere geometry with small dots (particles)
         const particleCount = 1000;
         const geometry = new THREE.SphereGeometry(2, 32, 32);
         const particles = new THREE.BufferGeometry();
@@ -95,8 +100,8 @@
 
         for (let i = 0; i < particleCount; i++) {
             const vertex = new THREE.Vector3();
-            const theta = THREE.MathUtils.randFloatSpread(360); // random angle in 360 degrees
-            const phi = THREE.MathUtils.randFloatSpread(360); // another random angle
+            const theta = THREE.MathUtils.randFloatSpread(360);
+            const phi = THREE.MathUtils.randFloatSpread(360);
 
             vertex.x = 2 * Math.sin(theta) * Math.cos(phi);
             vertex.y = 2 * Math.sin(theta) * Math.sin(phi);
@@ -123,13 +128,23 @@
         // Animation variables
         let mouseX = 0;
         let mouseY = 0;
+        let randomRotationSpeed = 0.001; // Initial speed
+        const maxSpeed = 0.003; // Limit for random speed
 
-        // Animate the sphere and make it rotate
+        // Animate the sphere and make it react to cursor movement
         function animate() {
             requestAnimationFrame(animate);
 
-            particleSystem.rotation.y += 0.001;
-            particleSystem.rotation.x += 0.001;
+            particleSystem.rotation.y += randomRotationSpeed;
+            particleSystem.rotation.x += randomRotationSpeed;
+
+            // React to mouse movement with 'exploding' effect
+            const distanceFromCenter = Math.sqrt(mouseX * mouseX + mouseY * mouseY);
+            if (distanceFromCenter < 50) {
+                randomRotationSpeed = 0; // Stop rotating near the center
+            } else {
+                randomRotationSpeed = Math.random() * maxSpeed; // Random speed away from center
+            }
 
             // Smooth follow effect for the mouse
             particleSystem.rotation.y += (mouseX / window.innerWidth - 0.5) * 0.02;
