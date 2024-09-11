@@ -113,7 +113,7 @@
         <h1><strong class="bold-green">&lt;/&gt;</strong></h1>
         <h4>Well, there's nothing here for you since I'm caught up with school nowadays... but you could still check out my <a href="https://github.com/arubbinali/" target="_blank">GitHub</a></h4>
     </div>
-    <footer>Arub © 2024</footer>
+    <footer id="footer">Arub © 2024</footer>
 
     <!-- Include three.js library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -206,6 +206,11 @@
             colorOffset += 0.001;
             const color = new THREE.Color(`hsl(${(colorOffset * 360) % 360}, 100%, 50%)`);
             particleMaterial.color = color;
+
+            // Update the footer glow color to match the sphere
+            const footer = document.getElementById('footer');
+            footer.style.boxShadow = `0 0 15px ${color.getStyle()}`;
+
             requestAnimationFrame(updateColor);
         }
 
