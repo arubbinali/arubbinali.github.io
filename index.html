@@ -11,14 +11,23 @@
         html, body {
             height: 100%;
             margin: 0;
+            scroll-behavior: smooth; /* Enable smooth scrolling */
         }
 
         body {
-            background-color: #0d1117;
+            background: linear-gradient(135deg, #0d1117, #1a202c);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
             color: white;
             font-family: 'Poppins', sans-serif;
             display: flex;
             flex-direction: column;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .content {
@@ -29,25 +38,34 @@
         a {
             color: #ff69b4;
             text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
         }
 
         a:hover {
             text-decoration: underline;
+            color: #ff1493;
+            transform: scale(1.1); /* Slightly enlarge the link on hover */
         }
 
-        h4 {
-            opacity: 0; /* Initially invisible */
-            animation: fadeIn 5s forwards; /* Apply fade-in animation */
-        }
-        
         h1 {
             opacity: 0;
             animation: fadeIn 3s forwards;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.7); /* Glowing shadow effect */
+            transition: text-shadow 0.3s ease; /* Smooth transition for hover */
+        }
+
+        h1:hover {
+            text-shadow: 0 0 20px rgba(0, 255, 0, 1); /* Glowing text effect on hover */
+        }
+
+        h4 {
+            opacity: 0;
+            animation: fadeIn 5s forwards;
         }
 
         @keyframes fadeIn {
             to {
-                opacity: 1; /* Fully visible at the end of the animation */
+                opacity: 1;
             }
         }
 
