@@ -11,28 +11,29 @@
         html, body {
             height: 100%;
             margin: 0;
-            scroll-behavior: smooth; /* Enable smooth scrolling */
+            scroll-behavior: smooth;
         }
 
         body {
-            background: linear-gradient(135deg, #0d1117, #1a202c);
-            background-size: 400% 400%;
-            animation: gradientShift 10s ease infinite;
             color: white;
             font-family: 'Poppins', sans-serif;
             display: flex;
             flex-direction: column;
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #0d1117;
+            background-size: cover;
+            z-index: -1; /* Push the particle background behind other elements */
         }
 
         .content {
             flex: 1;
             padding: 20px;
+            z-index: 1; /* Ensure content is above the particle background */
         }
 
         a {
@@ -72,17 +73,130 @@
         footer {
             text-align: center;
             padding: 10px 0;
-            background-color: #0d1117;
+            background-color: transparent;
             color: white;
             font-size: 12px;
         }
     </style>
 </head>
 <body>
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+
     <div class="content">
         <h1><strong class="bold-green"><img src="https://readme-typing-svg.herokuapp.com?font=roboto&color=00FF00&size=18&vCenter=true&height=20&lines=Hala%2C+I'm+Arub!;I+write+softwares+%26+drink+water%2C;There's+no+place+like+127.0.0.1" alt="Typing SVG" /></strong></h1>
         <h4>Well, there's nothing here for you since I'm caught up with school nowadays... but you could still check out my <a href="https://github.com/arubbinali/" target="_blank">GitHub</a></h4>
     </div>
     <footer>Arub © 2024</footer>
+
+    <!-- Include particles.js library -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 100,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
 </body>
 </html>
