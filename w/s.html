@@ -68,7 +68,6 @@
         }
 
 
-
         /* Dark Mode Button */
         .dark-mode-toggle {
             background-color: #e0e0e0;
@@ -84,12 +83,6 @@
             background-color: #444;
             color: #f0f0f0;
         }
-
-        body.dark-mode .navbar ul li .dropdown-submenu-cie {
-            background-color: #444;
-        }
-
-
 
         /* Navigation Bar */
         .navbar {
@@ -237,12 +230,11 @@
             color: #f0f0f0;
         }
 
-
         /* CIE Submenu Styles */
         .dropdown-submenu-cie {
             position: absolute;
-            left: 100%; /* Position to the right of the parent */
-            top: 100px; /* Align with the parent item */
+            left: 100%;
+            top: 100px; /* Adjusted to align properly */
             display: none; /* Hide submenu by default */
             background-color: rgb(255, 255, 255, 0.9);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -250,16 +242,43 @@
             border-radius: 5px;
         }
 
+        /* Show the submenu when hovering over the CIE link */
         .navbar ul li .dropdown a:hover + .dropdown-submenu-cie {
             display: block; /* Show the submenu */
         }
 
+        /* Sub-submenu Styles */
+        .dropdown-submenu-cie-june-2024 {
+            position: absolute;
+            left: 100%;
+            top: 0; /* Adjusted to align properly */
+            display: none; /* Hide submenu by default */
+            background-color: rgb(255, 255, 255, 0.9);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            min-width: 150px;
+            border-radius: 5px;
+        }
+
+        /* Show the sub-submenu when hovering over the June 2024 link */
+        .dropdown-submenu-cie a:hover + .dropdown-submenu-cie-june-2024 {
+            display: block; /* Show the sub-submenu */
+        }
+
+        /* Keep both dropdowns visible when hovering */
         .navbar ul li:hover .dropdown,
-        .navbar ul li .dropdown-submenu-cie:hover {
+        .navbar ul li .dropdown-submenu-cie:hover,
+        .navbar ul li .dropdown-submenu-cie-june-2024:hover {
             display: block; /* Keep both visible when hovering */
         }
 
-        
+        body.dark-mode .navbar ul li .dropdown-submenu-cie {
+            background-color: rgb(68, 68, 68, 0.9);
+        }
+
+        body.dark-mode .navbar ul li .dropdown-submenu-cie-june-2024 {
+            background-color: rgb(68, 68, 68, 0.9);
+        }
+
 
         /* Main Banner Section */
         .banner {
@@ -453,7 +472,7 @@
         }
 
         body.dark-mode .footer .press-release-item {
-            background-color: red; /* Change background to red in dark mode */
+            background-color: rgb(0, 120, 116); /* Change background to red in dark mode */
             border: 1px solid #d1d1d1; /* Optional: keep the same border color */
             color: white; /* Optional: change text color to white for contrast */
         }
@@ -545,6 +564,9 @@
                             <a href="#">CIE ➟</a>
                                 <div class="dropdown-submenu-cie">
                                     <a href="#">CIE June 2024</a>
+                                        <div class="dropdown-submenu-cie-june-2024">
+                                            <a href="#">in 2024</a>
+                                        </div>
                                     <a href="#">CIE June 2023</a>
                                 </div>
                             <a href="#">Book Sale</a>
