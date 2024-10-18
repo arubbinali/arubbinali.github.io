@@ -277,6 +277,36 @@
                     background-color: rgb(68, 68, 68, 0.9);
                 }
 
+
+                .dropdown-submenu-cie-june-2023 {
+                    position: absolute;
+                    left: 100%;
+                    top: 0; /* Adjusted to align properly */
+                    display: none; /* Hide submenu by default */
+                    background-color: rgb(255, 255, 255, 0.9);
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    min-width: 150px;
+                    border-radius: 5px;
+                }
+
+                .dropdown-submenu-cie a:hover + .dropdown-submenu-cie-june-2023 {
+                    display: block; /* Show the sub-submenu */
+                }
+
+                .navbar ul li:hover .dropdown,
+                .navbar ul li .dropdown-submenu-cie:hover,
+                .navbar ul li .dropdown-submenu-cie-june-2023:hover {
+                    display: block;
+                }
+
+                body.dark-mode .navbar ul li .dropdown-submenu-cie {
+                    background-color: rgb(68, 68, 68, 0.9);
+                }
+
+                body.dark-mode .navbar ul li .dropdown-submenu-cie-june-2023 {
+                    background-color: rgb(68, 68, 68, 0.9);
+                }
+
             /* Curriculum Submenu Styles */
             .dropdown-submenu-curriculum {
                 position: absolute;
@@ -638,15 +668,23 @@
                             <a href="#">School Timings</a>
                             <a href="#">Curriculum ➟</a>
                                 <div class="dropdown-submenu-curriculum">
-                                    <a href="#">kef</a>
+                                    <a href="#">Cambridge Early Years</a>
+                                    <a href="#">Junior School</a>
+                                    <a href="#">Middle School</a>
+                                    <a href="#">Senior School</a>
                                 </div>
                             <a href="#">CIE ➟</a>
                                 <div class="dropdown-submenu-cie">
-                                    <a href="#">CIE June 2024</a>
+                                    <a href="#">CIE June 2024 ➟</a>
                                         <div class="dropdown-submenu-cie-june-2024">
-                                            <a href="#">in 2024</a>
+                                            <a href="#">Cambridge Primary and Lower Secondary Checkpoint Results</a>
+                                            <a href="#">Cambridge IGCSE and O Levels Results (Y9 & Y10)</a>
+                                            <a href="#">Cambridge AS and A Level Results</a>
                                         </div>
-                                    <a href="#">CIE June 2023</a>
+                                    <a href="#">CIE June 2023 ➟</a>
+                                        <div class="dropdown-submenu-cie-june-2023">
+                                            <a href="#">Outstanding Cambridge Learner Awards</a>
+                                        </div>
                                 </div>
                             <a href="#">Book Sale</a>
                             <a href="#">Academic Calendar</a>
