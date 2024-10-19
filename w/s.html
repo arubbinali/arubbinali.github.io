@@ -180,6 +180,21 @@
             border-bottom: 1px solid #444;
         }
 
+        /* Overlay background */
+        #screen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Dim background */
+            z-index: 999;
+            opacity: 0; /* Invisible initially */
+            pointer-events: none; /* Prevent interaction when invisible */
+            transition: opacity 0.3s ease; /* Smooth fade-in and fade-out */
+        }
+
+
         /* Dropdown Menu */
         .navbar ul li .dropdown {
             display: none;
@@ -190,8 +205,9 @@
             z-index: 1000;
         }
 
-        .navbar ul li:hover .dropdown {
-            display: block; /* Show the main dropdown */
+        .navbar ul li:hover .dropdown,
+        .navbar ul li:hover #screen-overlay {
+            display: block; /* Show the dropdown and overlay */
         }
 
         .navbar ul li .dropdown-container {
@@ -236,7 +252,7 @@
             .dropdown-submenu-cie {
                 position: absolute;
                 left: 100%;
-                top: 100px;
+                top: 115px;
                 display: none;
                 background-color: rgb(255, 255, 255, 0.9);
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -819,6 +835,8 @@
 
 <body>
 
+    <div id="screen-overlay"></div>
+
     <!-- Navigation Bar -->
     <div class="navbar">
         <div class="logo">
@@ -1080,11 +1098,11 @@
         </div>
     </div>
 
-    <script>
+    <script>// Function to show the popup (for unrelated functionality)
         window.onload = function () {
             showPopup();
         };
-
+        
         function showPopup() {
             const popup = document.getElementById("popup");
             popup.style.display = "flex"; // Show the popup
@@ -1092,11 +1110,11 @@
                 popup.style.opacity = "1"; // Fade in
             }, 100); // Slight delay for better animation
         }
-
+        
         function closePopup() {
             const popup = document.getElementById('popup');
             popup.style.opacity = "0"; // Start fade-out
-
+        
             // Wait for the fade-out duration to remove the popup from the DOM
             popup.addEventListener('transitionend', function (e) {
                 if (popup.style.opacity === "0") {
@@ -1104,10 +1122,51 @@
                 }
             }, { once: true }); // Use { once: true } to ensure the listener is removed after execution
         }
-
+        
+        // Toggle dark mode functionality
         function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('dark-mode'); // Toggle class to enable/disable dark mode
         }
+        
+        // Select all dropdown menu items
+        const dropdownItems = document.querySelectorAll('.navbar ul li');
+        const overlay = document.getElementById('screen-overlay');
+        
+        // Function to show the overlay with fade-in effect
+        function showOverlay() {
+            overlay.style.display = 'block';  // Make the overlay visible
+            setTimeout(() => { 
+                overlay.style.opacity = '1';  // Gradually increase opacity (fade-in)
+                overlay.style.pointerEvents = 'auto';  // Allow interaction with the overlay when visible
+            }, 10);  // Small delay to ensure smooth transition
+        }
+        
+        // Function to hide the overlay with fade-out effect
+        function hideOverlay() {
+            overlay.style.opacity = '0';  // Start fade-out by reducing opacity
+            overlay.style.pointerEvents = 'none';  // Prevent interaction while fading out
+        
+            // Once the transition (fade-out) is done, hide the overlay from view
+            overlay.addEventListener('transitionend', function () {
+                if (overlay.style.opacity === '0') {
+                    overlay.style.display = 'none';  // Fully hide the overlay after fade-out
+                }
+            }, { once: true });  // Ensure this runs once after each fade-out
+        }
+        
+        // Add event listeners to each dropdown menu item
+        dropdownItems.forEach(function (menuItem) {
+            // On mouse enter (hover), show the overlay
+            menuItem.addEventListener('mouseenter', function () {
+                showOverlay();
+            });
+        
+            // On mouse leave (exit), hide the overlay
+            menuItem.addEventListener('mouseleave', function () {
+                hideOverlay();
+            });
+        });
+        
 
     </script>
 
