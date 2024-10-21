@@ -728,12 +728,16 @@
             transform: scale(1.05); /* Slight zoom on hover */
         }
 
-        /* Left Section (Contact Info) - Changing text color to dark instead of blue */
+        /* Left Section (Contact Info) - Changing text color from dark gray to orange on hover */
         .footer .contact-info {
             font-size: 15px;
             line-height: 1.6;
-            color: #333; /* Changed from blue to dark gray to avoid hyperlink confusion */
-            transition: color 0.3s ease;
+            color: #5d5d5d; /* Initial color */
+            transition: color 0.3s ease; /* Smooth transition for color */
+        }
+
+        .footer .contact-info:hover {
+            color: #000000; /* Orange color on hover */
         }
 
         /* Middle Section (Press Release) */
