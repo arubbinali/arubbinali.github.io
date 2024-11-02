@@ -802,12 +802,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: transform 0.3s ease-out; /* Faster hover effect */
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; /* Added box-shadow transition */
+            box-shadow: 0 4px 7px rgba(0, 0, 0, 0.7); /* Initial shadow */
         }
 
         .footer .press-release-item:hover {
             transform: scale(1.05); /* Slight zoom on hover */
             background-color: #f9f9f9; /* Light background change on hover */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Intensified shadow on hover */
         }
 
         .footer .press-release-item img {
@@ -819,6 +821,7 @@
         .footer .press-release-item img:hover {
             transform: scale(1.1); /* Slight zoom on hover */
         }
+
 
 
         /* Right Section (In Focus) */
