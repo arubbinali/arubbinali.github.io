@@ -804,12 +804,17 @@
         }
  
         .footer .contact-info:hover {
-            color: #000000; /* Orange color on hover */
+            color: #000000;
         }
+
+        
+        body.dark-mode .footer .contact-info:hover {
+            color: #007BFF;
+        }        
  
         /* Middle Section (Press Release) */
         .footer .press-release {
-            font-size: 20px;
+            font-size: 15px;
             font-weight: bold;
             position: relative;
             color: #444; /* Darker, professional color */
@@ -826,20 +831,31 @@
  
         /* Press Release Items */
         .footer .press-release-item {
+            color: #000;
             background-color: #fff;
             border-radius: 8px;
             padding: 15px;
             margin-bottom: 15px;
+            max-height: 50px;
+            min-width: 600px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; /* Added box-shadow transition */
             box-shadow: 0 4px 7px rgba(0, 0, 0, 0.7); /* Initial shadow */
         }
- 
+        
+        /* If using paragraphs or headings, target them specifically */
+        .footer .press-release-item p,
+        .footer .press-release-item h4 {
+            margin: 0 20px; /* Adjust to reduce space between texts */
+            padding: px; /* Remove default padding if needed */
+        }
+        
         .footer .press-release-item:hover {
             transform: scale(1.05); /* Slight zoom on hover */
             background-color: #f9f9f9; /* Light background change on hover */
+            color: #03f723;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Intensified shadow on hover */
         }
  
@@ -857,11 +873,11 @@
  
         /* Right Section (In Focus) */
         .footer .in-focus {
-            font-size: 16px;
+            font-size: 15px;
             line-height: 1.4;
             transition: color 0.3s ease;
             color: #333; /* Base color */
-            margin-left: 90px;
+            margin-left: 60px;
         }
  
         .footer .in-focus:hover {
@@ -873,7 +889,7 @@
             color: #555;
             position: relative;
             font-weight: normal;
-            transition: color 0.3s ease, font-weight 0.3s ease, font-size 0.3s ease;
+            transition: color 0.9s ease, font-weight 0.00001s ease, font-size .1s ease;
             font-size: 16px;
         }
  
@@ -913,25 +929,48 @@
         }
  
         /* Dark Mode */
+        body.dark-mode .footer .in-focus {
+            color: white;
+        }
+
+        body.dark-mode .footer .in-focus:hover {
+            color: #007BFF; /* Professional blue on hover */
+            text-shadow: 1px 1px 5px rgba(0, 123, 255, 0.3);
+        }
+
+        body.dark-mode .footer .press-release {
+            color: white;
+        }
+
+        body.dark-mode .footer .press-release-item:hover {
+            color: #03f723; /* Professional blue on hover */
+            text-shadow: 1px 1px 5px rgba(0, 123, 255, 0.3);
+        }
+
+        body.dark-mode .footer .press-release:hover {
+            color: #007BFF;
+        }
+
         body.dark-mode .footer {
             background-color: #222;
             color: rgb(250, 244, 244);
         }
  
         body.dark-mode .footer a {
-            color: white;
+            color: rgb(245, 239, 167);
         }
  
         body.dark-mode .footer a:hover {
-            color: #ddd;
+            color: #00eeff;
         }
  
         body.dark-mode .footer .press-release-item {
-            background-color: rgb(0, 120, 116);
+            background-color: rgb(87, 79, 98);
             border: 1px solid #d1d1d1;
-            color: white;
+            color: rgb(245, 239, 167);
         }
- 
+
+        
  
  
  
@@ -1246,10 +1285,10 @@
         
  
     </div>
- 
+
     <!-- Main Banner Section -->
     <div class="banner">
-        <h1>Have a water mate</h1>
+        <h1>Pakistan International School Jeddah</h1>
     </div>
  
     <!-- Buttons Section -->
