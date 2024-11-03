@@ -6,7 +6,7 @@
     <title>Elite School Website</title>
     
     <style>
-
+ 
         /* General */
         body {
             font-family: 'Poppins', sans-serif;
@@ -23,7 +23,7 @@
             background-color: #1a1a1a;
             color: #f0f0f0;
         }
-
+ 
         /* Ending Section */
         .ending {
             background-color: rgba(255, 255, 255, 0.6);
@@ -39,7 +39,7 @@
             margin-top: 40px; /* Add some space above it */
             transition: background-color 0.6s ease, border-bottom 0.9s ease;
         }
-
+ 
         .ending .contact {
             font-size: 14px;
             color: #555;
@@ -48,12 +48,12 @@
             padding-right: 40px; /* Add padding to push it left from the right edge */
             box-sizing: border-box; /* Ensures padding is included in the element's width */
         }
-
+ 
         .ending .contact a {
             text-decoration: none;
             color: #555;
         }
-
+ 
         body.dark-mode .ending .contact a {
             color: #fff;
         }
@@ -62,64 +62,90 @@
             background-color: #2a2a2a80;
             border-top: 3px solid #00ffbb;
         }
-
+ 
         body.dark-mode .ending .contact {
             color: #fff;
         }
-
-
-        /* Switch Container */
-        .switch {
-        position: relative;
-        display: inline-block;
-        width: 60px;
-        height: 28px;
-        margin-right: 30px;
-        }
-
-        /* Hide default checkbox */
-        .switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-        }
-
-        /* Slider (Apple-style) */
-        .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        transition: 0.4s;
-        border-radius: 34px;
-        }
-
-        /* Slider Knob */
-        .slider:before {
-        position: absolute;
-        content: "";
-        height: 20px;
-        width: 20px;
-        left: 4px;
-        bottom: 4px;
-        background-color: white;
-        transition: 0.4s;
-        border-radius: 50%;
-        }
-
-        /* Dark Mode */
-        input:checked + .slider {
-        background-color: #2196F3;
-        }
-
-        input:checked + .slider:before {
-        transform: translateX(32px);
-        }
-
-
+ 
+ 
+/* Switch Container */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 90px; /* Adjusted to fit text */
+    height: 40px;
+    margin-right: 30px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+ 
+/* Hide default checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+ 
+/* Slider (Apple-style) */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #e0e0e0; /* Light background */
+    transition: 0.4s;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+ 
+/* Slider Knob */
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 30px;
+    width: 30px;
+    left: 4px;
+    bottom: 5px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+ 
+/* Dark Mode */
+input:checked + .slider {
+    background-color: #333; /* Dark background */
+}
+ 
+input:checked + .slider:before {
+    transform: translateX(51.5px); /* Adjusted for size */
+}
+ 
+/* Text Label */
+.mode-label {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 10px;
+    left: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    pointer-events: none;
+}
+ 
+.dark-mode .mode-label {
+    color: #e0e0e0;
+}
+ 
+ 
+ 
         /* Navigation Bar */
         .navbar {
             background-color: rgba(243, 243, 243, 0.6); /* Slightly transparent */
@@ -133,7 +159,7 @@
             width: 100%; /* Make sure it covers the full width */
             z-index: 999; /* Ensure it's below the header */
             transition: background-color 0.6s ease, border-bottom 0.9s ease;
-
+ 
         }
         
         .navbar .logo {
@@ -141,11 +167,11 @@
             align-items: center;
             margin-left: 50px;
         }
-
+ 
         .navbar .logo img {
             height: 50px; /* Set the logo height */
         }
-
+ 
         .navbar ul {
             list-style: none;
             margin: 20px;
@@ -154,13 +180,13 @@
             flex-grow: 1; /* Allow the list to grow and take available space */
             justify-content: flex-start; /* Align items to the left */
         }
-
+ 
         .navbar ul li {
             margin: 0 20px;
             position: relative;
             padding-bottom: 0px;
         }
-
+ 
         .navbar ul li a {
             font-family: 'Poppins', sans-serif;
             text-decoration: none;
@@ -169,7 +195,7 @@
             position: relative;
             transition: color 0.5s ease; /* Smooth transition for text color */
         }
-
+ 
         .navbar ul li a::after {
             content: '';
             position: absolute;
@@ -180,7 +206,7 @@
             background-color: #333;
             transition: width 0.4s ease;
         }
-
+ 
         .navbar ul li .dropdown a::after {
             content: '';
             position: absolute;
@@ -191,25 +217,25 @@
             background-color: #000000;
             transition: width 0.4s ease;
         }
-
+ 
         .navbar ul li a:hover::after {
             width: 100%;
         }
-
+ 
         .navbar .dark-mode-toggle {
             margin-right: 50px;
         }
-
+ 
         body.dark-mode .navbar ul li a::after {
             background-color: #fff;
             bottom: -6px;
         }
-
+ 
         body.dark-mode .navbar ul li .dropdown a::after {
             background-color: #fff; /* Change underline color */
             bottom: 0px; /* Bring the underline up for dropdown options */
         }
-
+ 
         body.dark-mode .navbar ul li a {
             color: #fff;
         }
@@ -218,7 +244,7 @@
             background-color: #2a2a2a80;
             border-bottom: 1px solid #444;
         }
-
+ 
         /* Overlay background */
         #screen-overlay {
             position: fixed;
@@ -232,8 +258,8 @@
             pointer-events: none; /* Prevent interaction when invisible */
             transition: opacity 0.3s ease; /* Smooth fade-in and fade-out */
         }
-
-
+ 
+ 
         /* Dropdown Menu */
         .navbar ul li .dropdown {
             display: none; /* Hide dropdown by default */
@@ -246,7 +272,7 @@
             transform: translateY(-10px); /* Start above */
             transition: opacity 0.3s ease; /* Smooth fade in */
         }
-
+ 
         /* Show the dropdown on hover with animation */
         .navbar ul li:hover .dropdown {
             display: block; /* Show dropdown */
@@ -254,9 +280,9 @@
             opacity: 1; /* Fully visible */
             pointer-events: auto; /* Allow interaction */
         }
-
+ 
         /* Add this to your existing CSS */
-
+ 
         /* Keyframes for slide down animation */
         @keyframes slideDown {
             0% {
@@ -268,49 +294,49 @@
                 opacity: 1; /* Fully visible */
             }
         }
-
-
+ 
+ 
         .navbar ul li:hover .dropdown,
         .navbar ul li:hover #screen-overlay {
             display: block; /* Show the dropdown and overlay */
         }
-
+ 
         .navbar ul li .dropdown-container {
             position: absolute;
             padding-top: 30px; /* Adjust this as needed */
         }
-
+ 
         .navbar ul li .dropdown a:first-child {
             border-radius: 5px;
             padding-top: 20px;
         }
-
+ 
         .navbar ul li .dropdown a:last-child {
             border-radius: 5px;
         }
-
+ 
         .navbar ul li .dropdown a {
             padding: 10px 20px;
             display: block;
             color: #333;
         }
-
+ 
         .navbar ul li .dropdown a:hover {
             background-color: #ebebeb;
         }
-
+ 
         body.dark-mode .navbar ul li .dropdown {
             background-color: rgb(68, 68, 68, 0.9);
         }
-
+ 
         body.dark-mode .navbar ul li .dropdown a:hover {
             background-color: #555;
         }
-
+ 
         body.dark-mode .navbar ul li .dropdown a {
             color: #f0f0f0;
         }
-
+ 
         /* Submenu Styles */
         /* Academics */
             /* CIE Submenu Styles */
@@ -324,11 +350,11 @@
                 min-width: 180px;
                 border-radius: 5px;
             }
-
+ 
             .navbar ul li .dropdown a:hover + .dropdown-submenu-cie {
                 display: block;
             }
-
+ 
                 /* Sub CIE Submenu Styles */
                 .dropdown-submenu-cie-june-2024 {
                     position: absolute;
@@ -340,26 +366,26 @@
                     min-width: 200px;
                     border-radius: 5px;
                 }
-
+ 
                 .dropdown-submenu-cie a:hover + .dropdown-submenu-cie-june-2024 {
                     display: block; /* Show the sub-submenu */
                 }
-
+ 
                 .navbar ul li:hover .dropdown,
                 .navbar ul li .dropdown-submenu-cie:hover,
                 .navbar ul li .dropdown-submenu-cie-june-2024:hover {
                     display: block;
                 }
-
+ 
                 body.dark-mode .navbar ul li .dropdown-submenu-cie {
                     background-color: rgb(68, 68, 68, 0.9);
                 }
-
+ 
                 body.dark-mode .navbar ul li .dropdown-submenu-cie-june-2024 {
                     background-color: rgb(68, 68, 68, 0.9);
                 }
-
-
+ 
+ 
                 .dropdown-submenu-cie-june-2023 {
                     position: absolute;
                     left: 100%;
@@ -370,21 +396,21 @@
                     min-width: 200px;
                     border-radius: 5px;
                 }
-
+ 
                 .dropdown-submenu-cie a:hover + .dropdown-submenu-cie-june-2023 {
                     display: block; /* Show the sub-submenu */
                 }
-
+ 
                 .navbar ul li:hover .dropdown,
                 .navbar ul li .dropdown-submenu-cie:hover,
                 .navbar ul li .dropdown-submenu-cie-june-2023:hover {
                     display: block;
                 }
-
+ 
                 body.dark-mode .navbar ul li .dropdown-submenu-cie {
                     background-color: rgb(68, 68, 68, 0.9);
                 }
-
+ 
                 body.dark-mode .navbar ul li .dropdown-submenu-cie-june-2023 {
                     background-color: rgb(68, 68, 68, 0.9);
                 }
@@ -401,15 +427,15 @@
                 min-width: 180px;
                 border-radius: 5px;
             }
-
+ 
             .navbar ul li .dropdown a:hover + .dropdown-submenu-curriculum, .dropdown-submenu-curriculum:hover {
                 display: block;
             }
-
+ 
             body.dark-mode .navbar ul li .dropdown-submenu-curriculum {
                     background-color: rgb(68, 68, 68, 0.9);
                 }
-
+ 
         /* Admissions */
             /* Session 2024-2025 Submenu Styles */
             .dropdown-submenu-session2425 {
@@ -422,15 +448,15 @@
                 min-width: 200px;
                 border-radius: 5px;
             }
-
+ 
             .navbar ul li .dropdown a:hover + .dropdown-submenu-session2425, .dropdown-submenu-session2425:hover {
                 display: block;
             }
-
+ 
             body.dark-mode .navbar ul li .dropdown-submenu-session2425 {
                 background-color: rgb(68, 68, 68, 0.9);
             }
-
+ 
             /* Fee Structure Submenu Styles */
             .dropdown-submenu-feestructure {
                 position: absolute;
@@ -442,15 +468,15 @@
                 min-width: 200px;
                 border-radius: 5px;
             }
-
+ 
             .navbar ul li .dropdown a:hover + .dropdown-submenu-feestructure, .dropdown-submenu-feestructure:hover {
                 display: block;
             }
-
+ 
             body.dark-mode .navbar ul li .dropdown-submenu-feestructure {
                 background-color: rgb(68, 68, 68, 0.9);
             }
-
+ 
         /* Student Life Submenu Styles */
             /* Student Body Submenu Styles */
             .dropdown-submenu-studentbody {
@@ -463,15 +489,15 @@
                 min-width: 200px;
                 border-radius: 5px;
             }
-
+ 
             .navbar ul li .dropdown a:hover + .dropdown-submenu-studentbody, .dropdown-submenu-studentbody:hover {
                 display: block;
             }
-
+ 
             body.dark-mode .navbar ul li .dropdown-submenu-studentbody {
                 background-color: rgb(68, 68, 68, 0.9);
             }
-
+ 
             /* VII PISJES MUN Submenu Styles */
             .dropdown-submenu-mun {
                 position: absolute;
@@ -483,15 +509,15 @@
                 min-width: 200px;
                 border-radius: 5px;
             }
-
+ 
             .navbar ul li .dropdown a:hover + .dropdown-submenu-mun, .dropdown-submenu-mun:hover {
                 display: block;
             }
-
+ 
             body.dark-mode .navbar ul li .dropdown-submenu-mun {
                 background-color: rgb(68, 68, 68, 0.9);
             }
-
+ 
             /* PISJES Model National Assembly Submenu Styles */
             .dropdown-submenu-mna {
                 position: absolute;
@@ -503,15 +529,15 @@
                 min-width: 200px;
                 border-radius: 5px;
             }
-
+ 
             .navbar ul li .dropdown a:hover + .dropdown-submenu-mna, .dropdown-submenu-mna:hover {
                 display: block;
             }
-
+ 
             body.dark-mode .navbar ul li .dropdown-submenu-mna {
                 background-color: rgb(68, 68, 68, 0.9);
             }
-
+ 
             /* Career counselling Submenu Styles */
             .dropdown-submenu-careercounselling {
                 position: absolute;
@@ -523,15 +549,15 @@
                 min-width: 200px;
                 border-radius: 5px;
             }
-
+ 
             .navbar ul li .dropdown a:hover + .dropdown-submenu-careercounselling, .dropdown-submenu-careercounselling:hover {
                 display: block;
             }
-
+ 
             body.dark-mode .navbar ul li .dropdown-submenu-careercounselling {
                 background-color: rgb(68, 68, 68, 0.9);
             }
-
+ 
             /* Alumni Submenu Styles */
             .dropdown-submenu-alumni {
                 position: absolute;
@@ -543,15 +569,15 @@
                 min-width: 200px;
                 border-radius: 5px;
             }
-
+ 
             .navbar ul li .dropdown a:hover + .dropdown-submenu-alumni, .dropdown-submenu-alumni:hover {
                 display: block;
             }
-
+ 
             body.dark-mode .navbar ul li .dropdown-submenu-alumni {
                 background-color: rgb(68, 68, 68, 0.9);
             }
-
+ 
         /* Parents Submenu Styles */
             /* PISJ-ES Parent Engangement Platform Submenu Styles */
             .dropdown-submenu-parents {
@@ -564,15 +590,15 @@
                 min-width: 200px;
                 border-radius: 5px;
             }
-
+ 
             .navbar ul li .dropdown a:hover + .dropdown-submenu-parents, .dropdown-submenu-parents:hover {
                 display: block;
             }
-
+ 
             body.dark-mode .navbar ul li .dropdown-submenu-parents {
                 background-color: rgb(68, 68, 68, 0.9);
             }
-
+ 
             /* Parent Portal Submenu Styles */
             .dropdown-submenu-parentportal {
                 position: absolute;
@@ -584,15 +610,15 @@
                 min-width: 200px;
                 border-radius: 5px;
             }
-
+ 
             .navbar ul li .dropdown a:hover + .dropdown-submenu-parentportal, .dropdown-submenu-parentportal:hover {
                 display: block;
             }
-
+ 
             body.dark-mode .navbar ul li .dropdown-submenu-parentportal {
                 background-color: rgb(68, 68, 68, 0.9);
             }
-
+ 
             /* Query Portal Submenu Styles */
             .dropdown-submenu-queryportal {
                 position: absolute;
@@ -604,15 +630,15 @@
                 min-width: 200px;
                 border-radius: 5px;
             }
-
+ 
             .navbar ul li .dropdown a:hover + .dropdown-submenu-queryportal, .dropdown-submenu-queryportal:hover {
                 display: block;
             }
-
+ 
             body.dark-mode .navbar ul li .dropdown-submenu-queryportal {
                 background-color: rgb(68, 68, 68, 0.9);
             }
-
+ 
             /* User Guide Submenu Styles */
             .dropdown-submenu-userguide {
                 position: absolute;
@@ -624,15 +650,15 @@
                 min-width: 200px;
                 border-radius: 5px;
             }
-
+ 
             .navbar ul li .dropdown a:hover + .dropdown-submenu-userguide, .dropdown-submenu-userguide:hover {
                 display: block;
             }
-
+ 
             body.dark-mode .navbar ul li .dropdown-submenu-userguide {
                 background-color: rgb(68, 68, 68, 0.9);
             }
-
+ 
         /* Main Banner Section */
         .banner {
             background-image: url('4.jpeg');
@@ -648,28 +674,28 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 1); /* Shadow effect */
             border-radius: 10px;
         }
-
+ 
         .banner h1 {
             font-size: 50px;
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0,0,0,1);
         }
-
+ 
         body.dark-mode .banner {
             background-color: #444;
         }
-
+ 
         body.dark-mode .banner {
             background-color: #444;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
         }
-
+ 
         body.dark-mode .banner h1 {
             color: #f0f0f0;
         }
-
-
-
+ 
+ 
+ 
         /* Buttons Section */
         .buttons-section {
             display: flex;
@@ -677,11 +703,11 @@
             padding: 40px 5%;
             background-color: #fff;
         }
-
+ 
         body.dark-mode .buttons-section {
             background-color: #2a2a2a;
         }
-
+ 
         .buttons-section .button {
             width: 23%;
             padding: 20px;
@@ -695,48 +721,48 @@
             cursor: pointer; /* Makes the button appear clickable */
             border: none; /* Removes border */
         }
-
+ 
         .early-years { background-color: #000000; }
         .junior-school { background-color: #000000; }
         .middle-school { background-color: #000000; }
         .senior-school { background-color: #000000; }
-
+ 
         .button:hover {
             transform: translateY(-4px);
             box-shadow: 0 8px 15px rgb(0, 0, 0, 1);
             opacity: 0.9;
         }
-
+ 
         .button:active {
             transform: translateY(10px);
             opacity: 0.6;
         }
-
+ 
         body.dark-mode .early-years {
             background-color: #181818; /* Dark background */
             color: #ffffff; /* White text */
         }
-
+ 
         body.dark-mode .junior-school {
             background-color: #484848; /* Dark background */
             color: #ffffff; /* White text */
         }
-
+ 
         body.dark-mode .middle-school {
             background-color: #484848; /* Dark background */
             color: #ffffff; /* White text */
         }
-
+ 
         body.dark-mode .senior-school {
             background-color: #484848; /* Dark background */
             color: #ffffff; /* White text */
         }
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
         /* Footer Section */
         .footer {
             background-color: #81c4ad;
@@ -745,7 +771,7 @@
             box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.5); /* Shadow above the footer */
             border-radius: 10px;
         }
-
+ 
         /* Removing the shadows from the columns */
         .footer .footer-columns {
             display: flex;
@@ -753,18 +779,18 @@
             flex-wrap: wrap;
             padding: 50px;
         }
-
+ 
         .footer .footer-column {
             flex: 1;
             margin: 10px;
             transition: transform 0.6s ease-out; /* Smoother and slower transition */
         }
-
+ 
         /* No box-shadow and more fluid transform scaling */
         .footer .footer-column:hover {
             transform: scale(1.05); /* Slight zoom on hover */
         }
-
+ 
         /* Left Section (Contact Info) - Changing text color from dark gray to orange on hover */
         .footer .contact-info {
             font-size: 15px;
@@ -773,11 +799,11 @@
             transition: color 0.3s ease; /* Smooth transition for color */
             margin-right: 80px;
         }
-
+ 
         .footer .contact-info:hover {
             color: #000000; /* Orange color on hover */
         }
-
+ 
         /* Middle Section (Press Release) */
         .footer .press-release {
             font-size: 20px;
@@ -789,12 +815,12 @@
             cursor: pointer;
             margin-right: 60px;
         }
-
+ 
         .footer .press-release:hover {
             color: #007BFF; /* Professional blue on hover */
             text-shadow: 1px 1px 5px rgba(0, 123, 255, 0.3); /* Add a soft glow */
         }
-
+ 
         /* Press Release Items */
         .footer .press-release-item {
             background-color: #fff;
@@ -807,25 +833,25 @@
             transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; /* Added box-shadow transition */
             box-shadow: 0 4px 7px rgba(0, 0, 0, 0.7); /* Initial shadow */
         }
-
+ 
         .footer .press-release-item:hover {
             transform: scale(1.05); /* Slight zoom on hover */
             background-color: #f9f9f9; /* Light background change on hover */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Intensified shadow on hover */
         }
-
+ 
         .footer .press-release-item img {
             max-width: 70px;
             margin-left: 10px;
             transition: transform 0.3s ease-out; /* Faster hover effect for image */
         }
-
+ 
         .footer .press-release-item img:hover {
             transform: scale(1.1); /* Slight zoom on hover */
         }
-
-
-
+ 
+ 
+ 
         /* Right Section (In Focus) */
         .footer .in-focus {
             font-size: 16px;
@@ -834,11 +860,11 @@
             color: #333; /* Base color */
             margin-left: 90px;
         }
-
+ 
         .footer .in-focus:hover {
             color: #007BFF; /* Professional blue on hover */
         }
-
+ 
         .footer-link {
             text-decoration: none;
             color: #555;
@@ -847,7 +873,7 @@
             transition: color 0.3s ease, font-weight 0.3s ease, font-size 0.3s ease;
             font-size: 16px;
         }
-
+ 
         .footer-link::after {
             content: '';
             display: block;
@@ -860,54 +886,54 @@
             transform: scaleX(0);
             transition: transform 0.3s ease;
         }
-
+ 
         .footer-link:hover {
             color: #007BFF;
             font-weight: bold;
             font-size: 18px;
         }
-
+ 
         .footer-link:hover::after {
             transform: scaleX(1);
         }
-
+ 
         /* Responsive Design */
         @media (max-width: 768px) {
             .footer .footer-columns {
                 flex-direction: column;
             }
-
+ 
             .footer .press-release-item {
                 flex-direction: column;
                 align-items: flex-start;
             }
         }
-
+ 
         /* Dark Mode */
         body.dark-mode .footer {
             background-color: #222;
             color: rgb(250, 244, 244);
         }
-
+ 
         body.dark-mode .footer a {
             color: white;
         }
-
+ 
         body.dark-mode .footer a:hover {
             color: #ddd;
         }
-
+ 
         body.dark-mode .footer .press-release-item {
             background-color: rgb(0, 120, 116);
             border: 1px solid #d1d1d1;
             color: white;
         }
-
-
-
-
+ 
+ 
+ 
+ 
         
-
+ 
         /* Sample Content to Add Length */
         .content1-section {
             background-color: rgb(232, 232, 232);
@@ -916,7 +942,7 @@
             border-radius: 10px;
             box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5)
         }
-
+ 
         .content1-section img {
             max-width: fit-content;  /* Ensures the image doesn't exceed the container's width */
             height: auto;     /* Maintains aspect ratio */
@@ -924,11 +950,11 @@
             display: block;   /* Ensures there's no extra space below the image */
             margin: 0 auto;   /* Centers the image horizontally */
         }
-
+ 
         body.dark-mode .content1-section {
             background-color: #151515;
         }
-
+ 
         /* Sample Content to Add Length */
         .content2-section {
             background-color: rgb(232, 232, 232);
@@ -937,7 +963,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
-
+ 
         .content2-section img {
             max-width: fit-content;  /* Ensures the image doesn't exceed the container's width */
             height: auto;     /* Maintains aspect ratio */
@@ -945,11 +971,11 @@
             display: block;   /* Ensures there's no extra space below the image */
             margin: 0 auto;   /* Centers the image horizontally */
         }
-
+ 
         body.dark-mode .content2-section {
             background-color: #151515;
         }
-
+ 
         /* Popup container - hidden by default */
         .popup-container {
             display: flex; /* Change to flex to allow centering */
@@ -964,7 +990,7 @@
             opacity: 0; /* Start with no opacity */
             transition: opacity 0.5s ease-in-out; /* Smooth fade-in/out */
         }
-
+ 
         /* Popup content */
         .popup-content {
             background-color: #fff;
@@ -976,12 +1002,12 @@
             max-width: 90%;
             animation: slideDown 1s ease-out;
         }
-
+ 
         body.dark-mode .popup-content {
             background-color: #ffffff; /* Optional: change the background to a darker color */
             color: black; /* Keep text color black in dark mode */
         }
-
+ 
         /* Close button */
         .close-button {
             font-size: 25px;
@@ -991,7 +1017,7 @@
             cursor: pointer;
             margin-top: -10px;
         }
-
+ 
         /* Popup animations */
         @keyframes slideDown {
             from {
@@ -1001,37 +1027,37 @@
                 transform: translateY(0);
             }
         }
-
+ 
         .fade-out {
             opacity: 0;
             transition: opacity 1s ease-in-out, visibility 1s ease-in-out; /* Add visibility transition */
             visibility: hidden; /* Make the element hidden after the transition */
         }
-
+ 
         .fade-in {
             display: flex;
             opacity: 0.95; /* Fades in */
             visibility: visible; /* Ensure it's visible when fading in */
             transition: opacity 1s ease-in-out; /* Match duration with fade-out */
         }
-
+ 
         /* Ensure you adjust JavaScript to remove the 'fade-out' class after the transition ends */
-
-
+ 
+ 
     </style>
 </head>
-
-
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 <body>
-
+ 
     <div id="screen-overlay"></div>
-
+ 
     <!-- Navigation Bar -->
     <div class="navbar">
         <div class="logo">
@@ -1040,7 +1066,7 @@
         <ul>
             
             <li><a href="#">Home</a></li>
-
+ 
             <li>
                 <a href="#">About</a>  
                     <div class="dropdown-container">
@@ -1111,7 +1137,7 @@
                 </div>
                 </div>
             </li>
-
+ 
             <li>
                 <a href="#">Student Life</a>
                 <div class="dropdown-container">
@@ -1156,7 +1182,7 @@
                 </div>
                 </div>
             </li>
-
+ 
             <li>
                 <a href="#">Media</a>
                 <div class="dropdown-container">
@@ -1166,7 +1192,7 @@
                 </div>
                 </div>
             </li>
-
+ 
             <li>
                 <a href="#">Parents</a>
                 <div class="dropdown-container">
@@ -1193,7 +1219,7 @@
                 </div>
                 </div>
             </li>
-
+ 
             <li>
                 <a href="#">Contact</a>
                 <div class="dropdown-container">
@@ -1206,21 +1232,23 @@
                 </div>
                         
             </li>
-
+ 
         </ul>
         
         <label class="switch">
-            <input type="checkbox" id="darkModeToggle">
+            <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
             <span class="slider"></span>
+            <span class="mode-label" id="modeLabel">DAYMODE</span>
         </label>
-
+        
+ 
     </div>
-
+ 
     <!-- Main Banner Section -->
     <div class="banner">
         <h1>Have a water mate</h1>
     </div>
-
+ 
     <!-- Buttons Section -->
     <div class="buttons-section">
         <button class="button early-years" onclick="window.location='#';">Cambridge Early Years</button>
@@ -1228,24 +1256,24 @@
         <button class="button middle-school" onclick="window.location='#';">Middle School</button>
         <button class="button senior-school" onclick="window.location='#';">Senior School</button>
     </div>
-
+ 
     <!-- Sample Content for Length -->
     <div class="content1-section">
         <h2>Mmmm</h2>
         <p>Meow meow</p>
         <img src="2.jpg" alt="School Image 1">
     </div>
-
+ 
     <div class="content2-section">
         <h2>Js Imagine</h2>
         <p>All alone, in them woods, relaxing...</p>
         <img src="woods.jpg" alt="School Image 2">
     </div>
-
+ 
     <!-- Footer Section -->
     <div class="footer">
         <div class="footer-columns">
-
+ 
             <!-- Left Column: Contact Info -->
             <div class="footer-column contact-info">
                 <img src="logo.png" alt="School Logo" style="max-width: 100px;">
@@ -1253,7 +1281,7 @@
                 5139 Al-Safwah Al-Shemaliah, Al Rehab, Jeddah 23344, Saudi Arabia<br>
                 Telephone Numbers: +966-12-6738531 / 6738670</p>
             </div>
-
+ 
             <!-- Middle Column: Press Release -->
             <div class="footer-column press-release">
                 <h2>Press Release</h2>
@@ -1265,7 +1293,7 @@
                     </div>
                     <img src="pr1.jpg" alt="Press Release Image 1">
                 </div>
-
+ 
                 <div class="press-release-item">
                     <div>
                         <strong>Press Release: Graduation Ceremony 2022</strong>
@@ -1273,7 +1301,7 @@
                     </div>
                     <img src="pr2.jpeg" alt="Press Release Image 2">
                 </div>
-
+ 
                 <div class="press-release-item">
                     <div>
                         <strong>Press Release: Ambassador’s Visit at PISJES</strong>
@@ -1282,7 +1310,7 @@
                     <img src="pr3.jpg" alt="Press Release Image 3">
                 </div>
             </div>
-
+ 
             <!-- Right Column: In Focus -->
             <div class="footer-column in-focus">
                 <h2>IN FOCUS</h2>
@@ -1294,10 +1322,10 @@
                     <li><a href="#" class="footer-link">Continuous Professional Development Programme</a></li>
                 </ul>
             </div>
-
+ 
         </div>
     </div>
-
+ 
     <script>// Function to show the popup (for unrelated functionality)
         window.onload = function () {
             showPopup();
@@ -1366,10 +1394,10 @@
                 hideOverlay();
             });
         });
-
+ 
         document.addEventListener("DOMContentLoaded", () => {
             const columns = document.querySelectorAll(".footer-column");
-
+ 
             columns.forEach(column => {
                 column.addEventListener("mouseenter", () => {
                     column.style.transition = "transform 0.8s cubic-bezier(0.25, 1.25, 0.5, 1)";
@@ -1382,16 +1410,16 @@
                 });
             });
         });
-
+ 
         document.addEventListener("DOMContentLoaded", () => {
             const toggleSwitch = document.getElementById("darkModeToggle");
-
+ 
             // Check local storage or set default light mode
             if (localStorage.getItem("darkMode") === "enabled") {
                 document.body.classList.add("dark-mode");
                 toggleSwitch.checked = true;
             }
-
+ 
             // Event listener for toggle switch
             toggleSwitch.addEventListener("change", () => {
                 document.body.classList.toggle("dark-mode");
@@ -1402,11 +1430,39 @@
                 }
             });
         });
-
+ 
+        document.addEventListener("DOMContentLoaded", () => {
+            const toggleSwitch = document.getElementById("darkModeToggle");
+            const modeLabel = document.getElementById("modeLabel");
+ 
+            // Check local storage or set default light mode
+            if (localStorage.getItem("darkMode") === "enabled") {
+                document.body.classList.add("dark-mode");
+                toggleSwitch.checked = true;
+                modeLabel.textContent = "DARK  \u2003🌙";
+            } else {
+                modeLabel.textContent = "☀️\u2003LIGHT";
+            }
+ 
+            // Event listener for toggle switch
+            toggleSwitch.addEventListener("change", () => {
+                document.body.classList.toggle("dark-mode");
+                if (document.body.classList.contains("dark-mode")) {
+                    localStorage.setItem("darkMode", "enabled");
+                    modeLabel.textContent = "DARK  \u2003🌙";
+                } else {
+                    localStorage.setItem("darkMode", "disabled");
+                    modeLabel.textContent = "☀️\u2003LIGHT";
+                }
+            });
+        });
+ 
+ 
+ 
         
-
+ 
     </script>
-
+ 
     <!-- Ending Section -->
     <div class="ending">
         <div class="logo">
@@ -1416,7 +1472,7 @@
             <a href="tel:+966126738531">Call: +966-12-6738531 / 6738670</a>
         </div>
     </div>
-
+ 
     <!-- Popup Modal -->
     <div id="popup" class="popup-container">
         <div class="popup-content">
@@ -1425,12 +1481,9 @@
             <p>my first pop up boxy</p>
         </div>
     </div>
-
+ 
 </body>
 </html>
-
+ 
 <!-- <h4>Well, there's nothing here for you since I'm caught up with school nowadays... but you could still check out my <a href="https://github.com/arubbinali/" target="_blank">GitHub</a> and a dummy <a href="w/s.html" target="_blank">website</a> I'm working on</h4>
 -->
-
-
-
