@@ -1018,6 +1018,10 @@
             background-color: #151515;
         }
  
+
+
+
+        
         /* Popup container - hidden by default */
         .popup-container {
             display: flex; /* Change to flex to allow centering */
@@ -1032,9 +1036,11 @@
             opacity: 0; /* Start with no opacity */
             transition: opacity 0.5s ease-in-out; /* Smooth fade-in/out */
         }
- 
+
         /* Popup content */
         .popup-content {
+            max-width: 500px; /* Maximum width of popup */
+            max-height: 400px; /* Maximum height of popup */
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
@@ -1043,13 +1049,44 @@
             width: 400px;
             max-width: 90%;
             animation: slideDown 1s ease-out;
+            overflow-y: auto; /* Enable vertical scrolling */
+            padding-right: 16px; /* Add padding to the right to prevent scrollbar overlap */
         }
- 
+
+        /* Custom scrollbar styles */
+        .popup-content::-webkit-scrollbar {
+            width: 12px; /* Width of the scrollbar */
+        }
+
+        .popup-content::-webkit-scrollbar-thumb {
+            background: #888; /* Color of the scrollbar thumb */
+            border-radius: 6px; /* Rounded corners */
+        }
+
+        .popup-content::-webkit-scrollbar-thumb:hover {
+            background: #555; /* Darker color on hover */
+        }
+
+        .popup-content::-webkit-scrollbar-track {
+            background: transparent; /* Background of the scrollbar track */
+            border-radius: 6px; /* Rounded corners */
+        }
+
+        /* For Firefox */
+        .popup-content {
+            scrollbar-width: thin; /* Set scrollbar width to thin */
+            scrollbar-color: #888 transparent; /* Thumb color and track color */
+        }
+
+        .popup-content:hover {
+            scrollbar-color: #555 transparent; /* Darker thumb color on hover */
+        }
+
         body.dark-mode .popup-content {
             background-color: #ffffff; /* Optional: change the background to a darker color */
             color: black; /* Keep text color black in dark mode */
         }
- 
+
         /* Close button */
         .close-button {
             font-size: 25px;
@@ -1059,7 +1096,7 @@
             cursor: pointer;
             margin-top: -10px;
         }
- 
+
         /* Popup animations */
         @keyframes slideDown {
             from {
@@ -1069,21 +1106,20 @@
                 transform: translateY(0);
             }
         }
- 
+
         .fade-out {
             opacity: 0;
             transition: opacity 1s ease-in-out, visibility 1s ease-in-out; /* Add visibility transition */
             visibility: hidden; /* Make the element hidden after the transition */
         }
- 
+
         .fade-in {
             display: flex;
             opacity: 0.95; /* Fades in */
             visibility: visible; /* Ensure it's visible when fading in */
             transition: opacity 1s ease-in-out; /* Match duration with fade-out */
         }
- 
-        /* Ensure you adjust JavaScript to remove the 'fade-out' class after the transition ends */
+
  
  
     </style>
@@ -1526,14 +1562,47 @@
         </div>
     </div>
  
-    <!-- Popup Modal -->
+    <!-- Popup -->
     <div id="popup" class="popup-container">
         <div class="popup-content">
             <span class="close-button" onclick="closePopup()">&times;</span>
-            <h2>Welcome to PISJ-ES</h2>
-            <p>my first pop up boxy</p>
+            <h2 class="popup-main-heading">Welcome</h2>
+            
+            <div class="popup-section">
+                <h3>Introduction</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+            </div>
+            
+            <div class="popup-section">
+                <h3>Feature 1</h3>
+                <p>Donec nec odio convallis, ullamcorper nisl in, tempor sapien. Integer mollis.</p>
+            </div>
+            
+            <div class="popup-section">
+                <h3>Feature 2</h3>
+                <p>Fusce a diam sed ipsum fermentum fermentum. Integer pulvinar odio non mi.</p>
+            </div>
+            
+            <div class="popup-section">
+                <h3>Getting Started</h3>
+                <p>Vestibulum at dui sed quam feugiat malesuada et vitae urna. Duis bibendum.</p>
+            </div>
+            
+            <div class="popup-section">
+                <h3>Conclusion</h3>
+                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+            </div>
         </div>
     </div>
+
  
 </body>
 </html>
