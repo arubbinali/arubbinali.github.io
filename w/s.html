@@ -1020,7 +1020,7 @@
  
         /* Popup container - hidden by default */
         .popup-container {
-            display: none; /* Initially hidden */
+            display: flex; /* Change to flex to allow centering */
             position: fixed;
             top: 0;
             left: 0;
@@ -1030,105 +1030,61 @@
             justify-content: center;
             align-items: center;
             opacity: 0; /* Start with no opacity */
-            transition: opacity 0.5s ease-in-out;
-            z-index: 1000;
+            transition: opacity 0.5s ease-in-out; /* Smooth fade-in/out */
         }
-
+ 
         /* Popup content */
         .popup-content {
-            background-color: #f0f8f5;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            text-align: left;
-            width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 1);
+            text-align: center;
+            width: 400px;
             max-width: 90%;
-            position: relative;
-            font-family: Arial, sans-serif;
-            animation: slideDown 0.5s ease-out;
+            animation: slideDown 1s ease-out;
         }
-
+ 
+        body.dark-mode .popup-content {
+            background-color: #ffffff; /* Optional: change the background to a darker color */
+            color: black; /* Keep text color black in dark mode */
+        }
+ 
         /* Close button */
         .close-button {
-            font-size: 20px;
+            font-size: 25px;
             font-weight: bold;
             color: #333;
-            position: absolute;
-            top: 10px;
-            right: 10px;
+            float: right;
             cursor: pointer;
+            margin-top: -10px;
         }
-
+ 
         /* Popup animations */
         @keyframes slideDown {
             from {
-                transform: translateY(-20%);
+                transform: translateY(-8%);
             }
             to {
                 transform: translateY(0);
             }
         }
-
+ 
         .fade-out {
             opacity: 0;
-            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-            visibility: hidden;
+            transition: opacity 1s ease-in-out, visibility 1s ease-in-out; /* Add visibility transition */
+            visibility: hidden; /* Make the element hidden after the transition */
         }
-
+ 
         .fade-in {
             display: flex;
-            opacity: 1;
-            visibility: visible;
-            transition: opacity 0.5s ease-in-out;
+            opacity: 0.95; /* Fades in */
+            visibility: visible; /* Ensure it's visible when fading in */
+            transition: opacity 1s ease-in-out; /* Match duration with fade-out */
         }
-
-        /* Content styling */
-        .press-release-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 20px;
-        }
-
-        .press-release-item:last-child {
-            border-bottom: none;
-        }
-
-        .quote-icon {
-            font-size: 50px;
-            color: #ccc;
-            margin-right: 15px;
-        }
-
-        .new-label {
-            font-weight: bold;
-            color: #D8000C;
-            font-size: 0.9em;
-            margin-right: 5px;
-            vertical-align: middle;
-        }
-
-        .school-name {
-            font-weight: bold;
-            font-size: 1.1em;
-            color: #FFD700;
-            display: inline-block;
-            vertical-align: middle;
-            margin-bottom: 10px;
-        }
-
-        .popup-content p {
-            font-size: 1em;
-            color: #333;
-            line-height: 1.5;
-            margin: 5px 0;
-        }
-
-        .popup-content a {
-            color: #007BFF;
-            text-decoration: underline;
-        }
+ 
+        /* Ensure you adjust JavaScript to remove the 'fade-out' class after the transition ends */
+ 
  
     </style>
 </head>
@@ -1574,35 +1530,8 @@
     <div id="popup" class="popup-container">
         <div class="popup-content">
             <span class="close-button" onclick="closePopup()">&times;</span>
-            
-            <!-- Press Release Items -->
-            <div class="press-release-item">
-                <div class="quote-icon">“</div>
-                <div>
-                    <span class="new-label">NEW</span>
-                    <span class="school-name">PPC Middle School</span>
-                    <p>
-                        Dear Parents,<br>
-                        Middle School Parent Principal Conference will be held on Friday, 8<sup>th</sup> November 2024.
-                        For more information, <a href="#">please click here</a>.
-                    </p>
-                    <p>Regards,<br>PISJES Administration</p>
-                </div>
-            </div>
-
-            <div class="press-release-item">
-                <div class="quote-icon">“</div>
-                <div>
-                    <span class="new-label">NEW</span>
-                    <span class="school-name">PPC Junior School</span>
-                    <p>
-                        Dear Parents,<br>
-                        Junior School Parent Principal Conference will be held on Friday, 15<sup>th</sup> November 2024.
-                        For more information, <a href="#">please click here</a>.
-                    </p>
-                    <p>Regards,<br>PISJES Administration</p>
-                </div>
-            </div>
+            <h2>Welcome to PISJ-ES</h2>
+            <p>my first pop up boxy</p>
         </div>
     </div>
  
