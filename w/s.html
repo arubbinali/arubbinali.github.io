@@ -66,8 +66,8 @@
         body.dark-mode .ending .contact {
             color: #fff;
         }
-
-
+ 
+ 
         /* Switch Container */
         .switch {
             position: relative;
@@ -78,14 +78,14 @@
             font-family: Arial, sans-serif;
             color: #333;
         }
-
+ 
         /* Hide default checkbox */
         .switch input {
             opacity: 0;
             width: 0;
             height: 0;
         }
-
+ 
         /* Slider (Apple-style) */
         .slider {
             position: absolute;
@@ -101,7 +101,7 @@
             align-items: center;
             justify-content: space-around;
         }
-
+ 
         /* Slider Knob */
         .slider:before {
             position: absolute;
@@ -114,16 +114,16 @@
             transition: 0.4s;
             border-radius: 50%;
         }
-
+ 
         /* Dark Mode */
         input:checked + .slider {
             background-color: #333; /* Dark background */
         }
-
+ 
         input:checked + .slider:before {
             transform: translateX(51.5px); /* Adjusted for size */
         }
-
+ 
         /* Text Label */
         .mode-label {
             position: absolute;
@@ -141,15 +141,15 @@
             opacity: 1;
             transition: opacity 0.4s ease; /* Smooth fade effect */
         }
-
+ 
         .dark-mode .mode-label {
             color: #e0e0e0;
         }
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
         /* Navigation Bar */
         .navbar {
             background-color: rgba(243, 243, 243, 0.6); /* Slightly transparent */
@@ -806,10 +806,13 @@
         .footer .contact-info:hover {
             color: #000000;
         }
-
-        
+ 
+        body.dark-mode .footer .contact-info {
+            color: rgb(245, 196, 167);
+        }
+ 
         body.dark-mode .footer .contact-info:hover {
-            color: #007BFF;
+            color: #00eeff;
         }        
  
         /* Middle Section (Press Release) */
@@ -855,7 +858,7 @@
         .footer .press-release-item:hover {
             transform: scale(1.05); /* Slight zoom on hover */
             background-color: #f9f9f9; /* Light background change on hover */
-            color: #03f723;
+            color: rgb(119, 108, 4);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Intensified shadow on hover */
         }
  
@@ -865,9 +868,7 @@
             transition: transform 0.3s ease-out; /* Faster hover effect for image */
         }
  
-        .footer .press-release-item img:hover {
-            transform: scale(1.1); /* Slight zoom on hover */
-        }
+ 
  
  
  
@@ -932,32 +933,32 @@
         body.dark-mode .footer .in-focus {
             color: white;
         }
-
+ 
         body.dark-mode .footer .in-focus:hover {
             color: #007BFF; /* Professional blue on hover */
             text-shadow: 1px 1px 5px rgba(0, 123, 255, 0.3);
         }
-
+ 
         body.dark-mode .footer .press-release {
             color: white;
         }
-
+ 
         body.dark-mode .footer .press-release-item:hover {
-            color: #03f723; /* Professional blue on hover */
+            color: #00eeff; /* Professional blue on hover */
             text-shadow: 1px 1px 5px rgba(0, 123, 255, 0.3);
         }
-
+ 
         body.dark-mode .footer .press-release:hover {
             color: #007BFF;
         }
-
+ 
         body.dark-mode .footer {
             background-color: #222;
             color: rgb(250, 244, 244);
         }
  
         body.dark-mode .footer a {
-            color: rgb(245, 239, 167);
+            color: rgb(245, 196, 167);
         }
  
         body.dark-mode .footer a:hover {
@@ -965,12 +966,49 @@
         }
  
         body.dark-mode .footer .press-release-item {
-            background-color: rgb(87, 79, 98);
-            border: 1px solid #d1d1d1;
-            color: rgb(245, 239, 167);
+            background-color: rgb(14, 12, 15);
+            border: 0px solid #d1d1d1;
+            color: rgb(245, 196, 167);
         }
-
-        
+ 
+        /* Footer Bottom */
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-top: 3px solid #5a9a8f;
+            font-size: 14px;
+            color: #333;
+            width: 100%;
+        }
+ 
+        .footer-bottom p {
+            margin: 0;
+            padding-left: 50px; /* Adds padding to the left side */
+        }
+ 
+        .footer-bottom .social-icons {
+            display: flex;
+            gap: 10px;
+            margin-right: 50px; /* Adds 50px margin from the right */
+        }
+ 
+        .footer-bottom .social-icons img {
+            width: 24px;
+            transition: transform 0.3s ease;
+        }
+ 
+        .footer-bottom .social-icons img:hover {
+            transform: scale(1.1);
+        }
+ 
+        /* Dark mode styling */
+        body.dark-mode .footer-bottom {
+            color: rgb(250, 244, 244);
+            border-top-color: rgb(102, 102, 102);
+        }
+ 
  
  
  
@@ -1018,9 +1056,9 @@
             background-color: #151515;
         }
  
-
-
-
+ 
+ 
+ 
         
         /* Popup container - hidden by default */
         .popup-container {
@@ -1036,7 +1074,7 @@
             opacity: 0; /* Start with no opacity */
             transition: opacity 0.5s ease-in-out; /* Smooth fade-in/out */
         }
-
+ 
         /* Popup content */
         .popup-content {
             max-width: 500px; /* Maximum width of popup */
@@ -1052,41 +1090,41 @@
             overflow-y: auto; /* Enable vertical scrolling */
             padding-right: 16px; /* Add padding to the right to prevent scrollbar overlap */
         }
-
+ 
         /* Custom scrollbar styles */
         .popup-content::-webkit-scrollbar {
             width: 12px; /* Width of the scrollbar */
         }
-
+ 
         .popup-content::-webkit-scrollbar-thumb {
             background: #888; /* Color of the scrollbar thumb */
             border-radius: 6px; /* Rounded corners */
         }
-
+ 
         .popup-content::-webkit-scrollbar-thumb:hover {
             background: #555; /* Darker color on hover */
         }
-
+ 
         .popup-content::-webkit-scrollbar-track {
             background: transparent; /* Background of the scrollbar track */
             border-radius: 6px; /* Rounded corners */
         }
-
+ 
         /* For Firefox */
         .popup-content {
             scrollbar-width: thin; /* Set scrollbar width to thin */
             scrollbar-color: #888 transparent; /* Thumb color and track color */
         }
-
+ 
         .popup-content:hover {
             scrollbar-color: #555 transparent; /* Darker thumb color on hover */
         }
-
+ 
         body.dark-mode .popup-content {
             background-color: #ffffff; /* Optional: change the background to a darker color */
             color: black; /* Keep text color black in dark mode */
         }
-
+ 
         /* Close button */
         .close-button {
             font-size: 25px;
@@ -1096,7 +1134,7 @@
             cursor: pointer;
             margin-top: -10px;
         }
-
+ 
         /* Popup animations */
         @keyframes slideDown {
             from {
@@ -1106,19 +1144,24 @@
                 transform: translateY(0);
             }
         }
-
+ 
         .fade-out {
             opacity: 0;
             transition: opacity 1s ease-in-out, visibility 1s ease-in-out; /* Add visibility transition */
             visibility: hidden; /* Make the element hidden after the transition */
         }
-
+ 
         .fade-in {
             display: flex;
             opacity: 0.95; /* Fades in */
             visibility: visible; /* Ensure it's visible when fading in */
             transition: opacity 1s ease-in-out; /* Match duration with fade-out */
         }
+ 
+
+
+
+
 
  
  
@@ -1321,7 +1364,7 @@
         
  
     </div>
-
+ 
     <!-- Main Banner Section -->
     <div class="banner">
         <h1>Pakistan International School Jeddah</h1>
@@ -1396,15 +1439,95 @@
                     <li><a href="#" class="footer-link">Principal's Message</a></li>
                     <li><a href="#" class="footer-link">Facilities</a></li>
                     <li><a href="#" class="footer-link">Student Leave Form</a></li>
-                    <li><a href="#" class="footer-link">Careers | Apply Online</a></li>
+                    <li><a href="#" class="footer-link">Careers</a> | <a href="#" class="footer-link">Apply Online</a></li>
                     <li><a href="#" class="footer-link">Continuous Professional Development Programme</a></li>
                 </ul>
             </div>
  
+            <div class="footer-bottom">
+                <p>© 2016 - 2024 Pakistan International School Jeddah English Section. All Rights Reserved.</p>
+                <div class="social-icons">
+                    <a href="#"><img src="e9sqr8WnkCf.ico" alt="Facebook"></a>
+                    <a href="#"><img src="favicon.ico" alt="LinkedIn"></a>
+                    <a href="#"><img src="hexDR1NOpRC.png" alt="Instagram"></a>
+                </div>
+            </div>
+            
+            
+ 
         </div>
     </div>
  
-    <script>// Function to show the popup (for unrelated functionality)
+ 
+ 
+    <!-- Ending Section -->
+    <div class="ending">
+        <div class="logo">
+            <div>Excellence in Education</div>
+        </div>
+        <div class="contact">
+            <a href="tel:+966126738531">Call: +966-12-6738531 / 6738670</a>
+        </div>
+    </div>
+ 
+ 
+ 
+ 
+ 
+    <!-- Popup -->
+    <div id="popup" class="popup-container">
+        <div class="popup-content">
+            <span class="close-button" onclick="closePopup()">&times;</span>
+            <h2 class="popup-main-heading">Welcome</h2>
+            
+            <div class="popup-section">
+                <h3>Introduction</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+            </div>
+            
+            <div class="popup-section">
+                <h3>Feature 1</h3>
+                <p>Donec nec odio convallis, ullamcorper nisl in, tempor sapien. Integer mollis.</p>
+            </div>
+            
+            <div class="popup-section">
+                <h3>Feature 2</h3>
+                <p>Fusce a diam sed ipsum fermentum fermentum. Integer pulvinar odio non mi.</p>
+            </div>
+            
+            <div class="popup-section">
+                <h3>Getting Started</h3>
+                <p>Vestibulum at dui sed quam feugiat malesuada et vitae urna. Duis bibendum.</p>
+            </div>
+            
+            <div class="popup-section">
+                <h3>Conclusion</h3>
+                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+            </div>
+        </div>
+    </div>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+    <script>
+ 
         window.onload = function () {
             showPopup();
         };
@@ -1512,7 +1635,7 @@
         document.addEventListener("DOMContentLoaded", () => {
             const toggleSwitch = document.getElementById("darkModeToggle");
             const modeLabel = document.getElementById("modeLabel");
-
+ 
             // Function to update label with fade effect
             function updateLabel(text) {
                 modeLabel.style.opacity = "0"; // Start fade-out
@@ -1521,7 +1644,7 @@
                     modeLabel.style.opacity = "1"; // Start fade-in
                 }, 200); // Halfway point for smooth transition with the slider
             }
-
+ 
             // Check local storage or set default light mode
             if (localStorage.getItem("darkMode") === "enabled") {
                 document.body.classList.add("dark-mode");
@@ -1530,7 +1653,7 @@
             } else {
                 updateLabel("&#8202;☀️  &nbsp;&nbsp;&nbsp;LIGHT"); // Adjusted spacing for "LIGHT" text
             }
-
+ 
             // Event listener for toggle switch
             toggleSwitch.addEventListener("change", () => {
                 document.body.classList.toggle("dark-mode");
@@ -1543,69 +1666,16 @@
                 }
             });
         });
-
-
  
- 
- 
-        
  
     </script>
- 
-    <!-- Ending Section -->
-    <div class="ending">
-        <div class="logo">
-            <div>Excellence in Education</div>
-        </div>
-        <div class="contact">
-            <a href="tel:+966126738531">Call: +966-12-6738531 / 6738670</a>
-        </div>
-    </div>
- 
-    <!-- Popup -->
-    <div id="popup" class="popup-container">
-        <div class="popup-content">
-            <span class="close-button" onclick="closePopup()">&times;</span>
-            <h2 class="popup-main-heading">Welcome</h2>
-            
-            <div class="popup-section">
-                <h3>Introduction</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
-            </div>
-            
-            <div class="popup-section">
-                <h3>Feature 1</h3>
-                <p>Donec nec odio convallis, ullamcorper nisl in, tempor sapien. Integer mollis.</p>
-            </div>
-            
-            <div class="popup-section">
-                <h3>Feature 2</h3>
-                <p>Fusce a diam sed ipsum fermentum fermentum. Integer pulvinar odio non mi.</p>
-            </div>
-            
-            <div class="popup-section">
-                <h3>Getting Started</h3>
-                <p>Vestibulum at dui sed quam feugiat malesuada et vitae urna. Duis bibendum.</p>
-            </div>
-            
-            <div class="popup-section">
-                <h3>Conclusion</h3>
-                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
-            </div>
-        </div>
-    </div>
-
  
 </body>
 </html>
  
 <!-- <h4>Well, there's nothing here for you since I'm caught up with school nowadays... but you could still check out my <a href="https://github.com/arubbinali/" target="_blank">GitHub</a> and a dummy <a href="w/s.html" target="_blank">website</a> I'm working on</h4>
 -->
+
+        
+
+
