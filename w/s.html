@@ -1078,26 +1078,56 @@
         /* Popup content */
         .popup-content {
             max-width: 700px; /* Maximum width of popup */
-            max-height: 500px; /* Maximum height of popup */
+            max-height: 400px; /* Maximum height of popup */
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 1);
             text-align: center;
             width: 700px;
-            height: 500px;
+            height: 400px;
             max-width: 90%;
             animation: slideDown 1s ease-out;
             overflow-y: auto; /* Enable vertical scrolling */
             padding-right: 16px; /* Add padding to the right to prevent scrollbar overlap */
         }
 
-        .popup-section h3,
-        .popup-section p {
+
+        .popup-section h3 {
             margin: 0; /* Removes any default margins if needed */
+            text-align: left;
+            background: linear-gradient(90deg, #6a00ff, #ff0000); /* Adjust colors and angle as needed */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        .popup-section p {
+            margin: 10px; /* Removes any default margins if needed */
             text-align: left; /* Ensures each element is left-aligned */
         }
  
+        .popup-section a {
+            color: #ff69b4; /* Light pink color */
+            text-decoration: underline; /* Adds underline */
+            transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease; /* Smooth transition */
+        }
+
+        .popup-section a:hover {
+            color: #d0006f; /* Darker pink color on hover */
+            transform: scale(1.1); /* Slightly enlarge the text */
+            text-shadow: 0 0 8px rgba(208, 0, 111, 0.7); /* Adds a glow effect with darker pink */
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #00ccff, #ff00cc); /* Adjust colors and angle as needed */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 24px; /* Adjust the font size as needed */
+        }
+
+
+
         /* Custom scrollbar styles */
         .popup-content::-webkit-scrollbar {
             width: 12px; /* Width of the scrollbar */
@@ -1485,14 +1515,15 @@
     <div id="popup" class="popup-container">
         <div class="popup-content">
             <span class="close-button" onclick="closePopup()">&times;</span>
-            <h2 class="popup-main-heading">Welcome</h2>
+            <h2 class="popup-main-heading gradient-text">Upcoming events</h2>
+
             
             <div class="popup-section">
                 <h3>PPC Middle School</h3>
                 <p>
                     Dear Parents,<br>
                     Middle School Parent Principal Conference will be held on Friday, 8th November 2024.<br>
-                    For more information, please click here.<br>
+                    For more information, <a href="#">please click here.</a><br>
                     Regards,<br>
                     PISJES Administration<br><br><br>
                     
@@ -1504,7 +1535,7 @@
                 <h3>PPC Middle School</h3>
                 <p>
                     Dear Parents,<br>
-                    Junior School Parent Principal Conference will be held on Friday, 15th November 2024. For more information, please click here.<br>
+                    Junior School Parent Principal Conference will be held on Friday, 15th November 2024. For more information, <a href="#">please click here.</a><br>
                     Regards,<br>
                     PISJES Administration<br><br><br>
                 </p>
@@ -1516,7 +1547,7 @@
                     Nominations are invited from interested parents who want to be a part of the
                     School Management Council (SMC). Nomination forms duly completed by 10th
                     November 2024.<br>
-                    Download Nomination Form<br>
+                    <a href="#">Download Nomination Form</a><br>
                     Please email Nomination forms duly completed at:<br>
                     smc.applications@pisjes.edu.sa<br>
                     Note: (Only digital forms will be accepted)<br><br><br>
@@ -1528,7 +1559,7 @@
                 <p>
                     -PISJES encourages parents to volunteer and support learning to facilitate<br>
                     learning process inside classrooms.<br>
-                    Please Click Here for more details.
+                    <a href="#">Please Click Here for more details.</a>
                 </p>
             </div>
 
