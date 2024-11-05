@@ -1112,19 +1112,22 @@
         .popup-section p {
             margin: 10px; /* Removes any default margins if needed */
             text-align: left; /* Ensures each element is left-aligned */
-            transition: color 0.5s ease; /* Smooth transition for color changes */
+            transition: color 0s ease; /* Smooth transition for color changes */
         }
 
-        /* Links in popup */
         .popup-section a {
-            color: #007d88; /* Light pink color */
+            color: #007d88; /* Link color */
             text-decoration: underline; /* Adds underline */
             transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease; /* Smooth transition */
+            text-shadow: 0 0 5px rgba(0, 125, 136, 0.4); /* Subtle glow effect */
         }
 
         .popup-section a:hover {
             color: #d900c3; /* Darker pink color on hover */
+            transform: scale(1.05); /* Slightly enlarge the text on hover */
+            text-shadow: 0 0 5px rgba(217, 0, 195, 0.7), 0 0 12px rgba(217, 0, 195, 0.5); /* Stronger glow effect on hover */
         }
+
 
         /* Dark mode link hover */
         body.dark-mode .popup-section a:hover {
