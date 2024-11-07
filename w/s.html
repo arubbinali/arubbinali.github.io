@@ -773,10 +773,9 @@
 
 
         .welcome-content {
-            background-color: rgb(232, 232, 232);
+            background: linear-gradient(to bottom, rgb(232, 232, 232), #f0f0f0); /* Gradient from original color to white */
             padding: 50px;
             border-radius: 10px;
-            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5);
             display: flex;
             align-items: center; /* Centers text and image vertically */
             gap: 20px; /* Space between text and image */
@@ -795,7 +794,7 @@
         }
  
         body.dark-mode .welcome-content {
-            background-color: #151515;
+            background: linear-gradient(to bottom, #151515, white); /* Adjusted for dark mode */
         }
  
         /* Sample Content to Add Length */
@@ -820,8 +819,22 @@
         }
 
 
+        .welcome-content, .content2-section{
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
 
 
+
+        /* Style for the divider line */
+        .full-width-divider {
+            width: calc(100% - 100px); /* 100% width minus 50px on each side */
+            height: 3px; /* Thickness of the line */
+            background-color: #5a9a8f; /* Color of the line */
+            margin: 0 auto; /* Center the line */
+            margin-top: 20px; /* Add some spacing above and below if needed */
+            margin-bottom: 20px;
+        }
 
         
  
@@ -1470,7 +1483,11 @@
         </p>
         <img src="principaloffice.jpg" alt="Principal office">
     </div>
- 
+
+    <div class="full-width-divider"></div>
+
+
+
     <div class="content2-section">
         <h2>Js Imagine</h2>
         <p>All alone, in them woods, relaxing...</p>
