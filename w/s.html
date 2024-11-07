@@ -772,24 +772,29 @@
 
 
 
-        /* Sample Content to Add Length */
-        .content1-section {
+        .welcome-content {
             background-color: rgb(232, 232, 232);
             padding: 50px;
-            text-align: center;
             border-radius: 10px;
-            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5)
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center; /* Centers text and image vertically */
+            gap: 20px; /* Space between text and image */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
  
-        .content1-section img {
+        .welcome-content img {
             max-width: fit-content;  /* Ensures the image doesn't exceed the container's width */
             height: auto;     /* Maintains aspect ratio */
             max-height: 600px;
             display: block;   /* Ensures there's no extra space below the image */
-            margin: 0 auto;   /* Centers the image horizontally */
+            margin-left: auto;
+            box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            
         }
  
-        body.dark-mode .content1-section {
+        body.dark-mode .welcome-content {
             background-color: #151515;
         }
  
@@ -1455,11 +1460,15 @@
 
 
  
-    <!-- Sample Content for Length -->
-    <div class="content1-section">
-        <h2>Mmmm</h2>
-        <p>Meow meow</p>
-        <img src="2.jpg" alt="School Image 1">
+    <!-- Main content -->
+    <div class="welcome-content">
+        <p>
+            <b>Welcome to Pakistan International School Jeddah - English Section (PISJES)</b>, is The premier destination for quality education in Saudi Arabia. We are dedicated to fostering academic excellence and holistic development of our students. Our school offers a rich curriculum aligned with international standards 
+            enabling our students to receive a world-class education right here in Jeddah.
+            Explore our diverse educational programmes, from primary to secondary education (K-12), designed to cultivate critical thinking, creativity, problem solving and leadership skills. Our experienced faculty and state-of-the-art facilities provide a nurturing environment where students can thrive
+            academically and personally. At PISJES, we pride ourselves on our transparent admissions process, comprehensive curriculum, and diverse extracurricular activities designed to enhance our students "overall development".
+        </p>
+        <img src="principaloffice.jpg" alt="Principal office">
     </div>
  
     <div class="content2-section">
