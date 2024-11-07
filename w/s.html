@@ -174,6 +174,10 @@
         .navbar .logo img {
             height: 50px; /* Set the logo height */
         }
+
+        #navbar-logo, #footer-logo {
+            transition: opacity 0.5s ease;
+        }
  
         .navbar ul {
             list-style: none;
@@ -1229,19 +1233,8 @@
         }
 
 
-
-
-
- 
- 
     </style>
 </head>
- 
- 
- 
- 
- 
- 
  
  
 <body>
@@ -1251,7 +1244,7 @@
     <!-- Navigation Bar -->
     <div class="navbar">
         <div class="logo">
-            <img src="logo.png" alt="School Logo" style="max-width: 50px;">
+            <img id="navbar-logo" src="logo.png" alt="School Logo" style="max-width: 50px;">
         </div>
         <ul>
             
@@ -1466,10 +1459,12 @@
  
             <!-- Left Column: Contact Info -->
             <div class="footer-column contact-info">
-                <img src="logo.png" alt="School Logo" style="max-width: 100px;">
-                <p>P.O Box 5055, Pakistan International School Jeddah – English Section,<br>
-                5139 Al-Safwah Al-Shemaliah, Al Rehab, Jeddah 23344, Saudi Arabia<br>
-                Telephone Numbers: +966-12-6738531 / 6738670</p>
+                <img id="footer-logo" src="logo.png" alt="School Logo" style="max-width: 100px;">
+                <p>
+                    P.O Box 5055, Pakistan International School Jeddah – English Section,<br>
+                    5139 Al-Safwah Al-Shemaliah, Al Rehab, Jeddah 23344, Saudi Arabia<br>
+                    Telephone Numbers: +966-12-6738531 / 6738670
+                </p>
             </div>
  
             <!-- Middle Column: Press Release -->
@@ -1718,7 +1713,7 @@
         document.addEventListener("DOMContentLoaded", () => {
             const toggleSwitch = document.getElementById("darkModeToggle");
             const modeLabel = document.getElementById("modeLabel");
- 
+
             // Function to update label with fade effect
             function updateLabel(text) {
                 modeLabel.style.opacity = "0"; // Start fade-out
@@ -1727,28 +1722,57 @@
                     modeLabel.style.opacity = "1"; // Start fade-in
                 }, 200); // Halfway point for smooth transition with the slider
             }
- 
+
             // Check local storage or set default light mode
-            if (localStorage.getItem("darkMode") === "enabled") {
+            const isDarkMode = localStorage.getItem("darkMode") === "enabled";
+            if (isDarkMode) {
                 document.body.classList.add("dark-mode");
                 toggleSwitch.checked = true;
                 updateLabel("&nbsp;DARK&#8202;\u2003🌙");
             } else {
                 updateLabel("&#8202;☀️  &nbsp;&nbsp;&nbsp;LIGHT"); // Adjusted spacing for "LIGHT" text
             }
- 
+
+            // Initialize the correct logo based on the mode
+            updateLogo(isDarkMode);
+
             // Event listener for toggle switch
             toggleSwitch.addEventListener("change", () => {
                 document.body.classList.toggle("dark-mode");
-                if (document.body.classList.contains("dark-mode")) {
-                    localStorage.setItem("darkMode", "enabled");
-                    updateLabel("&nbsp;DARK&#8202;\u2003🌙");
-                } else {
-                    localStorage.setItem("darkMode", "disabled");
-                    updateLabel("&#8202;☀️  &nbsp;&nbsp;&nbsp;LIGHT"); // Adjusted spacing for "LIGHT" text
-                }
+                const isDarkMode = document.body.classList.contains("dark-mode");
+
+                // Save mode to local storage
+                localStorage.setItem("darkMode", isDarkMode ? "enabled" : "disabled");
+
+                // Update the label and logo
+                updateLabel(isDarkMode ? "&nbsp;DARK&#8202;\u2003🌙" : "&#8202;☀️  &nbsp;&nbsp;&nbsp;LIGHT");
+                updateLogo(isDarkMode);
             });
         });
+
+        // Function to switch logos based on mode with fade effect
+        function updateLogo(isDarkMode) {
+            const navbarLogo = document.getElementById('navbar-logo');
+            const footerLogo = document.getElementById('footer-logo');
+            const logoSrc = isDarkMode ? 'darklogo.jpg' : 'logo.png';
+
+            // Fade out both logos
+            navbarLogo.style.transition = "opacity 0.5s"; // CSS transition for smooth fade
+            footerLogo.style.transition = "opacity 0.5s";
+            navbarLogo.style.opacity = 0;
+            footerLogo.style.opacity = 0;
+
+            // After fade-out completes, change the logo and fade back in
+            setTimeout(() => {
+                navbarLogo.src = logoSrc;
+                footerLogo.src = logoSrc;
+
+                // Fade in both logos
+                navbarLogo.style.opacity = 1;
+                footerLogo.style.opacity = 1;
+            }, 500); // Delay for fade-out transition
+        }
+
 
         
  
