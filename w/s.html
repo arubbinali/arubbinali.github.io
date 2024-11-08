@@ -843,7 +843,7 @@
             flex-direction: column;
             gap: 10px;
             margin-top: 30px;
-            margin-left: 200px;
+            margin-left: 50px;
         }
 
         .event-group {
@@ -947,7 +947,7 @@
 
         .event-full-details.open {
             max-height: 300px;
-            padding: 24px 35px; /* Optional padding for spacing on top */
+            padding: 20px 35px; /* Optional padding for spacing on top */
         }
 
         .event-full-details-text {
@@ -1010,6 +1010,141 @@
                 opacity: 1;
             }
         }
+
+
+        
+
+
+
+        /* Center the container in the viewport */
+        .calendar-with-images {
+            display: flex;
+            justify-content: center; /* Centers horizontally */
+            align-items: center; /* Centers vertically */
+            gap: 100px;
+            min-height: 40vh; /* Take full viewport height */
+        }
+
+        /* Grid layout for images */
+        .calendar-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two columns */
+            grid-template-rows: auto auto; /* Two rows */
+            column-gap: 0px; /* Horizontal gap between images next to each other */
+            row-gap: 20px; /* Vertical gap between rows */
+            margin-top: 30px;
+        }
+
+        .sidebar-image {
+            max-height: 200px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.9);
+            transition: box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* Ensures the third image spans both columns */
+        .calendar-images img:nth-child(3) {
+            grid-column: span 2;
+        }
+
+        /* Hover effects */
+        .sidebar-image:hover {
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 1);
+        }
+
+        /* Text overlay */
+        .sidebar-image::after {
+            content: "Click to Open"; /* Optional text overlay */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .sidebar-image:hover::after {
+            opacity: 1;
+        }
+
+        /* Modal styling */
+        .modal {
+            visibility: hidden; /* Hidden initially */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8); /* Start scaled down */
+            max-width: 700px; /* Max width of modal */
+            max-height: 700px; /* Max height of modal */
+            width: auto; /* Width adjusts based on content */
+            height: auto; /* Height adjusts based on content */
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+            transition: opacity 0.7s ease, transform 0.7s ease; /* Smooth open/close */
+            opacity: 0;
+            z-index: 1000;
+        }
+
+        .modal.visible {
+            visibility: visible; /* Makes modal visible */
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1); /* Expand smoothly */
+        }
+
+        /* Modal header styling */
+        .modal-header {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .modal-content {
+            padding: 0px; /* Ensure no extra padding */
+            margin-bottom: -10px;
+        }
+
+        /* Adjust image within modal */
+        .modal-content img {
+            width: 100%;
+            height: 100%; /* Ensure full height coverage */
+            object-fit: cover; /* Keep proportions if necessary */
+        }
+
+        /* Background overlay styling */
+        .modal-overlay {
+            visibility: hidden; /* Hidden initially */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: opacity 0.7s ease; /* Smoother transition for overlay */
+            z-index: 999;
+        }
+
+        .modal-overlay.visible {
+            visibility: visible; /* Makes overlay visible */
+            opacity: 1;
+        }
+
+
+
+
 
 
 
@@ -1706,146 +1841,161 @@
 
 
 
+<div class="calendar-with-images">
+        <div class="events-container">
 
-    <div class="events-container">
-
-
-    
-        <!-- Events for Nov 18 -->
-        <div class="event-group">
-            <div class="event-date">
-                <div class="date">18</div>
-                <div class="month-day">
-                    <span class="month">Nov</span>
-                    <span class="day">Mon</span>
-                </div>
-            </div>
-            <div class="events">
-                <div class="event">
-                    <div class="event-summary" onclick="toggleDetails(this)">
-                        <div class="event-info">
-                            <h3>In class Art Competition (Y5 - Y7)</h3>
-                            <p>Nov 18 @ 1:00 pm – 6:00 pm</p>
-                        </div>
-                        <div class="event-toggle">+</div>
-                    </div>
-                    <div class="event-full-details">
-                        <div class="category">
-                            <span>📂 Categories:</span> <span class="category-name">Events</span>
-                        </div>
-                        <button class="read-more-btn">Read more ➔</button>
+            <!-- Events for Nov 18 -->
+            <div class="event-group">
+                <div class="event-date">
+                    <div class="date">18</div>
+                    <div class="month-day">
+                        <span class="month">Nov</span>
+                        <span class="day">Mon</span>
                     </div>
                 </div>
+                <div class="events">
+                    <div class="event">
+                        <div class="event-summary" onclick="toggleDetails(this)">
+                            <div class="event-info">
+                                <h3>In class Art Competition (Y5 - Y7)</h3>
+                                <p>Nov 18 @ 1:00 pm – 6:00 pm</p>
+                            </div>
+                            <div class="event-toggle">+</div>
+                        </div>
+                        <div class="event-full-details">
+                            <div class="category">
+                                <span>📂 Categories:</span> <span class="category-name">Events</span>
+                            </div>
+                            <button class="read-more-btn">Read more ➔</button>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <!-- Events for Nov 19 -->
+            <div class="event-group">
+                <div class="event-date">
+                    <div class="date">19</div>
+                    <div class="month-day">
+                        <span class="month">Nov</span>
+                        <span class="day">Tue</span>
+                    </div>
+                </div>
+                <div class="events">
+                    <div class="event">
+                        <div class="event-summary" onclick="toggleDetails(this)">
+                            <div class="event-info">
+                                <h3>Story Day/Chocolate Day (Junior School)</h3>
+                                <p>Nov 19 @ 7:00 am – 6:00 pm</p>
+                            </div>
+                            <div class="event-toggle">+</div>
+                        </div>
+                        <div class="event-full-details">
+                            <div class="category">
+                                <span>📂 Categories:</span> <span class="category-name">Events</span>
+                            </div>
+                            <button class="read-more-btn">Read more ➔</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Events for Nov 20 -->
+            <div class="event-group">
+                <div class="event-date">
+                    <div class="date">20</div>
+                    <div class="month-day">
+                        <span class="month">Nov</span>
+                        <span class="day">Wed</span>
+                    </div>
+                </div>
+                <div class="events">
+                    <div class="event">
+                        <div class="event-summary" onclick="toggleDetails(this)">
+                            <div class="event-info">
+                                <h3>Science & Art Exhibition Girls (Y9 - A Level)</h3>
+                                <p>Nov 20 @ 7:00 am – 6:00 pm</p> 
+                            </div>
+                            <div class="event-toggle">+</div>
+                        </div>
+                        <div class="event-full-details">
+                            <div class="category">
+                                <span>📂 Categories:</span> <span class="category-name">Events</span>
+                            </div>
+                            <button class="read-more-btn">Read more ➔</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Events for Nov 21 -->
+            <div class="event-group">
+                <div class="event-date">
+                    <div class="date">21</div>
+                    <div class="month-day">
+                        <span class="month">Nov</span>
+                        <span class="day">Thu</span>
+                    </div>
+                </div>
+                <div class="events">
+                    <div class="event">
+                        <div class="event-summary" onclick="toggleDetails(this)">
+                            <div class="event-info">
+                                <h3>Science & Art Exhibition Boys (Y9 - A Level)</h3>
+                                <p>Nov 21 @ 7:00 am – 6:00 pm</p>
+                            </div>
+                            <div class="event-toggle">+</div>
+                        </div>
+                        <div class="event-full-details">
+                            <div class="category">
+                                <span>📂 Categories:</span> <span class="category-name">Others</span>
+                            </div>
+                            <button class="read-more-btn">Read more ➔</button>
+                        </div>
+                    </div>
+        
+                    <div class="event">
+                        <div class="event-summary" onclick="toggleDetails(this)">
+                            <div class="event-info">
+                                <h3>Last Grading Date (Y3 - Y10)</h3>
+                                <p>Nov 21 @ 8:00 am – 5:00 pm</p>
+                            </div>
+                            <div class="event-toggle">+</div>
+                        </div>
+                        <div class="event-full-details">
+                            <div class="category">
+                                <span>📂 Categories:</span> <span class="category-name">Conference</span>
+                            </div>
+                            <button class="read-more-btn">Read more ➔</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            
+            
+        </div>
+        
+        
+        <!-- New container for the images -->
+        <div class="calendar-images">
+            <img src="welcome-message.jpg" alt="Image 3" class="sidebar-image">
+            <img src="excellence.png" alt="Image 1" class="sidebar-image">
+            <img src="primary.png" alt="Image 2" class="sidebar-image">
+            
         </div>
 
-        <!-- Events for Nov 19 -->
-        <div class="event-group">
-            <div class="event-date">
-                <div class="date">19</div>
-                <div class="month-day">
-                    <span class="month">Nov</span>
-                    <span class="day">Tue</span>
-                </div>
-            </div>
-            <div class="events">
-                <div class="event">
-                    <div class="event-summary" onclick="toggleDetails(this)">
-                        <div class="event-info">
-                            <h3>Story Day/Chocolate Day (Junior School)</h3>
-                            <p>Nov 19 @ 7:00 am – 6:00 pm</p>
-                        </div>
-                        <div class="event-toggle">+</div>
-                    </div>
-                    <div class="event-full-details">
-                        <div class="category">
-                            <span>📂 Categories:</span> <span class="category-name">Events</span>
-                        </div>
-                        <button class="read-more-btn">Read more ➔</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+</div>
 
-        <!-- Events for Nov 20 -->
-        <div class="event-group">
-            <div class="event-date">
-                <div class="date">20</div>
-                <div class="month-day">
-                    <span class="month">Nov</span>
-                    <span class="day">Wed</span>
-                </div>
-            </div>
-            <div class="events">
-                <div class="event">
-                    <div class="event-summary" onclick="toggleDetails(this)">
-                        <div class="event-info">
-                            <h3>Science & Art Exhibition Girls (Y9 - A Level)</h3>
-                            <p>Nov 20 @ 7:00 am – 6:00 pm</p> 
-                        </div>
-                        <div class="event-toggle">+</div>
-                    </div>
-                    <div class="event-full-details">
-                        <div class="category">
-                            <span>📂 Categories:</span> <span class="category-name">Events</span>
-                        </div>
-                        <button class="read-more-btn">Read more ➔</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Events for Nov 21 -->
-        <div class="event-group">
-            <div class="event-date">
-                <div class="date">21</div>
-                <div class="month-day">
-                    <span class="month">Nov</span>
-                    <span class="day">Thu</span>
-                </div>
-            </div>
-            <div class="events">
-                <div class="event">
-                    <div class="event-summary" onclick="toggleDetails(this)">
-                        <div class="event-info">
-                            <h3>Science & Art Exhibition Boys (Y9 - A Level)</h3>
-                            <p>Nov 21 @ 7:00 am – 6:00 pm</p>
-                        </div>
-                        <div class="event-toggle">+</div>
-                    </div>
-                    <div class="event-full-details">
-                        <div class="category">
-                            <span>📂 Categories:</span> <span class="category-name">Others</span>
-                        </div>
-                        <button class="read-more-btn">Read more ➔</button>
-                    </div>
-                </div>
-    
-                <div class="event">
-                    <div class="event-summary" onclick="toggleDetails(this)">
-                        <div class="event-info">
-                            <h3>Last Grading Date (Y3 - Y10)</h3>
-                            <p>Nov 21 @ 8:00 am – 5:00 pm</p>
-                        </div>
-                        <div class="event-toggle">+</div>
-                    </div>
-                    <div class="event-full-details">
-                        <div class="category">
-                            <span>📂 Categories:</span> <span class="category-name">Conference</span>
-                        </div>
-                        <button class="read-more-btn">Read more ➔</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
+<!-- Modal and overlay -->
+<div class="modal-overlay"></div>
+<div class="modal">
+    <div class="modal-header">Image Title</div>
+    <div class="modal-content">
+        <img src="" alt="Modal Image">
     </div>
-    
-    
-    
-
-
+</div>
     
 
 
@@ -2191,7 +2341,36 @@
 
 
 
-        
+        // JavaScript to handle modal opening and closing
+        document.querySelectorAll('.sidebar-image').forEach(image => {
+            image.addEventListener('click', function() {
+                // Get the modal elements
+                const modal = document.querySelector('.modal');
+                const modalOverlay = document.querySelector('.modal-overlay');
+                const modalImage = modal.querySelector('img');
+                const modalHeader = modal.querySelector('.modal-header');
+
+                // Set the image and title in the modal
+                modalImage.src = this.src;
+                modalHeader.textContent = this.alt; // Use the alt text as title
+
+                // Show the modal and overlay with smooth transitions
+                modal.classList.add('visible');
+                modalOverlay.classList.add('visible');
+            });
+        });
+
+        // Close modal when clicking on overlay
+        document.querySelector('.modal-overlay').addEventListener('click', function() {
+            const modal = document.querySelector('.modal');
+            const modalOverlay = document.querySelector('.modal-overlay');
+
+            // Hide modal and overlay with smooth transitions
+            modal.classList.remove('visible');
+            modalOverlay.classList.remove('visible');
+        });
+
+
  
  
     </script>
