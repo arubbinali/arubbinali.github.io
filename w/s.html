@@ -14,7 +14,7 @@
             padding: 0;
             background-color: #f0f0f0;
             color: #333;
-            transition: background-color 2s, color 0.3s;
+            transition: background-color 1.5s, color 0.3s;
         }
         
         
@@ -832,6 +832,194 @@
 
 
 
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .events-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 30px;
+            margin-left: 200px;
+        }
+
+        .event-group {
+            display: flex;
+            align-items: flex;
+            gap: 20px; /* space between date and events */
+        }
+
+        .event-date {
+            text-align: center;
+            background: linear-gradient(225deg, #02456e, #029d02);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 78px;
+            flex-shrink: 0; /* keep date fixed in width */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .event-date .date {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: -10px;
+        }
+
+        .event-date .month {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .event-date .day {
+            font-size: 12px;
+        }
+
+        .events {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .event {
+            border-radius: 5px;
+            overflow: hidden;
+            background-color: #fff;
+            transition: box-shadow 0.3s ease;
+            width: 500px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .event:hover {
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .event-summary {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .event-info h3 {
+            font-size: 16px;
+            color: #333;
+            margin: 0;
+        }
+
+        .event-info p {
+            font-size: 12px;
+            color: #666;
+            margin: 2px 0;
+        }
+
+        .category {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .event-toggle {
+            margin-left: auto;
+            font-size: 20px;
+            color: #004d00;
+        }
+
+        .event-full-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-height: 0;
+            overflow: hidden;
+            padding: 0; /* Remove padding to allow full-width alignment */
+            font-size: 14px;
+            color: #666;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .event-full-details.open {
+            max-height: 300px;
+            padding: 24px 35px; /* Optional padding for spacing on top */
+        }
+
+        .event-full-details-text {
+            padding-left: 20px; /* Add left padding only for text content */
+            flex: 1; /* Take available space */
+        }
+
+        .read-more-btn {
+            background-color: #004d00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 12px;
+            margin-left: auto; /* Push button to the right */
+        }
+
+
+        .read-more-btn:hover {
+            background-color: #003300;
+        }
+
+        
+        body.dark-mode .event-info h3 {
+            color: #f7f9f9;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .event-info p {
+            color: #abc5cc;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .event {
+            background-color: #1e1e1e;
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-mode .event-toggle {
+            color: #00ffbb;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .category {
+            color: #abc5cc;
+            transition: color 0.3s ease;
+        }
+
+
+
+        @keyframes expand {
+            from {
+                max-height: 0;
+                opacity: 0;
+            }
+            to {
+                max-height: 500px;
+                opacity: 1;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
         /* Style for the divider line */
         .full-width-divider {
             width: calc(100% - 100px); /* 100% width minus 50px on each side */
@@ -919,7 +1107,7 @@
             border-radius: 8px;
             padding: 15px;
             margin-bottom: 15px;
-            max-height: 50px;
+            height: 90px;
             min-width: 600px;
             display: flex;
             justify-content: space-between;
@@ -1509,13 +1697,156 @@
 
     <div class="full-width-divider"></div>
 
-
     <div style="text-align: center;">
         <h1>Latest News and Announcements</h1>
     </div>
 
-    
     <div class="full-width-divider"></div>
+
+
+
+
+
+    <div class="events-container">
+
+
+    
+        <!-- Events for Nov 18 -->
+        <div class="event-group">
+            <div class="event-date">
+                <div class="date">18</div>
+                <div class="month-day">
+                    <span class="month">Nov</span>
+                    <span class="day">Mon</span>
+                </div>
+            </div>
+            <div class="events">
+                <div class="event">
+                    <div class="event-summary" onclick="toggleDetails(this)">
+                        <div class="event-info">
+                            <h3>In class Art Competition (Y5 - Y7)</h3>
+                            <p>Nov 18 @ 1:00 pm – 6:00 pm</p>
+                        </div>
+                        <div class="event-toggle">+</div>
+                    </div>
+                    <div class="event-full-details">
+                        <div class="category">
+                            <span>📂 Categories:</span> <span class="category-name">Events</span>
+                        </div>
+                        <button class="read-more-btn">Read more ➔</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Events for Nov 19 -->
+        <div class="event-group">
+            <div class="event-date">
+                <div class="date">19</div>
+                <div class="month-day">
+                    <span class="month">Nov</span>
+                    <span class="day">Tue</span>
+                </div>
+            </div>
+            <div class="events">
+                <div class="event">
+                    <div class="event-summary" onclick="toggleDetails(this)">
+                        <div class="event-info">
+                            <h3>Story Day/Chocolate Day (Junior School)</h3>
+                            <p>Nov 19 @ 7:00 am – 6:00 pm</p>
+                        </div>
+                        <div class="event-toggle">+</div>
+                    </div>
+                    <div class="event-full-details">
+                        <div class="category">
+                            <span>📂 Categories:</span> <span class="category-name">Events</span>
+                        </div>
+                        <button class="read-more-btn">Read more ➔</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Events for Nov 20 -->
+        <div class="event-group">
+            <div class="event-date">
+                <div class="date">20</div>
+                <div class="month-day">
+                    <span class="month">Nov</span>
+                    <span class="day">Wed</span>
+                </div>
+            </div>
+            <div class="events">
+                <div class="event">
+                    <div class="event-summary" onclick="toggleDetails(this)">
+                        <div class="event-info">
+                            <h3>Science & Art Exhibition Girls (Y9 - A Level)</h3>
+                            <p>Nov 20 @ 7:00 am – 6:00 pm</p> 
+                        </div>
+                        <div class="event-toggle">+</div>
+                    </div>
+                    <div class="event-full-details">
+                        <div class="category">
+                            <span>📂 Categories:</span> <span class="category-name">Events</span>
+                        </div>
+                        <button class="read-more-btn">Read more ➔</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Events for Nov 21 -->
+        <div class="event-group">
+            <div class="event-date">
+                <div class="date">21</div>
+                <div class="month-day">
+                    <span class="month">Nov</span>
+                    <span class="day">Thu</span>
+                </div>
+            </div>
+            <div class="events">
+                <div class="event">
+                    <div class="event-summary" onclick="toggleDetails(this)">
+                        <div class="event-info">
+                            <h3>Science & Art Exhibition Boys (Y9 - A Level)</h3>
+                            <p>Nov 21 @ 7:00 am – 6:00 pm</p>
+                        </div>
+                        <div class="event-toggle">+</div>
+                    </div>
+                    <div class="event-full-details">
+                        <div class="category">
+                            <span>📂 Categories:</span> <span class="category-name">Others</span>
+                        </div>
+                        <button class="read-more-btn">Read more ➔</button>
+                    </div>
+                </div>
+    
+                <div class="event">
+                    <div class="event-summary" onclick="toggleDetails(this)">
+                        <div class="event-info">
+                            <h3>Last Grading Date (Y3 - Y10)</h3>
+                            <p>Nov 21 @ 8:00 am – 5:00 pm</p>
+                        </div>
+                        <div class="event-toggle">+</div>
+                    </div>
+                    <div class="event-full-details">
+                        <div class="category">
+                            <span>📂 Categories:</span> <span class="category-name">Conference</span>
+                        </div>
+                        <button class="read-more-btn">Read more ➔</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    
+    
+    
+
+
+    
 
 
 
@@ -1846,6 +2177,18 @@
                 footerLogo.style.opacity = 1;
             }, 500); // Delay for fade-out transition
         }
+
+        function toggleDetails(element) {
+                const details = element.nextElementSibling;
+                if (details.classList.contains("open")) {
+                    details.classList.remove("open");
+                    element.querySelector('.event-toggle').textContent = "+"; // Change back to plus symbol
+                } else {
+                    details.classList.add("open");
+                    element.querySelector('.event-toggle').textContent = "−"; // Change to minus symbol
+                }
+            }
+
 
 
         
