@@ -1198,6 +1198,49 @@
 
 
 
+        .school-features {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 100px; /* Space between containers */
+            align-items: center;
+            margin-top: 60px;
+            margin-bottom: 60px;
+        }
+
+        .container {
+            position: relative;
+            width: 200px; /* Adjust based on your preference */
+            height: 200px; /* Adjust based on your preference */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            border: 2px solid #333; /* Border around each container */
+            border-radius: 8px; /* Rounded corners for the border */
+            padding: 20px; /* Space between border and content */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, .5); /* Subtle shadow around the container */
+        }
+
+        .container img {
+            position: absolute;
+            top: -50px; /* Adjust as needed */
+            width: 80%; /* Adjust based on your image */
+            height: auto;
+        }
+
+        .container h3 {
+            position: absolute;
+            top: 40px; /* Position the text on top of the button */
+        }
+
+        .container button {
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+
+
+
 
 
         
@@ -2076,6 +2119,29 @@
                 <span class="number" data-target="136">0</span>
                 <p>Class Rooms</p>
             </div>
+        </div>
+    </div>
+    
+    <div style="text-align: center;">
+        <h1>School Features</h1>
+    </div>
+
+    <div class="school-features">
+        <div class="container">
+            <img src="f1.png" alt="Image">
+            <h3>PISJ-ES Clubs</h3>
+        </div>
+        <div class="container">
+            <img src="f2.png" alt="Image">
+            <h3>Mobile App</h3>
+        </div>
+        <div class="container">
+            <img src="f3.png" alt="Image">
+            <h3>Alumni Diaries</h3>
+        </div>
+        <div class="container">
+            <img src="f4.png" alt="Image">
+            <h3>Parent Portal</h3>
         </div>
     </div>
     
