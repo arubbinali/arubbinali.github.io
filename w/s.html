@@ -1284,7 +1284,7 @@
         }
 
 
-        /* View More Button */
+        /* Click here button */
         .click-here {
             margin-top: 20px;
             padding: 10px 20px;
@@ -1294,11 +1294,13 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 1em;
+            font-family: 'Poppins', sans-serif;
             transition: background-color 0.3s ease;
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
         }
 
         .click-here:hover {
-            background-color: #1565c0; /* Darker blue on hover */
+            background-color: #78320f;
         }
 
 
@@ -1321,7 +1323,7 @@
         }
 
         /* Slider Container */
-        .slider-container {
+        .gallery-slider-container {
             position: relative;
             max-width: 1300px;
             margin: auto;
@@ -1332,7 +1334,7 @@
         }
 
         /* Slider */
-        .slider {
+        .gallery-slider {
             display: flex;
             transition: transform 0.5s ease-in-out;
             gap: 20px; /* Create a 20px gap between slides */
@@ -1340,7 +1342,7 @@
         }
 
         /* Individual Slide */
-        .slide {
+        .gallery-slide {
             min-width: calc(33.333% - 20px); /* Show 3 slides with a 20px gap between them */
             box-sizing: border-box;
             display: flex;
@@ -1351,7 +1353,7 @@
         }
 
         /* Image */
-        .slide img {
+        .gallery-slide img {
             width: 400px;
             height: 250px; /* Set a consistent height */
             object-fit: cover; /* Maintain aspect ratio */
@@ -1359,14 +1361,15 @@
             margin-bottom: 20px; /* Gap between image and text */
             box-shadow: 0 4px 8px rgba(0, 0, 0, .5);
             transition: box-shadow 0.3s ease;
+            
         }
 
-        .slide img:hover {
+        .gallery-slide img:hover {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
         }
 
         /* Text Container */
-        .slide-info {
+        .gallery-slide-info {
             color: #333;
             text-align: center;
             padding: 0 10px; /* Optional padding for text */
@@ -1376,14 +1379,14 @@
         }
 
         /* Slide Title */
-        .slide-info h3 {
+        .gallery-slide-info h3 {
             font-size: 1.2em;
             color: #049b0b; /* Dark green */
             margin: 5px 0;
         }
 
         /* Slide Description */
-        .slide-info p {
+        .gallery-slide-info p {
             font-size: 0.9em;
             color: gray;
             line-height: 1.2em; /* Space between lines */
@@ -1428,18 +1431,63 @@
             cursor: pointer;
             font-size: 1em;
             transition: background-color 0.3s ease;
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
+            font-family: 'Poppins', sans-serif;
         }
 
         .view-more-btn:hover {
-            background-color: #1565c0;
+            background-color: #104e85;
         }
 
-        div#slider.slider::before {
+        div#slider.gallery-slider::before {
             display: none;
         }
 
+        
+        body.dark-mode .gallery h1 {
+            color: white; /* Set color to white in dark mode */
+        }
+
+        body.dark-mode .gallery-slide-info h3 {
+            color: #39f136; /* Dark green */
+        }
+
+        body.dark-mode .gallery-slide img {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+        }
+
+        body.dark-mode .gallery-slide img:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 1);
+        }
 
 
+
+
+        .accreditation img {
+            display: block; /* Makes the image a block-level element */
+            margin: 0 auto; /* Centers the image horizontally */
+            max-height: 200px;
+            border-radius: 2px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+            transition: box-shadow 0.3s ease; /* Transition for box-shadow */
+            margin-top: -50px;
+            margin-bottom: -70px;
+            z-index: 1000;
+            position: relative; /* Ensure it's above other content */
+        }
+
+        .accreditation img:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 1);
+        }
+
+        body.dark-mode .accreditation img {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+            transition: box-shadow 0.3s ease; /* Ensure transition for dark mode as well */
+        }
+
+        body.dark-mode .accreditation img:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 1);
+        }
 
 
 
@@ -1728,6 +1776,7 @@
             align-items: center;
             opacity: 0; /* Start with no opacity */
             transition: opacity 0.5s ease-in-out; /* Smooth fade-in/out */
+            z-index: 2000;
         }
 
         /* Popup content */
@@ -1884,6 +1933,17 @@
             visibility: visible; /* Ensure it's visible when fading in */
             transition: opacity 1s ease-in-out; /* Match duration with fade-out */
         }
+
+
+
+
+
+        #modeLabel {
+            font-family: 'Poppins', sans-serif; /* Apply Poppins font */
+            transition: opacity 0.3s ease; /* Smooth transition for fading */
+            font-weight: 600; /* Optional, adjust weight if desired */
+        }
+
 
 
     </style>
@@ -2355,51 +2415,52 @@
     </div>
 
 
+    <!-- Gallery -->
     <div class="gallery">
         <h1>Watch Our Gallery</h1>
-        <div class="slider-container">
+        <div class="gallery-slider-container">
             <button class="nav-btn prev-btn" onclick="prevSlide()">&#10094;</button>
-            <div class="slider" id="slider">
-                <div class="slide">
-                    <div class="slide-content">
+            <div class="gallery-slider" id="gallery-slider">
+                <div class="gallery-slide">
+                    <div class="gallery-slide-content">
                         <img src="g1.jpg" alt="Image 1">
-                        <div class="slide-info">
+                        <div class="gallery-slide-info">
                             <p>October 28, 2024</p>
                             <h3>Y6 Graduates of Primary Checkpoint Exams</h3>
                         </div>
                     </div>
                 </div>
-                <div class="slide">
-                    <div class="slide-content">
+                <div class="gallery-slide">
+                    <div class="gallery-slide-content">
                         <img src="g2.jpg" alt="Image 2">
-                        <div class="slide-info">
+                        <div class="gallery-slide-info">
                             <p>October 25, 2024</p>
                             <h3>IGCSE Eng/Urdu Debates</h3>
                         </div>
                     </div>
                 </div>
-                <div class="slide">
-                    <div class="slide-content">
+                <div class="gallery-slide">
+                    <div class="gallery-slide-content">
                         <img src="g3.jpg" alt="Image 3">
-                        <div class="slide-info">
+                        <div class="gallery-slide-info">
                             <p>October 22, 2024</p>
                             <h3>Seerat un Nabi Event Junior School</h3>
                         </div>
                     </div>
                 </div>
-                <div class="slide">
-                    <div class="slide-content">
+                <div class="gallery-slide">
+                    <div class="gallery-slide-content">
                         <img src="g4.jpg" alt="Image 4">
-                        <div class="slide-info">
+                        <div class="gallery-slide-info">
                             <p>October 15, 2024</p>
                             <h3>Cultures around the World Early Years</h3>
                         </div>
                     </div>
                 </div>
-                <div class="slide">
-                    <div class="slide-content">
+                <div class="gallery-slide">
+                    <div class="gallery-slide-content">
                         <img src="g5.jpg" alt="Image 5">
-                        <div class="slide-info">
+                        <div class="gallery-slide-info">
                             <p>October 12, 2024</p>
                             <h3>Art & Craft Exhibition</h3>
                         </div>
@@ -2411,7 +2472,10 @@
         <button class="view-more-btn">View More</button>
     </div>
     
-    
+    <!-- Gallery -->
+     <div class="accreditation">
+        <img src="school-accreditation.png" alt="">
+     </div>
     
 
 
@@ -2712,8 +2776,9 @@
                 // Update the label and logo
                 updateLabel(isDarkMode ? "&nbsp;DARK&#8202;\u2003🌙" : "&#8202;☀️  &nbsp;&nbsp;&nbsp;LIGHT");
                 updateLogo(isDarkMode);
-            });
+            }); 
         });
+
 
         // Function to switch logos based on mode with fade effect
         function updateLogo(isDarkMode) {
@@ -2818,8 +2883,8 @@
 
 
         let currentIndex = 0; // The index of the first image of the 3 visible slides
-        const slides = document.querySelectorAll(".slide");
-        const slider = document.getElementById("slider");
+        const slides = document.querySelectorAll(".gallery-slide");
+        const slider = document.getElementById("gallery-slider");
         const totalSlides = slides.length;
         let slideInterval;  // Variable to hold the interval ID
 
