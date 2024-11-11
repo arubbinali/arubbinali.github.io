@@ -775,12 +775,13 @@
         .welcome-content {
             background: linear-gradient(to bottom, #cbcbcb, #f0f0f0); /* Gradient from original color to white */
             padding: 50px;
+            font-size: 1.2rem;
             border-radius: 10px;
             display: flex;
             align-items: center; /* Centers text and image vertically */
             gap: 20px; /* Space between text and image */
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-            margin-bottom: 100px;
+            margin-bottom: 20px;
             
         }
 
@@ -801,33 +802,129 @@
 
 
  
+
+
+
         .cambridge-content {
-            background: linear-gradient(to bottom, #f0f0f0, #cbcbcb, #f0f0f0); /* Light mode gradient */
+            background: transparent;
             padding: 50px;
             border-radius: 10px;
             display: flex;
-            align-items: center; /* Centers text and image vertically */
-            gap: 20px; /* Space between text and image */
+            align-items: center; /* Centers content vertically */
+            justify-content: center; /* Centers both the image and slider within the content */
+            gap: 20px; /* Space between the image and the slider */
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-            margin-top: 100px;
-            margin-bottom: 100px;
+            margin: 20px auto; /* Centers the whole container */
+            max-width: 1400px; /* Prevents the container from taking the full width */
         }
 
         .cambridge-content img {
-            max-width: fit-content;  /* Ensures the image doesn't exceed the container's width */
+            max-width: 100%;  /* Ensures the image doesn't exceed its container's width */
             height: auto;     /* Maintains aspect ratio */
-            max-height: 300px;
+            max-height: 300px;  /* Limits the height to 300px */
             display: block;   /* Ensures there's no extra space below the image */
-            margin-left: 200px;
-            box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.5);
+            margin-left: 0;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
             border-radius: 10px;
         }
 
-        
-
         body.dark-mode .cambridge-content {
-            background: linear-gradient(to bottom, #1a1a1a, #505050, #1a1a1a); /* Dark mode gradient */
+            background: transparent;
         }
+
+        /* Cambridge Awards Gallery */
+        .cambridge-awards {
+            text-align: center;
+            margin-top: 0; /* Remove extra space from the top */
+            margin-bottom: 0; /* Remove extra space from the bottom */
+            display: flex; /* Align the images and slider */
+            flex-direction: column;
+            height: 300px; /* Same height as the image */
+            justify-content: center;
+        }
+
+        /* Slider Container */
+        .cambridge-awards-slider-container {
+            position: relative;
+            max-width: 1000px; /* Constrain the width of the slider container */
+            overflow: hidden; /* Keep images within bounds */
+            border-radius: 8px;
+            height: 310px; /* Increase height slightly to fit shadows */
+            padding-bottom: 10px; /* Add padding to give extra space at the bottom */
+            background-color: transparent;
+        }
+
+
+
+
+        /* Slider */
+        .cambridge-awards-slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            gap: 10px; /* Controls gap between slides */
+            background-color: transparent;
+        }
+
+        /* Individual Slide */
+        .cambridge-awards-slide {
+            min-width: calc(33.333% - 10px); /* Adjust gap between slides */
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+        }
+
+        /* Image */
+        .cambridge-awards-slide img {
+            width: 300px;
+            height: 300px; /* Fixed height and width */
+            object-fit: cover; /* Maintain aspect ratio */
+            border-radius: 8px;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .cambridge-awards-slide img:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1507,12 +1604,10 @@
 
         /* Style for the divider line */
         .full-width-divider {
-            width: calc(100% - 100px); /* 100% width minus 50px on each side */
+            width: calc(100% - 100px);
             height: 3px; /* Thickness of the line */
             background-color: #5d6e6c; /* Color of the line */
-            margin: 0 auto; /* Center the line */
-            margin-top: 20px; /* Add some spacing above and below if needed */
-            margin-bottom: 20px;
+            margin: 0 auto;
         }
 
         
@@ -2189,7 +2284,54 @@
 
     <div class="cambridge-content">
         <img src="cambridgeawards.png" alt="Cambridge Awards">
+        <!-- Cambridge Awards Gallery -->
+        <div class="cambridge-awards">
+            <div class="cambridge-awards-slider-container">
+                <div class="cambridge-awards-slider" id="cambridge-awards-slider">
+                    <div class="cambridge-awards-slide">
+                        <img src="c1.jpg" alt="Image 1">
+                    </div>
+                    <div class="cambridge-awards-slide">
+                        <img src="c2.jpg" alt="Image 2">
+                    </div>
+                    <div class="cambridge-awards-slide">
+                        <img src="c3.jpg" alt="Image 3">
+                    </div>
+                    <div class="cambridge-awards-slide">
+                        <img src="c4.jpg" alt="Image 4">
+                    </div>
+                    <div class="cambridge-awards-slide">
+                        <img src="c5.jpg" alt="Image 5">
+                    </div>
+                    <div class="cambridge-awards-slide">
+                        <img src="c6.jpg" alt="Image 6">
+                    </div>
+                    <div class="cambridge-awards-slide">
+                        <img src="c7.jpg" alt="Image 7">
+                    </div>
+                    <div class="cambridge-awards-slide">
+                        <img src="c8.jpg" alt="Image 8">
+                    </div>
+                    <div class="cambridge-awards-slide">
+                        <img src="c9.jpg" alt="Image 9">
+                    </div>
+                    <div class="cambridge-awards-slide">
+                        <img src="c10.jpg" alt="Image 10">
+                    </div>
+                    <div class="cambridge-awards-slide">
+                        <img src="c11.jpg" alt="Image 11">
+                    </div>
+                    <div class="cambridge-awards-slide">
+                        <img src="c12.jpg" alt="Image 12">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    
+
+
+
 
 
     <div class="full-width-divider"></div>
@@ -2962,6 +3104,67 @@
         document.querySelector('.next-btn').addEventListener('click', () => {
             nextSlide();
             resetAutoSlide();  // Reset the auto-slide interval after a user action
+        });
+
+
+
+
+        let cambridgeCurrentIndex = 0; // The index of the first image of the 3 visible slides
+        const cambridgeSlides = document.querySelectorAll(".cambridge-awards-slide");
+        const cambridgeSlider = document.getElementById("cambridge-awards-slider");
+        const cambridgeTotalSlides = cambridgeSlides.length;
+        let cambridgeSlideInterval;  // Variable to hold the interval ID
+
+        // Function to start the 5-second auto-slide interval
+        function startCambridgeAutoSlide() {
+            cambridgeSlideInterval = setInterval(nextCambridgeSlide, 5000);
+        }
+
+        // Clear the current interval before starting a new one
+        function resetCambridgeAutoSlide() {
+            clearInterval(cambridgeSlideInterval);  // Clear any existing interval
+            startCambridgeAutoSlide();  // Restart the interval
+        }
+
+        // Function to move to the next set of slides
+        function nextCambridgeSlide() {
+            if (cambridgeCurrentIndex >= cambridgeTotalSlides - 3) {
+                // If we're at the last group, reset to the first group
+                cambridgeCurrentIndex = 0;
+            } else {
+                cambridgeCurrentIndex++;
+            }
+            updateCambridgeSliderPosition();
+        }
+
+        // Function to move to the previous set of slides
+        function prevCambridgeSlide() {
+            if (cambridgeCurrentIndex <= 0) {
+                // If we're at the first group, reset to the last group
+                cambridgeCurrentIndex = cambridgeTotalSlides - 3;
+            } else {
+                cambridgeCurrentIndex--;
+            }
+            updateCambridgeSliderPosition();
+        }
+
+        // Update the slider position based on the current index
+        function updateCambridgeSliderPosition() {
+            cambridgeSlider.style.transform = `translateX(-${cambridgeCurrentIndex * (100 / 3)}%)`; // Slide by 1/3 of the container's width
+        }
+
+        // Auto-swiping every 5 seconds, initially started
+        startCambridgeAutoSlide();
+
+        // Restart the 5-second interval when a user clicks on prev or next buttons
+        document.querySelector('.prev-btn').addEventListener('click', () => {
+            prevCambridgeSlide();
+            resetCambridgeAutoSlide();  // Reset the auto-slide interval after a user action
+        });
+
+        document.querySelector('.next-btn').addEventListener('click', () => {
+            nextCambridgeSlide();
+            resetCambridgeAutoSlide();  // Reset the auto-slide interval after a user action
         });
 
 
