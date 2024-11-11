@@ -1357,6 +1357,12 @@
             object-fit: cover; /* Maintain aspect ratio */
             border-radius: 8px;
             margin-bottom: 20px; /* Gap between image and text */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, .5);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .slide img:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
         }
 
         /* Text Container */
@@ -1372,7 +1378,7 @@
         /* Slide Title */
         .slide-info h3 {
             font-size: 1.2em;
-            color: #2e7d32; /* Dark green */
+            color: #049b0b; /* Dark green */
             margin: 5px 0;
         }
 
