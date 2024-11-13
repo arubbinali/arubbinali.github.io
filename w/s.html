@@ -700,15 +700,16 @@
             z-index: 2;
         }
 
-        .video-container {
+        .video-container video {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 100vh;
+            transform: translate(-50%, -50%) scale(1.5);
+            pointer-events: none;
         }
+
 
         .video-container iframe {
             position: absolute;
@@ -2333,13 +2334,17 @@
  
     </div>
  
-    <!-- Main Banner Section -->
-    <div class="banner">
-        <div class="video-container">
-            <div id="youtube-player"></div> <!-- Placeholder for the YouTube API to load the video -->
-        </div>
-        <h1>Pakistan International School Jeddah</h1>
+<!-- Main Banner Section -->
+<div class="banner">
+    <div class="video-container">
+        <video id="local-video" autoplay muted loop playsinline>
+            <source src="C:/Users/Micro/Desktop/desk/Code/GitHub/video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
+    <h1>Pakistan International School Jeddah</h1>
+</div>
+
 
 
 
