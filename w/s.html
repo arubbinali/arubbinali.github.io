@@ -681,7 +681,7 @@
         /* Main Banner Section */
         .banner {
             position: relative;
-            height: 600px; /* Set the height of the banner */
+            height: 550px; /* Set the height of the banner */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -756,8 +756,8 @@
             font-weight: bold;
             border-radius: 10px;
             transition: all 0.4s ease;
-            cursor: pointer; /* Makes the button appear clickable */
-            border: none; /* Removes border */
+            cursor: pointer;
+            border: none;
         }
  
         .early-years { background-color: #000000; }
@@ -2334,16 +2334,16 @@
  
     </div>
  
-<!-- Main Banner Section -->
-<div class="banner">
-    <div class="video-container">
-        <video id="local-video" autoplay muted loop playsinline>
-            <source src="C:/Users/Micro/Desktop/desk/Code/GitHub/video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+    <!-- Main Banner Section -->
+    <div class="banner">
+        <div class="video-container">
+            <video id="local-video" autoplay muted loop playsinline>
+                <source src="C:/Users/Micro/Desktop/desk/Code/GitHub/video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <h1>Pakistan International School Jeddah</h1>
     </div>
-    <h1>Pakistan International School Jeddah</h1>
-</div>
 
 
 
@@ -2351,11 +2351,12 @@
  
     <!-- Buttons Section -->
     <div class="buttons-section">
-        <button class="button early-years" onclick="window.location='#';">Cambridge Early Years</button>
-        <button class="button junior-school" onclick="window.location='#';">Junior School</button>
-        <button class="button middle-school" onclick="window.location='#';">Middle School</button>
-        <button class="button senior-school" onclick="window.location='#';">Senior School</button>
+        <button class="button early-years" onclick="noScroll(event);">Cambridge Early Years</button>
+        <button class="button junior-school" onclick="noScroll(event);">Junior School</button>
+        <button class="button middle-school" onclick="noScroll(event);">Middle School</button>
+        <button class="button senior-school" onclick="noScroll(event);">Senior School</button>
     </div>
+
 
 
 
@@ -2788,21 +2789,21 @@
             <div class="footer-column in-focus">
                 <h2>IN FOCUS</h2>
                 <ul>
-                    <li><a href="#" class="footer-link">Principal's Message</a></li>
-                    <li><a href="#" class="footer-link">Facilities</a></li>
-                    <li><a href="#" class="footer-link">Student Leave Form</a></li>
-                    <li><a href="#" class="footer-link">Careers</a> | <a href="#" class="footer-link">Apply Online</a></li>
-                    <li><a href="#" class="footer-link">Continuous Professional Development Programme</a></li>
-                </ul>
+                    <li><a href="#" class="footer-link" onclick="noScroll(event);">Principal's Message</a></li>
+                    <li><a href="#" class="footer-link" onclick="noScroll(event);">Facilities</a></li>
+                    <li><a href="#" class="footer-link" onclick="noScroll(event);">Student Leave Form</a></li>
+                    <li><a href="#" class="footer-link" onclick="noScroll(event);">Careers</a> | <a href="#" class="footer-link" onclick="noScroll(event);">Apply Online</a></li>
+                    <li><a href="#" class="footer-link" onclick="noScroll(event);">Continuous Professional Development Programme</a></li>
+                </ul>                
             </div>
  
             <div class="footer-bottom">
                 <p>© 2016 - 2024 Pakistan International School Jeddah English Section. All Rights Reserved.</p>
                 <div class="social-icons">
-                    <a href="#"><img src="e9sqr8WnkCf.ico" alt="Facebook"></a>
-                    <a href="#"><img src="favicon.ico" alt="LinkedIn"></a>
-                    <a href="#"><img src="hexDR1NOpRC.png" alt="Instagram"></a>
-                </div>
+                    <a href="#" onclick="noScroll(event);"><img src="e9sqr8WnkCf.ico" alt="Facebook"></a>
+                    <a href="#" onclick="noScroll(event);"><img src="favicon.ico" alt="LinkedIn"></a>
+                    <a href="#" onclick="noScroll(event);"><img src="hexDR1NOpRC.png" alt="Instagram"></a>
+                </div>                
             </div>
             
             
@@ -3310,19 +3311,10 @@
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
+        function noScroll(event) {
+            event.preventDefault(); // Prevents the default behavior of the button click
+        }
 
-
-
-
-
-
-
-
-
-
-
-
- 
  
     </script>
  
