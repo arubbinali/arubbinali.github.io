@@ -1961,7 +1961,7 @@
         .popup-container {
             display: flex; /* Change to flex to allow centering */
             position: fixed;
-            top: 0px;
+            top: -150px;
             left: 0;
             width: 100%;
             height: 100%;
@@ -3013,7 +3013,7 @@
             if (isDarkMode) {
                 document.body.classList.add("dark-mode");
                 toggleSwitch.checked = true;
-                updateLabel("&nbsp;DARK&#8202;\u2003🌙");
+                updateLabel("&nbsp;DARK&#8202;\u2003&nbsp;🌙");
             } else {
                 updateLabel("&#8202;☀️  &nbsp;&nbsp;&nbsp;LIGHT"); // Adjusted spacing for "LIGHT" text
             }
@@ -3030,7 +3030,7 @@
                 localStorage.setItem("darkMode", isDarkMode ? "enabled" : "disabled");
 
                 // Update the label and logo
-                updateLabel(isDarkMode ? "&nbsp;DARK&#8202;\u2003🌙" : "&#8202;☀️  &nbsp;&nbsp;&nbsp;LIGHT");
+                updateLabel(isDarkMode ? "&nbsp;DARK&#8202;&nbsp;\u2003🌙" : "&#8202;☀️  &nbsp;&nbsp;&nbsp;LIGHT");
                 updateLogo(isDarkMode);
             }); 
         });
