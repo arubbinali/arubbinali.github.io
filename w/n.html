@@ -671,127 +671,123 @@
 
 
 
+        /* Main Banner Section */
+        .banner {
+            position: relative;
+            height: 550px; /* Set the height of the banner */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Shadow effect */
+            border-radius: 10px;
+            overflow: hidden; /* Ensures video doesn't overflow */
+        }
 
-/* Main Banner Section */
-.banner {
-    position: relative;
-    height: 550px; /* Set the height of the banner */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: white;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Shadow effect */
-    border-radius: 10px;
-    overflow: hidden; /* Ensures video doesn't overflow */
-}
+        .video-container video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 100vh;
+            transform: translate(-50%, -50%) scale(1.5);
+            pointer-events: none;
+        }
 
-.video-container video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100vw;
-    height: 100vh;
-    transform: translate(-50%, -50%) scale(1.5);
-    pointer-events: none;
-}
+        body.dark-mode .banner h1 {
+            color: #f0f0f0;
+        }
 
-.video-container iframe {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100vw;
-    height: 100vh;
-    transform: translate(-50%, -50%) scale(1.5); /* Scale up the video to cover the screen */
-    pointer-events: none; /* Allows clicking through to other content if needed */
-}
+        /* Styling for animation */
+        .con {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100%;
+            flex-direction: column;
+            margin-left: 50px;
+        }
 
-body.dark-mode .banner h1 {
-    color: #f0f0f0;
-}
+        .con h1 {
+            font-family: poppins, sans-serif;
+            font-size: 5rem;
+            font-weight: 600;
+            color: white;
+            margin: 0;
+        }
 
-/* Styling for animation */
-.con {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 100%;
-    flex-direction: column;
-    margin-left: 50px;
-}
+        h1 span {
+            color: #b6b5f9;
+            filter: brightness(90%);
+        }
 
-.con h1 {
-    font-family: poppins, sans-serif;
-    font-size: 5rem;
-    font-weight: 600;
-    color: white;
-    margin: 0;
-}
+        /* Add 'forwards' to ensure animations hold the final state */
+        #p1 {
+            animation: p1 1.4s linear forwards;
+        }
 
-h1 span {
-    color: #b6b5f9;
-    filter: brightness(90%);
-}
+        #p2 {
+            animation: p2 2.1s linear forwards;
+        }
 
-#p1 {
-    animation: p1 1.4s linear;
-}
+        #p3 {
+            animation: p3 2.8s linear forwards;
+        }
 
-#p2 {
-    animation: p2 2.1s linear;
-}
+        #p4 {
+            animation: p4 3.5s linear forwards;
+        }
 
-#p3 {
-    animation: p3 2.8s linear;
-}
+        #p5 {
+            animation: p5 4.2s linear forwards;
+        }
 
-#p4 {
-    animation: p4 3.5s linear;
-}
+        #p6 {
+            animation: p6 6s linear forwards;
+            font-size: 2rem;
+        }
 
-#p5 {
-    animation: p5 4.2s linear forwards;
-}
 
-/* Keyframe animations for staggered text fade-in */
-@keyframes p1 {
-    0%   { opacity: 0; }
-    50%  { opacity: 0; }
-    100% { opacity: 1; }
-}
+        /* Keyframe animations for staggered text fade-in */
+        @keyframes p1 {
+            0%   { opacity: 0; }
+            50%  { opacity: 0; }
+            100% { opacity: 1; }
+        }
 
-@keyframes p2 {
-    0%   { opacity: 0; }
-    66%  { opacity: 0; }
-    100% { opacity: 1; }
-}
+        @keyframes p2 {
+            0%   { opacity: 0; }
+            66%  { opacity: 0; }
+            100% { opacity: 1; }
+        }
 
-@keyframes p3 {
-    0%   { opacity: 0; }
-    75%  { opacity: 0; }
-    100% { opacity: 1; }
-}
+        @keyframes p3 {
+            0%   { opacity: 0; }
+            75%  { opacity: 0; }
+            100% { opacity: 1; }
+        }
 
-@keyframes p4 {
-    0%   { opacity: 0; }
-    66%  { opacity: 0; }
-    100% { opacity: 1; }
-}
+        @keyframes p4 {
+            0%   { opacity: 0; }
+            66%  { opacity: 0; }
+            100% { opacity: 1; }
+        }
 
-@keyframes p5 {
-    0%   { opacity: 0; }
-    75%  { opacity: 0; }
-    100% { opacity: 1; }
-}
+        @keyframes p5 {
+            0%   { opacity: 0; }
+            75%  { opacity: 0; }
+            100% { opacity: 1; }
+        }
 
-.con p {
-    font-family: poppins, sans-serif;
-    font-size: 1.2rem;
-    color: #C6C5FA;
-    margin-top: 10px;
-    margin-left: 50px;
-}
+        @keyframes p6 {
+            0%   { opacity: 0; }
+            50%  { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+
 
 
 
@@ -2420,27 +2416,27 @@ h1 span {
         
  
     </div>
- 
-<!-- Main Banner Section -->
-<div class="banner">
-    <div class="video-container">
-        <video id="local-video" autoplay muted loop playsinline>
-            <source src="C:/Users/Micro/Desktop/desk/Code/GitHub/video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
+    
+    <!-- Main Banner Section -->
+    <div class="banner">
+        <div class="video-container">
+            <video id="local-video" autoplay muted loop playsinline>
+                <source src="C:/Users/Micro/Desktop/desk/Code/GitHub/video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
 
-    <div class="con">
-        <h1>
-            <span id="p1">Pakistan</span>
-            <span id="p2">International</span>
-            <span id="p3">School</span>
-            <span id="p4">Jeddah</span>
-        </h1>
-        <h1 id="p5">English Section</h1> <!-- English Section moved to a new line -->
-        <p>Where education meets innovation</p>
+        <div class="con">
+            <h1>
+                <span id="p1">Pakistan</span>
+                <span id="p2">International</span>
+                <span id="p3">School</span>
+                <span id="p4">Jeddah</span>
+            </h1>
+            <h1 id="p5">English Section</h1> <!-- English Section moved to a new line -->
+            <span id="p6">Where education meets innovation</span>
+        </div>
     </div>
-</div>
 
 
 
