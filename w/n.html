@@ -707,48 +707,54 @@
             height: 100vh;
             width: 100%;
             flex-direction: column;
-            margin-left: 50px;
         }
 
         .con h1 {
-            font-family: poppins, sans-serif;
+            font-family: 'Poppins', sans-serif;
             font-size: 5rem;
             font-weight: 600;
-            color: white;
             margin: 0;
         }
 
         h1 span {
-            color: #b6b5f9;
+            color: #8583f0;
             filter: brightness(90%);
         }
 
         /* Add 'forwards' to ensure animations hold the final state */
         #p1 {
             animation: p1 1.4s linear forwards;
+            text-shadow: 4px 4px 4px #002aff;
+            margin-left: 10px;
         }
 
         #p2 {
             animation: p2 2.1s linear forwards;
+            text-shadow: 4px 4px 4px #002aff;
         }
 
         #p3 {
             animation: p3 2.8s linear forwards;
+            text-shadow: 4px 4px 4px #002aff;
         }
 
         #p4 {
             animation: p4 3.5s linear forwards;
+            text-shadow: 4px 4px 4px #002aff;
         }
 
         #p5 {
             animation: p5 4.2s linear forwards;
+            text-shadow: 4px 4px 4px #006b61;
+            color: rgb(11, 188, 102);
         }
 
         #p6 {
-            animation: p6 6s linear forwards;
+            animation: p6 7s linear forwards;
+            color: rgb(11, 188, 102);
+            text-shadow: 4px 4px 4px #003d37;
             font-size: 2rem;
         }
-
 
         /* Keyframe animations for staggered text fade-in */
         @keyframes p1 {
@@ -807,6 +813,7 @@
             justify-content: space-around;
             padding: 40px 5%;
             background-color: #fff;
+            
         }
  
         body.dark-mode .buttons-section {
@@ -825,6 +832,7 @@
             transition: all 0.4s ease;
             cursor: pointer;
             border: none;
+            font-family: 'Poppins', sans-serif;
         }
  
         .early-years { background-color: #000000; }
@@ -1275,7 +1283,6 @@
 
         /* Text overlay */
         .sidebar-image::after {
-            content: "Click to Open"; /* Optional text overlay */
             position: absolute;
             top: 50%;
             left: 50%;
@@ -1359,10 +1366,6 @@
             visibility: visible; /* Makes overlay visible */
             opacity: 1;
         }
-
-
-
-
 
 
 
@@ -2434,7 +2437,7 @@
                 <span id="p4">Jeddah</span>
             </h1>
             <h1 id="p5">English Section</h1> <!-- English Section moved to a new line -->
-            <span id="p6">Where education meets innovation</span>
+            <span id="p6">Respect. Integrity. Responsibility. Excellence.</span>
         </div>
     </div>
 
