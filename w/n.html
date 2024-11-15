@@ -1584,10 +1584,19 @@
             box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
             position: relative; /* Set position to relative to use 'top' */
             top: 50px; /* Move the button 20px lower */
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
         }
 
+
         .click-here-school-features:hover {
-            background-color: #78320f;
+            
+            box-shadow: 0 0 5px #c9541a, 
+                        0 0 6px #c9541a, 
+                        0 0 7px #c9541a, 
+                        0 0 8px #c9541a, 
+                        0 0 9px #c9541a;
+            background-color: #c9371a;
+                        
         }
 
 
@@ -2072,6 +2081,9 @@
 
 
 
+        
+
+
         /* Popup container - hidden by default */
         .popup-container {
             display: flex; /* Change to flex to allow centering */
@@ -2087,7 +2099,6 @@
             transition: opacity 0.5s ease-in-out; /* Smooth fade-in/out */
             z-index: 2000;
         }
-
         /* Popup content */
         .popup-content {
             max-width: 700px; /* Maximum width of popup */
@@ -2104,8 +2115,25 @@
             animation: slideDown 1s ease-out;
             overflow-y: auto; /* Enable vertical scrolling */
             padding-right: 16px; /* Add padding to the right to prevent scrollbar overlap */
-            transition: background-color 0.5s ease, color 0.5s ease; /* Ensure smooth transitions */
+            transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
         }
+
+        .popup-content:hover {
+            box-shadow: 0 0 5px #0022ff, 
+                        0 0 5px #0022ff, 
+                        0 0 50px #0022ff, 
+                        0 0 75px #0022ff, 
+                        0 0 20px #0022ff;
+        }
+
+        body.dark-mode .popup-content:hover {
+            box-shadow: 0 0 5px cyan, 
+                        0 0 5px cyan, 
+                        0 0 50px cyan, 
+                        0 0 75px cyan, 
+                        0 0 20px cyan;
+        }
+
 
         /* Section headings with gradient text */
         .popup-section h3 {
