@@ -674,7 +674,7 @@
         /* Main Banner Section */
         .banner {
             position: relative;
-            height: 550px; /* Set the height of the banner */
+            height: 700px; /* Set the height of the banner */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -752,8 +752,8 @@
         #p6 {
             animation: p6 7s linear forwards;
             color: rgb(11, 188, 102);
-            text-shadow: 4px 4px 4px #003d37;
-            font-size: 2rem;
+            text-shadow: 2px 2px 2px #003d37;
+            font-size: 2.2rem;
         }
 
         /* Keyframe animations for staggered text fade-in */
@@ -876,35 +876,48 @@
 
 
 
-
-
+        /* Welcome Content */
         .welcome-content {
-            background: linear-gradient(to bottom, #cbcbcb, #f0f0f0); /* Gradient from original color to white */
+            background: linear-gradient(to bottom, #cbcbcb, #f0f0f0);
             padding: 50px;
             font-size: 1.2rem;
             border-radius: 10px;
             display: flex;
-            align-items: center; /* Centers text and image vertically */
-            gap: 20px; /* Space between text and image */
+            align-items: center;
+            gap: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
             margin-bottom: 20px;
             
+            /* Initial state for fade-in effect */
+            opacity: 0;
+            animation: fadeIn 4s forwards;
         }
 
         .welcome-content img {
-            max-width: fit-content;  /* Ensures the image doesn't exceed the container's width */
-            height: auto;     /* Maintains aspect ratio */
+            max-width: fit-content;
+            height: auto;
             max-height: 600px;
-            display: block;   /* Ensures there's no extra space below the image */
+            display: block;
             margin-left: auto;
             box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.5);
             border-radius: 10px;
         }
 
+        /* Dark mode adjustment */
         body.dark-mode .welcome-content {
-            background: linear-gradient(to bottom, #505050, #1a1a1a); /* Adjusted for dark mode: white to dark */
-            
+            background: linear-gradient(to bottom, #505050, #1a1a1a);
         }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
 
 
  
@@ -1174,6 +1187,7 @@
         }
 
         .read-more-btn {
+            font-family: 'Poppins', sans-serif;
             background-color: #004d00;
             color: white;
             border: none;
@@ -2225,6 +2239,24 @@
         }
 
 
+        /* Fog effect at the bottom */
+        .fog-effect {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px; /* Adjust height as needed */
+            background: linear-gradient(to top, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0)); /* Light fog for light mode */
+            pointer-events: none; /* So it doesn't interfere with scrolling or clicking */
+            z-index: 10;
+        }
+
+        body.dark-mode .fog-effect {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0)); /* Dark fog for dark mode */
+        }
+
+
+
 
     </style>
 </head>
@@ -2982,7 +3014,9 @@
     </div>
 
  
- 
+
+    <!-- Fog effect overlay -->
+    <div class="fog-effect"></div>
  
  
  
