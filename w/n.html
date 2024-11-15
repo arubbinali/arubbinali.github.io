@@ -669,8 +669,6 @@
  
 
 
-
-
         /* Main Banner Section */
         .banner {
             position: relative;
@@ -699,170 +697,96 @@
             color: #f0f0f0;
         }
 
-        /* Styling for animation */
-        .con {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            width: 100%;
-            flex-direction: column;
-        }
-
-        .con h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 5rem;
-            font-weight: 600;
-            margin: 0;
-        }
-
-        h1 span {
-            color: #544A58;
-            filter: brightness(90%);
-        }
-
-        /* Add 'forwards' to ensure animations hold the final state */
-        #p1 {
-            animation: p1 1.4s linear forwards;
-            text-shadow: 2px 2px 2px #002aff;
-            margin-left: 10px;
-        }
-
-        #p2 {
-            animation: p2 2.1s linear forwards;
-            text-shadow: 4px 4px 4px #002aff;
-        }
-
-        #p3 {
-            animation: p3 2.8s linear forwards;
-            text-shadow: 4px 4px 4px #002aff;
-        }
-
-        #p4 {
-            animation: p4 3.5s linear forwards;
-            text-shadow: 4px 4px 4px #002aff;
-        }
-
-        #p5 {
-            animation: p5 4.2s linear forwards;
-            text-shadow: 4px 4px 4px #006b61;
-            color: rgb(11, 188, 102);
-        }
-
-        #p6 {
-            animation: p6 7s linear forwards;
-            color: rgb(11, 188, 102);
-            text-shadow: 2px 2px 2px #003d37;
-            font-size: 2.2rem;
-        }
-
-        /* Keyframe animations for staggered text fade-in */
-        @keyframes p1 {
-            0%   { opacity: 0; }
-            50%  { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        @keyframes p2 {
-            0%   { opacity: 0; }
-            66%  { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        @keyframes p3 {
-            0%   { opacity: 0; }
-            75%  { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        @keyframes p4 {
-            0%   { opacity: 0; }
-            66%  { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        @keyframes p5 {
-            0%   { opacity: 0; }
-            75%  { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        @keyframes p6 {
-            0%   { opacity: 0; }
-            50%  { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-
-
-
-
-
-
-
-
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
-
-        .container {
+        /* Position container */
+        .title-container {
             position: relative;
             height: 100vh;
         }
 
-        #bg-video {
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            z-index: -999;
-        }
-
+        /* The word container (for all lines) */
         .word {
-            width: 90%;
+            display: flex; /* Flexbox will ensure words are aligned horizontally */
             position: absolute;
             transform: translate(-50%, -50%);
-            top: 50%;
             left: 50%;
-            text-align: center;
+            justify-content: center; /* Align items in the center */
+            gap: 10px; /* Adjust spacing between words if needed */
         }
 
+        /* Position each line */
+        .first-line {
+            top: 40%; /* First line at the top */
+        }
+
+        .second-line {
+            top: 55%; /* Move second line down a bit */
+        }
+
+        .third-line {
+            top: 70%; /* Move third line further down */
+        }
+
+        /* Individual span styling */
         .word span {
-            display: inline-block;
             font-family: "Poppins", sans-serif;
-            font-size: 12vw;
+            font-size: 4vw; /* Default font-size for other lines */
             font-weight: 700;
-            color: #ffffff;
-            letter-spacing: 5vw;
+            color: transparent; /* Make the text transparent so the gradient can show through */
+            background: linear-gradient(90deg, #0000FF, #00008B, #0000FF);
+            background-clip: text; /* Clip the background to the text */
+            -webkit-background-clip: text; /* For Webkit-based browsers (Safari, Chrome) */
+            letter-spacing: 0;
             text-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
             position: relative;
-            transform: translateY(-100vh);
+            transform: translateY(-100vh); /* Start from off-screen */
             animation: fall 3.5s forwards;
         }
 
+        .third-line span {
+            font-size: 1vw; /* Set font-size to 1vw for the third line */
+            background: linear-gradient(90deg, #b00076, #b000a1, #b00076); /* Gradient from green to dark green and back to green */
+            background-clip: text; /* Clip the background to the text */
+            -webkit-background-clip: text; /* For Webkit-based browsers (Safari, Chrome) */
+        }
+
+        /* Keyframe for the falling animation */
         @keyframes fall {
             100% {
                 transform: translateY(0);
             }
         }
 
-        /* Adding 's' for seconds to animation-delay values */
-        .word span:nth-child(2) {
+        /* Staggered animation delays for the first line */
+        .first-line span:nth-child(2) {
             animation-delay: 0.75s;
         }
-        .word span:nth-child(3) {
+        .first-line span:nth-child(3) {
             animation-delay: 1.4s;
         }
-        .word span:nth-child(4) {
-            animation-delay: 2.1s;
+
+        /* Staggered animation delays for the second line */
+        .second-line span:nth-child(1) {
+            animation-delay: 3.25s; /* Start after the first line finishes */
         }
-        .word span:nth-child(5) {
-            animation-delay: 2.8s;
+        .second-line span:nth-child(2) {
+            animation-delay: 4s; /* Slight delay for first word in second line */
         }
-        .word span:nth-child(6) {
-            animation-delay: 3.5s;
+
+        /* Staggered animation delays for the third line */
+        .third-line span:nth-child(1) {
+            animation-delay: 5.5s; /* Start after second line finishes */
         }
+        .third-line span:nth-child(2) {
+            animation-delay: 6s;
+        }
+        .third-line span:nth-child(3) {
+            animation-delay: 6.5s;
+        }
+        .third-line span:nth-child(4) {
+            animation-delay: 7s;
+        }
+
+
 
 
 
@@ -2539,26 +2463,37 @@
  
     </div>
     
-    <!-- Main Banner Section -->
-    <div class="banner">
-        <div class="video-container">
-            <video id="local-video" autoplay muted loop playsinline>
-                <source src="C:/Users/Micro/Desktop/desk/Code/GitHub/video.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+<!-- Main Banner Section -->
+<div class="banner">
+    <div class="video-container">
+        <video id="local-video" autoplay muted loop playsinline>
+            <source src="C:/Users/Micro/Desktop/desk/Code/GitHub/video.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="title-container">
+        <!-- First line of text -->
+        <div class="word first-line">
+            <span>Pakistan</span>
+            <span>International</span>
+            <span>School</span>
         </div>
 
-        <div class="con">
-            <h1>
-                <span id="p1">Pakistan</span>
-                <span id="p2">International</span>
-                <span id="p3">School</span>
-                <span id="p4">Jeddah</span>
-            </h1>
-            <h1 id="p5">English Section</h1> <!-- English Section moved to a new line -->
-            <span id="p6">Respect. Integrity. Responsibility. Excellence.</span>
+        <!-- Second line of text (2 words) -->
+        <div class="word second-line">
+            <span>English</span>
+            <span>Section</span>
+        </div>
+
+        <!-- Third line of text (4 words) -->
+        <div class="word third-line">
+            <span>Respect.</span>
+            <span>Integrity.</span>
+            <span>Responsibility.</span>
+            <span>Excellence.</span>
         </div>
     </div>
+</div>
 
 
 
