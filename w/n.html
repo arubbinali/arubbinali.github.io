@@ -717,14 +717,14 @@
         }
 
         h1 span {
-            color: #8583f0;
+            color: #544A58;
             filter: brightness(90%);
         }
 
         /* Add 'forwards' to ensure animations hold the final state */
         #p1 {
             animation: p1 1.4s linear forwards;
-            text-shadow: 4px 4px 4px #002aff;
+            text-shadow: 2px 2px 2px #002aff;
             margin-left: 10px;
         }
 
@@ -793,6 +793,76 @@
             100% { opacity: 1; }
         }
 
+
+
+
+
+
+
+
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            position: relative;
+            height: 100vh;
+        }
+
+        #bg-video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -999;
+        }
+
+        .word {
+            width: 90%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+            text-align: center;
+        }
+
+        .word span {
+            display: inline-block;
+            font-family: "Poppins", sans-serif;
+            font-size: 12vw;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 5vw;
+            text-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+            transform: translateY(-100vh);
+            animation: fall 3.5s forwards;
+        }
+
+        @keyframes fall {
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* Adding 's' for seconds to animation-delay values */
+        .word span:nth-child(2) {
+            animation-delay: 0.75s;
+        }
+        .word span:nth-child(3) {
+            animation-delay: 1.4s;
+        }
+        .word span:nth-child(4) {
+            animation-delay: 2.1s;
+        }
+        .word span:nth-child(5) {
+            animation-delay: 2.8s;
+        }
+        .word span:nth-child(6) {
+            animation-delay: 3.5s;
+        }
 
 
 
@@ -2240,19 +2310,36 @@
 
 
         /* Fog effect at the bottom */
-        .fog-effect {
+        .fog-effect-bottom {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             height: 150px; /* Adjust height as needed */
             background: linear-gradient(to top, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0)); /* Light fog for light mode */
-            pointer-events: none; /* So it doesn't interfere with scrolling or clicking */
+            pointer-events: none;
             z-index: 10;
         }
 
-        body.dark-mode .fog-effect {
+        /* Fog effect at the top */
+        .fog-effect-top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 150px; /* Adjust height as needed */
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0)); /* Light fog for light mode */
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Dark mode styling */
+        body.dark-mode .fog-effect-bottom {
             background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0)); /* Dark fog for dark mode */
+        }
+
+        body.dark-mode .fog-effect-top {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0)); /* Dark fog for dark mode */
         }
 
 
@@ -3015,8 +3102,9 @@
 
  
 
-    <!-- Fog effect overlay -->
-    <div class="fog-effect"></div>
+    <!-- Fog effect overlays -->
+    <div class="fog-effect-top"></div>
+    <div class="fog-effect-bottom"></div>
  
  
  
