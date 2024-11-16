@@ -747,11 +747,11 @@
             background: linear-gradient(90deg, #b00076, #b000a1, #b00076); /* Gradient from green to dark green and back to green */
             background-clip: text; /* Clip the background to the text */
             -webkit-background-clip: text; /* For Webkit-based browsers (Safari, Chrome) */
-            text-shadow: 0 0 1px #c9541a, 
-                        0 0 1px #c9541a, 
-                        0 0 1px #c9541a, 
-                        0 0 1px #c9541a, 
-                        0 0 1px #c9541a;
+            text-shadow: 0 0 .5px #c9541a, 
+                        0 0 .5px #c9541a, 
+                        0 0 .5px #c9541a, 
+                        0 0 .5px #c9541a, 
+                        0 0 .5px #c9541a;
         }
 
         /* Keyframe for the falling animation */
@@ -836,8 +836,8 @@
  
         .early-years { background-color: #003366; }
         .junior-school { background-color: #2E8B57; }
-        .middle-school { background-color: #DC143C; }
-        .senior-school { background-color: #35383b; }
+        .middle-school { background-color: #ba1032; }
+        .senior-school { background-color: #95178b; }
  
         .button:hover {
             transform: translateY(-4px);
@@ -851,22 +851,22 @@
         }
  
         body.dark-mode .early-years {
-            background-color: #181818; /* Dark background */
-            color: #ffffff; /* White text */
+            background-color: #4CAF50; 
+            color: #ffffff; 
         }
  
         body.dark-mode .junior-school {
-            background-color: #484848; /* Dark background */
+            background-color: #607D8B; 
             color: #ffffff; /* White text */
         }
  
         body.dark-mode .middle-school {
-            background-color: #484848; /* Dark background */
+            background-color: #ff9807; /* Dark background */
             color: #ffffff; /* White text */
         }
  
         body.dark-mode .senior-school {
-            background-color: #484848; /* Dark background */
+            background-color: #F44336; /* Dark background */
             color: #ffffff; /* White text */
         }
  
@@ -2285,7 +2285,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 150px;
+            height: 100px;
             background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
             pointer-events: none;
             z-index: 10;
@@ -2297,7 +2297,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 150px;
+            height: 120px;
             background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)); /* Light fog for light mode */
             pointer-events: none;
             z-index: 10;
@@ -2310,7 +2310,7 @@
 
         body.dark-mode .fog-effect-top {
             background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)); /* Dark fog for dark mode */
-            height: 350px;
+            height: 250px;
         }
 
 
