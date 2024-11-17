@@ -742,12 +742,12 @@
             font-family: "Poppins", sans-serif;
             font-size: 4vw; /* Default font-size for other lines */
             font-weight: 700;
-            color: transparent; /* Make the text transparent so the gradient can show through */
-            background: linear-gradient(90deg, #0000FF, #00008B, #0000FF);
+            color: solid; /* Make the text transparent so the gradient can show through */
+            background: linear-gradient(90deg, #dbdbdb, #dbdbdb);
             background-clip: text; /* Clip the background to the text */
             -webkit-background-clip: text; /* For Webkit-based browsers (Safari, Chrome) */
             letter-spacing: 0;
-            text-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+            text-shadow: 5px 5px 5px rgba(0, 0, 0, 1);
             position: relative;
             transform: translateY(-100vh); /* Start from off-screen */
             animation: fall 2.5s forwards;
@@ -3357,7 +3357,6 @@
 
             window.addEventListener('scroll', handleScroll);
         });
-
 
  
         document.addEventListener("DOMContentLoaded", function() {
