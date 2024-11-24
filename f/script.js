@@ -15,12 +15,17 @@ const websiteSections = [
     {
         title: "Admission",
         description: "Information about admission process and requirements",
-        url: "https://pisjes.edu.sa/admission-procedure"
+        url: "https://pisjes.edu.sa/admission"
     },
     {
-        title: "About Us",
-        description: "Learn about PISJ-ES history and mission",
-        url: "https://pisjes.edu.sa/about-pisj-es"
+        title: "Fee Structure",
+        description: "Information about school fees and payment",
+        url: "https://pisjes.edu.sa/fee-structure"
+    },
+    {
+        title: "Contact",
+        description: "Get in touch with PISJ-ES",
+        url: "https://pisjes.edu.sa/contact"
     },
     {
         title: "Facilities",
@@ -28,23 +33,13 @@ const websiteSections = [
         url: "https://pisjes.edu.sa/facilities"
     },
     {
-        title: "Contact Us",
-        description: "Get in touch with PISJ-ES",
-        url: "https://pisjes.edu.sa/contact"
-    },
-    {
-        title: "Academic Calendar",
-        description: "School calendar and important dates",
-        url: "https://pisjes.edu.sa/academic-calendar"
-    },
-    {
-        title: "News & Events",
-        description: "Latest news and upcoming events",
-        url: "https://pisjes.edu.sa/news-events"
+        title: "Downloads",
+        description: "Important forms and documents",
+        url: "https://pisjes.edu.sa/downloads"
     },
     {
         title: "Gallery",
-        description: "Photos of school activities and events",
+        description: "Photos and videos of school events and activities",
         url: "https://pisjes.edu.sa/gallery"
     }
 ];
@@ -124,11 +119,17 @@ function getBotResponse(message) {
     } else if (lowerMessage.includes('website')) {
         return "You can visit our school website at: https://pisjes.edu.sa/";
     } else if (lowerMessage.includes('admission') || lowerMessage.includes('enroll')) {
-        return "For admission inquiries, please visit our admission page at https://pisjes.edu.sa/admission-procedure/ or contact our admission office at +966-12-6750247.";
+        return "For admission inquiries, please visit our admission page at https://pisjes.edu.sa/admission or contact our admission office at +966-12-6750247.";
+    } else if (lowerMessage.includes('fee') || lowerMessage.includes('payment')) {
+        return "You can find our fee structure and payment details at https://pisjes.edu.sa/fee-structure";
+    } else if (lowerMessage.includes('download') || lowerMessage.includes('form')) {
+        return "You can download important forms and documents from https://pisjes.edu.sa/downloads";
     } else if (lowerMessage.includes('location') || lowerMessage.includes('address')) {
         return "PISJ-ES is located in Al-Rehab District, Jeddah, Saudi Arabia. You can find detailed directions on our website.";
-    } else if (lowerMessage.includes('uniform')) {
-        return "Students are required to wear the official school uniform. Details about the uniform can be obtained from the school administration.";
+    } else if (lowerMessage.includes('facilities')) {
+        return "To learn about our school facilities, visit https://pisjes.edu.sa/facilities";
+    } else if (lowerMessage.includes('gallery') || lowerMessage.includes('photos') || lowerMessage.includes('pictures')) {
+        return "View our school's photos and videos in the gallery at https://pisjes.edu.sa/gallery";
     } else {
         return "I'm not sure about that specific query. Please try asking about our contact information, school timings, admission process, or visit our website at https://pisjes.edu.sa/ for more details.";
     }
