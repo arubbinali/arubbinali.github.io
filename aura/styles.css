@@ -43,6 +43,10 @@ body {
     cursor: pointer;
 }
 
+.nav-item:nth-child(2) {
+    margin-right: -2rem;
+}
+
 .nav-item span {
     font-family: 'Rajdhani', sans-serif;
     font-size: clamp(0.7rem, 2vw, 0.9rem);
