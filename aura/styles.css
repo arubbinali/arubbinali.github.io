@@ -16,11 +16,12 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(10, 10, 10, 0.8);
-    backdrop-filter: blur(10px);
+    background: rgb(10, 10, 10, 0.7);
     z-index: 1000;
-    padding: 1rem 0;
+    transition: all 0.3s ease;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    height: 4rem;
+    overflow: hidden;
 }
 
 .nav-container {
@@ -31,15 +32,15 @@ body {
 
 .nav-items {
     display: flex;
-    justify-content: center;
+    margin-left: -200px;
     gap: clamp(1rem, 3vw, 4rem);
     flex-wrap: wrap;
+    padding: 1rem 0;
 }
 
 .nav-item {
     position: relative;
     cursor: pointer;
-    padding: 0.5rem;
 }
 
 .nav-item span {
@@ -50,50 +51,75 @@ body {
     opacity: 0.7;
     transition: all 0.3s ease;
     white-space: nowrap;
+    display: block;
+    padding: 0.5rem;
 }
 
 .nav-item:hover span {
     opacity: 1;
+    color: rgba(255, 255, 255, 1);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 1);
 }
 
-.dropdown {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: rgba(15, 15, 15, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 0.8rem;
-    border-radius: 4px;
-    min-width: max(150px, 100%);
+.nav-content {
+    padding: 0.5rem 0;
     opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: opacity 0.3s ease;
+    width: max-content;
 }
 
-.nav-item:hover .dropdown {
+.nav-item:hover .nav-content {
     opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(10px);
 }
 
-.dropdown a {
+.nav-content a {
+    margin-left: -24px;
     display: block;
-    padding: 0.5rem 0.8rem;
-    color: #fff;
+    padding: 0.5rem 2rem;
+    color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     font-family: 'Rajdhani', sans-serif;
     font-size: clamp(0.7rem, 1.5vw, 0.8rem);
     letter-spacing: 1px;
-    opacity: 0.7;
     transition: all 0.2s ease;
     white-space: nowrap;
+    text-align: left;
 }
 
-.dropdown a:hover {
-    opacity: 1;
-    background: rgba(255, 255, 255, 0.1);
+.nav-content a:hover {
+    color: rgba(255, 255, 255, 1);
+    background: rgb(10, 10, 10, 0);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 1);
+}
+
+/* Dynamic heights for different menu items */
+.nav-item:nth-child(1):hover ~ .navbar,
+.nav-item:nth-child(1):hover .navbar,
+.navbar:has(.nav-item:nth-child(1):hover) {
+    height: calc(4rem + (7 * 2.5rem)); /* Base height + (number of items * item height) */
+}
+
+.nav-item:nth-child(2):hover ~ .navbar,
+.nav-item:nth-child(2):hover .navbar,
+.navbar:has(.nav-item:nth-child(2):hover) {
+    height: calc(4rem + (2 * 2.5rem));
+}
+
+.nav-item:nth-child(3):hover ~ .navbar,
+.nav-item:nth-child(3):hover .navbar,
+.navbar:has(.nav-item:nth-child(3):hover) {
+    height: calc(4rem + (8 * 2.5rem));
+}
+
+.nav-item:nth-child(4):hover ~ .navbar,
+.nav-item:nth-child(4):hover .navbar,
+.navbar:has(.nav-item:nth-child(4):hover) {
+    height: calc(4rem + (4 * 2.5rem));
+}
+
+/* Hover state for nav items */
+.nav-item:hover {
+    background: rgb(10, 10, 10, 0);
 }
 
 .center-text {
