@@ -177,7 +177,98 @@ document.addEventListener('mousemove', (e) => {
 });
 
 // Hamburger Menu
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
+    let count = parseInt(localStorage.getItem('visitorCount')) || 0;
+    
+    // Only increment if this is a new session
+    if (!sessionStorage.getItem('hasVisited')) {
+        count++;
+        localStorage.setItem('visitorCount', count);
+        sessionStorage.setItem('hasVisited', 'true');
+    }
+
+    // Counter display setup
+    const counterDisplay = document.querySelector('.counter-display');
+
+    function createDigitBox() {
+        const box = document.createElement('div');
+        box.className = 'digit-box';
+        const scroll = document.createElement('div');
+        scroll.className = 'digit-scroll';
+        
+        // Create digits 0-9
+        for (let i = 0; i <= 9; i++) {
+            const span = document.createElement('span');
+            span.textContent = i;
+            scroll.appendChild(span);
+        }
+        
+        box.appendChild(scroll);
+        return box;
+    }
+
+    function createComma() {
+        const comma = document.createElement('span');
+        comma.className = 'counter-comma';
+        comma.textContent = ',';
+        return comma;
+    }
+
+    function formatWithCommas(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function updateCounter(value) {
+        counterDisplay.innerHTML = '';
+        const formattedNumber = formatWithCommas(value.toString());
+        const digits = formattedNumber.split('');
+        const scrollElements = [];
+        
+        digits.forEach((char, index) => {
+            if (char === ',') {
+                counterDisplay.appendChild(createComma());
+            } else {
+                const box = createDigitBox();
+                counterDisplay.appendChild(box);
+                const scroll = box.querySelector('.digit-scroll');
+                
+                // Store scroll element and its target position
+                if (scroll) {
+                    scrollElements.push({
+                        element: scroll,
+                        targetPos: -parseInt(char) * 20
+                    });
+                }
+            }
+        });
+
+        // Animate all digits at once
+        requestAnimationFrame(() => {
+            scrollElements.forEach(({element, targetPos}) => {
+                element.style.transform = `translateY(${targetPos}px)`;
+            });
+        });
+    }
+
+    // Initial counter setup with animation
+    setTimeout(() => {
+        updateCounter(count);
+    }, 500);
+
+    // Listen for storage changes (other tabs)
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'visitorCount') {
+            const newCount = parseInt(e.newValue);
+            if (!isNaN(newCount) && newCount !== count) {
+                count = newCount;
+                updateCounter(count);
+            }
+        }
+    });
+
+    // Update display
+    document.getElementById('cntr').textContent = count;
+
     const hamburgerMenu = document.querySelector('.hamburger-menu');
     
     hamburgerMenu.addEventListener('click', (e) => {
