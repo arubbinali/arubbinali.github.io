@@ -1,0 +1,502 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #2b2b2b;
+    color: #fff;
+    min-height: 300vh;
+    overflow-x: hidden;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgb(10, 10, 10, 0.7);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    height: 4rem;
+    overflow: hidden;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem 0 70px;
+}
+
+.nav-items {
+    display: flex;
+    padding-left: 1rem;
+    gap: clamp(1rem, 3vw, 4rem);
+    flex-wrap: wrap;
+    padding: 1rem 0;
+}
+
+.nav-item {
+    position: relative;
+    cursor: pointer;
+}
+
+.nav-item:nth-child(2) {
+    margin-right: -2rem;
+}
+
+.nav-item span {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
+    font-weight: 600;
+    letter-spacing: clamp(1px, 1vw, 3px);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    display: block;
+    padding: 0.5rem;
+}
+
+.nav-item:hover span {
+    opacity: 1;
+    color: rgba(255, 255, 255, 1);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 1);
+}
+
+.nav-content {
+    padding: 0.5rem 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    width: max-content;
+}
+
+.nav-item:hover .nav-content {
+    opacity: 1;
+}
+
+.nav-content a {
+    margin-left: -24px;
+    display: block;
+    padding: 0.5rem 2rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.nav-content a:hover {
+    color: rgba(255, 255, 255, 1);
+    background: rgb(10, 10, 10, 0);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 1);
+}
+
+/* Dynamic heights for different menu items */
+.nav-item:nth-child(1):hover ~ .navbar,
+.nav-item:nth-child(1):hover .navbar,
+.navbar:has(.nav-item:nth-child(1):hover) {
+    height: calc(4rem + (7 * 2.5rem)); /* Base height + (number of items * item height) */
+}
+
+.nav-item:nth-child(2):hover ~ .navbar,
+.nav-item:nth-child(2):hover .navbar,
+.navbar:has(.nav-item:nth-child(2):hover) {
+    height: calc(4rem + (2 * 2.5rem));
+}
+
+.nav-item:nth-child(3):hover ~ .navbar,
+.nav-item:nth-child(3):hover .navbar,
+.navbar:has(.nav-item:nth-child(3):hover) {
+    height: calc(4rem + (8 * 2.5rem));
+}
+
+.nav-item:nth-child(4):hover ~ .navbar,
+.nav-item:nth-child(4):hover .navbar,
+.navbar:has(.nav-item:nth-child(4):hover) {
+    height: calc(4rem + (4 * 2.5rem));
+}
+
+/* Hover state for nav items */
+.nav-item:hover {
+    background: rgb(10, 10, 10, 0);
+}
+
+.button-group {
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 1rem;
+}
+
+.void-button {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+}
+
+.void-button:hover {
+    color: rgba(255, 255, 255, 1);
+    border-color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.center-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+    font-size: clamp(2rem, 8vw, 8vw);
+    letter-spacing: clamp(-1px, -0.3vw, -2px);
+    opacity: 0;
+    z-index: 1;
+    text-align: center;
+    width: 90%;
+    color: #ffffff;
+    animation: fadeInOut 2s ease-out forwards;
+    transition: text-shadow 0.1s ease-out;
+    text-shadow: none;
+}
+
+.aura-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    text-shadow: none;
+    margin-bottom: 0.5rem;
+}
+
+.code-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.2vw);
+    font-weight: 300;
+    opacity: 0.8;
+    letter-spacing: 1px;
+}
+
+.code-text a {
+    color: #ff69b4;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.code-text a:hover {
+    text-decoration: underline;
+    color: #ff1493;
+    transform: scale(1.1);
+}
+
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.9;
+    pointer-events: none;
+}
+
+.content-sections {
+    position: relative;
+    margin-top: 100vh;
+    padding: 4rem 2rem;
+    background: #554141b3;
+    z-index: 2;
+}
+
+.content-sections::before,
+.content-sections::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 0px;
+    pointer-events: none;
+}
+
+.content-sections::before {
+    top: 0;
+    background: linear-gradient(to bottom, 
+        rgba(10, 10, 10, 0) 0%,
+        #554141b3 100%
+    );
+    transform: translateY(-100%);
+}
+
+.content-sections::after {
+    bottom: 0;
+    background: linear-gradient(to top, 
+        rgba(10, 10, 10, 0) 0%,
+        #554141b3 100%
+    );
+    transform: translateY(100%);
+}
+
+.info-section {
+    max-width: 800px;
+    margin: 0 auto 6rem auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    transform: translateY(50px);
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+}
+
+.info-section h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.info-section p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 1.5rem;
+}
+
+.glow-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    margin-top: 2rem;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Hamburger Menu Styles */
+.hamburger-menu {
+    position: relative;
+    z-index: 1001;
+    font-family: 'Poppins', sans-serif;
+}
+
+.hamburger-lines {
+    width: 24px;
+    height: 20px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1002; /* Increased z-index to ensure clickability */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    pointer-events: auto; /* Ensure clicks are registered */
+}
+
+.line {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    transition: transform 0.3s ease-in-out, opacity 0.2s ease-in-out;
+    transform-origin: center center;
+    pointer-events: none; /* Let clicks pass through to parent */
+}
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100vh;
+    background: rgba(10, 10, 10, 0.95);
+    padding-top: 80px;
+    transition: 0.3s ease-in-out;
+    z-index: 1;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu-item {
+    display: block;
+    padding: 1rem 2rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+    color: rgba(255, 255, 255, 1);
+    background: rgba(255, 255, 255, 0.1);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Hamburger Menu Active State */
+.hamburger-menu.active .line1 {
+    transform: translateY(9px) rotate(45deg);
+    transform-origin: center;
+}
+
+.hamburger-menu.active .line2 {
+    opacity: 0;
+}
+
+.hamburger-menu.active .line3 {
+    transform: translateY(-9px) rotate(-45deg);
+    transform-origin: center;
+}
+
+.hamburger-menu.active .side-menu {
+    left: 0;
+}
+
+@keyframes fadeInOut {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.9;
+    }
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 0 0.5rem;
+    }
+
+    .nav-items {
+        gap: 0.8rem;
+    }
+
+    .nav-item {
+        padding: 0.3rem;
+    }
+
+    .dropdown {
+        left: 0;
+        transform: translateX(0) translateY(20px);
+        min-width: 200px;
+    }
+
+    .nav-item:hover .dropdown {
+        transform: translateX(0) translateY(10px);
+    }
+}
+
+.counter-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.counter-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 8px;
+}
+
+.counter-display {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 8px 16px;
+    border-radius: 6px;
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.digit-box {
+    width: 12px;
+    height: 20px;
+    position: relative;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.digit-scroll {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(0);
+}
+
+.digit-scroll span {
+    height: 20px;
+    width: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+    line-height: 20px;
+}
+
+.counter-comma {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 1px;
+    transform: translateY(1px);
+}
+
+/* First digit (rightmost) */
+.digit-box:last-child .digit-scroll {
+    transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Second digit */
+.digit-box:nth-last-child(2) .digit-scroll {
+    transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Third digit */
+.digit-box:nth-last-child(3) .digit-scroll {
+    transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Fourth digit */
+.digit-box:nth-last-child(4) .digit-scroll {
+    transition: transform 2.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Fifth digit */
+.digit-box:nth-last-child(5) .digit-scroll {
+    transition: transform 3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Beyond the fifth digit */
+.digit-box:nth-last-child(n+6) .digit-scroll {
+    transition: transform 3.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
