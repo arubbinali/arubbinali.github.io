@@ -297,11 +297,12 @@ body {
     position: absolute;
     top: 20px;
     left: 20px;
-    z-index: 2;
+    z-index: 1002; /* Increased z-index to ensure clickability */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
+    pointer-events: auto; /* Ensure clicks are registered */
 }
 
 .line {
@@ -311,6 +312,7 @@ body {
     background: rgba(255, 255, 255, 0.7);
     transition: transform 0.3s ease-in-out, opacity 0.2s ease-in-out;
     transform-origin: center center;
+    pointer-events: none; /* Let clicks pass through to parent */
 }
 
 .side-menu {
@@ -498,4 +500,3 @@ body {
 .digit-box:nth-last-child(n+6) .digit-scroll {
     transition: transform 3.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
