@@ -80,6 +80,27 @@ function animate() {
 // Start animation
 animate();
 
+// Handle button hover states and text glow
+document.querySelectorAll('.void-button').forEach(button => {
+    button.addEventListener('mouseenter', () => {
+        const text = document.querySelector('.center-text');
+        if (text) {
+            text.style.textShadow = `
+                0 0 10px rgba(255, 255, 255, 0.8),
+                0 0 20px rgba(255, 255, 255, 0.6),
+                0 0 30px rgba(255, 255, 255, 0.4),
+                0 0 40px rgba(255, 255, 255, 0.2)`;
+        }
+    });
+
+    button.addEventListener('mouseleave', () => {
+        const text = document.querySelector('.center-text');
+        if (text) {
+            text.style.textShadow = 'none';
+        }
+    });
+});
+
 // Existing scroll handling code
 const navbar = document.querySelector('.navbar');
 const sections = document.querySelectorAll('.info-section');
@@ -138,4 +159,20 @@ document.addEventListener('mousemove', (e) => {
     
     // Update shadow
     centerText.style.textShadow = shadows.join(', ');
+});
+
+document.querySelectorAll('.void-button').forEach(button => {
+    button.addEventListener('mouseenter', () => {
+        const text = document.querySelector('.center-text');
+        if (text) {
+            text.style.textShadow = 'none'; // No glow effect
+        }
+    });
+
+    button.addEventListener('mouseleave', () => {
+        const text = document.querySelector('.center-text');
+        if (text) {
+            text.style.textShadow = 'none'; // Ensure no glow remains
+        }
+    });
 });

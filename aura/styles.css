@@ -158,17 +158,26 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
     font-size: clamp(2rem, 8vw, 8vw);
-    font-weight: 300;
     letter-spacing: clamp(-1px, -0.3vw, -2px);
-    opacity: 0.9;
+    opacity: 0;
     z-index: 1;
     text-align: center;
     width: 90%;
-    transition: text-shadow 0.1s ease-out;
     color: #ffffff;
+    animation: fadeInOut 2s ease-out forwards;
+    transition: text-shadow 0.1s ease-out;
+    text-shadow: none;
 }
+
+.aura-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    text-shadow: none;
+}
+
 
 #particleCanvas {
     position: fixed;
@@ -253,6 +262,15 @@ body {
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     margin-top: 2rem;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+@keyframes fadeInOut {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.9;
+    }
 }
 
 @keyframes fadeInUp {
