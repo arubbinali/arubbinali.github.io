@@ -176,3 +176,19 @@ document.querySelectorAll('.void-button').forEach(button => {
         }
     });
 });
+
+// Hamburger Menu
+document.addEventListener('DOMContentLoaded', () => {
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    
+    hamburgerMenu.addEventListener('click', (e) => {
+        hamburgerMenu.classList.toggle('active');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!hamburgerMenu.contains(e.target) && hamburgerMenu.classList.contains('active')) {
+            hamburgerMenu.classList.remove('active');
+        }
+    });
+});
