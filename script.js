@@ -202,16 +202,66 @@ if (hamburgerMenu && hamburgerLines) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    let count = parseInt(localStorage.getItem('visitorCount')) || 0;
-    
-    // Only increment if this is a new session
-    if (!sessionStorage.getItem('hasVisited')) {
-        count++;
-        localStorage.setItem('visitorCount', count);
-        sessionStorage.setItem('hasVisited', 'true');
-    }
+// Firebase Configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyCeE7-jDke4HtDlYqMKRwGb0_IP-zDZKds",
+    authDomain: "auraful.firebaseapp.com",
+    databaseURL: "https://auraful-default-rtdb.firebaseio.com",
+    projectId: "auraful",
+    storageBucket: "auraful.firebasestorage.app",
+    messagingSenderId: "113641021337",
+    appId: "1:113641021337:web:1476970f873cca88de3d08",
+    measurementId: "G-4HJCK9D24W"
+};
 
+// Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const database = firebase.database(app);
+const visitorRef = database.ref('visitors');
+
+// Function to update counter display with animation
+function updateCounterDisplay(count) {
+    const counterElement = document.getElementById('cntr');
+    if (!counterElement) return;
+    
+    const currentCount = parseInt(counterElement.textContent.replace(/,/g, '')) || 0;
+    const newCount = count;
+    
+    // Update the counter with animation
+    const digitBoxes = document.querySelectorAll('.digit-box');
+    const newCountStr = newCount.toString().padStart(digitBoxes.length, '0');
+    
+    digitBoxes.forEach((box, index) => {
+        const digit = parseInt(newCountStr[index]);
+        const digitScroll = box.querySelector('.digit-scroll');
+        if (digitScroll) {
+            const currentTransform = getComputedStyle(digitScroll).transform;
+            const currentY = currentTransform !== 'none' 
+                ? parseInt(currentTransform.split(',')[5]) 
+                : 0;
+            
+            digitScroll.style.transform = `translateY(${-digit * 100}%)`;
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if this is a new session
+    if (!sessionStorage.getItem('hasVisited')) {
+        sessionStorage.setItem('hasVisited', 'true');
+        
+        // Increment visitor count in Firebase
+        visitorRef.transaction((currentCount) => {
+            return (currentCount || 0) + 1;
+        });
+    }
+    
+    // Listen for real-time updates
+    visitorRef.on('value', (snapshot) => {
+        const count = snapshot.val() || 0;
+        updateCounterDisplay(count);
+    });
+    
     // Counter display setup
     const counterDisplay = document.querySelector('.counter-display');
 
@@ -277,20 +327,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initial counter setup with animation
     setTimeout(() => {
-        updateCounter(count);
+        updateCounter(0);
     }, 500);
 
     // Listen for storage changes (other tabs)
     window.addEventListener('storage', (e) => {
         if (e.key === 'visitorCount') {
             const newCount = parseInt(e.newValue);
-            if (!isNaN(newCount) && newCount !== count) {
-                count = newCount;
-                updateCounter(count);
+            if (!isNaN(newCount) && newCount !== 0) {
+                updateCounter(newCount);
             }
         }
     });
 
     // Update display
-    document.getElementById('cntr').textContent = count;
+    document.getElementById('cntr').textContent = 0;
 });
