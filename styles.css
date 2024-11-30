@@ -214,7 +214,7 @@ body {
     position: relative;
     margin-top: 100vh;
     padding: 4rem 2rem;
-    background: #554141b3;
+    background: #000000b3;
     z-index: 2;
 }
 
@@ -224,7 +224,7 @@ body {
     position: absolute;
     left: 0;
     width: 100%;
-    height: 0px;
+    height: 1px;
     pointer-events: none;
 }
 
@@ -251,12 +251,58 @@ body {
     margin: 0 auto 6rem auto;
     padding: 2rem;
     background: rgba(255, 255, 255, 0.03);
-    border-radius: 8px;
+    border-radius: 15px;
     transform: translateY(50px);
     opacity: 0;
     animation: fadeInUp 0.8s ease forwards;
-    backdrop-filter: blur(5px);
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.info-section:hover {
+    transform: translateY(45px);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.info-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.info-section:hover::before {
+    left: 100%;
+}
+
+.info-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.1)
+    );
+    border-radius: 4px 0 0 4px;
 }
 
 .info-section h2 {
@@ -282,6 +328,71 @@ body {
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     margin-top: 2rem;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Elite Paragraph Styling */
+p {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+p:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+p::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+p:hover::before {
+    left: 100%;
+}
+
+p::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.1)
+    );
+    border-radius: 4px 0 0 4px;
+}
+
+/* Add some spacing between paragraphs in containers */
+.content-sections p {
+    max-width: 800px;
+    margin: 2rem auto;
 }
 
 /* Hamburger Menu Styles */
@@ -337,12 +448,36 @@ body {
     font-size: 1rem;
     letter-spacing: 2px;
     transition: all 0.3s ease;
+    background: transparent;
+    transform-origin: right;
+    position: relative;
 }
 
 .menu-item:hover {
-    color: rgba(255, 255, 255, 1);
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+    letter-spacing: 2px;
+    font-size: 1.1rem;
     background: rgba(255, 255, 255, 0.1);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 1);
+    padding: 1.5rem 2rem;
+    margin-left: -10px;
+}
+
+/* Common hover effect base */
+.side-menu .menu-item::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #fff, transparent);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.side-menu .menu-item:hover::before {
+    transform: scaleX(1);
 }
 
 /* Hamburger Menu Active State */
