@@ -42,6 +42,16 @@
                 <a href="About.html" class="menu-item">About</a>
             </div>
         </div>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search..." id="searchInput">
+            <button class="search-button" id="searchButton">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+            <div class="search-results" id="searchResults"></div>
+        </div>
         <div class="nav-container">
             <div class="nav-items">
                 <div class="nav-item">
@@ -130,5 +140,6 @@
     </main>
 
     <script src="script.js"></script>
+    <script src="search.js"></script>
 </body>
 </html>
