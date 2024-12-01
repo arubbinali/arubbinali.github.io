@@ -48,7 +48,7 @@ body {
 }
 
 .nav-item span {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: clamp(0.7rem, 2vw, 0.9rem);
     font-weight: 600;
     letter-spacing: clamp(1px, 1vw, 3px);
@@ -61,8 +61,8 @@ body {
 
 .nav-item:hover span {
     opacity: 1;
-    color: rgba(255, 255, 255, 1);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    color: #ff69b4;
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
 }
 
 .nav-content {
@@ -91,9 +91,9 @@ body {
 }
 
 .nav-content a:hover {
-    color: rgba(255, 255, 255, 1);
+    color: #ff69b4;
     background: rgb(10, 10, 10, 0);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
 }
 
 /* Dynamic heights for different menu items */
