@@ -414,6 +414,17 @@ p::after {
     justify-content: space-between;
     cursor: pointer;
     pointer-events: auto; /* Ensure clicks are registered */
+    transition: all 0.3s ease;
+}
+
+.hamburger-lines:hover .line {
+    background-color: #ff00ff;
+    box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+}
+
+.hamburger-lines.active:hover .line {
+    background-color: #00ffff;
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
 }
 
 .line {
@@ -424,6 +435,7 @@ p::after {
     transition: transform 0.3s ease-in-out, opacity 0.2s ease-in-out;
     transform-origin: center center;
     pointer-events: none; /* Let clicks pass through to parent */
+    transition: all 0.3s ease;
 }
 
 .side-menu {
