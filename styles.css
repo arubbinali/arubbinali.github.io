@@ -154,10 +154,9 @@ body {
 }
 
 .center-text {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
+    top: 35vh;
+    margin: 0 auto;
     font-family: 'Montserrat', sans-serif;
     font-weight: 100;
     font-size: clamp(2rem, 8vw, 8vw);
@@ -173,10 +172,16 @@ body {
 }
 
 .aura-text {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
     text-shadow: none;
     margin-bottom: 0.5rem;
+}
+
+/* Special style for main page aura text */
+.index-page .aura-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
 }
 
 .code-text {
