@@ -7,6 +7,7 @@
     <title>Docs</title>
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -76,8 +77,272 @@
             <div class="aura-text">Docs</div>
             <div class="code-text">Licensed Code and Notes for My Projects & Certifications</div>
         </div>
-    </main>
 
-    <script src="script.js"></script>
-</body>
+        <div class="scroll-spacer" style="height: 0vh;"></div>
+
+        <div class="content-sections">
+            <div class="code-snippets-container">
+                <div class="code-snippet">
+                    <div class="code-snippet-header">
+                        <h2 class="code-snippet-title">Matrix Digital Rain</h2>
+                        <button class="code-snippet-toggle">+</button>
+                    </div>
+                    <div class="code-snippet-content">
+                        <div class="code-language">
+                            <i class="language-icon javascript"></i>
+                            <span>JavaScript</span>
+                        </div>
+                        <pre class="code-snippet-code"><code class="language-javascript">class MatrixChar {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.reset();
+    }
+
+    reset() {
+        this.speed = Math.random() * 2 + 1;
+        this.value = String.fromCharCode(
+            Math.random() > 0.5 
+                ? Math.floor(Math.random() * 10) + 48  // Numbers
+                : Math.floor(Math.random() * 26) + 65  // Letters
+        );
+        this.opacity = 0;
+        this.maxOpacity = Math.random() * 0.5 + 0.2;
+        this.fadeSpeed = Math.random() * 0.02 + 0.005;
+        this.size = Math.floor(Math.random() * 16) + 10;
+    }
+
+    update() {
+        this.y += this.speed;
+        
+        // Fade in
+        if (this.opacity < this.maxOpacity) {
+            this.opacity += this.fadeSpeed;
+        }
+
+        // Reset when off screen
+        if (this.y > canvas.height + 50) {
+            this.y = -20;
+            this.x = Math.random() * canvas.width;
+            this.reset();
+        }
+    }
+
+    draw() {
+        ctx.font = `${this.size}px monospace`;
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+        ctx.fillText(this.value, this.x, this.y);
+    }
+}</code></pre>
+                        <div class="button-container">
+                            <button class="see-more-btn" onclick="showModal(this)">See More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-snippet">
+                    <div class="code-snippet-header">
+                        <h2 class="code-snippet-title">Dynamic Shadow Effect</h2>
+                        <button class="code-snippet-toggle">+</button>
+                    </div>
+                    <div class="code-snippet-content">
+                        <div class="code-language">
+                            <i class="language-icon javascript"></i>
+                            <span>JavaScript</span>
+                        </div>
+                        <pre class="code-snippet-code"><code class="language-javascript">document.addEventListener('mousemove', (e) => {
+    const centerTextElements = document.querySelectorAll('.center-text, .center-text > *');
+    
+    centerTextElements.forEach(element => {
+        const rect = element.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        // Calculate angle between cursor and text center
+        const dx = e.clientX - centerX;
+        const dy = e.clientY - centerY;
+        
+        // Calculate shadow offset (opposite to cursor direction)
+        const shadowX = -dx / 15;
+        const shadowY = -dy / 15;
+        
+        // Create connected shadow effect with fade
+        let shadows = [];
+        const steps = 15;
+        
+        for(let i = 0; i <= steps; i++) {
+            const stepX = (shadowX * i) / steps;
+            const stepY = (shadowY * i) / steps;
+            // Calculate opacity that starts at 0.95 and fades to 0.1
+            const opacity = 0.95 - (i / steps) * 0.85;
+            shadows.push(`${stepX}px ${stepY}px 0 rgba(0, 0, 0, ${opacity})`);
+        }
+        
+        // Update shadow
+        element.style.textShadow = shadows.join(', ');
+    });
+});</code></pre>
+                        <div class="button-container">
+                            <button class="see-more-btn" onclick="showModal(this)">See More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-snippet">
+                    <div class="code-snippet-header">
+                        <h2 class="code-snippet-title">Scroll Animation</h2>
+                        <button class="code-snippet-toggle">+</button>
+                    </div>
+                    <div class="code-snippet-content">
+                        <div class="code-language">
+                            <i class="language-icon javascript"></i>
+                            <span>JavaScript</span>
+                        </div>
+                        <pre class="code-snippet-code"><code class="language-javascript">function updateScrollEffects(scrollPos) {
+    navbar.style.backgroundColor = `rgba(10, 10, 10, ${Math.min(0.95, 0.8 + scrollPos / 1000)})`;
+    
+    sections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        const isInView = rect.top <= window.innerHeight * 0.8;
+        
+        if (isInView && !section.classList.contains('animated')) {
+            section.style.animationDelay = `${index * 0.2}s`;
+            section.classList.add('animated');
+        }
+    });
+}
+
+let ticking = false;
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            updateScrollEffects(window.pageYOffset);
+            ticking = false;
+        });
+        ticking = true;
+    }
+});</code></pre>
+                        <div class="button-container">
+                            <button class="see-more-btn" onclick="showModal(this)">See More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="codeModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <div class="modal-code-container">
+                    <div class="line-numbers"></div>
+                    <pre class="modal-code-wrapper">
+                        <code class="modal-code language-javascript"></code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Function to truncate code for preview
+            function truncateCode(code, lines = 12) {
+                const codeLines = code.split('\n');
+                if (codeLines.length > lines) {
+                    return codeLines.slice(0, lines).join('\n');
+                }
+                return code;
+            }
+
+            // Function to toggle code snippet visibility
+            document.querySelectorAll('.code-snippet-header').forEach(header => {
+                const content = header.nextElementSibling;
+                const codeElement = content.querySelector('code');
+                const fullCode = codeElement.textContent;
+                
+                // Store full code and set truncated preview
+                codeElement.dataset.fullCode = fullCode;
+                codeElement.textContent = truncateCode(fullCode);
+                
+                header.addEventListener('click', () => {
+                    const toggle = header.querySelector('.code-snippet-toggle');
+                    content.classList.toggle('expanded');
+                    toggle.textContent = content.classList.contains('expanded') ? '-' : '+';
+                });
+            });
+
+            // Function to copy code to clipboard
+            function copyToClipboard(button) {
+                const codeBlock = button.previousElementSibling;
+                const code = codeBlock.textContent;
+                
+                navigator.clipboard.writeText(code).then(() => {
+                    button.textContent = 'Copied!';
+                    button.style.color = '#ff69b4';
+                    
+                    setTimeout(() => {
+                        button.textContent = 'Copy Code';
+                        button.style.color = '';
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+            }
+
+            // Function to show modal with full code
+            function showModal(button) {
+                const modal = document.getElementById('codeModal');
+                const codeBlock = button.closest('.code-snippet-content').querySelector('code');
+                const code = codeBlock.dataset.fullCode; // Use the stored full code
+                const modalCode = modal.querySelector('.modal-code');
+                const lineNumbers = modal.querySelector('.line-numbers');
+                
+                // Clear previous content
+                lineNumbers.innerHTML = '';
+                
+                // Detect language from the code snippet title
+                const title = button.closest('.code-snippet').querySelector('.code-snippet-title').textContent;
+                let language = 'javascript'; // default
+                if (title.toLowerCase().includes('html')) language = 'html';
+                if (title.toLowerCase().includes('css')) language = 'css';
+                if (title.toLowerCase().includes('python')) language = 'python';
+                
+                // Update language class
+                modalCode.className = 'modal-code language-' + language;
+                
+                // Set code and highlight
+                modalCode.textContent = code;
+                Prism.highlightElement(modalCode);
+                
+                // Add line numbers
+                const lines = code.split('\n');
+                lines.forEach((_, index) => {
+                    const lineNumber = document.createElement('div');
+                    lineNumber.textContent = index + 1;
+                    lineNumbers.appendChild(lineNumber);
+                });
+                
+                modal.style.display = 'block';
+            }
+
+            // Function to close modal
+            document.querySelector('.close-modal').addEventListener('click', () => {
+                const modal = document.getElementById('codeModal');
+                modal.style.display = 'none';
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', (event) => {
+                const modal = document.getElementById('codeModal');
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        </script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+        <script src="script.js"></script>
+    </body>
 </html>
