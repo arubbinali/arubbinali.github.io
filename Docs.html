@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="icon" type="image/png" href="logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Docs</title>
@@ -233,12 +234,12 @@ window.addEventListener('scroll', () => {
         <!-- Modal -->
         <div id="codeModal" class="modal">
             <div class="modal-content">
-                <span class="close-modal">&times;</span>
+                <div class="modal-header">
+                    <h2 class="modal-title">Code Snippet</h2>
+                    <span class="close-modal">&times;</span>
+                </div>
                 <div class="modal-code-container">
-                    <div class="line-numbers"></div>
-                    <pre class="modal-code-wrapper">
-                        <code class="modal-code language-javascript"></code>
-                    </pre>
+                    <pre class="modal-code-wrapper"><code class="modal-code language-javascript"></code></pre>
                 </div>
             </div>
         </div>
@@ -288,38 +289,30 @@ window.addEventListener('scroll', () => {
                 });
             }
 
+            // Function to format code with line numbers for modal
+            function formatCodeWithLineNumbers(code) {
+                const lines = code.split('\n');
+                const totalLines = lines.length;
+                const lineNumberWidth = totalLines.toString().length;
+                
+                return lines.map((line, index) => {
+                    const lineNum = (index + 1).toString().padStart(lineNumberWidth, ' ');
+                    return `<span class="code-line"><span class="line-number" style="width: ${lineNumberWidth}ch">${lineNum}&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="line-content">${line}</span></span>`;
+                }).join('\n');
+            }
+
             // Function to show modal with full code
             function showModal(button) {
                 const modal = document.getElementById('codeModal');
                 const codeBlock = button.closest('.code-snippet-content').querySelector('code');
-                const code = codeBlock.dataset.fullCode; // Use the stored full code
+                const code = codeBlock.dataset.fullCode;
                 const modalCode = modal.querySelector('.modal-code');
-                const lineNumbers = modal.querySelector('.line-numbers');
                 
-                // Clear previous content
-                lineNumbers.innerHTML = '';
+                // Format code with line numbers
+                modalCode.innerHTML = formatCodeWithLineNumbers(code);
                 
-                // Detect language from the code snippet title
-                const title = button.closest('.code-snippet').querySelector('.code-snippet-title').textContent;
-                let language = 'javascript'; // default
-                if (title.toLowerCase().includes('html')) language = 'html';
-                if (title.toLowerCase().includes('css')) language = 'css';
-                if (title.toLowerCase().includes('python')) language = 'python';
-                
-                // Update language class
-                modalCode.className = 'modal-code language-' + language;
-                
-                // Set code and highlight
-                modalCode.textContent = code;
+                // Apply syntax highlighting
                 Prism.highlightElement(modalCode);
-                
-                // Add line numbers
-                const lines = code.split('\n');
-                lines.forEach((_, index) => {
-                    const lineNumber = document.createElement('div');
-                    lineNumber.textContent = index + 1;
-                    lineNumbers.appendChild(lineNumber);
-                });
                 
                 modal.style.display = 'block';
             }

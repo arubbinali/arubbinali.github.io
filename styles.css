@@ -735,6 +735,18 @@ p::after {
     color: rgba(255, 255, 255, 0.8);
     line-height: 1.6;
     font-size: 14px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.code-snippet-code code {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .code-snippet-code::after {
@@ -856,6 +868,10 @@ p::after {
     margin: 0;
     background-color: #1e1e1e;
     overflow-y: auto;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .modal-code {
@@ -865,6 +881,21 @@ p::after {
     font-size: 14px;
     line-height: 1.5;
     color: #d4d4d4;
+    pointer-events: none;
+}
+
+.code-line {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.line-number {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 /* Scrollbar styles */
