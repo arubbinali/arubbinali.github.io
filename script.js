@@ -343,3 +343,34 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update display
     document.getElementById('cntr').textContent = 0;
 });
+
+// Modal functionality
+document.querySelectorAll('.see-more-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const modal = document.getElementById('codeModal');
+        const container = this.closest('.code-snippet-container');
+        const code = container.querySelector('code').textContent;
+        const modalCode = modal.querySelector('.modal-code');
+        
+        // Set code content
+        modalCode.textContent = code;
+        
+        // Show modal
+        modal.style.display = 'block';
+        
+        // Highlight code
+        Prism.highlightElement(modalCode);
+    });
+});
+
+// Close modal when clicking the close button or outside
+document.querySelector('.close-modal').addEventListener('click', () => {
+    document.getElementById('codeModal').style.display = 'none';
+});
+
+window.addEventListener('click', (event) => {
+    const modal = document.getElementById('codeModal');
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
