@@ -141,93 +141,101 @@
                     </div>
                 </div>
 
+                <!-- Python Code Snippet -->
                 <div class="code-snippet">
                     <div class="code-snippet-header">
-                        <h2 class="code-snippet-title">Dynamic Shadow Effect</h2>
+                        <h2 class="code-snippet-title">Python Example</h2>
                         <button class="code-snippet-toggle">+</button>
                     </div>
                     <div class="code-snippet-content">
                         <div class="code-language">
-                            <i class="language-icon javascript"></i>
-                            <span>JavaScript</span>
+                            <i class="language-icon python"></i>
+                            <span>Python</span>
                         </div>
-                        <pre class="code-snippet-code"><code class="language-javascript">document.addEventListener('mousemove', (e) => {
-    const centerTextElements = document.querySelectorAll('.center-text, .center-text > *');
-    
-    centerTextElements.forEach(element => {
-        const rect = element.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        
-        // Calculate angle between cursor and text center
-        const dx = e.clientX - centerX;
-        const dy = e.clientY - centerY;
-        
-        // Calculate shadow offset (opposite to cursor direction)
-        const shadowX = -dx / 15;
-        const shadowY = -dy / 15;
-        
-        // Create connected shadow effect with fade
-        let shadows = [];
-        const steps = 15;
-        
-        for(let i = 0; i <= steps; i++) {
-            const stepX = (shadowX * i) / steps;
-            const stepY = (shadowY * i) / steps;
-            // Calculate opacity that starts at 0.95 and fades to 0.1
-            const opacity = 0.95 - (i / steps) * 0.85;
-            shadows.push(`${stepX}px ${stepY}px 0 rgba(0, 0, 0, ${opacity})`);
-        }
-        
-        // Update shadow
-        element.style.textShadow = shadows.join(', ');
-    });
-});</code></pre>
+                        <pre class="code-snippet-code"><code class="language-python">import random
+
+def matrix_rain():
+    chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    width = 50
+    height = 30
+    matrix = [[random.choice(chars) for _ in range(width)] for _ in range(height)]
+
+    for row in matrix:
+        print(" ".join(row))
+
+matrix_rain()</code></pre>
                         <div class="button-container">
                             <button class="see-more-btn" onclick="showModal(this)">See More</button>
                         </div>
                     </div>
                 </div>
 
+                <!-- HTML Code Snippet -->
                 <div class="code-snippet">
                     <div class="code-snippet-header">
-                        <h2 class="code-snippet-title">Scroll Animation</h2>
+                        <h2 class="code-snippet-title">HTML Structure</h2>
                         <button class="code-snippet-toggle">+</button>
                     </div>
                     <div class="code-snippet-content">
                         <div class="code-language">
-                            <i class="language-icon javascript"></i>
-                            <span>JavaScript</span>
+                            <i class="language-icon html"></i>
+                            <span>HTML</span>
                         </div>
-                        <pre class="code-snippet-code"><code class="language-javascript">function updateScrollEffects(scrollPos) {
-    navbar.style.backgroundColor = `rgba(10, 10, 10, ${Math.min(0.95, 0.8 + scrollPos / 1000)})`;
-    
-    sections.forEach((section, index) => {
-        const rect = section.getBoundingClientRect();
-        const isInView = rect.top <= window.innerHeight * 0.8;
-        
-        if (isInView && !section.classList.contains('animated')) {
-            section.style.animationDelay = `${index * 0.2}s`;
-            section.classList.add('animated');
-        }
-    });
+                        <pre class="code-snippet-code"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Webpage&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Welcome to My Website&lt;/h1&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;p&gt;This is a simple HTML page.&lt;/p&gt;
+    &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        <div class="button-container">
+                            <button class="see-more-btn" onclick="showModal(this)">See More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CSS Code Snippet -->
+                <div class="code-snippet">
+                    <div class="code-snippet-header">
+                        <h2 class="code-snippet-title">CSS Styling</h2>
+                        <button class="code-snippet-toggle">+</button>
+                    </div>
+                    <div class="code-snippet-content">
+                        <div class="code-language">
+                            <i class="language-icon css"></i>
+                            <span>CSS</span>
+                        </div>
+                        <pre class="code-snippet-code"><code class="language-css">body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
 }
 
-let ticking = false;
-window.addEventListener('scroll', () => {
-    if (!ticking) {
-        window.requestAnimationFrame(() => {
-            updateScrollEffects(window.pageYOffset);
-            ticking = false;
-        });
-        ticking = true;
-    }
-});</code></pre>
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+main {
+    padding: 20px;
+}</code></pre>
                         <div class="button-container">
                             <button class="see-more-btn" onclick="showModal(this)">See More</button>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -324,6 +332,7 @@ window.addEventListener('scroll', () => {
             });
 
             // Close modal when clicking outside
+
             window.addEventListener('click', (event) => {
                 const modal = document.getElementById('codeModal');
                 if (event.target === modal) {
