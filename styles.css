@@ -252,15 +252,15 @@ body {
 }
 
 .info-section {
-    max-width: 800px;
-    margin: 0 auto 6rem auto;
+    max-width: 100%;
+    margin: 0 auto 3rem auto;
     padding: 2rem;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 15px;
     transform: translateY(50px);
     opacity: 0;
     animation: fadeInUp 0.8s ease forwards;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(2px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
     position: relative;
@@ -984,17 +984,18 @@ p::after {
 }
 
 .code-language {
-    position: absolute;
-    top: 0.5rem;
-    right: 1rem;
+    position: relative;
+    top: 0rem;
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    gap: .5rem;
     font-size: 0.85rem;
     color: #858585;
     font-family: 'Segoe UI', sans-serif;
     z-index: 1;
+    justify-content: flex-end; /* Aligns content to the right */
 }
+
+
 
 .language-icon {
     width: 16px;
@@ -1058,4 +1059,19 @@ p::after {
 
 .code-snippet-content:hover .scrolling-text {
     top: 150px; /* Move into view on hover */
+}
+
+.project-heading {
+    font-family: 'Poppins', sans-serif; /* Use the desired font */
+    font-size: 2rem; /* Adjust size as needed */
+    color: #333; /* Set a color for the text */
+    margin: 20px 0; /* Add some spacing above and below */
+    text-align: center; /* Center the text */
+}
+
+.code-snippet-title {
+    font-size: 1rem; /* Change this value to your desired size */
+    font-weight: bold; /* Keep or adjust as needed */
+    color: #fff; /* Adjust color if necessary */
+    /* Add any other styles you want to apply */
 }
