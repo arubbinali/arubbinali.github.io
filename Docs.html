@@ -83,6 +83,37 @@
 
         <div class="content-sections">
             <div class="code-snippets-container">
+
+                <!-- Python Code Snippet -->
+                <div class="code-snippet">
+                    <div class="code-snippet-header">
+                        <h2 class="code-snippet-title">Python Example</h2>
+                        <button class="code-snippet-toggle">+</button>
+                    </div>
+                    <div class="code-snippet-content">
+                        <div class="code-language">
+                            <i class="language-icon python"></i>
+                            <span>Python</span>
+                        </div>
+                        <pre class="code-snippet-code"><code class="language-python">import random
+
+def matrix_rain():
+    chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    width = 50
+    height = 30
+    matrix = [[random.choice(chars) for _ in range(width)] for _ in range(height)]
+
+    for row in matrix:
+        print(" ".join(row))
+
+matrix_rain()</code></pre>
+                        <div class="button-container">
+                            <button class="see-more-btn" onclick="showModal(this)">See More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JavaScript Code Snippet -->
                 <div class="code-snippet">
                     <div class="code-snippet-header">
                         <h2 class="code-snippet-title">Matrix Digital Rain</h2>
@@ -135,38 +166,7 @@
         ctx.fillText(this.value, this.x, this.y);
     }
 }</code></pre>
-                        <div class="button-container">
-                            <button class="see-more-btn" onclick="showModal(this)">See More</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Python Code Snippet -->
-                <div class="code-snippet">
-                    <div class="code-snippet-header">
-                        <h2 class="code-snippet-title">Python Example</h2>
-                        <button class="code-snippet-toggle">+</button>
-                    </div>
-                    <div class="code-snippet-content">
-                        <div class="code-language">
-                            <i class="language-icon python"></i>
-                            <span>Python</span>
-                        </div>
-                        <pre class="code-snippet-code"><code class="language-python">import random
-
-def matrix_rain():
-    chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-    width = 50
-    height = 30
-    matrix = [[random.choice(chars) for _ in range(width)] for _ in range(height)]
-
-    for row in matrix:
-        print(" ".join(row))
-
-matrix_rain()</code></pre>
-                        <div class="button-container">
-                            <button class="see-more-btn" onclick="showModal(this)">See More</button>
-                        </div>
+                        <div class="scrolling-text">code blocked</div>
                     </div>
                 </div>
 
@@ -197,9 +197,7 @@ matrix_rain()</code></pre>
     &lt;/main&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-                        <div class="button-container">
-                            <button class="see-more-btn" onclick="showModal(this)">See More</button>
-                        </div>
+                        <div class="scrolling-text">code blocked</div>
                     </div>
                 </div>
 
@@ -230,9 +228,7 @@ header {
 main {
     padding: 20px;
 }</code></pre>
-                        <div class="button-container">
-                            <button class="see-more-btn" onclick="showModal(this)">See More</button>
-                        </div>
+                        <div class="scrolling-text">code blocked</div>
                     </div>
                 </div>
 

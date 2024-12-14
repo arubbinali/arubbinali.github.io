@@ -654,6 +654,17 @@ p::after {
 }
 
 /* Code Snippet Styles */
+.code-snippet {
+    position: relative;
+    overflow: hidden; /* Ensure scrolling text doesn't overflow */
+    transition: background-color 0.3s ease;
+
+}
+
+.code-snippet:hover {
+    background-color: rgba(0, 0, 0, 1); /* Darken on hover */
+}
+
 .code-snippets-container {
     max-width: 1200px;
     margin: 4rem auto;
@@ -1032,4 +1043,19 @@ p::after {
 }
 
 
-    
+.scrolling-text {
+    position: absolute;
+    top: -60px; /* Start just above the visible area */
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    text-shadow: 5px 5px 10px rgba(0, 0, 0, 1); /* Corrected text-shadow */
+    font-size: 2rem;
+    transition: top 0.5s ease; /* Change transition property */
+}
+
+.code-snippet-content:hover .scrolling-text {
+    top: 150px; /* Move into view on hover */
+}
