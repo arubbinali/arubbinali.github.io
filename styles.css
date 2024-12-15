@@ -711,18 +711,16 @@ body {
     );
     pointer-events: none;
 }
-
-/* Elite Paragraph Styling */
+/* Button Container */
 .button-container {
     display: block;
-    padding: 1rem;
+    margin-left: 0rem;
     margin-top: 1rem;
-    padding-right: 0rem;
 }
 
+/* See More Button */
 .see-more-btn {
     background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     padding: 1rem 2.5rem;
@@ -730,22 +728,23 @@ body {
     color: rgba(255, 255, 255, 0.9);
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    position: relative;
-    overflow: hidden;
-    top: -40px;
-    height: 15px;
     cursor: pointer;
-    white-space: nowrap; /* Prevent text from wrapping */
+    white-space: nowrap;
+    position: relative; /* Needed for pseudo-elements */
+    overflow: hidden; /* Prevents the gradient from overflowing */
+    width: 150px;
+    margin-right: 10px;
 }
 
-
+/* Hover Effect */
 .see-more-btn:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     background: rgba(255, 255, 255, 0.08);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     border-color: rgba(255, 255, 255, 0.2);
 }
 
+/* Before (gradient animation) */
 .see-more-btn::before {
     content: '';
     position: absolute;
@@ -753,19 +752,16 @@ body {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.1),
-        transparent
-    );
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
     transition: 0.5s;
 }
 
+/* Move gradient on hover */
 .see-more-btn:hover::before {
     left: 100%;
 }
 
+/* After (left side gradient border) */
 .see-more-btn::after {
     content: '';
     position: absolute;
@@ -773,24 +769,17 @@ body {
     left: 0;
     width: 4px;
     height: 100%;
-    background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.3),
-        rgba(255, 255, 255, 0.1)
-    );
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
     border-radius: 4px 0 0 4px;
 }
 
-/* Add some spacing between paragraphs in containers */
-.content-sections .see-more-btn {
-    max-width: 800px;
-    margin: 2rem auto;
-}
-
+/* Active State */
 .see-more-btn:active {
     transform: translateY(.5px);
     background: rgba(50, 50, 50, 0.95);
 }
+
+
 
 .modal {
     display: none;
