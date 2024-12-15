@@ -599,7 +599,7 @@ body {
 }
 
 .code-snippet:hover {
-    background-color: rgba(0, 0, 0, 1); /* Darken on hover */
+    background-color: rgba(0, 0, 0, .5); /* Darken on hover */
 }
 
 .code-snippets-container {
@@ -609,8 +609,8 @@ body {
 }
 
 .code-snippet {
-    background: rgba(20, 20, 20, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(20, 20, 20, 0.5);
+    border: 1px solid rgba(255, 255, 255, .1);
     border-radius: 10px;
     margin-bottom: 2rem;
     overflow: hidden;
@@ -623,13 +623,13 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 1.5rem;
-    background: rgba(30, 30, 30, 0.9);
+    background: rgba(30, 30, 30, 0.1);
     cursor: pointer;
     transition: background 0.3s ease;
 }
 
 .code-snippet-header:hover {
-    background: rgba(40, 40, 40, 0.9);
+    background: rgba(40, 40, 40, 0.1);
 }
 
 .code-snippet-title {
@@ -644,7 +644,7 @@ body {
 .code-snippet-toggle {
     background: transparent;
     border: none;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 1);
     font-size: 1.5rem;
     cursor: pointer;
     transition: color 0.3s ease;
