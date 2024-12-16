@@ -88,7 +88,7 @@
                 <section class="info-section">
                 <h2 class="project-heading">School Website (Main page)</h2>
 
-                <!-- HTML Code Snippet -->
+                <!-- School HTML -->
                 <div class="code-snippet">
                     <div class="code-snippet-header">
                         <h5 class="code-snippet-title">main.html</h5>
@@ -104,24 +104,20 @@
 &lt;head&gt;
     &lt;meta charset="UTF-8"&gt;
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;Webpage&lt;/title&gt;
+    &lt;title&gt;Revamped Elite School Website&lt;/title&gt;
+    &lt;link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"&gt;
+    &lt;link rel="icon" href="favicon.png" type="image/png"&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
 &lt;/head&gt;
 &lt;body&gt;
-    &lt;header&gt;
-        &lt;h1&gt;Welcome to My Website&lt;/h1&gt;
-    &lt;/header&gt;
-    &lt;main&gt;
-        &lt;p&gt;This is a simple HTML page.&lt;/p&gt;
-    &lt;/main&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
+    &lt;div id="screen-overlay"&gt;&lt;/div&gt;</code></pre>
                         <div class="scrolling-text">No Access</div>
                     </div>
                 </div>
 
                 
 
-                <!-- CSS Code Snippet -->
+                <!-- School CSS -->
                 <div class="code-snippet">
                     <div class="code-snippet-header">
                         <h5 class="code-snippet-title">styles.css</h5>
@@ -132,21 +128,19 @@
                             <i class="language-icon css"></i>
                             <span>CSS</span>
                         </div>
-                        <pre class="code-snippet-code"><code class="language-css">body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+                        <pre class="code-snippet-code"><code class="language-css">/* General */
+body {
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f0f0f0;
+    color: #333;
+    transition: background-color 1.5s, color 0.3s;
 }
-
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-}
-
-main {
-    padding: 20px;
+/* Dark Mode */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
 }</code></pre>
                         <div class="scrolling-text">No Access</div>
                     </div>
@@ -163,48 +157,26 @@ main {
                             <i class="language-icon javascript"></i>
                             <span>JavaScript</span>
                         </div>
-                        <pre class="code-snippet-code"><code class="language-javascript">class MatrixChar {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.reset();
-    }
-
-    reset() {
-        this.speed = Math.random() * 2 + 1;
-        this.value = String.fromCharCode(
-            Math.random() > 0.5 
-                ? Math.floor(Math.random() * 10) + 48  // Numbers
-                : Math.floor(Math.random() * 26) + 65  // Letters
-        );
-        this.opacity = 0;
-        this.maxOpacity = Math.random() * 0.5 + 0.2;
-        this.fadeSpeed = Math.random() * 0.02 + 0.005;
-        this.size = Math.floor(Math.random() * 16) + 10;
-    }
-
-    update() {
-        this.y += this.speed;
-        
-        // Fade in
-        if (this.opacity < this.maxOpacity) {
-            this.opacity += this.fadeSpeed;
+                        <pre class="code-snippet-code"><code class="language-javascript">window.onload = function () {
+    showPopup();
+};
+function showPopup() {
+    const popup = document.getElementById("popup");
+    popup.style.display = "flex";
+    setTimeout(() => {
+        popup.style.opacity = "1";
+    }, 100);
+}
+function closePopup() {
+    const popup = document.getElementById('popup');
+    popup.style.opacity = "0";
+    popup.addEventListener('transitionend', function (e) {
+        if (popup.style.opacity === "0") {
+            popup.style.display = 'none';
         }
-
-        // Reset when off screen
-        if (this.y > canvas.height + 50) {
-            this.y = -20;
-            this.x = Math.random() * canvas.width;
-            this.reset();
-        }
-    }
-
-    draw() {
-        ctx.font = `${this.size}px monospace`;
-        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-        ctx.fillText(this.value, this.x, this.y);
-    }
-}</code></pre>
+    }, { once: true });
+}
+//Yeah buddy good try tryna sneak in but u rlly aint getting to see nun lol</code></pre>
                         <div class="scrolling-text">No Access</div>
                     </div>
                 </div>
