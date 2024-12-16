@@ -592,23 +592,6 @@ body {
 
 /* Code Snippet Styles */
 .code-snippet {
-    position: relative;
-    overflow: hidden; /* Ensure scrolling text doesn't overflow */
-    transition: background-color 0.3s ease;
-
-}
-
-.code-snippet:hover {
-    background-color: rgba(0, 0, 0, .5); /* Darken on hover */
-}
-
-.code-snippets-container {
-    max-width: 1200px;
-    margin: 4rem auto;
-    padding: 0 1rem;
-}
-
-.code-snippet {
     background: rgba(20, 20, 20, 0.5);
     border: 1px solid rgba(255, 255, 255, .1);
     border-radius: 10px;
@@ -616,6 +599,19 @@ body {
     overflow: hidden;
     transition: all 0.3s ease;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 1);
+    position: relative;
+    overflow: hidden; /* Ensure scrolling text doesn't overflow */
+    transition: background-color 0.3s ease;
+}
+
+.code-snippet:hover {
+    background-color: rgba(0, 0, 0, 0.5); /* Darken on hover */
+}
+
+.code-snippets-container {
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 0 1rem;
 }
 
 .code-snippet-header {
@@ -629,7 +625,7 @@ body {
 }
 
 .code-snippet-header:hover {
-    background: rgba(40, 40, 40, 0.1);
+    background: rgba(40, 40, 40, 1);
 }
 
 .code-snippet-title {
