@@ -634,6 +634,8 @@ body {
     font-weight: 600;
     color: #bfc8ba;
     letter-spacing: 1px;
+    display: flex;
+    align-items: center;
 }
 
 
@@ -953,14 +955,15 @@ body {
     font-family: 'Segoe UI', sans-serif;
     z-index: 1;
     justify-content: flex-end; /* Aligns content to the right */
+    margin-right: 10px;
 }
 
 
 
 .language-icon {
-    width: 16px;
-    height: 16px;
-    background-size: 16px;
+    width: 26px;
+    height: 26px;
+    background-size: 26px;
     background-repeat: no-repeat;
     background-position: center;
     opacity: 0.8;
