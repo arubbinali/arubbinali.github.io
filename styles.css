@@ -204,6 +204,26 @@ body {
     transform: scale(1.1);
 }
 
+.cert-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(.7rem, 1vw, 0.8vw);
+    font-weight: 300;
+    opacity: 0.8;
+    letter-spacing: 1px;
+}
+
+.cert-text a {
+    color: #ff69b4;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.cert-text a:hover {
+    text-decoration: underline;
+    color: #ff1493;
+    transform: scale(1.1);
+}
+
 #particleCanvas {
     position: fixed;
     top: 0;
