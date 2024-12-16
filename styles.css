@@ -1023,7 +1023,7 @@ body {
 }
 
 .code-snippet-content:hover .scrolling-text {
-    top: 173px; /* Move into view on hover */
+    top: 153px; /* Move into view on hover */
 }
 
 .project-heading {
