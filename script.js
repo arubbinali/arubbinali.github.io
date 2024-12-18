@@ -33,7 +33,7 @@ class MatrixChar {
 
     update() {
         this.y += this.speed;
-        
+
         // Fade in
         if (this.opacity < this.maxOpacity) {
             this.opacity += this.fadeSpeed;
