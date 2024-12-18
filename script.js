@@ -25,10 +25,10 @@ class MatrixChar {
                 ? Math.floor(Math.random() * 10) + 48  // Numbers
                 : Math.floor(Math.random() * 26) + 65  // Letters
         );
-        this.opacity = 0;
+        this.opacity = 100;
         this.maxOpacity = Math.random() * 0.5 + 0.2;
         this.fadeSpeed = Math.random() * 0.02 + 0.005;
-        this.size = Math.floor(Math.random() * 16) + 10;
+        this.size = Math.floor(Math.random() * 5) + 1;
     }
 
     update() {
