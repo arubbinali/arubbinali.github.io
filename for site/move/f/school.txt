@@ -1,0 +1,12 @@
+SEARCH:
+Home
+Fee Structure
+Contact
+Downloads
+Gallery
+
+PROMPTS:
+What are the school timings for KG and other grades?
+What's the school's contact number and email?
+Can you show me the fee structure?
+Where can I see photos of the school?

@@ -1,0 +1,2092 @@
+/* General */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    color: #333;
+    transition: background-color 1.5s, color 0.3s;
+}
+
+
+/* Dark Mode */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+}
+
+/* Ending Section */
+.ending {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 3px solid #ff00e1; /* Top border for separation */
+    position: fixed; /* Change to relative for normal flow */
+    width: 100%; /* Ensure it covers the full width */
+    bottom: 0; /* Position at the bottom */
+    z-index: 1000; /* Ensure it is on top */
+    margin-top: 40px; /* Add some space above it */
+    transition: background-color 0.6s ease, border-bottom 0.9s ease;
+}
+
+.ending .contact {
+    font-size: 14px;
+    color: #555;
+    flex-grow: 1; /* Allow it to take available space */
+    text-align: right;
+    padding-right: 40px; /* Add padding to push it left from the right edge */
+    box-sizing: border-box;
+}
+
+.ending .contact a {
+    color: #000000;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.ending .contact a:hover {
+    text-decoration: none;
+    color: #ff00e1;
+}
+
+body.dark-mode .ending .contact a:hover {
+    text-decoration: none;
+    color: #00ffbb;
+}
+
+body.dark-mode .ending .contact a {
+    color: #fff;
+}
+
+body.dark-mode .ending {
+    background-color: #2a2a2a80;
+    border-top: 3px solid #00ffbb;
+}
+
+body.dark-mode .ending .contact {
+    color: #fff;
+}
+
+
+/* Switch Container */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 90px; /* Adjusted to fit text */
+    height: 40px;
+    margin-right: 30px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* Hide default checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Slider (Apple-style) */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #e0e0e0; /* Light background */
+    transition: 0.4s;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+/* Slider Knob */
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 30px;
+    width: 30px;
+    left: 4px;
+    bottom: 5px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+/* Dark Mode */
+input:checked + .slider {
+    background-color: #333; /* Dark background */
+}
+
+input:checked + .slider:before {
+    transform: translateX(51.5px); /* Adjusted for size */
+}
+
+/* Text Label */
+.mode-label {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 10px;
+    left: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    color: #333;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.4s ease; /* Smooth fade effect */
+}
+
+.dark-mode .mode-label {
+    color: #e0e0e0;
+}
+
+
+
+
+
+/* Navigation Bar */
+.navbar {
+    background-color: rgba(243, 243, 243, 0.6); /* Slightly transparent */
+    padding: 15px 0;
+    border-bottom: 1px solid #ccc;
+    display: flex; /* Enable flexbox */
+    align-items: center; /* Align items vertically */
+    justify-content: space-between; /* Distribute space evenly */
+    position: fixed; /* Fix navbar position */
+    top: 0px; /* Adjust based on header height */
+    width: 100%; /* Make sure it covers the full width */
+    z-index: 9999; /* Ensure it's below the header */
+    transition: background-color 0.6s ease, border-bottom 0.9s ease;
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    margin-left: 50px;
+}
+
+.navbar .logo img {
+    height: 50px; /* Set the logo height */
+}
+
+#navbar-logo, #footer-logo {
+    transition: opacity 0.5s ease;
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 20px;
+    padding: 0;
+    display: flex; /* Enable flexbox for nav items */
+    flex-grow: 1; /* Allow the list to grow and take available space */
+    justify-content: flex-start; /* Align items to the left */
+}
+
+.navbar ul li {
+    margin: 0 20px;
+    position: relative;
+    padding-bottom: 0px;
+}
+
+.navbar ul li a {
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    color: #000000;
+    font-size: 16px;
+    position: relative;
+    transition: color 0.5s ease; /* Smooth transition for text color */
+}
+
+.navbar ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    left: 0;
+    bottom: -6px;
+    background-color: #333;
+    transition: width 0.4s ease;
+}
+
+.navbar ul li .dropdown a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    left: 0;
+    bottom: 0px;
+    background-color: #000000;
+    transition: width 0.4s ease;
+}
+
+.navbar ul li a:hover::after {
+    width: 100%;
+}
+
+.navbar .dark-mode-toggle {
+    margin-right: 50px;
+}
+
+body.dark-mode .navbar ul li a::after {
+    background-color: #fff;
+    bottom: -6px;
+}
+
+body.dark-mode .navbar ul li .dropdown a::after {
+    background-color: #fff; /* Change underline color */
+    bottom: 0px; /* Bring the underline up for dropdown options */
+}
+
+body.dark-mode .navbar ul li a {
+    color: #fff;
+}
+
+body.dark-mode .navbar {
+    background-color: #2a2a2a80;
+    border-bottom: 1px solid #444;
+}
+
+/* Overlay background */
+#screen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dim background */
+    z-index: 999;
+    opacity: 0; /* Invisible initially */
+    pointer-events: none; /* Prevent interaction when invisible */
+    transition: opacity 0.3s ease; /* Smooth fade-in and fade-out */
+}
+
+
+/* Dropdown Menu */
+.navbar ul li .dropdown {
+    display: none; /* Hide dropdown by default */
+    background-color: rgb(255, 255, 255, 0.9);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    min-width: 250px;
+    border-radius: 5px;
+    z-index: 1000;
+    opacity: 0; /* Start invisible */
+    transform: translateY(-10px); /* Start above */
+    transition: opacity 0.3s ease; /* Smooth fade in */
+}
+
+/* Show the dropdown on hover with animation */
+.navbar ul li:hover .dropdown {
+    display: block; /* Show dropdown */
+    animation: slideDown 0.3s ease forwards; /* Animate dropdown */
+    opacity: 1; /* Fully visible */
+    pointer-events: auto; /* Allow interaction */
+}
+
+/* Add this to your existing CSS */
+
+/* Keyframes for slide down animation */
+@keyframes slideDown {
+    0% {
+        transform: translateY(-10px); /* Start slightly above */
+        opacity: 0; /* Start invisible */
+    }
+    100% {
+        transform: translateY(0); /* End at original position */
+        opacity: 1; /* Fully visible */
+    }
+}
+
+
+.navbar ul li:hover .dropdown,
+.navbar ul li:hover #screen-overlay {
+    display: block; /* Show the dropdown and overlay */
+}
+
+.navbar ul li .dropdown-container {
+    position: absolute;
+    padding-top: 30px; /* Adjust this as needed */
+}
+
+.navbar ul li .dropdown a:first-child {
+    border-radius: 5px;
+    padding-top: 20px;
+}
+
+.navbar ul li .dropdown a:last-child {
+    border-radius: 5px;
+}
+
+.navbar ul li .dropdown a {
+    padding: 10px 20px;
+    display: block;
+    color: #333;
+}
+
+.navbar ul li .dropdown a:hover {
+    background-color: #ebebeb;
+}
+
+body.dark-mode .navbar ul li .dropdown {
+    background-color: rgb(68, 68, 68, 0.9);
+}
+
+body.dark-mode .navbar ul li .dropdown a:hover {
+    background-color: #555;
+}
+
+body.dark-mode .navbar ul li .dropdown a {
+    color: #f0f0f0;
+}
+
+/* Submenu Styles */
+/* Academics */
+    /* CIE Submenu Styles */
+    .dropdown-submenu-cie {
+        position: absolute;
+        left: 100%;
+        top: 85px;
+        display: none;
+        background-color: rgb(255, 255, 255, 0.9);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        min-width: 180px;
+        border-radius: 5px;
+    }
+
+    .navbar ul li .dropdown a:hover + .dropdown-submenu-cie {
+        display: block;
+    }
+
+        /* Sub CIE Submenu Styles */
+        .dropdown-submenu-cie-june-2024 {
+            position: absolute;
+            left: 100%;
+            top: 0; /* Adjusted to align properly */
+            display: none; /* Hide submenu by default */
+            background-color: rgb(255, 255, 255, 0.9);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            border-radius: 5px;
+        }
+
+        .dropdown-submenu-cie a:hover + .dropdown-submenu-cie-june-2024 {
+            display: block; /* Show the sub-submenu */
+        }
+
+        .navbar ul li:hover .dropdown,
+        .navbar ul li .dropdown-submenu-cie:hover,
+        .navbar ul li .dropdown-submenu-cie-june-2024:hover {
+            display: block;
+        }
+
+        body.dark-mode .navbar ul li .dropdown-submenu-cie {
+            background-color: rgb(68, 68, 68, 0.9);
+        }
+
+        body.dark-mode .navbar ul li .dropdown-submenu-cie-june-2024 {
+            background-color: rgb(68, 68, 68, 0.9);
+        }
+
+
+        .dropdown-submenu-cie-june-2023 {
+            position: absolute;
+            left: 100%;
+            top: 45px; /* Adjusted to align properly */
+            display: none; /* Hide submenu by default */
+            background-color: rgb(255, 255, 255, 0.9);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            border-radius: 5px;
+        }
+
+        .dropdown-submenu-cie a:hover + .dropdown-submenu-cie-june-2023 {
+            display: block; /* Show the sub-submenu */
+        }
+
+        .navbar ul li:hover .dropdown,
+        .navbar ul li .dropdown-submenu-cie:hover,
+        .navbar ul li .dropdown-submenu-cie-june-2023:hover {
+            display: block;
+        }
+
+        body.dark-mode .navbar ul li .dropdown-submenu-cie {
+            background-color: rgb(68, 68, 68, 0.9);
+        }
+
+        body.dark-mode .navbar ul li .dropdown-submenu-cie-june-2023 {
+            background-color: rgb(68, 68, 68, 0.9);
+        }
+
+
+    /* Curriculum Submenu Styles */
+    .dropdown-submenu-curriculum {
+        position: absolute;
+        left: 100%;
+        top: 45px;
+        display: none;
+        background-color: rgb(255, 255, 255, 0.9);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        min-width: 180px;
+        border-radius: 5px;
+    }
+
+    .navbar ul li .dropdown a:hover + .dropdown-submenu-curriculum, .dropdown-submenu-curriculum:hover {
+        display: block;
+    }
+
+    body.dark-mode .navbar ul li .dropdown-submenu-curriculum {
+            background-color: rgb(68, 68, 68, 0.9);
+        }
+
+/* Admissions */
+    /* Session 2024-2025 Submenu Styles */
+    .dropdown-submenu-session2425 {
+        position: absolute;
+        left: 100%;
+        top: 0px;
+        display: none;
+        background-color: rgb(255, 255, 255, 0.9);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        border-radius: 5px;
+    }
+
+    .navbar ul li .dropdown a:hover + .dropdown-submenu-session2425, .dropdown-submenu-session2425:hover {
+        display: block;
+    }
+
+    body.dark-mode .navbar ul li .dropdown-submenu-session2425 {
+        background-color: rgb(68, 68, 68, 0.9);
+    }
+
+    /* Fee Structure Submenu Styles */
+    .dropdown-submenu-feestructure {
+        position: absolute;
+        left: 100%;
+        top: 160px;
+        display: none;
+        background-color: rgb(255, 255, 255, 0.9);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        border-radius: 5px;
+    }
+
+    .navbar ul li .dropdown a:hover + .dropdown-submenu-feestructure, .dropdown-submenu-feestructure:hover {
+        display: block;
+    }
+
+    body.dark-mode .navbar ul li .dropdown-submenu-feestructure {
+        background-color: rgb(68, 68, 68, 0.9);
+    }
+
+/* Student Life Submenu Styles */
+    /* Student Body Submenu Styles */
+    .dropdown-submenu-studentbody {
+        position: absolute;
+        left: 100%;
+        top: 0px;
+        display: none;
+        background-color: rgb(255, 255, 255, 0.9);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        border-radius: 5px;
+    }
+
+    .navbar ul li .dropdown a:hover + .dropdown-submenu-studentbody, .dropdown-submenu-studentbody:hover {
+        display: block;
+    }
+
+    body.dark-mode .navbar ul li .dropdown-submenu-studentbody {
+        background-color: rgb(68, 68, 68, 0.9);
+    }
+
+    /* VII PISJES MUN Submenu Styles */
+    .dropdown-submenu-mun {
+        position: absolute;
+        left: 100%;
+        top: 45px;
+        display: none;
+        background-color: rgb(255, 255, 255, 0.9);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        border-radius: 5px;
+    }
+
+    .navbar ul li .dropdown a:hover + .dropdown-submenu-mun, .dropdown-submenu-mun:hover {
+        display: block;
+    }
+
+    body.dark-mode .navbar ul li .dropdown-submenu-mun {
+        background-color: rgb(68, 68, 68, 0.9);
+    }
+
+    /* PISJES Model National Assembly Submenu Styles */
+    .dropdown-submenu-mna {
+        position: absolute;
+        left: 100%;
+        top: 90px;
+        display: none;
+        background-color: rgb(255, 255, 255, 0.9);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        border-radius: 5px;
+    }
+
+    .navbar ul li .dropdown a:hover + .dropdown-submenu-mna, .dropdown-submenu-mna:hover {
+        display: block;
+    }
+
+    body.dark-mode .navbar ul li .dropdown-submenu-mna {
+        background-color: rgb(68, 68, 68, 0.9);
+    }
+
+    /* Career counselling Submenu Styles */
+    .dropdown-submenu-careercounselling {
+        position: absolute;
+        left: 100%;
+        top: 265px;
+        display: none;
+        background-color: rgb(255, 255, 255, 0.9);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        border-radius: 5px;
+    }
+
+    .navbar ul li .dropdown a:hover + .dropdown-submenu-careercounselling, .dropdown-submenu-careercounselling:hover {
+        display: block;
+    }
+
+    body.dark-mode .navbar ul li .dropdown-submenu-careercounselling {
+        background-color: rgb(68, 68, 68, 0.9);
+    }
+
+    /* Alumni Submenu Styles */
+    .dropdown-submenu-alumni {
+        position: absolute;
+        left: 100%;
+        top: 305px;
+        display: none;
+        background-color: rgb(255, 255, 255, 0.9);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        border-radius: 5px;
+    }
+
+    .navbar ul li .dropdown a:hover + .dropdown-submenu-alumni, .dropdown-submenu-alumni:hover {
+        display: block;
+    }
+
+    body.dark-mode .navbar ul li .dropdown-submenu-alumni {
+        background-color: rgb(68, 68, 68, 0.9);
+    }
+
+/* Parents Submenu Styles */
+    /* PISJ-ES Parent Engangement Platform Submenu Styles */
+    .dropdown-submenu-parents {
+        position: absolute;
+        left: 100%;
+        top: 0px;
+        display: none;
+        background-color: rgb(255, 255, 255, 0.9);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        border-radius: 5px;
+    }
+
+    .navbar ul li .dropdown a:hover + .dropdown-submenu-parents, .dropdown-submenu-parents:hover {
+        display: block;
+    }
+
+    body.dark-mode .navbar ul li .dropdown-submenu-parents {
+        background-color: rgb(68, 68, 68, 0.9);
+    }
+
+    /* Parent Portal Submenu Styles */
+    .dropdown-submenu-parentportal {
+        position: absolute;
+        left: 100%;
+        top: 70px;
+        display: none;
+        background-color: rgb(255, 255, 255, 0.9);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        border-radius: 5px;
+    }
+
+    .navbar ul li .dropdown a:hover + .dropdown-submenu-parentportal, .dropdown-submenu-parentportal:hover {
+        display: block;
+    }
+
+    body.dark-mode .navbar ul li .dropdown-submenu-parentportal {
+        background-color: rgb(68, 68, 68, 0.9);
+    }
+
+    /* Query Portal Submenu Styles */
+    .dropdown-submenu-queryportal {
+        position: absolute;
+        left: 100%;
+        top: 110px;
+        display: none;
+        background-color: rgb(255, 255, 255, 0.9);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        border-radius: 5px;
+    }
+
+    .navbar ul li .dropdown a:hover + .dropdown-submenu-queryportal, .dropdown-submenu-queryportal:hover {
+        display: block;
+    }
+
+    body.dark-mode .navbar ul li .dropdown-submenu-queryportal {
+        background-color: rgb(68, 68, 68, 0.9);
+    }
+
+    /* User Guide Submenu Styles */
+    .dropdown-submenu-userguide {
+        position: absolute;
+        left: 100%;
+        top: 150px;
+        display: none;
+        background-color: rgb(255, 255, 255, 0.9);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        border-radius: 5px;
+    }
+
+    .navbar ul li .dropdown a:hover + .dropdown-submenu-userguide, .dropdown-submenu-userguide:hover {
+        display: block;
+    }
+
+    body.dark-mode .navbar ul li .dropdown-submenu-userguide {
+        background-color: rgb(68, 68, 68, 0.9);
+    }
+
+
+
+/* Main Banner Section */
+.banner {
+    position: relative;
+    height: 700px; /* Set the height of the banner */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Shadow effect */
+    border-radius: 10px;
+    overflow: hidden; /* Ensures video doesn't overflow */
+}
+
+.video-container video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 100vh;
+    transform: translate(-50%, -50%) scale(1.5);
+    pointer-events: none;
+}
+
+body.dark-mode .banner h1 {
+    color: #f0f0f0;
+}
+
+
+
+/* Buttons Section */
+.buttons-section {
+    display: flex;
+    flex-direction: column; /* Stack the heading on top and buttons below */
+    align-items: center; /* Center heading and buttons horizontally */
+    padding: 40px 5%;
+    background-color: #fff;
+    text-align: center; /* Center the heading text */
+}
+
+body.dark-mode .buttons-section {
+    background-color: #2a2a2a;
+}
+
+.buttons-section h1 {
+    margin-top: -10px;
+    margin-bottom: 25px; /* Space between the heading and buttons */
+    font-size: 5vb; /* Adjust font size */
+    font-family: 'Poppins', sans-serif;
+    color: #333; /* Default heading color */
+}
+
+body.dark-mode .buttons-section h1 {
+    color: #ffffff; /* Adjust heading color for dark mode */
+}
+
+.buttons-section .buttons-container {
+    display: flex; /* Arrange buttons in a row */
+    justify-content: space-around; /* Add space between buttons */
+    width: 100%; /* Ensure buttons take up full width */
+}
+
+.buttons-section .button {
+    width: 23%;
+    padding: 20px;
+    margin: 0 15px; /* Space between buttons */
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Button Colors */
+.early-years { background-color: #003366; }
+.junior-school { background-color: #2E8B57; }
+.middle-school { background-color: #ba1032; }
+.senior-school { background-color: #95178b; }
+
+.button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 15px rgb(0, 0, 0, 1);
+    opacity: 0.9;
+}
+
+.button:active {
+    transform: translateY(10px);
+    opacity: 0.6;
+}
+
+body.dark-mode .early-years { background-color: #4CAF50; color: #ffffff; }
+body.dark-mode .junior-school { background-color: #607D8B; color: #ffffff; }
+body.dark-mode .middle-school { background-color: #ff9807; color: #ffffff; }
+body.dark-mode .senior-school { background-color: #F44336; color: #ffffff; }
+
+
+
+
+/* Welcome Content */
+.welcome-content {
+    background: linear-gradient(to bottom, #cbcbcb, #f0f0f0);
+    padding: 50px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    
+    /* Initial state for fade-in effect */
+    opacity: 0;
+    animation: fadeIn 4s forwards;
+}
+
+.welcome-content img {
+    max-width: fit-content;
+    height: auto;
+    max-height: 600px;
+    display: block;
+    margin-left: auto;
+    box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+/* Dark mode adjustment */
+body.dark-mode .welcome-content {
+    background: linear-gradient(to bottom, #505050, #1a1a1a);
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+.cambridge-content {
+    background: transparent;
+    padding: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center; /* Centers content vertically */
+    justify-content: center; /* Centers both the image and slider within the content */
+    gap: 20px; /* Space between the image and the slider */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin: 20px auto; /* Centers the whole container */
+    max-width: 1400px; /* Prevents the container from taking the full width */
+}
+
+.cambridge-content .cambridge-awards-image {
+    max-width: 100%;  /* Ensures the image doesn't exceed its container's width */
+    height: auto;     /* Maintains aspect ratio */
+    max-height: 300px;  /* Limits the height to 300px */
+    display: block;   /* Ensures there's no extra space below the image */
+    margin-left: 0;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease;
+}
+
+.cambridge-content .cambridge-awards-image:hover {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, .8);
+}
+
+
+.cambridge-content .cambridge-awards-image img {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 1);
+}
+
+
+/* Cambridge Awards Gallery */
+.cambridge-awards {
+    text-align: center;
+    margin-top: 0; /* Remove extra space from the top */
+    margin-bottom: 0; /* Remove extra space from the bottom */
+    display: flex; /* Align the images and slider */
+    flex-direction: column;
+    height: 400px; /* Same height as the image */
+    justify-content: center;
+}
+
+/* Slider Container */
+.cambridge-awards-slider-container {
+    position: relative;
+    max-width: 1000px; /* Constrain the width of the slider container */
+    overflow: hidden; /* Keep images within bounds */
+    border-radius: 8px;
+    height: 320px; /* Increase height slightly to fit shadows */
+    padding-bottom: 10px; /* Add padding to give extra space at the bottom */
+    background-color: transparent;
+    margin-top: 20px;
+}
+
+/* Slider */
+.cambridge-awards-slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    gap: 10px; /* Controls gap between slides */
+    background-color: transparent;
+}
+
+/* Individual Slide */
+.cambridge-awards-slide {
+    min-width: calc(33.333% - 10px); /* Adjust gap between slides */
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+}
+
+/* Image */
+.cambridge-awards-slide img {
+    width: 300px;
+    height: 300px; /* Fixed height and width */
+    object-fit: cover; /* Maintain aspect ratio */
+    border-radius: 8px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.3s ease;
+}
+
+.cambridge-awards-slide img:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+}
+
+
+body.dark-mode .cambridge-content {
+    background: transparent;
+}
+
+body.dark-mode .cambridge-awards-slide img:hover {
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 1);
+}
+
+body.dark-mode .cambridge-content .cambridge-awards-image:hover {
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 1);
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+.events-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+    margin-left: 50px;
+}
+
+.event-group {
+    display: flex;
+    align-items: flex;
+    gap: 20px; /* space between date and events */
+}
+
+.event-date {
+    text-align: center;
+    background: linear-gradient(225deg, #02456e, #029d02);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 78px;
+    flex-shrink: 0; /* keep date fixed in width */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.event-date .date {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: -10px;
+}
+
+.event-date .month {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.event-date .day {
+    font-size: 12px;
+}
+
+.events {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.event {
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+    width: 500px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.event:hover {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8);
+}
+
+.event-summary {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+    position: relative;
+}
+
+.event-info h3 {
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+}
+
+.event-info p {
+    font-size: 12px;
+    color: #666;
+    margin: 2px 0;
+}
+
+.category {
+    font-size: 12px;
+    color: #666;
+}
+
+.event-toggle {
+    margin-left: auto;
+    font-size: 20px;
+    color: #004d00;
+}
+
+.event-full-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0; /* Remove padding to allow full-width alignment */
+    font-size: 14px;
+    color: #666;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+.event-full-details.open {
+    max-height: 300px;
+    padding: 20px 35px; /* Optional padding for spacing on top */
+}
+
+.event-full-details-text {
+    padding-left: 20px; /* Add left padding only for text content */
+    flex: 1; /* Take available space */
+}
+
+.read-more-btn {
+    font-family: 'Poppins', sans-serif;
+    background-color: #004d00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 12px;
+    margin-left: auto; /* Push button to the right */
+}
+
+
+.read-more-btn:hover {
+    background-color: #003300;
+}
+
+
+body.dark-mode .event-info h3 {
+    color: #f7f9f9;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .event-info p {
+    color: #abc5cc;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .event {
+    background-color: #1e1e1e;
+    transition: background-color 0.3s ease;
+}
+
+body.dark-mode .event-toggle {
+    color: #00ffbb;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .category {
+    color: #abc5cc;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .event {
+    transition: box-shadow 0.3s ease;
+}
+
+body.dark-mode .event:hover {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8);
+}
+
+
+
+@keyframes expand {
+    from {
+        max-height: 0;
+        opacity: 0;
+    }
+    to {
+        max-height: 500px;
+        opacity: 1;
+    }
+}
+
+
+/* Center the container in the viewport */
+.calendar-with-images {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    gap: 100px;
+    min-height: 40vh; /* Take full viewport height */
+}
+
+/* Grid layout for images */
+.calendar-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns */
+    grid-template-rows: auto auto; /* Two rows */
+    column-gap: 0px; /* Horizontal gap between images next to each other */
+    row-gap: 20px; /* Vertical gap between rows */
+    margin-top: 30px;
+}
+
+.sidebar-image {
+    max-height: 200px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.9);
+    transition: box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* Ensures the third image spans both columns */
+.calendar-images img:nth-child(3) {
+    grid-column: span 2;
+}
+
+/* Hover effects */
+.sidebar-image:hover {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 1);
+}
+
+/* Text overlay */
+.sidebar-image::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.sidebar-image:hover::after {
+    opacity: 1;
+}
+
+/* Modal styling */
+.modal {
+    visibility: hidden; /* Hidden initially */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8); /* Start scaled down */
+    max-width: 700px; /* Max width of modal */
+    max-height: 700px; /* Max height of modal */
+    width: auto; /* Width adjusts based on content */
+    height: auto; /* Height adjusts based on content */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+    transition: opacity 0.7s ease, transform 0.7s ease; /* Smooth open/close */
+    opacity: 0;
+    z-index: 1000;
+}
+
+.modal.visible {
+    visibility: visible; /* Makes modal visible */
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1); /* Expand smoothly */
+}
+
+/* Modal header styling */
+.modal-header {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.modal-content {
+    padding: 0px; /* Ensure no extra padding */
+    margin-bottom: -10px;
+}
+
+/* Adjust image within modal */
+.modal-content img {
+    width: 100%;
+    height: 100%; /* Ensure full height coverage */
+    object-fit: cover; /* Keep proportions if necessary */
+}
+
+/* Background overlay styling */
+.modal-overlay {
+    visibility: hidden; /* Hidden initially */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.7s ease; /* Smoother transition for overlay */
+    z-index: 999;
+}
+
+.modal-overlay.visible {
+    visibility: visible; /* Makes overlay visible */
+    opacity: 1;
+}
+
+
+.count {
+    background: linear-gradient(220deg, #e9e9e9, #8fb3c2, #e9e9e9);
+    border-radius: 8px;
+    box-shadow: 0px -4px 7px rgba(0, 0, 0, 0.5), 0px 4px 7px rgba(0, 0, 0, 0.5);
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.counter h1 {
+    color:#c9541a;
+}
+
+.counter-container {
+    display: flex;
+    gap: 80px;
+}
+
+.counter {
+    font-size: 1.5rem;
+    color: #fff;
+    transition: transform 0.3s ease;
+    color:#000;
+}
+
+.number {
+    color:#c9541a;
+    display: block;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+
+body.dark-mode .count {
+    background: linear-gradient(220deg, #1a1a1a, #70004e, #1a1a1a);
+}
+
+body.dark-mode .number {
+    color: #ffabab;
+}
+
+body.dark-mode .counter {
+    color: #39f136;
+}
+
+
+
+
+
+/* Main styles for the school-features section */
+.school-features {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 100px; /* Space between containers */
+    align-items: center;
+    margin-top: 60px;
+    margin-bottom: 60px;
+
+    /* Initial hidden position for animation */
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease, transform 1s ease; /* Smooth transition */
+}
+
+/* Class to apply when the section is in view */
+.school-features.show {
+    opacity: 1;
+    transform: translateY(0); /* Resets translation to original position */
+}
+
+.container {
+    position: relative;
+    width: 200px; /* Adjust based on your preference */
+    height: 200px; /* Adjust based on your preference */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border: 2px solid #333; /* Border around each container */
+    border-radius: 8px; /* Rounded corners for the border */
+    padding: 20px; /* Space between border and content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .5); /* Subtle shadow around the container */
+}
+
+.container img {
+    position: absolute;
+    top: -50px; /* Adjust as needed */
+    width: 80%; /* Adjust based on your image */
+    height: auto;
+}
+
+.container h3 {
+    position: absolute;
+    top: 40px; /* Position the text on top of the button */
+}
+
+.container button {
+    padding: 10px 20px;
+    margin-top: 10px;
+}
+
+
+.admission {
+    background: linear-gradient(220deg, #e9e9e9, #8fb3c2, #e9e9e9);
+    border-radius: 8px;
+    box-shadow: 0px -4px 7px rgba(0, 0, 0, 0.5), 0px 4px 7px rgba(0, 0, 0, 0.5);
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.admission h1 {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.admission h1 {
+    color:#004d70
+}
+
+.admission h1 {
+    color:#c9541a
+}
+
+body.dark-mode .admission {
+    background: linear-gradient(220deg, #1a1a1a, #70004e, #1a1a1a);
+}
+
+body.dark-mode .admission h1 {
+    color:#ffabab
+}
+
+body.dark-mode .admission h2 {
+    color:#39f136
+}
+
+
+/* Click here button  for admissions*/
+.click-here {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #c9541a;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
+}
+
+.click-here:hover {
+    background-color: #78320f;
+}
+
+
+
+/* Click here button for school features */
+.click-here-school-features {
+    margin-top: 50px;
+    padding: 10px 20px;
+    background-color: #c9541a;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
+    position: relative; /* Set position to relative to use 'top' */
+    top: 50px; /* Move the button 20px lower */
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.click-here-school-features:hover {
+    
+    box-shadow: 0 0 5px #c9541a, 
+                0 0 6px #c9541a, 
+                0 0 7px #c9541a, 
+                0 0 8px #c9541a, 
+                0 0 9px #c9541a;
+    background-color: #c9371a;
+                
+}
+
+        
+/* Gallery Container */
+.gallery {
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 100px;
+
+    /* Initial state for fade-in effect */
+    opacity: 0;
+    transition: opacity 1.3s ease-in-out; /* 1-second fade-in transition */
+}
+
+/* Class to apply when the gallery is in view */
+.gallery.show {
+    opacity: 1; /* Fully visible */
+}
+
+/* Gallery Title */
+.gallery h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.gallery-slider-container {
+    position: relative;
+    max-width: 1300px;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 8px;
+    height: 400px;
+    background-color: transparent;
+}
+
+/* Slider */
+.gallery-slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    gap: 20px; /* Create a 20px gap between slides */
+    background-color: transparent;
+}
+
+.gallery-slide {
+    min-width: calc(33.333% - 20px); /* Show 3 slides with a 20px gap between them */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+}
+
+.gallery-slide img {
+    width: 400px;
+    height: 250px; /* Set a consistent height */
+    object-fit: cover; /* Maintain aspect ratio */
+    border-radius: 8px;
+    margin-bottom: 20px; /* Gap between image and text */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .5);
+    transition: box-shadow 0.3s ease;
+}
+
+.gallery-slide img:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+}
+
+/* Text Container */
+.gallery-slide-info {
+    color: #333;
+    text-align: center;
+    padding: 0 10px; /* Optional padding for text */
+    max-height: 100px; /* Set a reasonable max height */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Slide Title */
+.gallery-slide-info h3 {
+    font-size: 1.2em;
+    color: #049b0b; /* Dark green */
+    margin: 5px 0;
+}
+
+.gallery-slide-info p {
+    font-size: 0.9em;
+    color: gray;
+    line-height: 1.2em; /* Space between lines */
+}
+
+/* Navigation Buttons */
+.nav-btn {
+    position: absolute;
+    top: 115px;
+    transform: translateY(-20%);
+    font-size: 2em;
+    color: rgb(255, 0, 0);
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+    z-index: 2;
+}
+
+.nav-btn:hover {
+    color: #00ff0d;
+    transform: scale(1.1);
+}
+
+.prev-btn {
+    left: 0px;
+}
+
+.next-btn {
+    right: 20px;
+}
+
+.view-more-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #1e88e5;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
+    font-family: 'Poppins', sans-serif;
+}
+
+.view-more-btn:hover {
+    background-color: #104e85;
+}
+
+div#slider.gallery-slider::before {
+    display: none;
+}
+
+body.dark-mode .gallery h1 {
+    color: white; /* Set color to white in dark mode */
+}
+
+body.dark-mode .gallery-slide-info h3 {
+    color: #39f136; /* Dark green */
+}
+
+body.dark-mode .gallery-slide img {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+}
+
+body.dark-mode .gallery-slide img:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 1);
+}
+
+
+.accreditation img {
+    display: block; /* Makes the image a block-level element */
+    margin: 0 auto; /* Centers the image horizontally */
+    max-height: 200px;
+    border-radius: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+    transition: box-shadow 0.3s ease; /* Transition for box-shadow */
+    margin-top: -50px;
+    margin-bottom: -70px;
+    z-index: 1000;
+    position: relative; /* Ensure it's above other content */
+}
+
+.accreditation img:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 1);
+}
+
+body.dark-mode .accreditation img {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+    transition: box-shadow 0.3s ease; /* Ensure transition for dark mode as well */
+}
+
+body.dark-mode .accreditation img:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 1);
+}
+
+
+/* Style for the divider line */
+.full-width-divider {
+    width: calc(100% - 100px);
+    height: 3px; /* Thickness of the line */
+    background-color: #5d6e6c; /* Color of the line */
+    margin: 0 auto;
+}
+
+
+/* Footer Section */
+.footer {
+    background-color: #81c4ad;
+    padding: 20px;
+    margin-top: 40px;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.5); /* Shadow above the footer */
+    border-radius: 10px;
+}
+
+/* Removing the shadows from the columns */
+.footer .footer-columns {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 50px;
+}
+
+.footer .footer-column {
+    flex: 1;
+    margin: 10px;
+    transition: transform 0.6s ease-out; /* Smoother and slower transition */
+}
+
+/* No box-shadow and more fluid transform scaling */
+.footer .footer-column:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Left Section (Contact Info) - Changing text color from dark gray to orange on hover */
+.footer .contact-info {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #5d5d5d; /* Initial color */
+    transition: color 0.3s ease; /* Smooth transition for color */
+    margin-right: 80px;
+}
+
+.footer .contact-info:hover {
+    color: #000000;
+}
+
+body.dark-mode .footer .contact-info {
+    color: rgb(245, 196, 167);
+}
+
+body.dark-mode .footer .contact-info:hover {
+    color: #00eeff;
+}        
+
+/* Middle Section (Press Release) */
+.footer .press-release {
+    font-size: 15px;
+    font-weight: bold;
+    position: relative;
+    color: #444; /* Darker, professional color */
+    padding-bottom: 5px;
+    transition: all 0.2s ease; /* Adjusted to be faster */
+    cursor: pointer;
+    margin-right: 60px;
+}
+
+.footer .press-release:hover {
+    color: #007BFF; /* Professional blue on hover */
+    text-shadow: 1px 1px 5px rgba(0, 123, 255, 0.3); /* Add a soft glow */
+}
+
+/* Press Release Items */
+.footer .press-release-item {
+    color: #000;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    height: 90px;
+    min-width: 600px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; /* Added box-shadow transition */
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.7); /* Initial shadow */
+}
+
+/* If using paragraphs or headings, target them specifically */
+.footer .press-release-item p,
+.footer .press-release-item h4 {
+    margin: 0 20px; /* Adjust to reduce space between texts */
+    padding: px; /* Remove default padding if needed */
+}
+
+.footer .press-release-item:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+    background-color: #f9f9f9; /* Light background change on hover */
+    color: rgb(119, 108, 4);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Intensified shadow on hover */
+}
+
+.footer .press-release-item img {
+    max-width: 70px;
+    margin-left: 10px;
+    transition: transform 0.3s ease-out; /* Faster hover effect for image */
+}
+
+
+/* Right Section (In Focus) */
+.footer .in-focus {
+    font-size: 15px;
+    line-height: 1.4;
+    transition: color 0.3s ease;
+    color: #333; /* Base color */
+    margin-left: 60px;
+}
+
+.footer .in-focus:hover {
+    color: #007BFF; /* Professional blue on hover */
+}
+
+.footer-link {
+    text-decoration: none;
+    color: #555;
+    position: relative;
+    font-weight: normal;
+    transition: color 0.9s ease, font-weight 0.00001s ease, font-size .1s ease;
+    font-size: 16px;
+}
+
+.footer-link::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #504001;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.footer-link:hover {
+    color: #007BFF;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.footer-link:hover::after {
+    transform: scaleX(1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer .footer-columns {
+        flex-direction: column;
+    }
+
+    .footer .press-release-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Dark Mode */
+body.dark-mode .footer .in-focus {
+    color: white;
+}
+
+body.dark-mode .footer .in-focus:hover {
+    color: #007BFF; /* Professional blue on hover */
+    text-shadow: 1px 1px 5px rgba(0, 123, 255, 0.3);
+}
+
+body.dark-mode .footer .press-release {
+    color: white;
+}
+
+body.dark-mode .footer .press-release-item:hover {
+    color: #00eeff; /* Professional blue on hover */
+    text-shadow: 1px 1px 5px rgba(0, 123, 255, 0.3);
+}
+
+body.dark-mode .footer .press-release:hover {
+    color: #007BFF;
+}
+
+body.dark-mode .footer {
+    background-color: #222;
+    color: rgb(250, 244, 244);
+}
+
+body.dark-mode .footer a {
+    color: rgb(245, 196, 167);
+}
+
+body.dark-mode .footer a:hover {
+    color: #00eeff;
+}
+
+body.dark-mode .footer .press-release-item {
+    background-color: rgb(14, 12, 15);
+    border: 0px solid #d1d1d1;
+    color: rgb(245, 196, 167);
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 3px solid #5a9a8f;
+    font-size: 14px;
+    color: #333;
+    width: 100%;
+}
+
+.footer-bottom p {
+    margin: 0;
+    padding-left: 50px; /* Adds padding to the left side */
+}
+
+.footer-bottom .social-icons {
+    display: flex;
+    gap: 10px;
+    margin-right: 50px; /* Adds 50px margin from the right */
+}
+
+.footer-bottom .social-icons img {
+    width: 24px;
+    transition: transform 0.3s ease;
+}
+
+.footer-bottom .social-icons img:hover {
+    transform: scale(1.25);
+}
+
+/* Dark mode styling */
+body.dark-mode .footer-bottom {
+    color: rgb(250, 244, 244);
+    border-top-color: rgb(102, 102, 102);
+}
+
+
+/* Popup container - hidden by default */
+.popup-container {
+        display: flex; /* Change to flex to allow centering */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        justify-content: center;
+        align-items: center;
+        opacity: 0; /* Start with no opacity */
+        transition: opacity 0.5s ease-in-out; /* Smooth fade-in/out */
+        z-index: 2000;
+    }
+
+    /* Popup content */
+    .popup-content {
+        max-width: 700px; /* Maximum width of popup */
+        max-height: 400px; /* Maximum height of popup */
+        background-color: #fff; /* Default background for light mode */
+        color: black; /* Default text color for light mode */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 1);
+        text-align: center;
+        width: 700px;
+        height: 400px;
+        max-width: 90%;
+        animation: slideDown 1s ease-out;
+        overflow-y: auto; /* Enable vertical scrolling */
+        padding-right: 16px; /* Add padding to the right to prevent scrollbar overlap */
+        transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    .popup-content:hover {
+        box-shadow: 0 0 5px #0022ff, 
+                    0 0 5px #0022ff, 
+                    0 0 50px #0022ff, 
+                    0 0 75px #0022ff, 
+                    0 0 20px #0022ff;
+    }
+
+    body.dark-mode .popup-content:hover {
+        box-shadow: 0 0 5px cyan, 
+                    0 0 5px cyan, 
+                    0 0 50px cyan, 
+                    0 0 75px cyan, 
+                    0 0 20px cyan;
+    }
+
+    /* Section headings with gradient text */
+    .popup-section h3 {
+        margin: 0; /* Removes any default margins if needed */
+        text-align: left;
+        background: linear-gradient(0deg, #6a00ff, #ff0000); /* Adjust colors and angle as needed */
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Dark mode section headings with different gradient */
+    body.dark-mode .popup-section h3 {
+        background: linear-gradient(0deg, #80ff00, #00aeff); /* Adjust colors for dark mode */
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Paragraph text */
+    .popup-section p {
+        margin: 10px; /* Removes any default margins if needed */
+        text-align: left; /* Ensures each element is left-aligned */
+        transition: color 0s ease; /* Smooth transition for color changes */
+    }
+
+    .popup-section a {
+        color: #007d88; /* Link color */
+        text-decoration: underline; /* Adds underline */
+        transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease; /* Smooth transition */
+        text-shadow: 0 0 5px rgba(0, 125, 136, 0.4); /* Subtle glow effect */
+    }
+
+    .popup-section a:hover {
+        color: #d900c3; /* Darker pink color on hover */
+        transform: scale(1.05); /* Slightly enlarge the text on hover */
+        text-shadow: 0 0 5px rgba(217, 0, 195, 0.7), 0 0 12px rgba(217, 0, 195, 0.5); /* Stronger glow effect on hover */
+    }
+
+    /* Dark mode link hover */
+    body.dark-mode .popup-section a:hover {
+        color: #d000a6; /* Darker pink color on hover in dark mode */
+        transform: scale(1.1); /* Slightly enlarge the text */
+    }
+
+    /* Gradient text class */
+    .gradient-text {
+        background: linear-gradient(0deg, #00ccff, #ff00cc); /* Adjust colors and angle as needed */
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 24px; /* Adjust the font size as needed */
+    }
+
+    /* Dark mode gradient text */
+    body.dark-mode .gradient-text {
+        background: linear-gradient(0deg, #ffdd00, #ff00cc); /* Adjust colors and angle as needed */
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Custom scrollbar styles */
+    .popup-content::-webkit-scrollbar {
+        width: 12px; /* Width of the scrollbar */
+    }
+
+    .popup-content::-webkit-scrollbar-thumb {
+        background: #888; /* Color of the scrollbar thumb */
+        border-radius: 6px; /* Rounded corners */
+    }
+
+    .popup-content::-webkit-scrollbar-thumb:hover {
+        background: #555; /* Darker color on hover */
+    }
+
+    .popup-content::-webkit-scrollbar-track {
+        background: transparent; /* Background of the scrollbar track */
+        border-radius: 6px; /* Rounded corners */
+    }
+
+    /* For Firefox */
+    .popup-content {
+        scrollbar-width: thin; /* Set scrollbar width to thin */
+        scrollbar-color: #888 transparent; /* Thumb color and track color */
+    }
+
+    .popup-content:hover {
+        scrollbar-color: #555 transparent; /* Darker thumb color on hover */
+    }
+
+    /* Dark mode styles */
+    body.dark-mode .popup-content {
+        background-color: #333333; /* Darker background for dark mode */
+        color: white; /* Light text color for dark mode */
+    }
+
+    body.dark-mode .popup-section a {
+        color: #ff85cc; /* Change to a suitable color for dark mode */
+    }
+
+    /* Close button */
+    .close-button {
+        font-size: 25px;
+        font-weight: bold;
+        color: #333;
+        float: right;
+        cursor: pointer;
+        margin-top: -10px;
+        transition: color 0.3s ease; /* Smooth transition for close button color */
+    }
+
+    body.dark-mode .close-button {
+        color: #ffffff; /* Light color for close button in dark mode */
+    }
+
+    /* Popup animations */
+    @keyframes slideDown {
+        from {
+            transform: translateY(-8%);
+        }
+        to {
+            transform: translateY(0);
+        }
+    }
+
+    .fade-out {
+        opacity: 0;
+        transition: opacity 1s ease-in-out, visibility 1s ease-in-out; /* Add visibility transition */
+        visibility: hidden; /* Make the element hidden after the transition */
+    }
+
+    .fade-in {
+        display: flex;
+        opacity: 0.95; /* Fades in */
+        visibility: visible; /* Ensure it's visible when fading in */
+        transition: opacity 1s ease-in-out; /* Match duration with fade-out */
+    }
+
+
+#modeLabel {
+    font-family: 'Poppins', sans-serif; /* Apply Poppins font */
+    transition: opacity 0.3s ease; /* Smooth transition for fading */
+    font-weight: 600; /* Optional, adjust weight if desired */
+}
+
+
+/* Fog effect at the bottom */
+.fog-effect-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Fog effect at the top */
+.fog-effect-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)); /* Light fog for light mode */
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Dark mode styling */
+body.dark-mode .fog-effect-bottom {
+    background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)); /* Dark fog for dark mode */
+}
+
+body.dark-mode .fog-effect-top {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)); /* Dark fog for dark mode */
+    height: 250px;
+}
