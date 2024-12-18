@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -1003,3 +1007,21 @@ body {
     pointer-events: none;
     z-index: 10;
 }
+
+.cert-image {
+    margin-top: 30px;   /* Apply top margin */
+    margin-bottom: 30px;
+    margin-left: auto;   /* Center horizontally */
+    margin-right: auto;  /* Center horizontally */
+    max-width: 100%;     /* Ensure the image scales down to fit its container */
+    height: auto;        /* Maintains the aspect ratio */
+    display: block;      /* Remove any unwanted spacing below the image */
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform .4s ease;  /* Smooth transition on transform */
+}
+
+.cert-image:hover {
+    transform: scale(1.01); /* Slightly increase the size on hover */
+}
+
