@@ -452,3 +452,9 @@ document.addEventListener("DOMContentLoaded", function() {
     window.addEventListener("scroll", checkGalleryVisibility);
     checkGalleryVisibility(); // Initial check in case the gallery is already in view
 });
+
+// Disable right-click on the entire page
+document.addEventListener('contextmenu', function(event) {
+    event.preventDefault(); // Prevent the default right-click menu
+    alert('Right-click is disabled on this page.'); // Optional: Show a message
+});
