@@ -102,6 +102,25 @@
                     <div class="iframe-container">
                         <iframe src="for site/move/main.html" frameborder="0"></iframe>
                     </div>
+
+                                    <!-- School HTML -->
+                <div class="projects-snippet">
+                    <div class="projects-snippet-header">
+                        <h5 class="projects-snippet-title">
+                            <div class="projects-language">
+                                <i class="language-icon features"></i>
+                            </div>
+                            Features
+                        </h5>
+                        <button class="code-snippet-toggle">+</button>
+                    </div>
+                    
+                    <div class="projects-snippet-content">
+                        <pre class="projects-snippet-code">kf</pre>
+
+                    </div>
+                    </div>
+
                     <button class="see-more-btn" onclick="window.open('https://arubbinali.github.io/Docs.html#school-docs', '_blank')">Docs</button>
 
                 </div>
@@ -200,6 +219,77 @@
         
     </main>
 
+    <script>
+        // Function to truncate code for preview
+        function truncateCode(code, lines = 12) {
+            const codeLines = code.split('\n');
+            if (codeLines.length > lines) {
+                return codeLines.slice(0, lines).join('\n');
+            }
+            return code;
+        }
+
+        // Function to toggle code snippet visibility
+        document.querySelectorAll('.code-snippet-header').forEach(header => {
+            const content = header.nextElementSibling;
+            const codeElement = content.querySelector('code');
+            const fullCode = codeElement.textContent;
+            
+            // Store full code and set truncated preview
+            codeElement.dataset.fullCode = fullCode;
+            codeElement.textContent = truncateCode(fullCode);
+            
+            header.addEventListener('click', () => {
+                const toggle = header.querySelector('.code-snippet-toggle');
+                content.classList.toggle('expanded');
+                toggle.textContent = content.classList.contains('expanded') ? '-' : '+';
+            });
+        });
+
+        // Function to format code with line numbers for modal
+        function formatCodeWithLineNumbers(code) {
+            const lines = code.split('\n');
+            const totalLines = lines.length;
+            const lineNumberWidth = totalLines.toString().length;
+            
+            return lines.map((line, index) => {
+                const lineNum = (index + 1).toString().padStart(lineNumberWidth, ' ');
+                return `<span class="code-line"><span class="line-number" style="width: ${lineNumberWidth}ch">${lineNum}&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="line-content">${line}</span></span>`;
+            }).join('\n');
+        }
+
+        // Function to show modal with full code
+        function showModal(button) {
+            const modal = document.getElementById('codeModal');
+            const codeBlock = button.closest('.code-snippet-content').querySelector('code');
+            const code = codeBlock.dataset.fullCode;
+            const modalCode = modal.querySelector('.modal-code');
+            
+            // Format code with line numbers
+            modalCode.innerHTML = formatCodeWithLineNumbers(code);
+            
+            // Apply syntax highlighting
+            Prism.highlightElement(modalCode);
+            
+            modal.style.display = 'block';
+        }
+
+        // Function to close modal
+        document.querySelector('.close-modal').addEventListener('click', () => {
+            const modal = document.getElementById('codeModal');
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('codeModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+    
     <!-- Shade effect overlays -->
     <div class="shade-effect-top"></div>
     <div class="shade-effect-bottom"></div>
