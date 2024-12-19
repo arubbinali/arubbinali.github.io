@@ -2125,12 +2125,12 @@ body.dark-mode .fog-effect-top {
     font-family: "Poppins", sans-serif;
     font-size: 4vw; /* Default font-size for other lines */
     font-weight: 700;
-     /* Make the text transparent so the gradient can show through */
-    background: white;
+    color: transparent; /* Make the text transparent so the gradient can show through */
+    background: linear-gradient(90deg, #0000FF, #00008B, #0000FF);
     background-clip: text; /* Clip the background to the text */
     -webkit-background-clip: text; /* For Webkit-based browsers (Safari, Chrome) */
     letter-spacing: 0;
-    text-shadow: 0 5px 5px rgba(0, 0, 0, 1);
+    text-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
     position: relative;
     transform: translateY(-100vh); /* Start from off-screen */
     animation: fall 3.5s forwards;
@@ -2141,7 +2141,12 @@ body.dark-mode .fog-effect-top {
     background: linear-gradient(90deg, #b00076, #b000a1, #b00076); /* Gradient from green to dark green and back to green */
     background-clip: text; /* Clip the background to the text */
     -webkit-background-clip: text; /* For Webkit-based browsers (Safari, Chrome) */
-    text-shadow: white;
+    text-shadow: 0 0 .5px #32CD32, 
+                0 0 .5px #32CD32, 
+                0 0 .5px #32CD32, 
+                0 0 .5px #32CD32, 
+                0 0 .5px #32CD32;
+
 }
 
 /* Keyframe for the falling animation */
