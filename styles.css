@@ -1062,3 +1062,37 @@ body {
 .language-icon.duration {
     background-image: url('duration.png');
 }
+
+/* Container to wrap the video and apply styles */
+.video-container {
+    max-width: 100%; /* Allow video to be responsive */
+    margin: 0 auto;  /* Center the video horizontally */
+    text-align: center; /* Center align the video */
+}
+
+/* Video element styling */
+video {
+    width: 100%; /* Make the video take up 100% of the container's width */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 800px; /* Limit maximum width */
+    border-radius: 10px; /* Optional: Round corners */
+}
+
+video.size {
+    width: 100%;
+    max-width: 1800px;
+    height: auto;
+}
+
+/* Hide the fullscreen button */
+video::-webkit-media-controls-fullscreen-button {
+    display: none;
+}
+
+video::-moz-full-screen-button {
+    display: none;
+}
+
+video::-ms-fullscreen-button {
+    display: none;
+}
