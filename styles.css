@@ -1063,6 +1063,14 @@ body {
     background-image: url('duration.png');
 }
 
+.language-icon.input {
+    background-image: url('upload.png');
+}
+
+.language-icon.output {
+    background-image: url('download.png');
+}
+
 /* Container to wrap the video and apply styles */
 .video-container {
     max-width: 100%; /* Allow video to be responsive */
@@ -1072,6 +1080,8 @@ body {
 
 /* Video element styling */
 video {
+    margin-top: 30px;
+    margin-bottom: 30px;
     width: 100%; /* Make the video take up 100% of the container's width */
     height: auto; /* Maintain aspect ratio */
     max-width: 800px; /* Limit maximum width */
