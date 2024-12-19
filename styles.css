@@ -1059,3 +1059,6 @@ body {
     background-image: url('features.png');
 }
 
+.language-icon.duration {
+    background-image: url('duration.png');
+}
