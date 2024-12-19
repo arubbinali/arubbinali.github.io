@@ -251,7 +251,7 @@
             }
             return code;
         }
-
+    
         // Function to toggle code snippet visibility
         document.querySelectorAll('.code-snippet-header').forEach(header => {
             const content = header.nextElementSibling;
@@ -262,19 +262,29 @@
             codeElement.dataset.fullCode = fullCode;
             codeElement.textContent = truncateCode(fullCode);
             
+            // Apply line numbers initially to truncated code
+            content.querySelector('.code-snippet-code').innerHTML = formatCodeWithLineNumbers(codeElement.textContent);
+    
             header.addEventListener('click', () => {
                 const toggle = header.querySelector('.code-snippet-toggle');
                 content.classList.toggle('expanded');
                 toggle.textContent = content.classList.contains('expanded') ? '-' : '+';
+                
+                // When expanded, show full code with line numbers
+                if (content.classList.contains('expanded')) {
+                    codeElement.innerHTML = formatCodeWithLineNumbers(codeElement.dataset.fullCode);
+                } else {
+                    codeElement.innerHTML = formatCodeWithLineNumbers(truncateCode(codeElement.dataset.fullCode));
+                }
             });
         });
-
+    
         // Function to format code with line numbers for modal
         function formatCodeWithLineNumbers(code) {
             const lines = code.split('\n');
             const totalLines = lines.length;
             const lineNumberWidth = totalLines.toString().length;
-            
+    
             return lines.map((line, index) => {
                 const lineNum = (index + 1).toString().padStart(lineNumberWidth, ' ');
                 return `<span class="code-line"><span class="line-number" style="width: ${lineNumberWidth}ch">${lineNum}&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="line-content">${line}</span></span>`;
