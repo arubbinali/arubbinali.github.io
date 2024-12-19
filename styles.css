@@ -1080,7 +1080,7 @@ body {
 
 /* Video element styling */
 video {
-    margin-top: 30px;
+    margin-top: 10px;
     margin-bottom: 30px;
     width: 100%; /* Make the video take up 100% of the container's width */
     height: auto; /* Maintain aspect ratio */
