@@ -1071,6 +1071,10 @@ body {
     background-image: url('download.png');
 }
 
+.language-icon.details {
+    background-image: url('details.png');
+}
+
 /* Container to wrap the video and apply styles */
 .video-container {
     max-width: 100%; /* Allow video to be responsive */
