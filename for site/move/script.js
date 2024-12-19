@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isDarkMode) {
         document.body.classList.add("dark-mode");
         toggleSwitch.checked = true;
-        updateLabel("&nbsp;DARK&#8202;\u2003🌙");
+        updateLabel("&nbsp;&nbsp;DARK&#8202;\u2003🌙");
     } else {
         updateLabel("&#8202;☀️  &nbsp;&nbsp;&nbsp;LIGHT"); // Adjusted spacing for "LIGHT" text
     }
@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("darkMode", isDarkMode ? "enabled" : "disabled");
 
         // Update the label and logo
-        updateLabel(isDarkMode ? "&nbsp;DARK&#8202;\u2003🌙" : "&#8202;☀️  &nbsp;&nbsp;&nbsp;LIGHT");
+        updateLabel(isDarkMode ? "&nbsp;&nbsp;DARK&#8202;\u2003🌙" : "&#8202;☀️  &nbsp;&nbsp;&nbsp;LIGHT");
         updateLogo(isDarkMode);
     }); 
 });
