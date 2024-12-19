@@ -1055,57 +1055,7 @@ body {
     }
 }
 
-/* Projects Snippet Styles */
-.projects-snippet {
-    background: rgba(20, 20, 20, 0.5);
-    border: 1px solid rgba(255, 255, 255, .1);
-    border-radius: 10px;
-    margin-bottom: 2rem;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 1);
-    position: relative;
-    overflow: hidden; /* Ensure scrolling text doesn't overflow */
-    transition: background-color 0.3s ease;
-}
-
-.projects-snippet:hover {
-    background-color: rgba(0, 0, 0, 0.5); /* Darken on hover */
-}
-
-.projects-snippet-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 1.5rem;
-    background: rgba(30, 30, 30, 0.1);
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.projects-snippet-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #bfc8ba;
-    letter-spacing: 1px;
-    display: flex;
-    align-items: center;
-}
-
-.projects-language {
-    position: relative;
-    top: 0rem;
-    display: flex;
-    gap: .5rem;
-    font-size: 0.9rem;
-    color: #858585;
-    font-family: 'Poppins', sans-serif;
-    z-index: 1;
-    justify-content: flex-end; /* Aligns content to the right */
-    margin-right: 10px;
-}
-
 .language-icon.features {
-    background-image: "";
+    background-image: url('features.png');
 }
+

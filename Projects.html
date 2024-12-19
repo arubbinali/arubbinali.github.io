@@ -80,45 +80,68 @@
         <div class="scroll-spacer" style="height: 0vh;"></div>
 
         <div class="content-sections">
+
             
+
+
+
+
+
+
+
+
+
+
+
             <!-- School site -->
             <div id="school-projects">
             <div id="pcap-cert">
-            <h2 class="project-heading">School Site</h2>
-            <div class="glow-line"></div>
-            <div class="code-snippets-container">
+                <h2 class="project-heading">School Site</h2>
+                <div class="glow-line"></div>
+                <div class="code-snippets-container">
 
+                    <section class="info-section">
+                        <h2 class="project-heading">My School's Revamped Website (Main Page)</h2>
+                        <div class="cert-text">
+                            Officially presented my <a href="https://pisjes.edu.sa/" target="_blank">school</a>'s enhanced variant of their existing website
+                            (main page) on 16th November 2024. See the school's website on 16th November 2024
+                            <a href="https://web.archive.org/web/20241116012342/https://pisjes.edu.sa/" target="_blank">here</a> for comparison.
 
-
-            
-                <section class="info-section">
-
-                <h2 class="project-heading">My School's Revamped Website (Main Page)</h2>
-                <div class="cert-text">
-                    Officially presented my <a href="https://pisjes.edu.sa/" target="_blank">school</a>'s enhanced variant of their existing website
-                    (main page) on 16th November 2024. See the school's website</a> on 16th November 2024
-                    <a href="https://web.archive.org/web/20241116012342/https://pisjes.edu.sa/" target="_blank">here</a> for comparison.
-
-                    <div class="iframe-container">
-                        <iframe src="for site/move/main.html" frameborder="0"></iframe>
-                    </div>
-
-                                    <!-- School HTML -->
-                <div class="projects-snippet">
-                    <div class="projects-snippet-header">
-                        <h5 class="projects-snippet-title">
-                            <div class="projects-language">
-                                <i class="language-icon features"></i>
+                            <div class="iframe-container">
+                                <iframe src="for site/move/main.html" frameborder="0"></iframe>
                             </div>
-                            Features
-                        </h5>
-                        <button class="code-snippet-toggle">+</button>
-                    </div>
-                    
-                    <div class="projects-snippet-content">
-                        <pre class="projects-snippet-code">kf</pre>
 
-                    </div>
+                            <!-- School HTML -->
+                            <div class="code-snippet">
+                                <div class="code-snippet-header">
+                                    <h5 class="code-snippet-title">
+                                        <div class="code-language">
+                                            <i class="language-icon features"></i>
+                                        </div>
+                                        Features
+                                    </h5>
+                                    <button class="code-snippet-toggle">+</button>
+                                </div>
+
+                                <div class="code-snippet-content">
+                                    <pre class="code-snippet-code"><code class="language-html">1    
+2
+3
+4
+4
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17</code></pre>
+                        </div>
                     </div>
 
                     <button class="see-more-btn" onclick="window.open('https://arubbinali.github.io/Docs.html#school-docs', '_blank')">Docs</button>
@@ -126,7 +149,7 @@
                 </div>
                 </section>
                 </div>
-                
+
             </div>
             </div>
 
@@ -221,7 +244,7 @@
 
     <script>
         // Function to truncate code for preview
-        function truncateCode(code, lines = 12) {
+        function truncateCode(code, lines = 100) {
             const codeLines = code.split('\n');
             if (codeLines.length > lines) {
                 return codeLines.slice(0, lines).join('\n');
@@ -257,37 +280,6 @@
                 return `<span class="code-line"><span class="line-number" style="width: ${lineNumberWidth}ch">${lineNum}&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="line-content">${line}</span></span>`;
             }).join('\n');
         }
-
-        // Function to show modal with full code
-        function showModal(button) {
-            const modal = document.getElementById('codeModal');
-            const codeBlock = button.closest('.code-snippet-content').querySelector('code');
-            const code = codeBlock.dataset.fullCode;
-            const modalCode = modal.querySelector('.modal-code');
-            
-            // Format code with line numbers
-            modalCode.innerHTML = formatCodeWithLineNumbers(code);
-            
-            // Apply syntax highlighting
-            Prism.highlightElement(modalCode);
-            
-            modal.style.display = 'block';
-        }
-
-        // Function to close modal
-        document.querySelector('.close-modal').addEventListener('click', () => {
-            const modal = document.getElementById('codeModal');
-            modal.style.display = 'none';
-        });
-
-        // Close modal when clicking outside
-
-        window.addEventListener('click', (event) => {
-            const modal = document.getElementById('codeModal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
     </script>
     
     <!-- Shade effect overlays -->
