@@ -1098,6 +1098,10 @@ body {
     background-image: url('code.png');
 }
 
+.language-icon.more {
+    background-image: url('more.png');
+}
+
 /* Container to wrap the video and apply styles */
 .video-container {
     max-width: 100%; /* Allow video to be responsive */
