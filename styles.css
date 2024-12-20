@@ -639,9 +639,11 @@ body {
 }
 /* Button Container */
 .button-container {
-    display: block;
     margin-left: 0rem;
     margin-top: 1rem;
+    display: flex;
+    gap: 10px; /* Adjust the gap between buttons */
+    flex-wrap: wrap;
 }
 
 /* See More Button */
