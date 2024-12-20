@@ -1075,6 +1075,10 @@ body {
     background-image: url('details.png');
 }
 
+.language-icon.project {
+    background-image: url('project.png');
+}
+
 /* Container to wrap the video and apply styles */
 .video-container {
     max-width: 100%; /* Allow video to be responsive */
