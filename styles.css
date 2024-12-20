@@ -646,7 +646,7 @@ body {
 
 /* See More Button */
 .see-more-btn {
-    margin-top: 20px;
+    margin-top: 25px;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
@@ -662,7 +662,16 @@ body {
     width: 180px;
     height: 55px;
     margin-right: 10px;
+    display: flex;
+    align-items: center;
+    padding-left: 23px; /* Ensures the icon is 5px from the left edge */
+    font-size: 16px;
 }
+
+.see-more-btn .language-icon {
+    margin-right: 10px; /* Keep the space between the icon and text */
+}
+
 
 /* Hover Effect */
 .see-more-btn:hover {
