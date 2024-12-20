@@ -1094,6 +1094,10 @@ body {
     background-image: url('github.png');
 }
 
+.language-icon.code {
+    background-image: url('code.png');
+}
+
 /* Container to wrap the video and apply styles */
 .video-container {
     max-width: 100%; /* Allow video to be responsive */
