@@ -592,7 +592,7 @@ body {
 }
 
 .code-snippet-content.expanded {
-    max-height: 530px; /* Increased to give more space for the button */
+    max-height: 650px; /* Increased to give more space for the button */
     padding: 1rem;
 }
 
