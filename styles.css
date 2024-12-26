@@ -16,7 +16,7 @@ body {
 }
 
 body {
-    background-image: url('1.jpeg'); /* Replace '1.jpeg' with the actual path to your image if it's not in the same directory */
+    background-image: url('background.jpeg');
     background-size: cover; /* Adjust background-size as needed (e.g., 'contain', 'cover', '100% 100%') */
 }
 
