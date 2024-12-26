@@ -1115,6 +1115,10 @@ body {
     background-image: url('video.png');
 }
 
+.language-icon.home {
+    background-image: url('home.png');
+}
+
 /* Container to wrap the video and apply styles */
 .video-container {
     max-width: 100%; /* Allow video to be responsive */
