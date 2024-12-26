@@ -1106,6 +1106,10 @@ body {
     background-image: url('award.png');
 }
 
+.language-icon.video {
+    background-image: url('video.png');
+}
+
 /* Container to wrap the video and apply styles */
 .video-container {
     max-width: 100%; /* Allow video to be responsive */
