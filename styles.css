@@ -39,7 +39,7 @@ body {
     color: #fff;
     min-height: 300vh;
     overflow-x: hidden;
-    animation: moveBackground 60s ease-in-out infinite;
+    animation: moveBackground 80s ease-in-out infinite;
 }
 
 
