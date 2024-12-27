@@ -399,6 +399,148 @@ body {
 }
 
 
+.main-sections {
+    position: relative;
+    margin-top: 100vh;
+    padding: 100px 200px; /* 100px top/bottom and 300px left/right */
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 2 columns */
+    grid-template-rows: repeat(2, auto); /* 3 rows */
+    gap: 100px; /* 100px space between grid items */
+}
+
+.main-sections::before,
+.main-sections::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    pointer-events: none;
+}
+
+.main-sections::before {
+    top: 0;
+    background: linear-gradient(to bottom, 
+        rgba(10, 10, 10, 0) 0%,
+        #554141b3 100%
+    );
+    transform: translateY(-100%);
+}
+
+.main-sections::after {
+    bottom: 0;
+    background: linear-gradient(to top, 
+        rgba(10, 10, 10, 0) 0%,
+        #554141b3 100%
+    );
+    transform: translateY(100%);
+}
+
+.main-content {
+    max-width: 100%;
+    margin: 0; /* Margin managed by grid gap */
+    padding: 5px; /* Reduced padding for text alignment */
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+    transform: translateY(50px);
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.main-content h2, 
+.main-content p {
+    margin: 5px; /* Add minimal margin for breathing room */
+}
+
+.main-content:hover {
+    transform: translateY(45px);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.main-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.main-content:hover::before {
+    left: 100%;
+}
+
+.main-content::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.1)
+    );
+    border-radius: 4px 0 0 4px;
+}
+
+.main-content h2 {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.main-content p {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 1.5rem;
+}
+
+.main-content-image {
+    width: auto; /* Automatically adjusts width based on height to maintain aspect ratio */
+    height: 180px; /* Fixed height */
+    aspect-ratio: 16 / 9; /* Enforces 16:9 aspect ratio */
+    margin-top: 10px; /* Adds space between the glow-line and the image */
+    border-radius: 10px; /* Optional: Rounds the corners of the image */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Optional: Adds a subtle shadow */
+    object-fit: cover; /* Ensures the image covers the container without distortion */
+    transition: transform 0.3s ease; /* Optional: Adds a hover effect */
+    cursor: pointer;
+}
+
+.main-content-image:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+
 
 /* Hamburger Menu Styles */
 .hamburger-menu {
