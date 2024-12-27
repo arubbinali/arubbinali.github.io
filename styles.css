@@ -251,7 +251,7 @@ body {
     position: relative;
     margin-top: 100vh;
     padding: 4rem 2rem;
-    background: #000000b3;
+    background: rgba(0, 0, 0, 0.5);
     z-index: 2;
 }
 
@@ -1160,4 +1160,20 @@ video::-moz-full-screen-button {
 
 video::-ms-fullscreen-button {
     display: none;
+}
+
+.scroll-arrow {
+    position: fixed;
+    left: 49.5%;  /* Centers the arrow horizontally */
+    bottom: 10%;  /* Position the arrow 10% from the bottom */
+    transform: translateX(-50%) translateY(-50%);  /* Adjust position */
+    width: 30px;
+    height: 30px;
+    border-left: 2px solid #fff;
+    border-top: 2px solid #fff;
+    transform: rotate(-135deg);  /* Points the arrow down */
+    opacity: 0.6;  /* Default opacity when the page loads */
+    transition: opacity 0.3s ease-out;  /* Smooth transition for opacity change */
+    z-index: 1000;  /* Ensure it's visible on top of other content */
+    cursor: pointer;
 }

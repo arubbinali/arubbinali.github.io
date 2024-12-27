@@ -375,3 +375,22 @@ window.addEventListener('click', (event) => {
     }
 });
 
+// Ensure the DOM is fully loaded before running the script
+document.addEventListener('DOMContentLoaded', function () {
+    const scrollArrow = document.getElementById('scrollArrow');  // Get the down arrow element
+
+    // Function to handle scroll behavior and fading of the arrow
+    function handleScroll() {
+        if (window.scrollY > 10) {
+            scrollArrow.style.opacity = 0;  // Fade out
+        } else {
+            scrollArrow.style.opacity = 0.6;  // Fade in
+        }
+    }
+
+    // Add scroll event listener to track the scroll position
+    window.addEventListener('scroll', handleScroll);
+
+    // Initial check to handle cases when the page is already scrolled
+    handleScroll();
+});
