@@ -524,22 +524,15 @@ body {
     margin-bottom: 1.5rem;
 }
 
-.main-content-image {
-    width: auto; /* Automatically adjusts width based on height to maintain aspect ratio */
-    height: 180px; /* Fixed height */
-    aspect-ratio: 16 / 9; /* Enforces 16:9 aspect ratio */
-    margin-top: 10px; /* Adds space between the glow-line and the image */
-    border-radius: 10px; /* Optional: Rounds the corners of the image */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Optional: Adds a subtle shadow */
-    object-fit: cover; /* Ensures the image covers the container without distortion */
-    transition: transform 0.3s ease; /* Optional: Adds a hover effect */
-    cursor: pointer;
+.gif-image {
+    border-radius: 5px;
+    display: block;
+    margin: 20px auto; /* Centers the GIF horizontally */
+    margin-left: 20px;
+    margin-right: 20px;
+    max-width: 90%; /* Ensures the GIF doesn't overflow its container */
+    height: auto; /* Maintains aspect ratio */
 }
-
-.main-content-image:hover {
-    transform: scale(1.05); /* Slight zoom effect on hover */
-}
-
 
 
 /* Hamburger Menu Styles */
