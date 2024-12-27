@@ -13,13 +13,16 @@ body {
     color: #fff;
     min-height: 300vh;
     overflow-x: hidden;
-}
-
-body {
     background-image: url('background.jpeg');
-    background-size: cover; /* Adjust background-size as needed (e.g., 'contain', 'cover', '100% 100%') */
+    background-size: cover;
 }
 
+@media (max-width: 768px) {
+    body {
+        background-attachment: scroll; /* On mobile, background doesn't stay fixed */
+    }
+ }
+ 
 .navbar {
     position: fixed;
     top: 0;
