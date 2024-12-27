@@ -8,21 +8,49 @@ html {
     box-sizing: border-box;
 }
 
+@keyframes moveBackground {
+    0% {
+        background-position: 0 0;
+        background-size: 100%;
+    }
+    25% {
+        background-position: 50% 50%;
+        background-size: 110%;  /* Zoom in */
+    }
+    50% {
+        background-position: 100% 0;
+        background-size: 100%;
+    }
+    75% {
+        background-position: 50% -50%;
+        background-size: 110%;  /* Zoom in */
+    }
+    100% {
+        background-position: 0 0;
+        background-size: 100%;
+    }
+}
+
 body {
-    background-color: #2b2b2b;
+    background-image: url('background.jpeg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: 0 0;
     color: #fff;
     min-height: 300vh;
     overflow-x: hidden;
-    background-image: url('background.jpeg');
-    background-size: cover;
+    animation: moveBackground 60s ease-in-out infinite;
 }
 
+
+
+
 @media (max-width: 768px) {
-    body {
-        background-attachment: scroll; /* On mobile, background doesn't stay fixed */
-    }
- }
- 
+   body {
+       background-attachment: scroll; /* On mobile, background doesn't stay fixed */
+   }
+}
+
 .navbar {
     position: fixed;
     top: 0;
