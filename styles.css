@@ -15,7 +15,7 @@ html {
     }
     25% {
         background-position: 100% 100%;
-        background-size: 150%;  /* Zoom in */
+        background-size: 120%;  /* Zoom in */
     }
     50% {
         background-position: 100% 0;
@@ -23,7 +23,7 @@ html {
     }
     75% {
         background-position: 0% 100%;
-        background-size: 150%;  /* Zoom in */
+        background-size: 120%;  /* Zoom in */
     }
     100% {
         background-position: 0 0;
