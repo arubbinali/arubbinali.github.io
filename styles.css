@@ -34,10 +34,13 @@ body {
 }
 
 .nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem 0 300px;
+    width: 100%; /* Full width of the screen */
+    padding: 0 1rem; /* Padding on the left and right */
+    display: flex; /* Flexbox to align items */
+    justify-content: center; /* Centers the items horizontally */
+    box-sizing: border-box; /* Ensure padding doesn't affect the width calculation */
 }
+
 
 .nav-items {
     display: flex;
