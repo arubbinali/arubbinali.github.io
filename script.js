@@ -55,25 +55,14 @@ class MatrixChar {
 }
 
 // Create matrix characters
-let matrixChars = [];
-function createMatrixChars() {
-    matrixChars = []; // Clear existing chars
-    const columns = Math.floor(canvas.width / 20);
+const columns = Math.floor(canvas.width / 20);
+const matrixChars = [];
 
-    for (let i = 0; i < columns * 2; i++) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        matrixChars.push(new MatrixChar(x, y));
-    }
+for (let i = 0; i < columns * 2; i++) {
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height;
+    matrixChars.push(new MatrixChar(x, y));
 }
-
-// Create the initial matrix characters
-createMatrixChars();
-
-// Reset the matrix rain every 10 seconds
-setInterval(() => {
-    createMatrixChars(); // Reset matrix characters
-}, 10000);  // 10000 milliseconds = 10 seconds
 
 // Animation loop
 function animate() {
