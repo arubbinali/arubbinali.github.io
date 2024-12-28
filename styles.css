@@ -447,7 +447,7 @@ body {
 .main-content {
     margin-top: 0px;
     margin-bottom: 0px;
-    width: 350px; /* Fixed width for content */
+    width: 378px; /* Fixed width for content */
     height: 450px; /* Fixed height for content */
     background: rgba(0, 0, 0, 0.9);
     border-radius: 10px;
