@@ -508,23 +508,29 @@ body {
     font-family: 'Poppins', sans-serif;
     font-size: 1.2rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.95);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    color: transparent; /* Set text color to transparent */
+    background: linear-gradient(to left, grey, white); /* Define gradient colors */
+    -webkit-background-clip: text; /* Clips the gradient to the text */
+    background-clip: text; /* For non-WebKit browsers that support it */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Retain the subtle text shadow */
 }
 
 .main-content p {
     font-family: 'Poppins', sans-serif;
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.85);
     line-height: 1.6;
+    color: transparent; /* Set text color to transparent */
+    background: linear-gradient(to left, grey, white); /* Define gradient colors */
+    -webkit-background-clip: text; /* Clips the gradient to the text */
+    background-clip: text; /* For non-WebKit browsers that support it */
 }
-
 
 .main-image {
     cursor: pointer;
     display: block;
-    width: 100%; /* Ensures the GIF covers the entire width */
-    height: auto; /* Maintains aspect ratio */
+    width: 100%; /* Ensures the image covers the container width */
+    height: 200px; /* Fixed height for consistent alignment */
+    object-fit: cover; /* Ensures aspect ratio is preserved while cropping */
     border-radius: 10px 10px 0 0; /* Matches the container's top corners */
     margin: 0; /* Removes unwanted spacing */
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
@@ -534,6 +540,15 @@ body {
     transform: scale(1.05); /* Slight zoom on hover */
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Optional shadow effect */
 }
+
+.main-glow-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    margin: 1rem auto; /* Ensures centered alignment */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    width: 90%; /* Ensure a consistent width across all items */
+}
+
 
 
 
