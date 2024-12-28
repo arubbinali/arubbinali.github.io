@@ -403,7 +403,7 @@ body {
     position: relative;
     margin-top: 100vh;
     padding: 100px 200px; /* 100px top/bottom and 300px left/right */
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.2);
     z-index: 2;
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 2 columns */
@@ -443,7 +443,7 @@ body {
     max-width: 100%;
     margin: 10px; /* Creates separation between containers */
     padding: 0; /* Removes default padding */
-    background: rgba(0, 0, 0, 0.8); /* Dark background */
+    background: rgba(0, 0, 0, 1); /* Dark background */
     border-radius: 10px; /* Keeps the rounded corners */
     box-sizing: border-box;
     transform: translateY(0); /* Initial position */
