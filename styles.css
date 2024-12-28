@@ -462,18 +462,18 @@ body {
 }
 
 .main-image {
-    cursor: pointer;
+    cursor: pointer; /* Ensures pointer always shows */
     display: block;
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+    width: 100%; /* Ensures the image fits the container width */
+    height: auto; /* Maintains aspect ratio */
     border-radius: 10px 10px 0 0;
     margin: 0;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    object-fit: contain; /* Adjusts image to show full content */
 }
 
 .main-image:hover {
-    transform: scale(1.05);
+    transform: scale(1.05); /* Adds zoom effect */
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
@@ -498,30 +498,37 @@ body {
     background-clip: text;
 }
 
-
-.main-image {
-    cursor: pointer;
-    display: block;
-    width: 100%; /* Ensures the image covers the container width */
-    height: 200px; /* Fixed height for consistent alignment */
-    object-fit: cover; /* Ensures aspect ratio is preserved while cropping */
-    border-radius: 10px 10px 0 0; /* Matches the container's top corners */
-    margin: 0; /* Removes unwanted spacing */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-.main-image:hover {
-    transform: scale(1.05); /* Slight zoom on hover */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Optional shadow effect */
+.main-content:hover .overlay {
+    opacity: 1;
 }
 
 .main-glow-line {
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    margin: 1rem auto; /* Ensures centered alignment */
+    margin: 1rem auto;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-    width: 90%; /* Ensure a consistent width across all items */
+    width: 90%;
 }
+
 
 
 
