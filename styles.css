@@ -398,17 +398,22 @@ body {
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
-
 .main-sections {
     position: relative;
-    margin-top: 100vh;
-    padding: 100px 200px; /* 100px top/bottom and 300px left/right */
+    margin-top: 100vh; /* Adjusted margin to add space at the top */
+    padding: 0; /* Ensure no extra padding */
     background: rgba(0, 0, 0, 0.2);
     z-index: 2;
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 2 columns */
-    grid-template-rows: repeat(2, auto); /* 3 rows */
-    gap: 50px; /* 100px space between grid items */
+    grid-template-columns: repeat(3, 300px); /* Fixed width for each column */
+    grid-template-rows: repeat(2, 400px); /* Fixed height for each row */
+    gap: 50px; /* Fixed gap between containers */
+    justify-content: center; /* Center the grid horizontally */
+    align-content: center; /* Center the grid vertically */
+    width: 100%; /* Ensure full width */
+    height: 100vh; /* Full viewport height */
+    box-sizing: border-box; /* Ensure padding doesn't affect width/height */
+    overflow: hidden; /* Prevents unnecessary overflow */
 }
 
 .main-sections::before,
@@ -440,68 +445,22 @@ body {
 }
 
 .main-content {
-    max-width: 100%;
-    margin: 10px; /* Creates separation between containers */
-    padding: 0; /* Removes default padding */
-    background: rgba(0, 0, 0, 1); /* Dark background */
-    border-radius: 10px; /* Keeps the rounded corners */
-    box-sizing: border-box;
-    transform: translateY(0); /* Initial position */
-    opacity: 0;
-    animation: fadeInUp 0.8s ease forwards;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Darker shadow for depth */
+    width: 300px; /* Fixed width for content */
+    height: 400px; /* Fixed height for content */
+    background: rgba(0, 0, 0, 1);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif; /* Apply Poppins font */
 }
 
 .main-content h2,
 .main-content p {
-    padding: 15px; /* Adds spacing inside the text section */
-    margin: 0; /* Removes default margin for consistent spacing */
-}
-
-.main-content:hover {
-    transform: translateY(-5px); /* Slight lift on hover */
-    background: rgba(0, 0, 0, 0.9); /* Darker hover effect */
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6); /* Enhanced shadow */
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-.main-content::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -150%;
-    width: 150%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.2),
-        transparent
-    );
-    transition: 0.5s;
-    opacity: 0.5;
-}
-
-.main-content:hover::before {
-    left: 100%;
-}
-
-.main-content::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0px; /* Slightly thicker left border effect */
-    height: 100%;
-    background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.5),
-        rgba(255, 255, 255, 0.1)
-    );
-    
+    padding: 15px;
+    margin: 0;
+    color: #fff;
 }
 
 .main-content h2 {
@@ -525,21 +484,51 @@ body {
     background-clip: text; /* For non-WebKit browsers that support it */
 }
 
+.main-content:hover {
+    transform: translateY(-5px);
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+.main-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 150%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+    opacity: 0.5;
+}
+
+.main-content:hover::before {
+    left: 100%;
+}
+
 .main-image {
     cursor: pointer;
     display: block;
-    width: 100%; /* Ensures the image covers the container width */
-    height: 230px; /* Fixed height for consistent alignment */
-    object-fit: cover; /* Ensures aspect ratio is preserved while cropping */
-    border-radius: 10px 10px 0 0; /* Matches the container's top corners */
-    margin: 0; /* Removes unwanted spacing */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+    margin: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .main-image:hover {
-    transform: scale(1.05); /* Slight zoom on hover */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Optional shadow effect */
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
+
+
+
 
 .main-glow-line {
     height: 1px;
