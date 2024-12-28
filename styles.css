@@ -408,7 +408,7 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 2 columns */
     grid-template-rows: repeat(2, auto); /* 3 rows */
-    gap: 100px; /* 100px space between grid items */
+    gap: 50px; /* 100px space between grid items */
 }
 
 .main-sections::before,
@@ -441,31 +441,30 @@ body {
 
 .main-content {
     max-width: 100%;
-    margin: 0; /* Margin managed by grid gap */
-    padding: 5px; /* Reduced padding for text alignment */
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 15px;
-    box-sizing: border-box; /* Ensures padding doesn't affect width */
-    transform: translateY(50px);
+    margin: 10px; /* Creates separation between containers */
+    padding: 0; /* Removes default padding */
+    background: rgba(0, 0, 0, 0.8); /* Dark background */
+    border-radius: 10px; /* Keeps the rounded corners */
+    box-sizing: border-box;
+    transform: translateY(0); /* Initial position */
     opacity: 0;
     animation: fadeInUp 0.8s ease forwards;
-    backdrop-filter: blur(2px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Darker shadow for depth */
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
 }
 
-.main-content h2, 
+.main-content h2,
 .main-content p {
-    margin: 5px; /* Add minimal margin for breathing room */
+    padding: 15px; /* Adds spacing inside the text section */
+    margin: 0; /* Removes default margin for consistent spacing */
 }
 
 .main-content:hover {
-    transform: translateY(45px);
-    background: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px); /* Slight lift on hover */
+    background: rgba(0, 0, 0, 0.9); /* Darker hover effect */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6); /* Enhanced shadow */
     border-color: rgba(255, 255, 255, 0.2);
 }
 
@@ -473,16 +472,17 @@ body {
     content: '';
     position: absolute;
     top: 0;
-    left: -100%;
-    width: 100%;
+    left: -150%;
+    width: 150%;
     height: 100%;
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.2),
         transparent
     );
     transition: 0.5s;
+    opacity: 0.5;
 }
 
 .main-content:hover::before {
@@ -494,45 +494,48 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 4px;
+    width: 0px; /* Slightly thicker left border effect */
     height: 100%;
     background: linear-gradient(
         180deg,
-        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.5),
         rgba(255, 255, 255, 0.1)
     );
-    border-radius: 4px 0 0 4px;
+    
 }
 
 .main-content h2 {
-    text-align: center;
     font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    margin-bottom: 1rem;
-    color: rgba(255, 255, 255, 0.9);
-    letter-spacing: 2px;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
 .main-content p {
-    text-align: center;
     font-family: 'Poppins', sans-serif;
-    font-size: 0.8rem;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
 }
 
-.gif-image {
-    border-radius: 5px;
+
+.main-image {
+    cursor: pointer;
     display: block;
-    margin: 20px auto; /* Centers the GIF horizontally */
-    margin-left: 20px;
-    margin-right: 20px;
-    max-width: 90%; /* Ensures the GIF doesn't overflow its container */
+    width: 100%; /* Ensures the GIF covers the entire width */
     height: auto; /* Maintains aspect ratio */
+    border-radius: 10px 10px 0 0; /* Matches the container's top corners */
+    margin: 0; /* Removes unwanted spacing */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
 }
+
+.main-image:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Optional shadow effect */
+}
+
+
 
 
 /* Hamburger Menu Styles */
