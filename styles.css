@@ -445,6 +445,7 @@ body {
 }
 
 .main-content {
+    margin-left: -40px;
     margin-top: 0px;
     margin-bottom: 0px;
     width: 378px; /* Fixed width for content */
