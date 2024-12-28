@@ -130,47 +130,48 @@
         
         <div class="main-sections">
             <section class="main-content">
-                <img src="s.webp" alt="School" class="main-image">
+                <img src="s.webp" alt="School" class="main-image" data-url="https://arubbinali.github.io/Projects.html#school-projects">
                 <h2>School Site</h2>
                 <div class="main-glow-line"></div>
                 <p>My School's Revamped Website (Main Page)</p>
             </section>
         
             <section class="main-content">
-                <img src="inheritance.webp" alt="Animated video" class="main-image">
+                <img src="inheritance.webp" alt="Animated video" class="main-image" data-url="https://arubbinali.github.io/Projects.html#inheritance-projects">
                 <h2>Islamic Inheritance Calculator</h2>
                 <div class="main-glow-line"></div>
                 <p>Terminal-Based Islamic Inheritance Calculator</p>
             </section>
         
             <section class="main-content">
-                <img src="mathlabgui.webp" alt="School" class="main-image">
-                <h2>Mathematical & Utility GUI software</h2>
+                <img src="mathlabgui.webp" alt="Math Lab GUI" class="main-image" data-url="https://arubbinali.github.io/Projects.html#gui-projects">
+                <h2>Mathematical & Utility GUI Software</h2>
                 <div class="main-glow-line"></div>
                 <p>Prototype GUI Software</p>
             </section>
         
             <section class="main-content">
-                <img src="dbgui.webp" alt="School" class="main-image">
+                <img src="dbgui.webp" alt="MySQL Visualizer" class="main-image" data-url="https://arubbinali.github.io/Projects.html#mysql-projects">
                 <h2>MySQL Query Executor & Visualizer</h2>
                 <div class="main-glow-line"></div>
                 <p>MySQL Query Executor & Visualizer (GUI)</p>
             </section>
         
             <section class="main-content">
-                <img src="pcap.png" alt="School" class="main-image">
+                <img src="pcap.png" alt="PCAP" class="main-image" data-url="https://arubbinali.github.io/Certifications.html#pcap-cert">
                 <h2>PCAP</h2>
                 <div class="main-glow-line"></div>
                 <p>PCAP™ – Certified Associate Python Programmer</p>
             </section>
         
             <section class="main-content">
-                <img src="pcep.png" alt="School" class="main-image">
+                <img src="pcep.png" alt="PCEP" class="main-image" data-url="https://arubbinali.github.io/Certifications.html#pcep-cert">
                 <h2>PCEP</h2>
                 <div class="main-glow-line"></div>
                 <p>PCEP™ – Certified Entry-Level Python Programmer</p>
             </section>
         </div>
+        
         
 
     </main>
@@ -185,5 +186,15 @@
     <div class="scroll-arrow" id="scrollArrow"></div>
      -->
     <script src="script.js"></script>
+    <script>
+        document.querySelectorAll('.main-image').forEach(image => {
+            image.addEventListener('click', () => {
+                const url = image.dataset.url; // Fetch the URL from the data attribute
+                if (url) {
+                    window.location.href = url; // Redirect to the URL
+                }
+            });
+        });
+    </script>
 </body>
 </html>
