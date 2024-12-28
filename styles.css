@@ -529,7 +529,7 @@ body {
     cursor: pointer;
     display: block;
     width: 100%; /* Ensures the image covers the container width */
-    height: 200px; /* Fixed height for consistent alignment */
+    height: 230px; /* Fixed height for consistent alignment */
     object-fit: cover; /* Ensures aspect ratio is preserved while cropping */
     border-radius: 10px 10px 0 0; /* Matches the container's top corners */
     margin: 0; /* Removes unwanted spacing */
