@@ -1,3 +1,27 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Get the elements
+    const introScreen = document.getElementById('intro-screen'); // Updated id
+    const mainContentWrapper = document.getElementById('main-content-wrapper'); // Updated id
+    
+    // Set a delay for when to fade out the intro (this delay should be the length of the intro animations + fade-out time)
+    const introDuration = 4000; // 4 seconds based on your animation duration
+    const fadeOutDuration = 1000; // 1 second for fade-out effect
+
+    // Wait for the intro to finish, then hide it and show the content
+    setTimeout(() => {
+        introScreen.style.opacity = 0; // Fade out the intro
+        introScreen.style.transition = `opacity ${fadeOutDuration / 1000}s ease-out`;
+
+        // Once intro is faded out, show the content
+        setTimeout(() => {
+            introScreen.style.display = 'none'; // Remove intro from the DOM
+            mainContentWrapper.classList.remove('hidden'); // Show the main content
+            mainContentWrapper.classList.add('visible'); // Make sure the content fades in (if necessary)
+        }, fadeOutDuration); // After fade-out completes
+    }, introDuration); // Wait for intro animations to complete
+});
+
+
 // JavaScript to handle the hover text and main image click functionality
 document.addEventListener("DOMContentLoaded", () => {
     // Dynamic hover text for nav links
