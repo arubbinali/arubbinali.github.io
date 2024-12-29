@@ -14,9 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
             hoverText.style.opacity = '0';
         });
     });
+});
 
-    // Image click redirection
-    document.querySelectorAll('.main-image').forEach(image => {
+// Image click redirection
+document.querySelectorAll('.main-image').forEach(image => {
         image.addEventListener('click', () => {
             const url = image.dataset.url; // Fetch the URL from the data attribute
             if (url) {
@@ -24,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
-});
+
 
 // Matrix Digital Rain Animation
 const canvas = document.getElementById('particleCanvas');
