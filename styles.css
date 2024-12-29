@@ -157,19 +157,25 @@ body {
     background: rgb(10, 10, 10, 0);
 }
 
+/* Update the hover-text class to position it 20px to the right of the navbar options */
 .hover-text {
     position: absolute;
     top: 50%;
-    right: 1rem; /* Position to the right of the nav-content */
     transform: translateY(-50%);
     opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease-in-out; /* Smoother fade in/out */ 
     font-family: 'Poppins', sans-serif;
     font-size: clamp(0.8rem, 1.5vw, 1rem);
     font-weight: 400;
     color: rgba(255, 255, 255, 0.8);
-    pointer-events: none; /* Prevent any mouse interaction */
-}
+    pointer-events: none; 
+    left: 0;
+    transform: translateX(80vw); 
+    background-color: rgba(0, 0, 0, 0.5); /* Subtle background */
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px 10px; /* Padding for better readability */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  }
 
 .nav-content a:hover ~ .hover-text {
     opacity: 1;
