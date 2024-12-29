@@ -1390,3 +1390,14 @@ video::-ms-fullscreen-button {
     z-index: 1000;  /* Ensure it's visible on top of other content */
     cursor: pointer;
 }
+
+.about-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    padding: 0 200px;
+    text-align: left; 
+}
