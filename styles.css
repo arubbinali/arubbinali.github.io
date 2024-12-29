@@ -1397,7 +1397,7 @@ video::-ms-fullscreen-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh;
+    height: 132vh;
     padding: 0 200px;
     text-align: left; 
 }
