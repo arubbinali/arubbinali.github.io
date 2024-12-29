@@ -423,3 +423,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initial check to handle cases when the page is already scrolled
     handleScroll();
 });
+
+function noScroll(event) {
+    event.preventDefault(); // Prevents the default behavior of the button click
+}
