@@ -1401,3 +1401,23 @@ video::-ms-fullscreen-button {
     padding: 0 200px;
     text-align: left; 
 }
+
+.about-link {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    opacity: 0.8;
+    letter-spacing: 1px;
+}
+
+.about-link a {
+    color: #ff69b4;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.about-link a:hover {
+    text-decoration: underline;
+    color: #ff1493;
+    transform: scale(1.1);
+}
