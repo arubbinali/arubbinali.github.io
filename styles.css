@@ -171,7 +171,7 @@ body {
     pointer-events: none; 
     left: 0;
     transform: translateX(80vw); 
-    background-color: rgba(0, 0, 0, 0.5); /* Subtle background */
+    background-color: rgb(48, 48, 48); /* Subtle background */
     border-radius: 5px; /* Rounded corners */
     padding: 5px 10px; /* Padding for better readability */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
