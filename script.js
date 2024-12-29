@@ -1,3 +1,31 @@
+// JavaScript to handle the hover text and main image click functionality
+document.addEventListener("DOMContentLoaded", () => {
+    // Dynamic hover text for nav links
+    const navLinks = document.querySelectorAll('.nav-content a');
+    const hoverText = document.querySelector('.hover-text');
+
+    navLinks.forEach(link => {
+        link.addEventListener('mouseover', () => {
+            hoverText.textContent = link.getAttribute('data-hover');
+            hoverText.style.opacity = '1';
+        });
+
+        link.addEventListener('mouseout', () => {
+            hoverText.style.opacity = '0';
+        });
+    });
+
+    // Image click redirection
+    document.querySelectorAll('.main-image').forEach(image => {
+        image.addEventListener('click', () => {
+            const url = image.dataset.url; // Fetch the URL from the data attribute
+            if (url) {
+                window.location.href = url; // Redirect to the URL
+            }
+        });
+    });
+});
+
 // Matrix Digital Rain Animation
 const canvas = document.getElementById('particleCanvas');
 const ctx = canvas.getContext('2d');

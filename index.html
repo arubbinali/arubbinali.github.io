@@ -72,26 +72,32 @@
             </div>
         </div>
         
+
+
         <div class="nav-container">
             <div class="nav-items">
                 <div class="nav-item">
                     <span>Profiles</span>
                     <div class="nav-content">
-                        <a href="https://github.com/arubbinali/" target="_blank">GitHub</a>
-                        <a href="#">LinkedIn</a>
-                        <a href="#">Leetcode</a>
-                        <a href="#">KhanAcademy</a>
+                        <a href="https://github.com/arubbinali/" data-hover="GitHub Profile" target="_blank">GitHub</a>
+                        <a href="#" data-hover="LinkedIn Profile">LinkedIn</a>
+                        <a href="#" data-hover="Leetcode Profile">Leetcode</a>
+                        <a href="#" data-hover="Khan Academy Profile">KhanAcademy</a>
                     </div>
                 </div>
                 <div class="nav-item">
                     <span>Contact</span>
                     <div class="nav-content">
-                        <a href="#">Mail</a>
-                        <a href="#">Discord</a>
+                        <a href="#" data-hover="Email Us">Mail</a>
+                        <a href="#" data-hover="Join Discord">Discord</a>
                     </div>
                 </div>                
             </div>
+            <div class="hover-text"></div> <!-- Add this for dynamic text -->
         </div>
+        
+
+
     </nav>
 
     <main>
@@ -194,16 +200,6 @@
     <!-- Downward Arrow
     <div class="scroll-arrow" id="scrollArrow"></div>
      -->
-    <script src="script.js"></script>
-    <script>
-        document.querySelectorAll('.main-image').forEach(image => {
-            image.addEventListener('click', () => {
-                const url = image.dataset.url; // Fetch the URL from the data attribute
-                if (url) {
-                    window.location.href = url; // Redirect to the URL
-                }
-            });
-        });
-    </script>
+    <script src="script.js" defer></script>
 </body>
 </html>

@@ -157,6 +157,39 @@ body {
     background: rgb(10, 10, 10, 0);
 }
 
+.hover-text {
+    position: absolute;
+    top: 50%;
+    right: 1rem; /* Position to the right of the nav-content */
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.8rem, 1.5vw, 1rem);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    pointer-events: none; /* Prevent any mouse interaction */
+}
+
+.nav-content a:hover ~ .hover-text {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0.5rem); /* Slight pop effect */
+}
+
+/* Adjust hover styles for smooth appearance */
+.nav-content a:hover + .hover-text {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+}
+
+
+
+
+
+
+
+
+
 .button-group {
     position: absolute;
     right: 2rem;
