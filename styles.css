@@ -49,26 +49,26 @@ html, body {
 }
 
 /* Delay the animation for each letter */
-.intro-letter:nth-child(1) { animation-delay: 0.03s; }
-.intro-letter:nth-child(2) { animation-delay: 0.06s; }
-.intro-letter:nth-child(3) { animation-delay: 0.09s; }
-.intro-letter:nth-child(4) { animation-delay: 0.12s; }
-.intro-letter:nth-child(5) { animation-delay: 0.15s; }
-.intro-letter:nth-child(6) { animation-delay: 0.18s; }
-.intro-letter:nth-child(7) { animation-delay: 0.21s; }
-.intro-letter:nth-child(8) { animation-delay: 0.24s; }
-.intro-letter:nth-child(9) { animation-delay: 0.27s; }
-.intro-letter:nth-child(10) { animation-delay: 0.3s; }
-.intro-letter:nth-child(11) { animation-delay: 0.33s; }
-.intro-letter:nth-child(12) { animation-delay: 0.36s; }
-.intro-letter:nth-child(13) { animation-delay: 0.39s; }
-.intro-letter:nth-child(14) { animation-delay: 0.42s; }
-.intro-letter:nth-child(15) { animation-delay: 0.45s; }
-.intro-letter:nth-child(16) { animation-delay: 0.48s; }
-.intro-letter:nth-child(17) { animation-delay: 0.51s; }
-.intro-letter:nth-child(18) { animation-delay: 0.54s; }
-.intro-letter:nth-child(19) { animation-delay: 0.57s; }
-.intro-letter:nth-child(20) { animation-delay: 0.6s; }
+.intro-letter:nth-child(1) { animation-delay: 0.05s; }
+.intro-letter:nth-child(2) { animation-delay: 0.10s; }
+.intro-letter:nth-child(3) { animation-delay: 0.15s; }
+.intro-letter:nth-child(4) { animation-delay: 0.20s; }
+.intro-letter:nth-child(5) { animation-delay: 0.25s; }
+.intro-letter:nth-child(6) { animation-delay: 0.30s; }
+.intro-letter:nth-child(7) { animation-delay: 0.35s; }
+.intro-letter:nth-child(8) { animation-delay: 0.40s; }
+.intro-letter:nth-child(9) { animation-delay: 0.45s; }
+.intro-letter:nth-child(10) { animation-delay: 0.50s; }
+.intro-letter:nth-child(11) { animation-delay: 0.55s; }
+.intro-letter:nth-child(12) { animation-delay: 0.60s; }
+.intro-letter:nth-child(13) { animation-delay: 0.65s; }
+.intro-letter:nth-child(14) { animation-delay: 0.70s; }
+.intro-letter:nth-child(15) { animation-delay: 0.75s; }
+.intro-letter:nth-child(16) { animation-delay: 0.80s; }
+.intro-letter:nth-child(17) { animation-delay: 0.85s; }
+.intro-letter:nth-child(18) { animation-delay: 0.90s; }
+.intro-letter:nth-child(19) { animation-delay: 0.95s; }
+.intro-letter:nth-child(20) { animation-delay: 1.00s; }
 
 
 /* Fancy letter animation */
