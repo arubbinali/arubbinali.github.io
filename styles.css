@@ -16,6 +16,7 @@ html, body {
     left: 0; /* Align it horizontally as needed (e.g., left, right, or center) */
     right: 0;
     text-align: center; /* Optional, aligns the text in the center horizontally */
+    color:#7d7d7d;
 }
 
 
