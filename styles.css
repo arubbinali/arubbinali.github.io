@@ -482,6 +482,7 @@ body {
 }
 
 .info-section {
+    text-align: left;
     max-width: 100%;
     margin: 0 auto 3rem auto;
     padding: 2rem;
