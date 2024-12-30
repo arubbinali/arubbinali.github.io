@@ -10,6 +10,22 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <!-- Intro screen -->
+    <div id="intro-screen">
+        <div id="intro-text-wrapper">
+            <span class="intro-letter">P</span>
+            <span class="intro-letter">r</span>
+            <span class="intro-letter">o</span>
+            <span class="intro-letter">j</span>
+            <span class="intro-letter">e</span>
+            <span class="intro-letter">c</span>
+            <span class="intro-letter">t</span>
+            <span class="intro-letter">s</span>            
+        </div>
+    </div>
+
+    <div id="main-content-wrapper" class="hidden">
     <canvas id="particleCanvas"></canvas>
     <nav class="navbar">
         <div class="hamburger-menu">
@@ -492,6 +508,15 @@ Accurately implemented Islamic Inheritance laws</code></pre>
         
     </main>
 
+    <!-- Shade effect overlays -->
+    <div class="shade-effect-top"></div>
+    <div class="shade-effect-bottom"></div>
+    <div class="shade-effect-left"></div>
+    <div class="shade-effect-right"></div>
+
+    <footer id="footer">Arub © 2024</footer>
+    </div>
+
     <script>
         // Function to truncate code for preview
         function truncateCode(code, lines = 100) {
@@ -541,14 +566,6 @@ Accurately implemented Islamic Inheritance laws</code></pre>
             }).join('\n');
         }
     </script>
-    
-    <!-- Shade effect overlays -->
-    <div class="shade-effect-top"></div>
-    <div class="shade-effect-bottom"></div>
-    <div class="shade-effect-left"></div>
-    <div class="shade-effect-right"></div>
-
-    <footer id="footer">Arub © 2024</footer>
     <script src="script.js"></script>
 </body>
 </html>
