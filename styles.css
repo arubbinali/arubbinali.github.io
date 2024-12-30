@@ -164,7 +164,7 @@ body {
     background-attachment: fixed;
     background-position: 0 0;
     color: #fff;
-    min-height: 300vh;
+    min-height: 100vh;
     overflow-x: hidden;
     animation: moveBackground 80s ease-in-out infinite;
 }
@@ -1524,7 +1524,7 @@ video::-ms-fullscreen-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 132vh;
+    height: 70vh;
     padding: 0 200px;
     text-align: left; 
 }
