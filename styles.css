@@ -9,6 +9,7 @@ html, body {
     padding: 0;
     box-sizing: border-box;
 }
+
 /* Intro screen styling */
 #intro-screen {
     position: fixed;
@@ -134,6 +135,17 @@ html, body {
     color: #bdc3c7;
 }
 
+/* Adjust font size for smaller screens (e.g., phones) */
+@media (max-width: 600px) {
+    #intro-text-wrapper {
+        font-size: 3rem;  /* Reduced font size for smaller screens */
+        letter-spacing: -5px;  /* Adjust letter-spacing if needed */
+    }
+
+    .intro-letter {
+        margin-right: 0.2em;  /* Adjust spacing between letters for smaller screens */
+    }
+}
 
 @keyframes moveBackground {
     0% {
