@@ -10,6 +10,15 @@ html, body {
     box-sizing: border-box;
 }
 
+.intro-logo {
+    position: fixed;
+    bottom: 50px; /* Keeps the text 50px from the bottom */
+    left: 0; /* Align it horizontally as needed (e.g., left, right, or center) */
+    right: 0;
+    text-align: center; /* Optional, aligns the text in the center horizontally */
+}
+
+
 /* Intro screen styling */
 #intro-screen {
     position: fixed;
