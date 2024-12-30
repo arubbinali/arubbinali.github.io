@@ -579,7 +579,7 @@ body {
     justify-content: center; /* Center the grid horizontally */
     align-content: center; /* Center the grid vertically */
     width: 100%; /* Ensure full width */
-    height: 250vh; /* Full viewport height */
+    height: 260vh; /* Full viewport height */
     box-sizing: border-box; /* Ensure padding doesn't affect width/height */
     overflow: hidden; /* Prevents unnecessary overflow */
 }
