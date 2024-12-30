@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContentWrapper = document.getElementById('main-content-wrapper'); // Updated id
     
     // Set a delay for when to fade out the intro (this delay should be the length of the intro animations + fade-out time)
-    const introDuration = 4000; // 4 seconds based on your animation duration
+    const introDuration = 3000; // 3 seconds based on your animation duration
     const fadeOutDuration = 1000; // 1 second for fade-out effect
 
     // Wait for the intro to finish, then hide it and show the content
