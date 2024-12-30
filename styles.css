@@ -296,7 +296,7 @@ body {
     font-weight: 400;
     color: rgba(255, 255, 255, 0.8);
     pointer-events: none; 
-    left: 0;
+    left: -100px;
     transform: translateX(80vw); 
     background-color: rgb(48, 48, 48); /* Subtle background */
     border-radius: 5px; /* Rounded corners */
