@@ -35,17 +35,17 @@ html, body {
 /* Styling for particles */
 .particle {
     position: absolute;
-    width: 5px;
-    height: 5px;
-    background-color: rgba(255, 255, 255, 0.7);  /* Make the particles a bit brighter */
-    border-radius: 50%;
+    width: 1px;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 1);  /* Make the particles a bit brighter */
+    border-radius: 100%;
     animation: particleAnimation linear infinite;
     animation-duration: var(--random-duration);
     animation-timing-function: linear;
     animation-iteration-count: infinite;
 
     /* Glow effect */
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.4);
 }
 
 /* Apply to the intro screen */
