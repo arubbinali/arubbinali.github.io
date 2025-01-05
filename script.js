@@ -21,6 +21,45 @@ document.addEventListener('DOMContentLoaded', () => {
     }, introDuration); // Wait for intro animations to complete
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    const introScreen = document.getElementById('intro-screen');
+    
+    // Function to create particles with random movement
+    function createParticles() {
+        for (let i = 0; i < 50; i++) {  // Number of particles
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Set random particle size
+            const size = Math.random() * 5 + 5;  // Random size between 5px and 10px
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            // Set random initial position within the intro screen
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.left = `${Math.random() * 100}%`;
+            
+            // Randomize movement distance and duration
+            const randomX = Math.random() * 200 - 100;  // Random X movement between -100px and 100px
+            const randomY = Math.random() * 200 - 100;  // Random Y movement between -100px and 100px
+            const randomDuration = Math.random() * 4 + 4; // Random duration between 4s and 8s
+            
+            // Set custom CSS properties for each particle
+            particle.style.setProperty('--random-x', `${randomX}px`);
+            particle.style.setProperty('--random-y', `${randomY}px`);
+            particle.style.setProperty('--random-duration', `${randomDuration}s`);
+            
+            // Append particle to the intro screen
+            introScreen.appendChild(particle);
+        }
+    }
+    
+    // Initial particle creation
+    createParticles();
+
+    // Optionally, keep generating particles continuously
+    setInterval(createParticles, 5000);  // You can adjust the interval for more particles over time
+});
 
 // JavaScript to handle the hover text and main image click functionality
 document.addEventListener("DOMContentLoaded", () => {
@@ -451,3 +490,5 @@ document.addEventListener('DOMContentLoaded', function () {
 function noScroll(event) {
     event.preventDefault(); // Prevents the default behavior of the button click
 }
+
+
