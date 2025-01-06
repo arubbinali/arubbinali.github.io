@@ -90,6 +90,39 @@ document.querySelectorAll('.main-image').forEach(image => {
     });
 
 
+    function noScroll(event) {
+    event.preventDefault(); // Prevents the default behavior of the button click
+}
+
+// Function to check if the device is mobile
+function isMobile() {
+    return window.innerWidth <= 1000 || /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent);
+}
+
+// Check on page load
+window.onload = function() {
+    if (isMobile()) {
+        // If it's mobile, hide content and show mobile message
+        document.getElementById('mobile-message').style.display = 'flex';
+        document.getElementById('content').style.display = 'none';
+    } else {
+        // If it's not mobile (i.e., laptop/PC), hide the mobile message
+        document.getElementById('mobile-message').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+    }
+};
+
+// Re-check when the window is resized
+window.onresize = function() {
+    if (isMobile()) {
+        document.getElementById('mobile-message').style.display = 'flex';
+        document.getElementById('content').style.display = 'none';
+    } else {
+        document.getElementById('mobile-message').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+    }
+};
+
 // Matrix Digital Rain Animation
 const canvas = document.getElementById('particleCanvas');
 const ctx = canvas.getContext('2d');
@@ -486,9 +519,4 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initial check to handle cases when the page is already scrolled
     handleScroll();
 });
-
-function noScroll(event) {
-    event.preventDefault(); // Prevents the default behavior of the button click
-}
-
 

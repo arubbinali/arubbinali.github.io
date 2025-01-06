@@ -10,6 +10,32 @@ html, body {
     box-sizing: border-box;
 }
 
+/* Style for the mobile message */
+#mobile-message {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    text-align: center;
+    z-index: 1000; /* Ensure it covers the screen */
+}
+
+#mobile-message p{
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, red, orange, yellow);
+    -webkit-background-clip: text;
+    color: transparent;
+    
+}
+
 .intro-logo {
     position: fixed;
     bottom: 50px; /* Keeps the text 50px from the bottom */
