@@ -648,12 +648,12 @@ body {
     position: relative;
     margin-top: 100vh; /* Adjusted margin to add space at the top */
     padding: 0; /* Ensure no extra padding */
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.3);
     z-index: 2;
     display: grid;
     grid-template-columns: repeat(3, 300px); /* Fixed width for each column */
     grid-template-rows: repeat(2, 400px); /* Fixed height for each row */
-    gap: 100px; /* Fixed gap between containers */
+    gap: 110px; /* Fixed gap between containers */
     justify-content: center; /* Center the grid horizontally */
     align-content: center; /* Center the grid vertically */
     width: 100%; /* Ensure full width */
@@ -696,7 +696,7 @@ body {
     margin-top: 0px;
     margin-bottom: 0px;
     width: 378px; /* Fixed width for content */
-    height: 450px; /* Fixed height for content */
+    height: 480px; /* Fixed height for content */
     background: rgba(0, 0, 0, 0.9);
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
@@ -1356,6 +1356,23 @@ body {
     z-index: 1;
     justify-content: flex-end; /* Aligns content to the right */
     margin-right: 10px;
+}
+
+.main-code-language {
+    position: relative;
+    top: 0rem;
+    display: flex;
+    gap: .5rem;
+    font-size: 0.9rem;
+    color: #858585;
+    font-family: 'Segoe UI', sans-serif;
+    z-index: 1;
+    justify-content: flex-start;    
+    margin-left: 15px;
+}
+
+.icon-container {
+    display: flex; /* Make icons align in a row */
 }
 
 
