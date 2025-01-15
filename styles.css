@@ -501,6 +501,7 @@ body {
     font-weight: 300;
     opacity: 0.8;
     letter-spacing: 1px;
+    cursor: default;
 }
 
 .cert-text a {
@@ -1027,6 +1028,7 @@ body {
     letter-spacing: 1px;
     display: flex;
     align-items: center;
+    cursor: default;
 }
 
 
@@ -1453,6 +1455,7 @@ body {
     color: #ea70fb; /* Set a color for the text */
     margin: 20px 0; /* Add some spacing above and below */
     text-align: center; /* Center the text */
+    cursor: default;
 }
 
 /* Shade effects */
@@ -1712,7 +1715,8 @@ video::-ms-fullscreen-button {
     align-items: center;
     height: 70vh;
     padding: 0 200px;
-    text-align: left; 
+    text-align: left;
+    cursor: default;
 }
 
 .about-link {
