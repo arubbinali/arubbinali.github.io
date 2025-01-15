@@ -1633,19 +1633,33 @@ video::-ms-fullscreen-button {
 
 .scroll-arrow {
     position: fixed;
-    left: 49.5%;  /* Centers the arrow horizontally */
+    left: 50%;  /* Centers the arrow horizontally */
     bottom: 10%;  /* Position the arrow 10% from the bottom */
-    transform: translateX(-50%) translateY(-50%);  /* Adjust position */
+    transform: translateX(-50%) rotate(-135deg);  /* Center horizontally and rotate arrow */
     width: 30px;
     height: 30px;
     border-left: 2px solid #fff;
     border-top: 2px solid #fff;
-    transform: rotate(-135deg);  /* Points the arrow down */
     opacity: 0.6;  /* Default opacity when the page loads */
     transition: opacity 0.3s ease-out;  /* Smooth transition for opacity change */
     z-index: 1000;  /* Ensure it's visible on top of other content */
     cursor: default;
+
+    /* Animation for hovering effect */
+    animation: hoverUpDown 2s infinite ease-in-out;  /* Smooth up and down motion */
 }
+
+/* Keyframes for the up-and-down hover effect */
+@keyframes hoverUpDown {
+    0%, 100% {
+        transform: translate(-50%, 0%) rotate(-135deg);  /* Default position */
+    }
+    50% {
+        transform: translate(-50%, -20px) rotate(-135deg);  /* Move 10px up */
+    }
+}
+
+
 
 .scroll-to-top {
     position: fixed;
