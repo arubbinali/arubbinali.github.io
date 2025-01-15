@@ -1644,8 +1644,47 @@ video::-ms-fullscreen-button {
     opacity: 0.6;  /* Default opacity when the page loads */
     transition: opacity 0.3s ease-out;  /* Smooth transition for opacity change */
     z-index: 1000;  /* Ensure it's visible on top of other content */
-    cursor: pointer;
+    cursor: default;
 }
+
+.scroll-to-top {
+    position: fixed;
+    right: 2%;  /* Adjusts position from the right */
+    bottom: 5%;  /* Adjusts position from the bottom */
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;  /* Makes the element circular */
+    background-color: transparent;  /* Fully transparent background */
+    opacity: 0;  /* Hidden by default */
+    pointer-events: none;  /* Prevent interaction when hidden */
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;  /* Smooth appearance */
+    z-index: 1000;  /* Ensure it is above other elements */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);  /* Reset position */
+}
+
+.scroll-to-top .arrow {
+    width: 20px;
+    height: 20px;
+    border-right: 1px solid rgba(255, 255, 255, 0.6);  /* Right side of the arrow with slight transparency */
+    border-top: 1px solid rgba(255, 255, 255, 0.6);  /* Top side of the arrow with slight transparency */
+    transform: rotate(-45deg);  /* Rotates to point upwards */
+    transition: border-color 0.3s ease-out;  /* Smooth transition for the arrow color */
+}
+
+.scroll-to-top:hover .arrow {
+    border-right: 2px solid rgba(255, 255, 255, 1);  /* Fully opaque arrow on hover */
+    border-top: 2px solid rgba(255, 255, 255, 1);  /* Fully opaque arrow on hover */
+}
+
 
 .about-text {
     font-family: 'Poppins', sans-serif;

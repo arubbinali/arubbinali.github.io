@@ -41,6 +41,37 @@ document.addEventListener('DOMContentLoaded', function () {
     handleScroll();
 });
 
+// Ensure the DOM is fully loaded before running the script
+document.addEventListener('DOMContentLoaded', function () {
+    const scrollToTop = document.getElementById('scrollToTop');  // Get the scroll-to-top button
+
+    // Function to handle button visibility based on scroll position
+    function handleScroll() {
+        if (window.scrollY > 100) {
+            scrollToTop.classList.add('visible');  // Show button
+        } else {
+            scrollToTop.classList.remove('visible');  // Hide button
+        }
+    }
+
+    // Function to handle smooth scroll to top
+    function scrollToTopHandler() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    // Add event listener for scroll event to toggle visibility
+    window.addEventListener('scroll', handleScroll);
+
+    // Add click event listener to scroll to top
+    scrollToTop.addEventListener('click', scrollToTopHandler);
+
+    // Initial check for page load
+    handleScroll();
+});
+
 document.addEventListener('DOMContentLoaded', function () {
     const introScreen = document.getElementById('intro-screen');
     
