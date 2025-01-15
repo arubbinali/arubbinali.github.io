@@ -88,6 +88,7 @@ html, body {
     z-index: 9999;
     opacity: 1;
     transition: opacity 0s ease-out;
+    cursor: default;
 }
 
 
@@ -464,6 +465,7 @@ body {
     font-weight: 100;
     text-shadow: none;
     margin-bottom: 0.5rem;
+    cursor: default;
 }
 
 /* Special style for main page aura text */
@@ -660,6 +662,7 @@ body {
     height: 260vh; /* Full viewport height */
     box-sizing: border-box; /* Ensure padding doesn't affect width/height */
     overflow: hidden; /* Prevents unnecessary overflow */
+    cursor: default;
 }
 
 .main-sections::before,
@@ -1742,4 +1745,5 @@ footer {
     color: white;
     font-size: 13px;
     margin-top: 0px; /* This pushes the footer to the bottom if content is short */
+    cursor: default;
 }
