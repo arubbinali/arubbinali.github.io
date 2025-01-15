@@ -486,15 +486,29 @@ body {
 .code-text a {
     color: #ff69b4;
     text-decoration: none;
+    position: relative; /* Required for the ::before pseudo-element */
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
+.code-text a::before {
+    content: ''; /* Create an empty pseudo-element */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0; /* Start with no width */
+    height: 2px; /* Set the height of the underline */
+    background-color: #ff69b4; /* Underline color */
+    transition: width 0.3s ease; /* Animate the width on hover */
+}
+
 .code-text a:hover {
-    text-decoration: underline;
     color: #ff1493;
     transform: scale(1.1);
 }
 
+.code-text a:hover::before {
+    width: 100%; /* Expand the underline to full width on hover */
+}
 .cert-text {
     font-family: 'Poppins', sans-serif;
     font-size: clamp(.7rem, 1vw, 0.8vw);
@@ -507,13 +521,28 @@ body {
 .cert-text a {
     color: #ff69b4;
     text-decoration: none;
+    position: relative; /* Required for the ::before pseudo-element */
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
+.cert-text a::before {
+    content: ''; /* Create an empty pseudo-element */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0; /* Start with no width */
+    height: 1px; /* Set the height of the underline */
+    background-color: #ff69b4; /* Underline color */
+    transition: width 0.3s ease; /* Animate the width on hover */
+}
+
 .cert-text a:hover {
-    text-decoration: underline;
     color: #ff1493;
     transform: scale(1.1);
+}
+
+.cert-text a:hover::before {
+    width: 100%; /* Expand the underline to full width on hover */
 }
 
 #particleCanvas {
@@ -804,7 +833,7 @@ body {
 }
 
 .hamburger-lines {
-    width: 24px;
+    width: 29px;
     height: 20px;
     position: absolute;
     top: 20px;
@@ -820,7 +849,7 @@ body {
 
 .hamburger-lines .line {
     width: 100%;
-    height: 2px;
+    height: 1px;
     background-color: red;
     transition: all 0.4s ease;
     animation: sirenEffect 2s infinite alternate; /* Animation for color change */
@@ -1713,8 +1742,8 @@ video::-ms-fullscreen-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 70vh;
-    padding: 0 200px;
+    height: 100vh;
+    padding: 0 100px;
     text-align: left;
     cursor: default;
 }
@@ -1725,19 +1754,36 @@ video::-ms-fullscreen-button {
     font-weight: 300;
     opacity: 0.8;
     letter-spacing: 1px;
+    cursor: default; /* Sets the cursor to default */
 }
 
 .about-link a {
     color: #ff69b4;
-    text-decoration: none;
+    text-decoration: none; /* Remove default underline */
+    position: relative; /* Necessary for the pseudo-element positioning */
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.about-link a:hover {
-    text-decoration: underline;
-    color: #ff1493;
-    transform: scale(1.1);
+.about-link a::before {
+    content: ''; /* Empty pseudo-element for the underline */
+    position: absolute;
+    bottom: -2px; /* Position the underline slightly below the text */
+    left: 0;
+    width: 0; /* Initial width of the underline */
+    height: 1px; /* Thickness of the underline */
+    background-color: #ff69b4; /* Color of the underline */
+    transition: width 0.3s ease; /* Animate the underline on hover */
 }
+
+.about-link a:hover {
+    color: #ff1493; /* Change text color on hover */
+    transform: scale(1.1); /* Slightly scale the text */
+}
+
+.about-link a:hover::before {
+    width: 100%; /* Expand the underline to full width on hover */
+}
+
 
 footer {
     font-family: 'Poppins', sans-serif;
