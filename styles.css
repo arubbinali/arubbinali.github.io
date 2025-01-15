@@ -480,6 +480,7 @@ body {
     font-weight: 300;
     opacity: 0.8;
     letter-spacing: 1px;
+    cursor: default;
 }
 
 .code-text a {
