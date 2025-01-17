@@ -1802,3 +1802,67 @@ footer {
     margin-top: 0px; /* This pushes the footer to the bottom if content is short */
     cursor: default;
 }
+
+
+.sources-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 10px;
+    display: flex;
+    justify-content: left;
+    margin-left: 10vw;
+    align-items: center;
+    height: 220vh;
+    padding: 0 100px;
+    text-align: left;
+    cursor: default;
+}
+
+
+.sources-link {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    opacity: 0.8;
+    letter-spacing: 1px;
+    cursor: default; /* Sets the cursor to default */
+}
+
+.sources-link a {
+    text-decoration: none; /* Remove default underline */
+    position: relative; /* Necessary for the pseudo-element positioning */
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.sources-link a::before {
+    content: ''; /* Empty pseudo-element for the underline */
+    position: absolute;
+    bottom: -2px; /* Position the underline slightly below the text */
+    left: 0;
+    width: 0; /* Initial width of the underline */
+    height: 1px; /* Thickness of the underline */
+    background-color: #ff69b4; /* Color of the underline */
+    transition: width 0.3s ease; /* Animate the underline on hover */
+}
+
+.sources-link a:hover {
+    color: #ff1493; /* Change text color on hover */
+    transform: scale(1.1); /* Slightly scale the text */
+}
+
+.sources-link a:hover::before {
+    width: 100%; /* Expand the underline to full width on hover */
+}
+
+.lang-links a {
+    color: rgb(255, 172, 127);
+    text-decoration: none; /* Optional: removes underline */
+}
+.site-links a {
+    color: rgb(240, 165, 255);
+    text-decoration: none; /* Optional: removes underline */
+}
+
+.ai-links a {
+    color: aquamarine;
+    text-decoration: none; /* Optional: removes underline */
+}
