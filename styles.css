@@ -1631,6 +1631,10 @@ body {
     background-image: url('about.png');
 }
 
+.language-icon.server {
+    background-image: url('server.png');
+}
+
 /* Container to wrap the video and apply styles */
 .video-container {
     max-width: 100%; /* Allow video to be responsive */
