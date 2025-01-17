@@ -1854,15 +1854,52 @@ footer {
 }
 
 .lang-links a {
-    color: rgb(255, 172, 127);
+    color: aquamarine;
     text-decoration: none; /* Optional: removes underline */
 }
 .site-links a {
-    color: rgb(240, 165, 255);
+    color: rgb(238, 255, 127);
     text-decoration: none; /* Optional: removes underline */
 }
 
 .ai-links a {
-    color: aquamarine;
+    color: rgb(255, 173, 173);
     text-decoration: none; /* Optional: removes underline */
+}
+
+.ide-links a {
+    color: rgb(255, 125, 125);
+    text-decoration: none; /* Optional: removes underline */
+}
+
+/* Add glow effect to headings and their respective categories */
+.sources-link h2 {
+    transition: text-shadow 0.3s ease, color 0.3s ease;
+}
+
+/* Glow effects for individual categories */
+.sources-link h2:hover {
+    color: #ffffff; /* Neutral white glow for headings */
+    text-shadow: 0 0 25px #ffffff, 0 0 50px #ffffff; /* Strong white glow */
+}
+
+.sources-link h2:hover + .lang-links a {
+    text-shadow: 0 0 30px aquamarine, 0 0 60px aquamarine; /* Glow for language links */
+}
+
+.sources-link h2:hover + .site-links a {
+    text-shadow: 0 0 30px rgb(238, 255, 127), 0 0 60px rgb(238, 255, 127); /* Glow for site links */
+}
+
+.sources-link h2:hover + .ai-links a {
+    text-shadow: 0 0 30px rgb(255, 173, 173), 0 0 60px rgb(255, 173, 173); /* Glow for AI links */
+}
+
+.sources-link h2:hover + .ide-links a {
+    text-shadow: 0 0 30px rgb(255, 125, 125), 0 0 60px rgb(255, 125, 125); /* Glow for IDE links */
+}
+
+/* Ensure smooth transitions for links */
+.sources-link div a {
+    transition: text-shadow 0.3s ease; /* Smooth transitions */
 }
