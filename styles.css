@@ -1704,7 +1704,7 @@ video::-ms-fullscreen-button {
 .scroll-to-top {
     position: fixed;
     right: 2vw;  /* Adjusts position from the right */
-    bottom: 10vh;  /* Adjusts position from the bottom */
+    bottom: 3vh;  /* Adjusts position from the bottom */
     width: 80px;
     height: 80px;
     border-radius: 50%;  /* Makes the element circular */
