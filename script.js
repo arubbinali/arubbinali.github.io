@@ -1,3 +1,10 @@
+window.onload = function() {
+    let preloadIframe = document.createElement("iframe");
+    preloadIframe.src = "for site/move/main.html";
+    preloadIframe.style.display = "none";
+    document.body.appendChild(preloadIframe);
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     // Get the elements
     const introScreen = document.getElementById('intro-screen'); // Updated id
