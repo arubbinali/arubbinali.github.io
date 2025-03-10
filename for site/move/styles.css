@@ -29,6 +29,7 @@ body.dark-mode {
     z-index: 1000; /* Ensure it is on top */
     margin-top: 40px; /* Add some space above it */
     transition: background-color 0.6s ease, border-bottom 0.9s ease;
+    cursor: default;
 }
 
 .ending .contact {
@@ -1243,6 +1244,7 @@ body.dark-mode .event:hover {
     align-items: center;
     text-align: center;
     transition: box-shadow 0.4s ease, transform 0.4s ease;
+    cursor: default;
 }
 
 .counter h1 {
@@ -1294,6 +1296,7 @@ body.dark-mode .counter {
     align-items: center;
     margin-top: 60px;
     margin-bottom: 60px;
+    cursor: default;
 
     /* Initial hidden position for animation */
     opacity: 0;
@@ -1352,6 +1355,7 @@ body.dark-mode .counter {
     align-items: center;
     text-align: center;
     transition: box-shadow 0.4s ease, transform 0.4s ease;
+    cursor: default;
 }
 
 .admission h1 {
@@ -1437,6 +1441,7 @@ body.dark-mode .admission h2 {
     text-align: center;
     margin-top: 100px;
     margin-bottom: 100px;
+    cursor: default;
 
     /* Initial state for fade-in effect */
     opacity: 0;
@@ -1463,6 +1468,7 @@ body.dark-mode .admission h2 {
     border-radius: 8px;
     height: 400px;
     background-color: transparent;
+    cursor: default;
 }
 
 /* Slider */
@@ -1658,7 +1664,7 @@ body.dark-mode .accreditation img:hover {
     color: #5d5d5d; /* Initial color */
     transition: color 0.3s ease; /* Smooth transition for color */
     margin-right: 80px;
-    cursor: pointer;
+    cursor: default;
 }
 
 .footer .contact-info:hover {
@@ -1836,6 +1842,7 @@ body.dark-mode .footer .press-release-item {
     font-size: 14px;
     color: #333;
     width: 100%;
+    cursor: default;
 }
 
 .footer-bottom p {
