@@ -1658,6 +1658,7 @@ body.dark-mode .accreditation img:hover {
     color: #5d5d5d; /* Initial color */
     transition: color 0.3s ease; /* Smooth transition for color */
     margin-right: 80px;
+    cursor: pointer;
 }
 
 .footer .contact-info:hover {
