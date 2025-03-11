@@ -1904,3 +1904,26 @@ footer {
 .sources-link div a {
     transition: text-shadow 0.3s ease; /* Smooth transitions */
 }
+
+.language-switcher {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: default;
+}
+
+.language-switcher a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.3s ease;
+}
+
+.language-switcher a:hover {
+    color: #ff69b4;
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+}
