@@ -251,7 +251,7 @@ html, body {
 }
 
 body {
-    background-image: url('background.jpg');
+    background-image: url('img/background.jpg');
     background-size: cover;
     background-attachment: fixed;
     background-position: 0 0;
@@ -1581,59 +1581,59 @@ body {
 }
 
 .language-icon.features {
-    background-image: url('features.png');
+    background-image: url('img/features.png');
 }
 
 .language-icon.duration {
-    background-image: url('duration.png');
+    background-image: url('img/duration.png');
 }
 
 .language-icon.input {
-    background-image: url('upload.png');
+    background-image: url('img/upload.png');
 }
 
 .language-icon.output {
-    background-image: url('download.png');
+    background-image: url('img/download.png');
 }
 
 .language-icon.details {
-    background-image: url('details.png');
+    background-image: url('img/details.png');
 }
 
 .language-icon.github {
-    background-image: url('github.png');
+    background-image: url('img/github.png');
 }
 
 .language-icon.code {
-    background-image: url('code.png');
+    background-image: url('img/code.png');
 }
 
 .language-icon.more {
-    background-image: url('more.png');
+    background-image: url('img/more.png');
 }
 
 .language-icon.project {
-    background-image: url('project.png');
+    background-image: url('img/project.png');
 }
 
 .language-icon.certification {
-    background-image: url('award.png');
+    background-image: url('img/award.png');
 }
 
 .language-icon.video {
-    background-image: url('video.png');
+    background-image: url('img/video.png');
 }
 
 .language-icon.home {
-    background-image: url('home.png');
+    background-image: url('img/home.png');
 }
 
 .language-icon.about {
-    background-image: url('about.png');
+    background-image: url('img/about.png');
 }
 
 .language-icon.server {
-    background-image: url('server.png');
+    background-image: url('img/server.png');
 }
 
 /* Container to wrap the video and apply styles */
