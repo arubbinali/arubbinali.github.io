@@ -120,9 +120,7 @@
 
 
         <div class="nav-container">
-            <div class="language-switcher">
-                <a href="#">العربية</a>
-            </div>
+            
             <div class="nav-items">
 
                 <div class="nav-item">
@@ -340,6 +338,23 @@
     <div class="scroll-to-top" id="scrollToTop"><span class="arrow"></span></div>
     <footer>Arub © 2024 - 2025</footer>
     </div>
+
+    <!-- Terminal Icon/Button -->
+    <div id="terminal-icon" title="Open Terminal">Command prompt</div>
+
+    <!-- Interactive Terminal -->
+    <div id="terminal">
+        <div id="terminal-output">
+            <p>Welcome to Arub's Interactive Terminal!</p>
+            <p>Type 'help' to see available commands.</p>
+        </div>
+        <div id="terminal-input-line">
+            <span class="prompt">></span>
+            <input type="text" id="terminal-input" autofocus autocomplete="off">
+        </div>
+    </div>
+    <!-- End Interactive Terminal -->
+
     <script src="script.js" defer></script>
 </body>
 </html>

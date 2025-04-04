@@ -135,6 +135,179 @@ document.addEventListener("DOMContentLoaded", () => {
             hoverText.style.opacity = '0';
         });
     });
+
+    // --- Interactive Terminal Logic START ---
+    const terminalOutput = document.getElementById('terminal-output');
+    const terminalInput = document.getElementById('terminal-input');
+    const terminalElement = document.getElementById('terminal');
+    const terminalIcon = document.getElementById('terminal-icon'); // Get the icon
+
+    // Function to auto-adjust terminal height (Reverted Logic)
+    function adjustTerminalHeight() {
+        if (!terminalElement.classList.contains('open')) return;
+
+        const currentHeight = terminalElement.offsetHeight;
+        const scrollHeight = terminalOutput.scrollHeight;
+        const clientHeight = terminalOutput.clientHeight; // Visible height of the output area
+        const inputHeight = terminalElement.querySelector('#terminal-input-line').offsetHeight;
+        const padding = 20; // Approximate padding/borders etc.
+        
+        // Calculate the height needed to display all content
+        const contentHeight = scrollHeight + inputHeight + padding;
+        
+        // Determine the base height from CSS (.open state)
+        // Temporarily remove inline style to measure CSS default
+        const originalInlineHeight = terminalElement.style.height;
+        terminalElement.style.height = ''; 
+        const baseOpenHeight = terminalElement.offsetHeight;
+        terminalElement.style.height = originalInlineHeight; // Restore original inline height or let it be recalculated
+
+        // Get max-height from CSS
+        const maxHeightStyle = window.getComputedStyle(terminalElement).maxHeight;
+        let maxHeight = window.innerHeight - (window.innerHeight * 0.1) - 20; // Adjusted for 10vh top
+         if (maxHeightStyle && maxHeightStyle.endsWith('px')) {
+            maxHeight = parseInt(maxHeightStyle, 10);
+        } else if (maxHeightStyle && maxHeightStyle.includes('vh')) {
+             try {
+                let vhValue = maxHeightStyle.match(/(\d+)vh/);
+                let pxValue = maxHeightStyle.match(/(\d+)px/);
+                if (vhValue) {
+                   maxHeight = window.innerHeight * (parseInt(vhValue[1])/100);
+                   if (pxValue) {
+                      maxHeight -= parseInt(pxValue[1]);
+                   }
+                }
+             } catch(e) { /* Use fallback */ }
+        }
+        
+        // Determine the target height: max of base and content, capped by max.
+        const targetHeight = Math.min(Math.max(baseOpenHeight, contentHeight), maxHeight);
+
+        // --- Modification START ---
+        // Only increase height if the target height is greater than the current height.
+        // Don't shrink automatically unless 'clear' was used (handled in processTerminalCommand).
+        if (targetHeight > currentHeight) {
+            terminalElement.style.height = `${targetHeight}px`;
+        }
+        // --- Modification END ---
+        
+        // Always scroll to bottom after potential adjustment
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    }
+
+    // Function to process terminal commands
+    function processTerminalCommand(command) {
+        const outputPara = document.createElement('p');
+        let minimize = false;
+        let clearScreen = false; // Flag for clear command
+        switch (command.toLowerCase()) {
+            case 'help':
+                outputPara.innerHTML = `Available commands:
+                    - help: Show this help message
+                    - ls: List projects
+                    - contact: Show contact information
+                    - clear: Clear the terminal screen
+                    - exit: Minimize the terminal`;
+                break;
+            case 'ls':
+                const projectSections = document.querySelectorAll('.main-content');
+                let projectList = 'Projects:\n';
+                projectSections.forEach(section => {
+                    const titleElement = section.querySelector('h2');
+                    const imageElement = section.querySelector('.main-image');
+                    if (titleElement && imageElement && imageElement.dataset.url) {
+                        projectList += `- ${titleElement.textContent.trim()} (<a href="${imageElement.dataset.url}" target="_blank" style="color: #0f0; text-decoration: underline;">link</a>)\n`;
+                    } else if (titleElement) {
+                        projectList += `- ${titleElement.textContent.trim()} (no link found)\n`;
+                    }
+                });
+                outputPara.innerHTML = projectList || 'No projects found.'; 
+                break;
+            case 'contact':
+                const mailLink = document.querySelector('.nav-content a[href="#"][data-hover*="@"]');
+                const discordLink = document.querySelector('.nav-content a[href="#"][data-hover*="arub"]');
+                let contactInfo = 'Contact Info:\n';
+                if (mailLink) contactInfo += `- Mail: ${mailLink.dataset.hover}\n`;
+                if (discordLink) contactInfo += `- Discord: ${discordLink.dataset.hover}`;
+                outputPara.textContent = contactInfo;
+                break;
+            case 'clear':
+                terminalOutput.innerHTML = '<p>Terminal cleared.</p>';
+                clearScreen = true; // Set the flag
+                break; // Don't return immediately
+            case 'exit':
+                 minimize = true;
+                 break;
+            default:
+                outputPara.textContent = `Command not found: ${command}. Type 'help' for available commands.`;
+        }
+        
+        if (!minimize && !clearScreen) {
+            terminalOutput.appendChild(outputPara);
+            setTimeout(adjustTerminalHeight, 50); // Adjust height after adding output
+        } else if (clearScreen) {
+             // Reset height smoothly back to the default open height defined in CSS
+             terminalElement.style.height = ''; // Remove inline style, CSS rule #terminal.open takes over
+             // Scroll to top after clearing
+             terminalOutput.scrollTop = 0;
+             // Optional: Re-run adjustTerminalHeight after a delay if the base message could exceed 250px
+             // setTimeout(adjustTerminalHeight, 60); 
+        } else if (minimize) {
+            // Minimize the terminal
+            if (terminalElement) {
+                terminalElement.classList.remove('open');
+                terminalElement.style.height = ''; 
+            }
+            if(terminalIcon) terminalIcon.style.display = 'block';
+        }
+    }
+
+
+    if (terminalIcon && terminalElement) { // Removed screenDimmer from condition
+         terminalIcon.addEventListener('click', () => { // Reverted click listener
+             const isOpen = terminalElement.classList.toggle('open');
+             terminalIcon.style.display = isOpen ? 'none' : 'block';
+             // Removed dimmer toggle
+
+             if (isOpen) {
+                 terminalInput.focus();
+                 terminalElement.style.height = ''; 
+                 setTimeout(adjustTerminalHeight, 50); 
+             } else {
+                  terminalElement.style.height = ''; 
+             }
+         });
+    }
+
+    if (terminalInput && terminalOutput && terminalElement) {
+         // ... keydown listener remains the same ...
+         terminalInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const command = terminalInput.value.trim();
+                if (command) {
+                    const commandPara = document.createElement('p');
+                    commandPara.textContent = `> ${command}`;
+                    terminalOutput.appendChild(commandPara);
+                    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+                    processTerminalCommand(command);
+                    terminalInput.value = '';
+                }
+                e.preventDefault();
+            }
+        });
+
+        // ... click listener to refocus remains the same ...
+        terminalElement.addEventListener('click', (e) => {
+            if (e.target !== terminalInput && terminalElement.classList.contains('open')) {
+                if (e.offsetX >= terminalOutput.clientWidth) {
+                    return; 
+                }
+                terminalInput.focus();
+            }
+        });
+    }
+    // --- Interactive Terminal Logic END ---
+
 });
 
 // Image click redirection
