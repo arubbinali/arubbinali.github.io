@@ -2021,13 +2021,13 @@ footer {
     position: fixed;
     top: 10px;
     /* Position it to the left of the terminal icon */
-    right: calc(10px + 180px + 10px); 
+    right: calc(10px + 160px + 10px); /* Adjusted offset back slightly */
     font-family: 'Poppins', sans-serif;
     font-size: 0.9rem;
     font-weight: 500;
     color: #0ff; /* Aqua color */
     background-color: rgba(0, 0, 0, 0.7);
-    border: 1px solid #0ff; /* Aqua border */
+    border: 1px solid #0f0; /* Aqua border */
     padding: 8px 15px;
     border-radius: 5px;
     cursor: pointer;
@@ -2061,7 +2061,7 @@ footer {
     height: 50px; 
     max-height: calc(100vh - 10vh - 20px); /* Adjusted max-height */
     background-color: rgba(0, 0, 0, 0.9); /* Slightly less transparent */
-    border: 1px solid #0f0;
+    border: 1px solid #0a0; /* Darker green border */
     border-radius: 5px;
     color: #0f0;
     font-family: 'Courier New', Courier, monospace;
@@ -2070,12 +2070,11 @@ footer {
     flex-direction: column;
     overflow: hidden;
     z-index: 1002; /* Higher than dimmer and icon */
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.6); /* Enhanced shadow */
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5); /* Slightly softer shadow */
     opacity: 0;
     visibility: hidden;
     /* Added 'top' to transition */
-    transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out, visibility 0.3s ease-in-out, top 0.3s ease-in-out, box-shadow 0.3s ease-in-out,
-                width 0.3s ease-in-out, left 0.3s ease-in-out, transform 0.3s ease-in-out; /* Added transitions for fullscreen */
+    transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out, visibility 0.3s ease-in-out, top 0.3s ease-in-out;
 }
 
 #terminal.open {
@@ -2087,15 +2086,37 @@ footer {
 
 /* Fullscreen Terminal Styles */
 #terminal.fullscreen {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    /* Start centered and scaled down */
+    top: 10vh; /* Keep original top */
+    left: auto; /* Keep original alignment */
+    right: 10px; /* Keep original alignment */
+    transform-origin: top right; /* Scale from the top-right corner */
+    transform: scale(1); /* End state */
     width: 75vw;  /* 75% of viewport width */
     height: 75vh; /* 75% of viewport height */
     max-height: 75vh; /* Override previous max-height */
     z-index: 1004; /* Above dimmer and icons, below close button */
-    box-shadow: 0 0 30px rgba(0, 255, 255, 0.7); /* Aqua shadow for fullscreen */
-    border-color: #0ff; /* Aqua border for fullscreen */
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.7); /* Green shadow for fullscreen */
+    border-color: #0f0; /* Green border for fullscreen */
+    /* Position centered using translate after setting width/height */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Initial state for scaling effect (when not fullscreen) */
+#terminal:not(.fullscreen) {
+    /* No specific scale needed if starting from regular state */
+}
+
+/* Transition styles */
+#terminal {
+    /* ... other transitions ... */
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, 
+                width 0.3s ease-in-out, height 0.3s ease-in-out, 
+                top 0.3s ease-in-out, left 0.3s ease-in-out, 
+                transform 0.3s ease-in-out, /* Add transform */
+                border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 /* Ensure terminal output takes full height in fullscreen */
@@ -2148,7 +2169,7 @@ footer {
 }
 
 .prompt {
-    margin-right: 5px;
+    margin-right: 8px;
 }
 
 #terminal-input {

@@ -252,7 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Function to process terminal commands
     function processTerminalCommand(command) {
         const outputPara = document.createElement('p');
-        const typingSpeed = 15; // Milliseconds per character
+        const typingSpeed = 2; // Milliseconds per character - Much faster
         let minimize = false;
         let clearScreen = false; // Flag for clear command
         let outputText = ''; // Store text to be typed
