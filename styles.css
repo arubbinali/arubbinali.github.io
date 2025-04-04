@@ -2021,7 +2021,7 @@ footer {
     position: fixed;
     top: 10px;
     /* Position it to the left of the terminal icon */
-    right: calc(10px + 160px + 10px); /* Adjusted offset back slightly */
+    right: calc(10px + 180px + 10px); /* Adjusted offset back slightly */
     font-family: 'Poppins', sans-serif;
     font-size: 0.9rem;
     font-weight: 500;
