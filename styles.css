@@ -2118,11 +2118,11 @@ footer {
 }
 
 #terminal.open #terminal-header {
-    display: block; /* Show only when terminal is open */
+    display: block !important; /* Ensure visibility when open */
 }
 
 #terminal.fullscreen #terminal-header {
-    display: block; /* MODIFIED: Show in fullscreen mode too */
+    display: block !important; /* Ensure visibility when fullscreen */
 }
 /* END ADDED */
 
