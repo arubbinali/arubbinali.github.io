@@ -1983,7 +1983,7 @@ footer {
     padding: 8px 15px;
     border-radius: 5px;
     cursor: pointer;
-    z-index: 1001; /* Ensure it's above dimmer when terminal is closed */
+    z-index: 1003; /* Above terminal in normal mode, below in fullscreen */
     animation: flicker 1.5s infinite alternate;
     /* padding: 5px; */ /* Replaced */
     transition: background-color 0.3s, box-shadow 0.3s, color 0.3s, border-color 0.3s;
@@ -2000,6 +2000,7 @@ footer {
     border-color: #f00;
     animation: none; /* Optional: Stop flicker when in close mode */
     box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+    z-index: 1005; /* Ensure close button is always above fullscreen terminal */
 }
 
 #terminal-icon.close-mode:hover {
@@ -2013,6 +2014,42 @@ footer {
 @keyframes flicker {
     0%, 100% { opacity: 1; border-color: #0f0; box-shadow: 0 0 5px rgba(0, 255, 0, 0.4);}
     50% { opacity: 0.7; border-color: #0a0; box-shadow: none; }
+}
+
+/* Fullscreen Icon Styles */
+#fullscreen-icon {
+    position: fixed;
+    top: 10px;
+    /* Position it to the left of the terminal icon */
+    right: calc(10px + 180px + 10px); 
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #0ff; /* Aqua color */
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 1px solid #0ff; /* Aqua border */
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1003; /* Same level as terminal icon */
+    transition: background-color 0.3s, box-shadow 0.3s, color 0.3s, border-color 0.3s, opacity 0.3s, visibility 0.3s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+#fullscreen-icon:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+}
+
+#fullscreen-icon.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+#fullscreen-icon:hover {
+    background-color: rgba(0, 20, 20, 0.8);
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
 }
 
 /* Interactive Terminal Styles */
@@ -2037,7 +2074,8 @@ footer {
     opacity: 0;
     visibility: hidden;
     /* Added 'top' to transition */
-    transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out, visibility 0.3s ease-in-out, top 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out, visibility 0.3s ease-in-out, top 0.3s ease-in-out, box-shadow 0.3s ease-in-out,
+                width 0.3s ease-in-out, left 0.3s ease-in-out, transform 0.3s ease-in-out; /* Added transitions for fullscreen */
 }
 
 #terminal.open {
@@ -2045,6 +2083,32 @@ footer {
     height: 250px; /* Default open height */
     opacity: 1;
     visibility: visible;
+}
+
+/* Fullscreen Terminal Styles */
+#terminal.fullscreen {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75vw;  /* 75% of viewport width */
+    height: 75vh; /* 75% of viewport height */
+    max-height: 75vh; /* Override previous max-height */
+    z-index: 1004; /* Above dimmer and icons, below close button */
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.7); /* Aqua shadow for fullscreen */
+    border-color: #0ff; /* Aqua border for fullscreen */
+}
+
+/* Ensure terminal output takes full height in fullscreen */
+#terminal.fullscreen #terminal-output {
+    /* No specific change needed if flex-grow: 1 is already set */
+}
+
+/* Adjust close button position when terminal is fullscreen */
+#terminal.fullscreen + #terminal-icon {
+    /* Optional: Adjust close button position relative to the fullscreen terminal if needed */
+    /* Example: position it inside the top-right corner */
+    top: calc(12.5vh + 10px); /* 12.5vh is half the remaining vertical space */
+    right: calc(12.5vw + 10px); /* 12.5vw is half the remaining horizontal space */
 }
 
 /* ... rest of terminal styles ... */
@@ -2097,6 +2161,7 @@ footer {
     outline: none;
 }
 
+/* Remove the blinking cursor effect
 #terminal-input:focus {
     animation: blink-caret 1s step-end infinite;
 }
@@ -2105,6 +2170,7 @@ footer {
     from, to { box-shadow: 1px 0 0 0 #0f0; }
     50% { box-shadow: none; }
 }
+*/
 
 /* Screen Dimmer Styles */
 #screen-dimmer {

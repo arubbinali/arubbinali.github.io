@@ -142,10 +142,63 @@ document.addEventListener("DOMContentLoaded", () => {
     const terminalElement = document.getElementById('terminal');
     const terminalIcon = document.getElementById('terminal-icon'); // Get the icon
     const screenDimmer = document.getElementById('screen-dimmer'); // Get the dimmer
+    const fullscreenIcon = document.getElementById('fullscreen-icon'); // Get fullscreen icon
+
+    // Helper function for typewriter effect
+    function typewriterEffect(element, htmlString, speed, callback) {
+        element.innerHTML = ''; // Clear the element first
+        const terminalOutput = document.getElementById('terminal-output'); // Need access for scrolling
+        let i = 0;
+        let currentHTML = '';
+        let inTag = false;
+        let tagBuffer = '';
+
+        function type() {
+            if (i < htmlString.length) {
+                const char = htmlString[i];
+
+                if (char === '<') {
+                    inTag = true;
+                    tagBuffer = char;
+                } else if (char === '>') {
+                    inTag = false;
+                    tagBuffer += char;
+                    currentHTML += tagBuffer; // Add the complete tag at once
+                    element.innerHTML = currentHTML;
+                    tagBuffer = '';
+                } else if (inTag) {
+                    tagBuffer += char;
+                } else {
+                    // Handle explicit newlines used in string construction
+                    if (char === '\\n') {
+                        currentHTML += '<br>';
+                    } else {
+                        currentHTML += char;
+                    }
+                    element.innerHTML = currentHTML;
+                }
+
+                i++;
+                // Auto-scroll
+                if (terminalOutput) {
+                    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+                }
+                setTimeout(type, speed); // Continue typing
+            } else {
+                // Typing finished
+                if (callback) {
+                    callback();
+                }
+            }
+        }
+
+        type(); // Start the typing process
+    }
 
     // Function to auto-adjust terminal height (Reverted Logic)
     function adjustTerminalHeight() {
-        if (!terminalElement.classList.contains('open')) return;
+        // Only adjust height if the terminal is open and NOT fullscreen
+        if (!terminalElement.classList.contains('open') || terminalElement.classList.contains('fullscreen')) return;
 
         const currentHeight = terminalElement.offsetHeight;
         const scrollHeight = terminalOutput.scrollHeight;
@@ -199,16 +252,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Function to process terminal commands
     function processTerminalCommand(command) {
         const outputPara = document.createElement('p');
+        const typingSpeed = 15; // Milliseconds per character
         let minimize = false;
         let clearScreen = false; // Flag for clear command
+        let outputText = ''; // Store text to be typed
+
         switch (command.toLowerCase()) {
             case 'help':
-                outputPara.innerHTML = `Available commands:
-                    - help: Show this help message
-                    - ls: List projects
-                    - contact: Show contact information
-                    - clear: Clear the terminal screen
-                    - exit: Minimize the terminal`;
+                outputText = 'Available commands:\n                   - help: Show this help message\n                   - ls: List projects\n                   - contact: Show contact information\n                   - clear: Clear the terminal screen\n                   - exit: Minimize the terminal';
                 break;
             case 'ls':
                 const projectSections = document.querySelectorAll('.main-content');
@@ -222,7 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         projectList += `- ${titleElement.textContent.trim()} (no link found)\n`;
                     }
                 });
-                outputPara.innerHTML = projectList || 'No projects found.'; 
+                outputText = projectList || 'No projects found.';
                 break;
             case 'contact':
                 const mailLink = document.querySelector('.nav-content a[href="#"][data-hover*="@"]');
@@ -230,22 +281,38 @@ document.addEventListener("DOMContentLoaded", () => {
                 let contactInfo = 'Contact Info:\n';
                 if (mailLink) contactInfo += `- Mail: ${mailLink.dataset.hover}\n`;
                 if (discordLink) contactInfo += `- Discord: ${discordLink.dataset.hover}`;
-                outputPara.textContent = contactInfo;
+                outputText = contactInfo;
                 break;
             case 'clear':
-                terminalOutput.innerHTML = '<p>Terminal cleared.</p>';
+                terminalOutput.innerHTML = ''; // Clear immediately
+                outputPara.textContent = 'Terminal cleared.'; // Message to potentially type (optional, or just leave blank)
+                terminalOutput.appendChild(outputPara); // Add the cleared message instantly
                 clearScreen = true; // Set the flag
-                break; // Don't return immediately
+                break;
             case 'exit':
                  minimize = true;
                  break;
             default:
-                outputPara.textContent = `Command not found: ${command}. Type 'help' for available commands.`;
+                outputText = `Command not found: ${command}. Type 'help' for available commands.`;
         }
         
-        if (!minimize && !clearScreen) {
-            terminalOutput.appendChild(outputPara);
-            setTimeout(adjustTerminalHeight, 50); // Adjust height after adding output
+        if (minimize) {
+            // Minimize the terminal
+            if (terminalElement) {
+                terminalElement.classList.remove('open', 'fullscreen');
+                terminalElement.style.height = '';
+                terminalElement.style.width = ''; // Reset width too
+                terminalElement.style.top = '';
+                terminalElement.style.left = '';
+                terminalElement.style.transform = '';
+                // Hide dimmer and reset icon
+                if (screenDimmer) screenDimmer.classList.add('hidden');
+                if (fullscreenIcon) fullscreenIcon.classList.add('hidden'); // Hide fullscreen icon too
+                if (terminalIcon) {
+                    terminalIcon.classList.remove('close-mode');
+                    terminalIcon.title = 'Open Terminal';
+                }
+            }
         } else if (clearScreen) {
              // Reset height smoothly back to the default open height defined in CSS
              terminalElement.style.height = ''; // Remove inline style, CSS rule #terminal.open takes over
@@ -253,38 +320,58 @@ document.addEventListener("DOMContentLoaded", () => {
              terminalOutput.scrollTop = 0;
              // Optional: Re-run adjustTerminalHeight after a delay if the base message could exceed 250px
              // setTimeout(adjustTerminalHeight, 60); 
-        } else if (minimize) {
-            // Minimize the terminal
-            if (terminalElement) {
-                terminalElement.classList.remove('open');
-                terminalElement.style.height = ''; 
-                // Hide dimmer and reset icon
-                if (screenDimmer) screenDimmer.classList.add('hidden');
-                if (terminalIcon) {
-                    terminalIcon.classList.remove('close-mode');
-                    terminalIcon.title = 'Open Terminal';
-                    terminalIcon.style.display = 'block'; // Ensure icon is visible
-                }
-            }
+        } else {
+            // Append the paragraph element and start the typewriter effect
+            terminalOutput.appendChild(outputPara);
+            typewriterEffect(outputPara, outputText, typingSpeed, () => {
+                // Adjust height after typing finishes
+                setTimeout(adjustTerminalHeight, 50); 
+            });
         }
     }
 
-
-    if (terminalIcon && terminalElement && screenDimmer) { 
+    if (terminalIcon && terminalElement && screenDimmer && fullscreenIcon) { 
          terminalIcon.addEventListener('click', () => { // Reverted click listener
-             const isOpen = terminalElement.classList.toggle('open');
-             screenDimmer.classList.toggle('hidden', !isOpen); // Show dimmer if open
-
-             if (isOpen) {
+             if (terminalElement.classList.contains('fullscreen')) {
+                 // --- Exit Fullscreen Mode --- 
+                 terminalElement.classList.remove('fullscreen');
+                 terminalElement.style.height = ''; // Allow CSS to control height again
+                 terminalElement.style.width = ''; 
+                 terminalElement.style.top = '';
+                 terminalElement.style.left = '';
+                 terminalElement.style.transform = '';
+                 fullscreenIcon.classList.remove('hidden'); // Show fullscreen button again
+                 terminalInput.focus(); // Refocus
+                 setTimeout(adjustTerminalHeight, 50); // Adjust height if needed
+             } else if (terminalElement.classList.contains('open')) {
+                 // --- Close Small Terminal --- 
+                 terminalElement.classList.remove('open');
+                 screenDimmer.classList.add('hidden'); 
+                 terminalIcon.classList.remove('close-mode');
+                 terminalIcon.title = 'Open Terminal';
+                 fullscreenIcon.classList.add('hidden'); // Hide fullscreen button
+                 terminalElement.style.height = ''; // Reset inline height
+             } else {
+                 // --- Open Small Terminal --- 
+                 terminalElement.classList.add('open');
+                 screenDimmer.classList.remove('hidden');
                  terminalIcon.classList.add('close-mode');
                  terminalIcon.title = 'Close Terminal';
+                 fullscreenIcon.classList.remove('hidden'); // Show fullscreen button
                  terminalInput.focus();
                  terminalElement.style.height = ''; 
                  setTimeout(adjustTerminalHeight, 50); 
-             } else {
-                 terminalIcon.classList.remove('close-mode');
-                 terminalIcon.title = 'Open Terminal';
-                 terminalElement.style.height = ''; 
+             }
+         });
+
+         fullscreenIcon.addEventListener('click', () => {
+             if (terminalElement.classList.contains('open') && !terminalElement.classList.contains('fullscreen')) {
+                 terminalElement.classList.add('fullscreen');
+                 fullscreenIcon.classList.add('hidden'); // Hide button in fullscreen
+                 // Explicitly clear height/width set by adjustTerminalHeight for small mode
+                 terminalElement.style.height = '';
+                 terminalElement.style.width = ''; 
+                 terminalInput.focus(); // Refocus
              }
          });
     }
@@ -308,8 +395,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // ... click listener to refocus remains the same ...
         terminalElement.addEventListener('click', (e) => {
-            if (e.target !== terminalInput && terminalElement.classList.contains('open')) {
-                if (e.offsetX >= terminalOutput.clientWidth) {
+            // Only refocus if the terminal is open and not in fullscreen (where the click might be intended for content)
+            if (e.target !== terminalInput && terminalElement.classList.contains('open') && !terminalElement.classList.contains('fullscreen')) {
+                // Avoid refocusing if clicking on scrollbar area
+                if (e.offsetX >= terminalOutput.clientWidth) { 
                     return; 
                 }
                 terminalInput.focus();
