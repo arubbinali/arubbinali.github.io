@@ -195,24 +195,26 @@ document.addEventListener("DOMContentLoaded", () => {
         type(); // Start the typing process
     }
 
-    // Function to auto-adjust terminal height (Reverted Logic)
+    // Function to auto-adjust terminal height
     function adjustTerminalHeight() {
         // Only adjust height if the terminal is open and NOT fullscreen
         if (!terminalElement.classList.contains('open') || terminalElement.classList.contains('fullscreen')) return;
 
+        const terminalHeader = document.getElementById('terminal-header'); // Get the header
         const currentHeight = terminalElement.offsetHeight;
         const scrollHeight = terminalOutput.scrollHeight;
         const clientHeight = terminalOutput.clientHeight; // Visible height of the output area
         const inputHeight = terminalElement.querySelector('#terminal-input-line').offsetHeight;
+        const headerHeight = (terminalHeader && window.getComputedStyle(terminalHeader).display !== 'none') ? terminalHeader.offsetHeight : 0; // Get header height if visible
         const padding = 20; // Approximate padding/borders etc.
-        
+
         // Calculate the height needed to display all content
-        const contentHeight = scrollHeight + inputHeight + padding;
-        
+        const contentHeight = scrollHeight + inputHeight + headerHeight + padding; // Include headerHeight
+
         // Determine the base height from CSS (.open state)
         // Temporarily remove inline style to measure CSS default
         const originalInlineHeight = terminalElement.style.height;
-        terminalElement.style.height = ''; 
+        terminalElement.style.height = '';
         const baseOpenHeight = terminalElement.offsetHeight;
         terminalElement.style.height = originalInlineHeight; // Restore original inline height or let it be recalculated
 
@@ -233,7 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
              } catch(e) { /* Use fallback */ }
         }
-        
+
         // Determine the target height: max of base and content, capped by max.
         const targetHeight = Math.min(Math.max(baseOpenHeight, contentHeight), maxHeight);
 
@@ -244,7 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
             terminalElement.style.height = `${targetHeight}px`;
         }
         // --- Modification END ---
-        
+
         // Always scroll to bottom after potential adjustment
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
     }
