@@ -2065,7 +2065,7 @@ footer {
     border-radius: 5px;
     color: #0f0;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.9em;
+    font-size: 1em; /* MODIFIED: Increased base font size */
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -2201,7 +2201,7 @@ footer {
     border: none;
     color: #0f0;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 1em;
+    font-size: inherit; /* MODIFIED: Inherit from parent #terminal */
     outline: none;
 }
 
