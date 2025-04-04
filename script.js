@@ -141,6 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const terminalInput = document.getElementById('terminal-input');
     const terminalElement = document.getElementById('terminal');
     const terminalIcon = document.getElementById('terminal-icon'); // Get the icon
+    const screenDimmer = document.getElementById('screen-dimmer'); // Get the dimmer
 
     // Function to auto-adjust terminal height (Reverted Logic)
     function adjustTerminalHeight() {
@@ -257,24 +258,33 @@ document.addEventListener("DOMContentLoaded", () => {
             if (terminalElement) {
                 terminalElement.classList.remove('open');
                 terminalElement.style.height = ''; 
+                // Hide dimmer and reset icon
+                if (screenDimmer) screenDimmer.classList.add('hidden');
+                if (terminalIcon) {
+                    terminalIcon.classList.remove('close-mode');
+                    terminalIcon.title = 'Open Terminal';
+                    terminalIcon.style.display = 'block'; // Ensure icon is visible
+                }
             }
-            if(terminalIcon) terminalIcon.style.display = 'block';
         }
     }
 
 
-    if (terminalIcon && terminalElement) { // Removed screenDimmer from condition
+    if (terminalIcon && terminalElement && screenDimmer) { 
          terminalIcon.addEventListener('click', () => { // Reverted click listener
              const isOpen = terminalElement.classList.toggle('open');
-             terminalIcon.style.display = isOpen ? 'none' : 'block';
-             // Removed dimmer toggle
+             screenDimmer.classList.toggle('hidden', !isOpen); // Show dimmer if open
 
              if (isOpen) {
+                 terminalIcon.classList.add('close-mode');
+                 terminalIcon.title = 'Close Terminal';
                  terminalInput.focus();
                  terminalElement.style.height = ''; 
                  setTimeout(adjustTerminalHeight, 50); 
              } else {
-                  terminalElement.style.height = ''; 
+                 terminalIcon.classList.remove('close-mode');
+                 terminalIcon.title = 'Open Terminal';
+                 terminalElement.style.height = ''; 
              }
          });
     }

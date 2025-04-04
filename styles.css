@@ -1983,16 +1983,32 @@ footer {
     padding: 8px 15px;
     border-radius: 5px;
     cursor: pointer;
-    z-index: 1001;
+    z-index: 1001; /* Ensure it's above dimmer when terminal is closed */
     animation: flicker 1.5s infinite alternate;
     /* padding: 5px; */ /* Replaced */
-    transition: background-color 0.3s, box-shadow 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s, color 0.3s, border-color 0.3s;
 }
 
 #terminal-icon:hover {
     background-color: rgba(0, 20, 0, 0.8);
     box-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
 }
+
+/* Style for the icon when terminal is open (acting as close button) */
+#terminal-icon.close-mode {
+    color: #f00; /* Change color to red, for example */
+    border-color: #f00;
+    animation: none; /* Optional: Stop flicker when in close mode */
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+#terminal-icon.close-mode:hover {
+    background-color: rgba(20, 0, 0, 0.8);
+    color: #ff5555;
+    border-color: #ff5555;
+    box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+}
+
 
 @keyframes flicker {
     0%, 100% { opacity: 1; border-color: #0f0; box-shadow: 0 0 5px rgba(0, 255, 0, 0.4);}
@@ -2007,7 +2023,7 @@ footer {
     width: 400px;
     height: 50px; 
     max-height: calc(100vh - 10vh - 20px); /* Adjusted max-height */
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: rgba(0, 0, 0, 0.9); /* Slightly less transparent */
     border: 1px solid #0f0;
     border-radius: 5px;
     color: #0f0;
@@ -2016,12 +2032,12 @@ footer {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    z-index: 1000; 
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+    z-index: 1002; /* Higher than dimmer and icon */
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.6); /* Enhanced shadow */
     opacity: 0;
     visibility: hidden;
     /* Added 'top' to transition */
-    transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out, visibility 0.3s ease-in-out, top 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out, visibility 0.3s ease-in-out, top 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 #terminal.open {
@@ -2088,4 +2104,28 @@ footer {
 @keyframes blink-caret {
     from, to { box-shadow: 1px 0 0 0 #0f0; }
     50% { box-shadow: none; }
+}
+
+/* Screen Dimmer Styles */
+#screen-dimmer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+    z-index: 1000; /* Below terminal, above other content */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+#screen-dimmer:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+}
+
+#screen-dimmer.hidden {
+    opacity: 0;
+    visibility: hidden;
 }
