@@ -218,31 +218,35 @@ document.addEventListener("DOMContentLoaded", () => {
         // Calculate height needed for the content within the terminal
         const contentHeight = scrollHeight + inputHeight + headerHeight + paddingAndBorders;
 
-        const baseMiniHeight = 250; // Minimum height for the mini terminal
+        // Use the stored initial height as the minimum base height
+        const baseMiniHeight = initialMiniHeightPx > 0 ? initialMiniHeightPx : 250; // Fallback if initial not set yet
 
-        // Get max-height from CSS
+        // Get max-height from CSS (or fallback)
         const maxHeightStyle = window.getComputedStyle(terminalElement).maxHeight;
-        let maxHeight = window.innerHeight * 0.8; // Fallback default
+        let maxHeight = window.innerHeight * 0.8; // Fallback default (80vh)
         try {
-            if (maxHeightStyle && maxHeightStyle !== 'none' && maxHeightStyle.endsWith('px')) {
-                 maxHeight = parseInt(maxHeightStyle, 10);
-            } // Add more robust parsing if needed for vh/calc etc.
-        } catch(e) { /* Use fallback */ }
+            if (maxHeightStyle && maxHeightStyle !== 'none') {
+                if (maxHeightStyle.endsWith('px')) {
+                    maxHeight = parseInt(maxHeightStyle, 10);
+                } else if (maxHeightStyle.endsWith('vh')) {
+                     maxHeight = window.innerHeight * (parseInt(maxHeightStyle) / 100);
+                }
+                 // Add more robust parsing if needed for calc etc.
+            }
+        } catch(e) { console.error("Could not parse maxHeight:", e); }
 
         // Determine target height: max of minimum and content, capped by max.
         let targetHeight = Math.max(baseMiniHeight, contentHeight);
         targetHeight = Math.min(targetHeight, maxHeight);
 
-        // Get current actual height
-        const currentHeight = terminalElement.offsetHeight;
-
-        // MODIFIED: Only set height if the target is GREATER than current height
-        if (targetHeight > currentHeight + 1) { // Added +1 buffer to avoid tiny adjustments
-            terminalElement.style.height = `${targetHeight}px`;
-        }
+        // Directly set the target height. The CSS transition will handle the animation.
+        terminalElement.style.height = `${targetHeight}px`;
 
         // Ensure scroll to bottom after potential height change
-        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        // Use a small timeout to allow the height transition to start
+        setTimeout(() => {
+             terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }, 50);
     }
 
     // Function to process terminal commands
@@ -313,15 +317,15 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         } else if (clearScreen) {
             // Clear the text regardless of mode
-            terminalOutput.innerHTML = ''; 
+            terminalOutput.innerHTML = '';
             const clearPara = document.createElement('p');
             clearPara.innerHTML = '&nbsp;';
             terminalOutput.appendChild(clearPara);
             terminalOutput.scrollTop = 0;
 
-            // MODIFIED: Only reset height IF in mini mode
+            // MODIFIED: Smoothly reset height IF in mini mode by setting the style
             if (terminalElement.classList.contains('config-mini')) {
-                terminalElement.style.height = `${initialMiniHeightPx}px`; 
+                terminalElement.style.height = `${initialMiniHeightPx}px`;
             }
         } else {
             // Append the paragraph element and start the typewriter effect
