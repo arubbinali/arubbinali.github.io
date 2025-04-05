@@ -349,16 +349,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 terminalIcon.title = 'Open Terminal';
                 fullscreenIcon.classList.add('hidden'); // Hide fullscreen button when closing
 
-                // After fade out, remove config class
+                // MODIFIED: Delay removing config class until after opacity transition
+                const transitionDuration = 400; // Match CSS transition duration in ms
                 setTimeout(() => {
+                   // Now remove the class after fade out
                    if (wasFullscreen) {
                        terminalElement.classList.remove('config-fullscreen');
                    } else {
                        terminalElement.classList.remove('config-mini');
                    }
-                   // Reset potential inline height from adjustTerminalHeight
+                   // Reset potential inline height from adjustTerminalHeight (important for mini)
                    terminalElement.style.height = ''; 
-                }, 50);
+                }, transitionDuration);
 
             } else {
                 // --- Open Mini (Set config then Fade In) ---
@@ -389,39 +391,25 @@ document.addEventListener("DOMContentLoaded", () => {
             // Only act if a terminal is currently configured and visible
             if (!terminalElement.classList.contains('visible')) return;
 
-            // Fade out current state
-            terminalElement.classList.remove('visible');
-            // Dimmer stays visible
+            // MODIFIED: Direct class toggle for morphing animation
+            if (terminalElement.classList.contains('config-mini')) {
+                // Switch TO Fullscreen
+                terminalElement.style.height = ''; // IMPORTANT: Clear dynamic height before transition
+                terminalElement.classList.remove('config-mini');
+                terminalElement.classList.add('config-fullscreen');
+                fullscreenIcon.classList.add('active-fullscreen'); 
+            } else if (terminalElement.classList.contains('config-fullscreen')) {
+                // Switch BACK To Mini
+                terminalElement.classList.remove('config-fullscreen');
+                terminalElement.classList.add('config-mini');
+                fullscreenIcon.classList.remove('active-fullscreen');
+                // Adjust height *after* the transition might have started (or use timeout)
+                setTimeout(adjustTerminalHeight, 50); // Adjust height shortly after switching to mini
+            }
+            
+            // Refocus input after transition could have started
+            setTimeout(() => terminalInput.focus(), 50);
 
-            // After fade out, switch config and fade back in
-            setTimeout(() => {
-                if (terminalElement.classList.contains('config-mini')) {
-                    // Switch TO Fullscreen
-                    terminalElement.classList.remove('config-mini');
-                    terminalElement.classList.add('config-fullscreen');
-                    fullscreenIcon.classList.add('active-fullscreen'); // ADDED: Indicate active state
-                    terminalIcon.title = 'Close Terminal';
-                    terminalElement.style.height = ''; // Reset mini height adjustment
-                } else if (terminalElement.classList.contains('config-fullscreen')) {
-                    // Switch BACK To Mini
-                    terminalElement.classList.remove('config-fullscreen');
-                    terminalElement.classList.add('config-mini');
-                    fullscreenIcon.classList.remove('active-fullscreen'); // REMOVED: Deactivate state
-                    terminalIcon.title = 'Close Terminal';
-                    // No need to adjust height here, adjustTerminalHeight will run after fade-in
-                }
-
-                // Fade in the new state
-                 requestAnimationFrame(() => {
-                    terminalElement.classList.add('visible');
-                    terminalInput.focus(); // Refocus
-                    // Adjust height ONLY if we switched back to mini mode
-                    if (terminalElement.classList.contains('config-mini')) {
-                        setTimeout(adjustTerminalHeight, 50);
-                    }
-                 });
-
-            }, 50); // Wait for fade out
         });
     }
 
