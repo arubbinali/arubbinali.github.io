@@ -391,25 +391,30 @@ document.addEventListener("DOMContentLoaded", () => {
             // Only act if a terminal is currently configured and visible
             if (!terminalElement.classList.contains('visible')) return;
 
-            // MODIFIED: Direct class toggle for morphing animation
+            // MODIFIED: Separate logic for expand vs shrink
             if (terminalElement.classList.contains('config-mini')) {
-                // Switch TO Fullscreen
-                terminalElement.style.height = ''; // IMPORTANT: Clear dynamic height before transition
+                // --- Expand: Mini to Fullscreen (Uses CSS Transition) ---
+                terminalElement.style.height = ''; // Clear dynamic height
                 terminalElement.classList.remove('config-mini');
                 terminalElement.classList.add('config-fullscreen');
                 fullscreenIcon.classList.add('active-fullscreen'); 
+                
             } else if (terminalElement.classList.contains('config-fullscreen')) {
-                // Switch BACK To Mini
-                terminalElement.classList.remove('config-fullscreen');
-                terminalElement.classList.add('config-mini');
+                // --- Shrink: Fullscreen to Mini (Uses Keyframe Animation) ---
+                terminalElement.classList.remove('config-fullscreen'); // Remove state class
+                terminalElement.classList.add('shrinking-to-widget'); // Add animation class
                 fullscreenIcon.classList.remove('active-fullscreen');
-                // Adjust height *after* the transition might have started (or use timeout)
-                setTimeout(adjustTerminalHeight, 50); // Adjust height shortly after switching to mini
+
+                // Listen for animation end
+                terminalElement.addEventListener('animationend', () => {
+                    terminalElement.classList.remove('shrinking-to-widget'); // Clean up animation class
+                    terminalElement.classList.add('config-mini'); // Add final state class
+                    adjustTerminalHeight(); // Set final height
+                }, { once: true }); // Important: Remove listener after it runs once
             }
             
-            // Refocus input after transition could have started
+            // Refocus input after transition/animation could have started
             setTimeout(() => terminalInput.focus(), 50);
-
         });
     }
 

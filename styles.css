@@ -2084,13 +2084,13 @@ footer {
     /* MODIFIED Transition for Morphing Effect - Refined Easing & Duration */
     transition: opacity 0.35s ease-in-out, 
                 visibility 0s linear 0.35s, 
-                top 0.35s cubic-bezier(0.25, 0.1, 0.25, 1.0), 
-                left 0.35s cubic-bezier(0.25, 0.1, 0.25, 1.0), 
-                right 0.35s cubic-bezier(0.25, 0.1, 0.25, 1.0), 
-                width 0.35s cubic-bezier(0.25, 0.1, 0.25, 1.0), 
-                height 0.35s cubic-bezier(0.25, 0.1, 0.25, 1.0), 
-                transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1.0), 
-                border-radius 0.35s cubic-bezier(0.25, 0.1, 0.25, 1.0), 
+                top 0.35s ease-in-out, /* Reverted to ease-in-out */
+                left 0.35s ease-in-out, 
+                right 0.35s ease-in-out, 
+                width 0.35s ease-in-out, 
+                height 0.35s ease-in-out, 
+                transform 0.35s ease-in-out, 
+                border-radius 0.35s ease-in-out, 
                 background-color 0.35s ease-in-out, 
                 backdrop-filter 0.35s ease-in-out;
 }
@@ -2146,7 +2146,8 @@ footer {
 }
 
 #terminal.config-mini #terminal-header,
-#terminal.config-fullscreen #terminal-header {
+#terminal.config-fullscreen #terminal-header,
+#terminal.shrinking-to-widget #terminal-header { /* ADDED .shrinking-to-widget */
     display: block !important;
 }
 
@@ -2244,4 +2245,43 @@ footer {
     visibility: visible;
     pointer-events: auto; /* ADDED: Allow interaction (blocking) when visible */
     transition: opacity 0.3s ease-in-out, visibility 0s linear 0s;
+}
+
+/* Keyframes for shrinking animation */
+@keyframes shrinkToWidget {
+  0% {
+    /* Fullscreen styles */
+    top: 7.5vh;
+    right: 7.5vw;
+    width: 85vw;
+    height: 85vh;
+    border-radius: 12px;
+    opacity: 1; /* Ensure visible */
+  }
+  50% {
+     /* Intermediate: Height shrinks, position/width start moving slightly */
+     top: 15vh; /* Start moving top */
+     right: 10vw; /* Start moving right */
+     width: 70vw; /* Start shrinking width */
+     height: 200px; /* Significantly reduced height (placeholder) */
+     border-radius: 10px; /* Match final radius early */
+     opacity: 1;
+  }
+  100% {
+    /* Mini styles */
+    top: 60px;
+    right: 15px;
+    width: 360px;
+    height: 200px; /* Match intermediate height - JS adjusts after */
+    border-radius: 10px;
+    opacity: 1;
+  }
+}
+
+/* Class to trigger the shrinking animation */
+.shrinking-to-widget {
+  animation: shrinkToWidget 0.5s ease-in-out forwards; /* Duration/easing can be adjusted */
+  /* Ensure JS height adjustments don't interfere DURING animation */
+  min-height: 36vh;
+  height: auto; 
 }
