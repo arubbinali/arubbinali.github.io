@@ -2096,7 +2096,7 @@ footer {
     height: 75vh; /* 75% of viewport height */
     max-height: 75vh; /* Override previous max-height */
     z-index: 1004; /* Above dimmer and icons, below close button */
-    box-shadow: 0 0 30px rgba(0, 255, 0, 0.7); /* Green shadow for fullscreen */
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7); /* Green shadow for fullscreen */
     border-color: #0f0; /* Green border for fullscreen */
     /* Position centered using translate after setting width/height */
     top: 50%;
