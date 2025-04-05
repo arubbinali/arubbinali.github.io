@@ -2091,7 +2091,7 @@ footer {
 #terminal.config-mini {
     top: 10vh;
     right: 10px;
-    width: 400px;
+    width: 25vw; /* MODIFIED: Set width relative to viewport width */
     /* REMOVED fixed height, will be set by JS */
     max-height: 80vh; /* MODIFIED: Ensure 10vh gap at bottom */
     /* Ensure height transition is active */

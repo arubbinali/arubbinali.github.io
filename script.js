@@ -144,6 +144,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const screenDimmer = document.getElementById('screen-dimmer'); // Get the dimmer
     const fullscreenIcon = document.getElementById('fullscreen-icon'); // Get fullscreen icon
 
+    let initialMiniHeightPx = 0; // ADDED: Variable to store initial height in pixels
+
     // Helper function for typewriter effect
     function typewriterEffect(element, htmlString, speed, callback) {
         element.innerHTML = ''; // Clear the element first
@@ -178,6 +180,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     element.innerHTML = currentHTML;
                 }
 
+                // ADDED: Periodically adjust height during typing
+                if (i % 5 === 0) { // Adjust every 5 characters (tweak frequency as needed)
+                    adjustTerminalHeight();
+                }
+
                 i++;
                 // Auto-scroll
                 if (terminalOutput) {
@@ -186,6 +193,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(type, speed); // Continue typing
             } else {
                 // Typing finished
+                // ADDED: Final adjustment after typing is fully done
+                adjustTerminalHeight(); 
                 if (callback) {
                     callback();
                 }
@@ -224,9 +233,12 @@ document.addEventListener("DOMContentLoaded", () => {
         let targetHeight = Math.max(baseMiniHeight, contentHeight);
         targetHeight = Math.min(targetHeight, maxHeight);
 
-        // Apply the calculated height via inline style to trigger the CSS transition
-        if (Math.abs(targetHeight - terminalElement.offsetHeight) > 1) { // Avoid tiny adjustments
-             terminalElement.style.height = `${targetHeight}px`;
+        // Get current actual height
+        const currentHeight = terminalElement.offsetHeight;
+
+        // MODIFIED: Only set height if the target is GREATER than current height
+        if (targetHeight > currentHeight + 1) { // Added +1 buffer to avoid tiny adjustments
+            terminalElement.style.height = `${targetHeight}px`;
         }
 
         // Ensure scroll to bottom after potential height change
@@ -300,16 +312,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         } else if (clearScreen) {
-             // MODIFIED: Set height explicitly back to 30vh for smooth contraction
-             terminalElement.style.height = '30vh';
-             // Optional: Could call adjustTerminalHeight after a delay if 30vh is too small for the cleared message
-             terminalOutput.scrollTop = 0;
+            // Clear the text regardless of mode
+            terminalOutput.innerHTML = ''; 
+            const clearPara = document.createElement('p');
+            clearPara.innerHTML = '&nbsp;';
+            terminalOutput.appendChild(clearPara);
+            terminalOutput.scrollTop = 0;
+
+            // MODIFIED: Only reset height IF in mini mode
+            if (terminalElement.classList.contains('config-mini')) {
+                terminalElement.style.height = `${initialMiniHeightPx}px`; 
+            }
         } else {
             // Append the paragraph element and start the typewriter effect
             terminalOutput.appendChild(outputPara);
             typewriterEffect(outputPara, outputText, typingSpeed, () => {
-                // Adjust height after typing finishes
-                setTimeout(adjustTerminalHeight, 50); 
+                // REMOVED: Height adjustment now happens within typewriterEffect
+                // setTimeout(adjustTerminalHeight, 50); 
             });
         }
     }
@@ -341,7 +360,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 // --- Open Mini (Set config then Fade In) ---
                 terminalElement.classList.remove('config-fullscreen'); // Ensure fullscreen is off
                 terminalElement.classList.add('config-mini');
-                terminalElement.style.height = '30vh'; // ADDED: Set initial height
+                // Calculate and store initial height in pixels
+                initialMiniHeightPx = window.innerHeight * 0.3; 
+                terminalElement.style.height = `${initialMiniHeightPx}px`; // MODIFIED: Set initial height in pixels
                 terminalIcon.classList.add('close-mode');
                 terminalIcon.title = 'Close Terminal';
                 fullscreenIcon.classList.remove('hidden'); // Show fullscreen button for mini mode
@@ -351,6 +372,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 requestAnimationFrame(() => { 
                     terminalElement.classList.add('visible');
                     terminalInput.focus();
+                    // Initial adjust might still be needed if 30vh isn't enough for default text
                     setTimeout(adjustTerminalHeight, 50); 
                 });
             }
