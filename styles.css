@@ -2147,7 +2147,7 @@ footer {
 
 #terminal.config-mini #terminal-header,
 #terminal.config-fullscreen #terminal-header,
-#terminal.shrinking-to-widget #terminal-header { /* ADDED .shrinking-to-widget */
+#terminal.moving-to-widget-corner #terminal-header { /* ADDED new animation class */
     display: block !important;
 }
 
@@ -2247,41 +2247,28 @@ footer {
     transition: opacity 0.3s ease-in-out, visibility 0s linear 0s;
 }
 
-/* Keyframes for shrinking animation */
-@keyframes shrinkToWidget {
+/* NEW Keyframes for moving animation (assumes height is already shrunk) */
+@keyframes moveToWidgetCorner {
   0% {
-    /* Fullscreen styles */
+    /* Fullscreen Position, Fullscreen Width, Target Height */
     top: 7.5vh;
     right: 7.5vw;
     width: 85vw;
-    height: 85vh;
     border-radius: 12px;
-    opacity: 1; /* Ensure visible */
-  }
-  50% {
-     /* Intermediate: Height shrinks, position/width start moving slightly */
-     top: 15vh; /* Start moving top */
-     right: 10vw; /* Start moving right */
-     width: 70vw; /* Start shrinking width */
-     height: 200px; /* Significantly reduced height (placeholder) */
-     border-radius: 10px; /* Match final radius early */
-     opacity: 1;
+    opacity: 1;
   }
   100% {
-    /* Mini styles */
+    /* Mini Position, Mini Width, Target Height */
     top: 60px;
     right: 15px;
     width: 360px;
-    height: 200px; /* Match intermediate height - JS adjusts after */
     border-radius: 10px;
     opacity: 1;
   }
 }
 
-/* Class to trigger the shrinking animation */
-.shrinking-to-widget {
-  animation: shrinkToWidget 0.5s ease-in-out forwards; /* Duration/easing can be adjusted */
-  /* Ensure JS height adjustments don't interfere DURING animation */
-  min-height: 36vh;
-  height: auto; 
+/* NEW Class to trigger the moving animation */
+.moving-to-widget-corner {
+  animation: moveToWidgetCorner 0.4s ease-in-out forwards; /* Adjust duration/easing as needed */
+  /* Height is controlled by JS/inline style during this phase */
 }
