@@ -369,7 +369,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 terminalElement.style.height = `${initialMiniHeightPx}px`; // MODIFIED: Set initial height in pixels
                 terminalIcon.classList.add('close-mode');
                 terminalIcon.title = 'Close Terminal';
-                fullscreenIcon.classList.remove('hidden'); // Show fullscreen button for mini mode
+                // MODIFIED: Show fullscreen button ONLY when opening mini terminal
+                fullscreenIcon.classList.remove('hidden');
+                fullscreenIcon.classList.remove('active-fullscreen'); // Ensure it's not red
                 screenDimmer.classList.add('visible'); // Show dimmer
 
                 // Allow config to apply, then fade in
