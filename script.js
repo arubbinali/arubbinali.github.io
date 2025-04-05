@@ -197,57 +197,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Function to auto-adjust terminal height
     function adjustTerminalHeight() {
-        // Only adjust height if the terminal is open and NOT fullscreen
-        if (!terminalElement.classList.contains('open') || terminalElement.classList.contains('fullscreen')) return;
+        // Only adjust height if the terminal is configured as mini and is visible
+        if (!terminalElement.classList.contains('config-mini') || !terminalElement.classList.contains('visible')) return;
 
-        const terminalHeader = document.getElementById('terminal-header'); // Get the header
-        const currentHeight = terminalElement.offsetHeight;
-        const scrollHeight = terminalOutput.scrollHeight;
-        const clientHeight = terminalOutput.clientHeight; // Visible height of the output area
+        const terminalHeader = document.getElementById('terminal-header');
+        const scrollHeight = terminalOutput.scrollHeight; // Full content height of output
         const inputHeight = terminalElement.querySelector('#terminal-input-line').offsetHeight;
-        const headerHeight = (terminalHeader && window.getComputedStyle(terminalHeader).display !== 'none') ? terminalHeader.offsetHeight : 0; // Get header height if visible
-        const padding = 20; // Approximate padding/borders etc.
+        const headerHeight = (terminalHeader && window.getComputedStyle(terminalHeader).display !== 'none') ? terminalHeader.offsetHeight : 0;
+        const paddingAndBorders = 20; // Estimate for internal padding/borders
 
-        // Calculate the height needed to display all content
-        const contentHeight = scrollHeight + inputHeight + headerHeight + padding; // Include headerHeight
+        // Calculate height needed for the content within the terminal
+        const contentHeight = scrollHeight + inputHeight + headerHeight + paddingAndBorders;
 
-        // Determine the base height from CSS (.open state)
-        // Temporarily remove inline style to measure CSS default
-        const originalInlineHeight = terminalElement.style.height;
-        terminalElement.style.height = '';
-        const baseOpenHeight = terminalElement.offsetHeight;
-        terminalElement.style.height = originalInlineHeight; // Restore original inline height or let it be recalculated
+        const baseMiniHeight = 250; // Minimum height for the mini terminal
 
         // Get max-height from CSS
         const maxHeightStyle = window.getComputedStyle(terminalElement).maxHeight;
-        let maxHeight = window.innerHeight - (window.innerHeight * 0.1) - 20; // Adjusted for 10vh top
-         if (maxHeightStyle && maxHeightStyle.endsWith('px')) {
-            maxHeight = parseInt(maxHeightStyle, 10);
-        } else if (maxHeightStyle && maxHeightStyle.includes('vh')) {
-             try {
-                let vhValue = maxHeightStyle.match(/(\d+)vh/);
-                let pxValue = maxHeightStyle.match(/(\d+)px/);
-                if (vhValue) {
-                   maxHeight = window.innerHeight * (parseInt(vhValue[1])/100);
-                   if (pxValue) {
-                      maxHeight -= parseInt(pxValue[1]);
-                   }
-                }
-             } catch(e) { /* Use fallback */ }
+        let maxHeight = window.innerHeight * 0.8; // Fallback default
+        try {
+            if (maxHeightStyle && maxHeightStyle !== 'none' && maxHeightStyle.endsWith('px')) {
+                 maxHeight = parseInt(maxHeightStyle, 10);
+            } // Add more robust parsing if needed for vh/calc etc.
+        } catch(e) { /* Use fallback */ }
+
+        // Determine target height: max of minimum and content, capped by max.
+        let targetHeight = Math.max(baseMiniHeight, contentHeight);
+        targetHeight = Math.min(targetHeight, maxHeight);
+
+        // Apply the calculated height via inline style to trigger the CSS transition
+        if (Math.abs(targetHeight - terminalElement.offsetHeight) > 1) { // Avoid tiny adjustments
+             terminalElement.style.height = `${targetHeight}px`;
         }
 
-        // Determine the target height: max of base and content, capped by max.
-        const targetHeight = Math.min(Math.max(baseOpenHeight, contentHeight), maxHeight);
-
-        // --- Modification START ---
-        // Only increase height if the target height is greater than the current height.
-        // Don't shrink automatically unless 'clear' was used (handled in processTerminalCommand).
-        if (targetHeight > currentHeight) {
-            terminalElement.style.height = `${targetHeight}px`;
-        }
-        // --- Modification END ---
-
-        // Always scroll to bottom after potential adjustment
+        // Ensure scroll to bottom after potential height change
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
     }
 
@@ -287,8 +269,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 break;
             case 'clear':
                 terminalOutput.innerHTML = ''; // Clear immediately
-                outputPara.textContent = 'Terminal cleared.'; // Message to potentially type (optional, or just leave blank)
-                terminalOutput.appendChild(outputPara); // Add the cleared message instantly
+                // Add a placeholder or slight padding if desired
+                const clearPara = document.createElement('p');
+                clearPara.innerHTML = '&nbsp;'; // Add a non-breaking space for minimal height
+                terminalOutput.appendChild(clearPara);
                 clearScreen = true; // Set the flag
                 break;
             case 'exit':
@@ -301,7 +285,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (minimize) {
             // Minimize the terminal
             if (terminalElement) {
-                terminalElement.classList.remove('open', 'fullscreen');
+                terminalElement.classList.remove('visible');
                 terminalElement.style.height = '';
                 terminalElement.style.width = ''; // Reset width too
                 terminalElement.style.top = '';
@@ -316,12 +300,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         } else if (clearScreen) {
-             // Reset height smoothly back to the default open height defined in CSS
-             terminalElement.style.height = ''; // Remove inline style, CSS rule #terminal.open takes over
-             // Scroll to top after clearing
+             // MODIFIED: Set height explicitly back to 30vh for smooth contraction
+             terminalElement.style.height = '30vh';
+             // Optional: Could call adjustTerminalHeight after a delay if 30vh is too small for the cleared message
              terminalOutput.scrollTop = 0;
-             // Optional: Re-run adjustTerminalHeight after a delay if the base message could exceed 250px
-             // setTimeout(adjustTerminalHeight, 60); 
         } else {
             // Append the paragraph element and start the typewriter effect
             terminalOutput.appendChild(outputPara);
@@ -332,50 +314,87 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    if (terminalIcon && terminalElement && screenDimmer && fullscreenIcon) { 
-         terminalIcon.addEventListener('click', () => { // Reverted click listener
-             if (terminalElement.classList.contains('fullscreen')) {
-                 // --- Exit Fullscreen Mode --- 
-                 terminalElement.classList.remove('fullscreen');
-                 terminalElement.style.height = ''; // Allow CSS to control height again
-                 terminalElement.style.width = ''; 
-                 terminalElement.style.top = '';
-                 terminalElement.style.left = '';
-                 terminalElement.style.transform = '';
-                 fullscreenIcon.classList.remove('hidden'); // Show fullscreen button again
-                 terminalInput.focus(); // Refocus
-                 setTimeout(adjustTerminalHeight, 50); // Adjust height if needed
-             } else if (terminalElement.classList.contains('open')) {
-                 // --- Close Small Terminal --- 
-                 terminalElement.classList.remove('open');
-                 screenDimmer.classList.add('hidden'); 
-                 terminalIcon.classList.remove('close-mode');
-                 terminalIcon.title = 'Open Terminal';
-                 fullscreenIcon.classList.add('hidden'); // Hide fullscreen button
-                 terminalElement.style.height = ''; // Reset inline height
-             } else {
-                 // --- Open Small Terminal --- 
-                 terminalElement.classList.add('open');
-                 screenDimmer.classList.remove('hidden');
-                 terminalIcon.classList.add('close-mode');
-                 terminalIcon.title = 'Close Terminal';
-                 fullscreenIcon.classList.remove('hidden'); // Show fullscreen button
-                 terminalInput.focus();
-                 terminalElement.style.height = ''; 
-                 setTimeout(adjustTerminalHeight, 50); 
-             }
-         });
+    if (terminalIcon && terminalElement && screenDimmer && fullscreenIcon) {
+        // Toggle Terminal Icon (Open Mini / Close Mini / Close Fullscreen)
+        terminalIcon.addEventListener('click', () => {
+            if (terminalElement.classList.contains('visible')) {
+                // --- Close Currently Visible Terminal (Mini or Fullscreen) ---
+                const wasFullscreen = terminalElement.classList.contains('config-fullscreen');
+                terminalElement.classList.remove('visible');
+                screenDimmer.classList.remove('visible'); // Hide dimmer
+                terminalIcon.classList.remove('close-mode');
+                terminalIcon.title = 'Open Terminal';
+                fullscreenIcon.classList.add('hidden'); // Hide fullscreen button when closing
 
-         fullscreenIcon.addEventListener('click', () => {
-             if (terminalElement.classList.contains('open') && !terminalElement.classList.contains('fullscreen')) {
-                 terminalElement.classList.add('fullscreen');
-                 fullscreenIcon.classList.add('hidden'); // Hide button in fullscreen
-                 // Explicitly clear height/width set by adjustTerminalHeight for small mode
-                 terminalElement.style.height = '';
-                 terminalElement.style.width = ''; 
-                 terminalInput.focus(); // Refocus
-             }
-         });
+                // After fade out, remove config class
+                setTimeout(() => {
+                   if (wasFullscreen) {
+                       terminalElement.classList.remove('config-fullscreen');
+                   } else {
+                       terminalElement.classList.remove('config-mini');
+                   }
+                   // Reset potential inline height from adjustTerminalHeight
+                   terminalElement.style.height = ''; 
+                }, 50);
+
+            } else {
+                // --- Open Mini (Set config then Fade In) ---
+                terminalElement.classList.remove('config-fullscreen'); // Ensure fullscreen is off
+                terminalElement.classList.add('config-mini');
+                terminalElement.style.height = '30vh'; // ADDED: Set initial height
+                terminalIcon.classList.add('close-mode');
+                terminalIcon.title = 'Close Terminal';
+                fullscreenIcon.classList.remove('hidden'); // Show fullscreen button for mini mode
+                screenDimmer.classList.add('visible'); // Show dimmer
+
+                // Allow config to apply, then fade in
+                requestAnimationFrame(() => { 
+                    terminalElement.classList.add('visible');
+                    terminalInput.focus();
+                    setTimeout(adjustTerminalHeight, 50); 
+                });
+            }
+        });
+
+        // Toggle Fullscreen Icon (Switch between Mini and Fullscreen)
+        fullscreenIcon.addEventListener('click', () => {
+            // Only act if a terminal is currently configured and visible
+            if (!terminalElement.classList.contains('visible')) return;
+
+            // Fade out current state
+            terminalElement.classList.remove('visible');
+            // Dimmer stays visible
+
+            // After fade out, switch config and fade back in
+            setTimeout(() => {
+                if (terminalElement.classList.contains('config-mini')) {
+                    // Switch TO Fullscreen
+                    terminalElement.classList.remove('config-mini');
+                    terminalElement.classList.add('config-fullscreen');
+                    fullscreenIcon.classList.add('active-fullscreen'); // ADDED: Indicate active state
+                    terminalIcon.title = 'Close Terminal';
+                    terminalElement.style.height = ''; // Reset mini height adjustment
+                } else if (terminalElement.classList.contains('config-fullscreen')) {
+                    // Switch BACK To Mini
+                    terminalElement.classList.remove('config-fullscreen');
+                    terminalElement.classList.add('config-mini');
+                    fullscreenIcon.classList.remove('active-fullscreen'); // REMOVED: Deactivate state
+                    terminalIcon.title = 'Close Terminal';
+                    // No need to adjust height here, adjustTerminalHeight will run after fade-in
+                }
+
+                // Fade in the new state
+                 requestAnimationFrame(() => {
+                    terminalElement.classList.add('visible');
+                    terminalInput.focus(); // Refocus
+                    // Adjust height ONLY if we switched back to mini mode
+                    if (terminalElement.classList.contains('config-mini')) {
+                        setTimeout(adjustTerminalHeight, 50);
+                    }
+                 });
+
+            }, 50); // Wait for fade out
+        });
     }
 
     if (terminalInput && terminalOutput && terminalElement) {
@@ -397,11 +416,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // ... click listener to refocus remains the same ...
         terminalElement.addEventListener('click', (e) => {
-            // Only refocus if the terminal is open and not in fullscreen (where the click might be intended for content)
-            if (e.target !== terminalInput && terminalElement.classList.contains('open') && !terminalElement.classList.contains('fullscreen')) {
+            // Only refocus if the terminal is visible
+            if (e.target !== terminalInput && terminalElement.classList.contains('visible')) {
                 // Avoid refocusing if clicking on scrollbar area
-                if (e.offsetX >= terminalOutput.clientWidth) { 
-                    return; 
+                if (e.offsetX >= terminalOutput.clientWidth) {
+                    return;
                 }
                 terminalInput.focus();
             }

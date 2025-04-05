@@ -2052,107 +2052,93 @@ footer {
     box-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
 }
 
+/* ADDED: Style for fullscreen button when terminal IS fullscreen */
+#fullscreen-icon.active-fullscreen {
+    color: #f00; /* Red color */
+    border-color: #f00; /* Red border */
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.6); /* Red glow */
+}
+
+#fullscreen-icon.active-fullscreen:hover {
+    background-color: rgba(20, 0, 0, 0.8);
+    color: #ff5555;
+    border-color: #ff5555;
+    box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+}
+
 /* Interactive Terminal Styles */
 #terminal {
     position: fixed;
-    top: 10px; /* Initial hidden position */
-    right: 10px;
-    width: 400px;
-    height: 50px; 
-    max-height: calc(100vh - 10vh - 20px); /* Adjusted max-height */
-    background-color: rgba(0, 0, 0, 0.9); /* Slightly less transparent */
-    border: 1px solid #0a0; /* Darker green border */
+    /* REMOVED default positioning/sizing, handled by config classes */
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 1px solid #0a0;
     border-radius: 5px;
     color: #0f0;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 1em; /* MODIFIED: Increased base font size */
+    font-size: 1em;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    z-index: 1002; /* Higher than dimmer and icon */
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5); /* Slightly softer shadow */
-    opacity: 0;
+    z-index: 1002;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+    opacity: 0; /* Start hidden */
     visibility: hidden;
-    /* Added 'top' to transition */
-    transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out, visibility 0.3s ease-in-out, top 0.3s ease-in-out;
+    /* MODIFIED: Only transition opacity/visibility by default */
+    transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
 }
 
-#terminal.open {
-    top: 10vh; /* Set top position when open */
-    height: 250px; /* Default open height */
-    opacity: 1;
-    visibility: visible;
+/* ADDED: Class for Mini Terminal Configuration */
+#terminal.config-mini {
+    top: 10vh;
+    right: 10px;
+    width: 400px;
+    /* REMOVED fixed height, will be set by JS */
+    max-height: 80vh; /* MODIFIED: Ensure 10vh gap at bottom */
+    /* Ensure height transition is active */
+    transition: height 0.3s ease-in-out; 
+    /* NO transform needed */
 }
 
-/* Fullscreen Terminal Styles */
-#terminal.fullscreen {
-    /* Start centered and scaled down */
-    top: 10vh; /* Keep original top */
-    left: auto; /* Keep original alignment */
-    right: 10px; /* Keep original alignment */
-    transform-origin: top right; /* Scale from the top-right corner */
-    transform: scale(1); /* End state */
-    width: 75vw;  /* 75% of viewport width */
-    height: 75vh; /* 75% of viewport height */
-    max-height: 75vh; /* Override previous max-height */
-    z-index: 1004; /* Above dimmer and icons, below close button */
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7); /* Green shadow for fullscreen */
-    border-color: #0f0; /* Green border for fullscreen */
-    /* Position centered using translate after setting width/height */
+/* ADDED: Class for Fullscreen Terminal Configuration */
+#terminal.config-fullscreen {
+    width: 75vw;
+    height: 75vh;
+    max-height: 75vh;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%);
+    z-index: 1004;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+    border-color: #0f0;
+    /* No height transition for fullscreen */
+    transition: none; 
 }
 
-/* ADDED: Terminal Header Styles */
+/* ADDED: Class for Visibility (handles fade) */
+#terminal.visible {
+    opacity: 1;
+    visibility: visible;
+    /* Opacity/visibility transition */
+    transition: opacity 0.3s ease-in-out, visibility 0s linear 0s;
+}
+
+/* Terminal Header Styles */
 #terminal-header {
     padding: 8px 10px;
     font-weight: bold;
-    background-color: rgba(0, 0, 0, 0.8); /* Slightly different background for contrast */
-    border-bottom: 1px solid #0f0; /* Match input line border */
+    background-color: rgba(0, 0, 0, 0.8);
+    border-bottom: 1px solid #0f0;
     color: #0f0;
-    font-family: 'Poppins', sans-serif; /* Match icon font */
+    font-family: 'Poppins', sans-serif;
     font-size: 0.9rem;
     text-align: center;
-    display: none; /* Hidden by default */
+    display: none; /* Keep hidden by default */
 }
 
-#terminal.open #terminal-header {
-    display: block !important; /* Ensure visibility when open */
-}
-
-#terminal.fullscreen #terminal-header {
-    display: block !important; /* Ensure visibility when fullscreen */
-}
-/* END ADDED */
-
-
-/* Initial state for scaling effect (when not fullscreen) */
-#terminal:not(.fullscreen) {
-    /* No specific scale needed if starting from regular state */
-}
-
-/* Transition styles */
-#terminal {
-    /* ... other transitions ... */
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, 
-                width 0.3s ease-in-out, height 0.3s ease-in-out, 
-                top 0.3s ease-in-out, left 0.3s ease-in-out, 
-                transform 0.3s ease-in-out, /* Add transform */
-                border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-/* Ensure terminal output takes full height in fullscreen */
-#terminal.fullscreen #terminal-output {
-    /* No specific change needed if flex-grow: 1 is already set */
-}
-
-/* Adjust close button position when terminal is fullscreen */
-#terminal.fullscreen + #terminal-icon {
-    /* Optional: Adjust close button position relative to the fullscreen terminal if needed */
-    /* Example: position it inside the top-right corner */
-    top: calc(12.5vh + 10px); /* 12.5vh is half the remaining vertical space */
-    right: calc(12.5vw + 10px); /* 12.5vw is half the remaining horizontal space */
+/* MODIFIED: Show header if terminal is configured (mini or fullscreen) */
+#terminal.config-mini #terminal-header,
+#terminal.config-fullscreen #terminal-header {
+    display: block !important;
 }
 
 /* ... rest of terminal styles ... */
@@ -2227,15 +2213,13 @@ footer {
     z-index: 1000; /* Below terminal, above other content */
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    pointer-events: none; /* ADDED: Prevent interaction when hidden */
+    transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
 }
 
-#screen-dimmer:not(.hidden) {
+#screen-dimmer.visible { /* MODIFIED: Use .visible class directly */
     opacity: 1;
     visibility: visible;
-}
-
-#screen-dimmer.hidden {
-    opacity: 0;
-    visibility: hidden;
+    pointer-events: auto; /* ADDED: Allow interaction (blocking) when visible */
+    transition: opacity 0.3s ease-in-out, visibility 0s linear 0s;
 }
