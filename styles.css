@@ -2269,6 +2269,6 @@ footer {
 
 /* NEW Class to trigger the moving animation */
 .moving-to-widget-corner {
-  animation: moveToWidgetCorner 0.4s ease-in-out forwards; /* Adjust duration/easing as needed */
+  animation: moveToWidgetCorner 0.2s ease-in-out forwards; /* Adjust duration/easing as needed */
   /* Height is controlled by JS/inline style during this phase */
 }
