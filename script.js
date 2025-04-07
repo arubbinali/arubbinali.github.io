@@ -675,6 +675,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     // --- Interactive Terminal Logic END ---
 
+    // Function to handle clicking outside the terminal
+    function handleClickOutside(event) {
+        // Don't process if terminal isn't visible
+        if (!terminalElement || !terminalElement.classList.contains('visible')) {
+            return;
+        }
+        
+        // Check if click was outside terminal AND not on fullscreen button
+        if (terminalElement && !terminalElement.contains(event.target) && 
+            fullscreenIcon && !fullscreenIcon.contains(event.target) && 
+            terminalIcon && !terminalIcon.contains(event.target)) {
+            
+            // If in fullscreen mode, exit to mini terminal
+            if (terminalElement.classList.contains('config-fullscreen')) {
+                fullscreenIcon.click();
+            } else {
+                // If in mini mode, close the terminal completely
+                terminalIcon.click();
+            }
+        }
+    }
+
+    // Add click outside event listener to document
+    document.addEventListener('click', handleClickOutside);
 });
 
 // Image click redirection
