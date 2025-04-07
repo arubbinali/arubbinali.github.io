@@ -288,12 +288,12 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(25, 25, 25, 0.85);
+    background: rgba(10, 10, 10, 0.4); /* Changed to match side menu transparency */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     z-index: 1000;
     transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
     height: 4rem;
     overflow: visible;
@@ -353,7 +353,7 @@ body {
     bottom: 0;
     left: 50%;
     width: 0;
-    height: 2px;
+    height: 2px; /* Restore the pink underline height */
     background: linear-gradient(90deg, rgba(255,105,180,0.6), rgba(255,105,180,1));
     transition: all 0.3s ease;
     transform: translateX(-50%);
@@ -365,7 +365,7 @@ body {
 }
 
 .nav-item:hover span::before {
-    width: 80%;
+    width: 80%; /* Restore the hover width */
 }
 
 .nav-content {
@@ -923,33 +923,23 @@ body {
 
 .hamburger-lines .line {
     width: 100%;
-    height: 1px;
-    background-color: red;
+    height: 2px; /* Increased height for more professional look */
+    background-color: rgba(255, 255, 255, 0.8); /* Changed to white with opacity for professional look */
     transition: all 0.4s ease;
-    animation: sirenEffect 2s infinite alternate; /* Animation for color change */
+    animation: none; /* Removed the siren effect animation */
 }
 
 .hamburger-lines:hover .line {
-    background-color: #ff00ff;
-    box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+    background-color: rgba(255, 255, 255, 1); /* Simple white on hover */
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Subtle glow */
 }
 
 .hamburger-lines.active:hover .line {
-    background-color: #00ffff;
-    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
-/* Siren color change animation */
-@keyframes sirenEffect {
-    0% {
-        background-color: yellow;
-    }
-
-    100% {
-        background-color: aqua;
-    }
-}
-
+/* Removed siren effect animation */
 
 .line {
     display: block;
@@ -2424,19 +2414,9 @@ footer {
     transform: scale(1.1) rotate(5deg);
 }
 
-/* Enhance the navbar with subtle gradient */
+/* Remove the navbar pink line at the top */
 .navbar::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, 
-        rgba(255, 105, 180, 0.4) 0%, 
-        rgba(255, 105, 180, 0.8) 50%, 
-        rgba(255, 105, 180, 0.4) 100%);
-    opacity: 0.8;
+    content: none; /* Disable the pink line at the very top */
 }
 
 /* Smooth navbar appearance on scroll */
@@ -2445,7 +2425,7 @@ footer {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Subtle hover effect for nav items */
+/* Restore the nav item hover effect with pink line underneath */
 .nav-item span {
     position: relative;
 }
