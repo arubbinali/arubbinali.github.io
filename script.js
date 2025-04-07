@@ -400,32 +400,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 fullscreenIcon.classList.add('active-fullscreen'); 
                 
             } else if (terminalElement.classList.contains('config-fullscreen')) {
-                // --- Shrink: Fullscreen to Mini (Staged Animation) ---
+                // --- Shrink: Fullscreen to Mini (Smooth Transition) ---
                 
-                // Step 1: Shrink Height using CSS Transition
-                const targetHeight = initialMiniHeightPx > 0 ? initialMiniHeightPx : 200; // Use initial or fallback
-                terminalElement.style.height = `${targetHeight}px`; // Trigger height transition
+                // Apply a smooth transition for all properties
+                terminalElement.style.transition = 'all 0.5s cubic-bezier(0.19, 1, 0.22, 1)';
+                
+                // Remove fullscreen class and add mini class immediately
+                terminalElement.classList.remove('config-fullscreen');
+                terminalElement.classList.add('config-mini');
+                
+                // Update fullscreen icon state
                 fullscreenIcon.classList.remove('active-fullscreen');
-
-                // Step 2: Listen for height transition end
-                terminalElement.addEventListener('transitionend', function handleHeightShrink(event) {
-                    // Only proceed if the transition that ended was 'height'
-                    if (event.propertyName !== 'height') return;
-
-                    // Step 3: Trigger Move Animation (Keyframes)
-                    terminalElement.classList.remove('config-fullscreen'); // Remove state class
-                    terminalElement.classList.add('moving-to-widget-corner'); // Add move animation class
-
-                    // Step 4: Listen for move animation end
-                    terminalElement.addEventListener('animationend', function handleMoveEnd() {
-                        // Step 5: Finalize
-                        terminalElement.classList.remove('moving-to-widget-corner'); // Clean up animation class
-                        terminalElement.classList.add('config-mini'); // Add final state class
-                        // Height might already be close, but adjust ensures it fits content
-                        adjustTerminalHeight(); 
-                    }, { once: true }); // animationend listener
-
-                }, { once: true }); // transitionend listener
+                
+                // Set the height based on stored mini height or default
+                const targetHeight = initialMiniHeightPx > 0 ? initialMiniHeightPx : 200;
+                terminalElement.style.height = `${targetHeight}px`;
+                
+                // Adjust terminal height after transition completes
+                setTimeout(() => {
+                    adjustTerminalHeight();
+                }, 500);
             }
             
             // Refocus input after transition/animation could have started
@@ -886,5 +880,3 @@ window.addEventListener('click', (event) => {
         modal.style.display = 'none';
     }
 });
-
-
