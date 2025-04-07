@@ -125,13 +125,53 @@ document.addEventListener("DOMContentLoaded", () => {
     const navLinks = document.querySelectorAll('.nav-content a');
     const hoverText = document.querySelector('.hover-text');
 
+    // Create popup element
+    const popup = document.createElement('div');
+    popup.className = 'nav-popup';
+    document.body.appendChild(popup);
+    
+    // Track the current hover state
+    let popupTimeout;
+    let isHovering = false;
+
     navLinks.forEach(link => {
-        link.addEventListener('mouseover', () => {
+        link.addEventListener('mouseover', (e) => {
+            isHovering = true;
+            // Clear any existing timeout to prevent flickering
+            clearTimeout(popupTimeout);
+            
+            // Set text content for popup
+            popup.textContent = link.getAttribute('data-hover');
+            
+            // Position the popup next to the hovered link
+            const rect = link.getBoundingClientRect();
+            popup.style.left = `${rect.right + 15}px`;
+            popup.style.top = `${rect.top + (rect.height/2)}px`;
+            
+            // Show the popup with a slight delay for smoother experience
+            popupTimeout = setTimeout(() => {
+                if (isHovering) {
+                    popup.classList.add('visible');
+                }
+            }, 50);
+            
+            // Legacy support for the old hover text
             hoverText.textContent = link.getAttribute('data-hover');
-            hoverText.style.opacity = '1';
+            hoverText.style.opacity = '0';
         });
 
         link.addEventListener('mouseout', () => {
+            isHovering = false;
+            
+            // Add a small delay before hiding to prevent flickering
+            clearTimeout(popupTimeout);
+            popupTimeout = setTimeout(() => {
+                if (!isHovering) {
+                    popup.classList.remove('visible');
+                }
+            }, 100);
+            
+            // Reset the existing hover text
             hoverText.style.opacity = '0';
         });
     });

@@ -2273,3 +2273,42 @@ footer {
   animation: moveToWidgetCorner 0.2s ease-in-out forwards; /* Adjust duration/easing as needed */
   /* Height is controlled by JS/inline style during this phase */
 }
+
+/* Hover Popup for Nav Dropdown Items */
+.nav-popup {
+  position: fixed;
+  transform: translateY(-50%) translateX(-10px);
+  background-color: rgba(25, 25, 25, 0.95);
+  border-radius: 6px;
+  padding: 10px 14px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.4), 0 0 1px rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.95);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+  z-index: 1000;
+  max-width: 250px;
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  left: 0;
+  top: 0;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.nav-popup.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Hide the original hover text element since we're using the popup instead */
+.hover-text {
+  opacity: 0 !important;
+  pointer-events: none;
+}
