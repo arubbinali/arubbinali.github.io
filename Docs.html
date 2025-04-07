@@ -13760,6 +13760,27 @@ else:
         <div class="scroll-to-top" id="scrollToTop"><span class="arrow"></span></div>
         <footer id="footer">Arub © 2024 - 2025</footer>
         </div>
+
+        <!-- Screen Dimmer Overlay -->
+        <div id="screen-dimmer" class="hidden"></div>
+
+        <!-- Terminal Icon/Button -->
+        <div id="fullscreen-icon" title="Full Screen" class="hidden">Full Screen</div>
+        <div id="terminal-icon" title="Open Terminal">Terminal</div>
+
+        <!-- Interactive Terminal -->
+        <div id="terminal">
+            <div id="terminal-header">Terminal</div>
+            <div id="terminal-output">
+                <p>Welcome to the Interactive Terminal. This module is still under development.</p>
+                <p>Type 'help' for available commands.</p>
+            </div>
+            <div id="terminal-input-line">
+                <span class="prompt">$&gt;</span>
+                <input type="text" id="terminal-input" autofocus autocomplete="off">
+            </div>
+        </div>
+        <!-- End Interactive Terminal -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
