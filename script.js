@@ -146,62 +146,334 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let initialMiniHeightPx = 0; // ADDED: Variable to store initial height in pixels
 
-    // Helper function for typewriter effect
-    function typewriterEffect(element, htmlString, speed, callback) {
-        element.innerHTML = ''; // Clear the element first
-        const terminalOutput = document.getElementById('terminal-output'); // Need access for scrolling
-        let i = 0;
-        let currentHTML = '';
-        let inTag = false;
-        let tagBuffer = '';
+    // Helper function for fade-in effect instead of typing effect
+    function fadeInEffect(element, htmlContent) {
+        // Set the content immediately
+        element.innerHTML = htmlContent;
+        
+        // Apply fade-in effect
+        element.style.opacity = '0';
+        element.style.transition = 'opacity 0.4s ease-in';
+        
+        // Force a reflow to ensure the transition works
+        void element.offsetWidth;
+        
+        // Fade in
+        element.style.opacity = '1';
+        
+        // Scroll to bottom
+        const terminalOutput = document.getElementById('terminal-output');
+        if (terminalOutput) {
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+        
+        // Adjust terminal height after content is displayed
+        adjustTerminalHeight();
+    }
 
-        function type() {
-            if (i < htmlString.length) {
-                const char = htmlString[i];
+    // Function to process terminal commands
+    function processTerminalCommand(command) {
+        const outputPara = document.createElement('p');
+        let minimize = false;
+        let clearScreen = false; // Flag for clear command
+        let outputText = ''; // Store text to be displayed
+        
+        // Parse command and arguments
+        const commandParts = command.trim().split(/\s+/);
+        const primaryCommand = commandParts[0].toLowerCase();
+        const args = commandParts.slice(1);
 
-                if (char === '<') {
-                    inTag = true;
-                    tagBuffer = char;
-                } else if (char === '>') {
-                    inTag = false;
-                    tagBuffer += char;
-                    currentHTML += tagBuffer; // Add the complete tag at once
-                    element.innerHTML = currentHTML;
-                    tagBuffer = '';
-                } else if (inTag) {
-                    tagBuffer += char;
+        switch (primaryCommand) {
+            case 'help':
+                outputText = `Available Commands:
+┌─────────────────────────────────────────────────┐
+│ <span class="cmd-highlight">help</span>        - Show this help message             │
+│ <span class="cmd-highlight">ls</span>          - List projects and pages            │
+│ <span class="cmd-highlight">about</span>       - Show info about me                 │
+│ <span class="cmd-highlight">projects</span>    - Show detailed project info         │
+│ <span class="cmd-highlight">docs</span>        - Show documentation                 │
+│ <span class="cmd-highlight">certifications</span> - Show my certifications          │
+│ <span class="cmd-highlight">learning</span>    - Show learning resources            │
+│ <span class="cmd-highlight">contact</span>     - Show contact information           │
+│ <span class="cmd-highlight">echo [text]</span> - Display text                       │
+│ <span class="cmd-highlight">time</span>        - Show current date and time         │
+│ <span class="cmd-highlight">whoami</span>      - Show who you are                   │
+│ <span class="cmd-highlight">visitors</span>    - Show visitor count                 │
+│ <span class="cmd-highlight">clear</span>       - Clear the terminal screen          │
+│ <span class="cmd-highlight">exit</span>        - Minimize the terminal              │
+└─────────────────────────────────────────────────┘
+Try typing <span class="cmd-highlight">help [command]</span> for more info on a specific command.`;
+                break;
+
+            case 'ls':
+                let projectList = '';
+                
+                if (args.length === 0 || args[0] === 'all') {
+                    projectList = `<div class="ls-output">
+<h3>📂 Projects</h3>
+<ul>`;
+                    
+                    const projectSections = document.querySelectorAll('.main-content');
+                    projectSections.forEach(section => {
+                        const titleElement = section.querySelector('h2');
+                        const imageElement = section.querySelector('.main-image');
+                        if (titleElement && imageElement && imageElement.dataset.url) {
+                            projectList += `<li><a href="${imageElement.dataset.url}" target="_blank">${titleElement.textContent.trim()}</a></li>`;
+                        } else if (titleElement) {
+                            projectList += `<li>${titleElement.textContent.trim()}</li>`;
+                        }
+                    });
+                    
+                    projectList += `</ul>
+<h3>📄 Pages</h3>
+<ul>
+    <li><a href="Projects.html" target="_blank">Projects</a></li>
+    <li><a href="Docs.html" target="_blank">Docs</a></li>
+    <li><a href="Certifications.html" target="_blank">Certifications</a></li>
+    <li><a href="LearningSources.html" target="_blank">Learning Sources</a></li>
+    <li><a href="About.html" target="_blank">About</a></li>
+</ul>
+</div>`;
+                } else if (args[0] === 'projects') {
+                    projectList = `<div class="ls-output">
+<h3>📂 Projects</h3>
+<ul>`;
+                    
+                    const projectSections = document.querySelectorAll('.main-content');
+                    projectSections.forEach(section => {
+                        const titleElement = section.querySelector('h2');
+                        const imageElement = section.querySelector('.main-image');
+                        if (titleElement && imageElement && imageElement.dataset.url) {
+                            projectList += `<li><a href="${imageElement.dataset.url}" target="_blank">${titleElement.textContent.trim()}</a></li>`;
+                        } else if (titleElement) {
+                            projectList += `<li>${titleElement.textContent.trim()}</li>`;
+                        }
+                    });
+                    
+                    projectList += `</ul></div>`;
+                } else if (args[0] === 'pages') {
+                    projectList = `<div class="ls-output">
+<h3>📄 Pages</h3>
+<ul>
+    <li><a href="Projects.html" target="_blank">Projects</a></li>
+    <li><a href="Docs.html" target="_blank">Docs</a></li>
+    <li><a href="Certifications.html" target="_blank">Certifications</a></li>
+    <li><a href="LearningSources.html" target="_blank">Learning Sources</a></li>
+    <li><a href="About.html" target="_blank">About</a></li>
+</ul>
+</div>`;
                 } else {
-                    // Handle explicit newlines used in string construction
-                    if (char === '\\n') {
-                        currentHTML += '<br>';
-                    } else {
-                        currentHTML += char;
+                    projectList = `Usage: ls [option]
+Available options:
+- all (default): List all projects and pages
+- projects: List only projects
+- pages: List only pages`;
+                }
+                
+                outputText = projectList || 'No data found.';
+                break;
+
+            case 'about':
+                outputText = `<div class="about-output">
+<h3>👨‍💻 About Me</h3>
+<p>I'm Arub, a developer with a passion for creating digital experiences that are both functional and beautiful.</p>
+<p>My skills include:</p>
+<ul>
+    <li>Web Development (HTML, CSS, JavaScript)</li>
+    <li>Python Programming</li>
+    <li>SQL and Database Management</li>
+    <li>GUI Development</li>
+</ul>
+<p>For more details, type <span class="cmd-highlight">contact</span> or visit the <a href="About.html" target="_blank">About page</a>.</p>
+</div>`;
+                break;
+
+            case 'projects':
+                outputText = `<div class="projects-output">
+<h3>🚀 Projects</h3>
+<ul>
+    <li><strong>School Site</strong> - School website revamp using HTML, CSS, and JavaScript</li>
+    <li><strong>Islamic Inheritance Calculator</strong> - Terminal-based graphical calculator in Python</li>
+    <li><strong>Mathematical & Utility GUI Software</strong> - Prototype GUI with various modules in Python</li>
+    <li><strong>MySQL Query Executor & Visualizer</strong> - Graphical SQL tool with table schema viewer</li>
+    <li><strong>Khan Academy Js Projects</strong> - Collection of JavaScript mini-projects</li>
+    <li><strong>Digital Portfolio</strong> - This website showcasing projects and skills</li>
+</ul>
+<p>For more details, visit the <a href="Projects.html" target="_blank">Projects page</a>.</p>
+</div>`;
+                break;
+                
+            case 'docs':
+                outputText = `<div class="docs-output">
+<h3>📚 Documentation</h3>
+<p>Visit the <a href="Docs.html" target="_blank">Docs page</a> to view all documentation for my projects.</p>
+<p>Documentation includes code snippets, explanations, and technical details about implementation.</p>
+</div>`;
+                break;
+                
+            case 'certifications':
+                outputText = `<div class="cert-output">
+<h3>🏆 Certifications</h3>
+<ul>
+    <li><strong>PCAP™</strong> - Certified Associate Python Programmer (August 2024)</li>
+    <li><strong>PCEP™</strong> - Certified Entry-Level Python Programmer (July 2023)</li>
+</ul>
+<p>For more details, visit the <a href="Certifications.html" target="_blank">Certifications page</a>.</p>
+</div>`;
+                break;
+                
+            case 'learning':
+                outputText = `<div class="learning-output">
+<h3>📖 Learning Sources</h3>
+<p>Visit the <a href="LearningSources.html" target="_blank">Learning Sources page</a> to view resources I've used to learn programming.</p>
+<p>These include online platforms, tutorials, courses, and documentation.</p>
+</div>`;
+                break;
+
+            case 'contact':
+                const mailLink = document.querySelector('.nav-content a[href="#"][data-hover*="@"]');
+                const discordLink = document.querySelector('.nav-content a[href="#"][data-hover*="arub"]');
+                
+                outputText = `<div class="contact-output">
+<h3>📬 Contact Information</h3>
+<ul>`;
+                
+                if (mailLink) outputText += `<li>📧 Email: <a href="mailto:${mailLink.dataset.hover}">${mailLink.dataset.hover}</a></li>`;
+                if (discordLink) outputText += `<li>💬 Discord: ${discordLink.dataset.hover}</li>`;
+                
+                outputText += `</ul>
+<h3>💻 Profiles</h3>
+<ul>
+    <li><a href="https://github.com/arubbinali/" target="_blank">GitHub</a></li>
+    <li><a href="https://www.linkedin.com/in/arubbinali/" target="_blank">LinkedIn</a></li>
+    <li><a href="https://leetcode.com/u/arubbinali/" target="_blank">Leetcode</a></li>
+    <li><a href="https://www.khanacademy.org/profile/mbinali06" target="_blank">Khan Academy</a></li>
+</ul>
+</div>`;
+                break;
+                
+            case 'echo':
+                if (args.length > 0) {
+                    outputText = args.join(' ');
+                } else {
+                    outputText = 'Usage: echo [text] - displays the provided text';
+                }
+                break;
+                
+            case 'time':
+                const now = new Date();
+                const options = { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    timeZoneName: 'short'
+                };
+                outputText = `<div class="time-output">
+<h3>⏰ Current Date & Time</h3>
+<p>${now.toLocaleDateString('en-US', options)}</p>
+</div>`;
+                break;
+                
+            case 'whoami':
+                outputText = `<div class="whoami-output">
+<h3>👤 You Are</h3>
+<p>A visitor exploring Arub's digital portfolio.</p>
+<p>Your current status: Curious Explorer</p>
+</div>`;
+                break;
+                
+            case 'visitors':
+                // Use a fixed, incrementing visitor count instead of random number
+                outputText = `<div class="visitors-output">
+<h3>👥 Visitor Statistics</h3>
+<p>Total visitors to date: <span class="visitor-count" id="visitor-counter">Loading...</span></p>
+<p>Thank you for being one of them!</p>
+</div>`;
+
+                // Set a timeout to update the visitor count after outputting
+                setTimeout(() => {
+                    // Get stored count or default to base number
+                    let baseCount = 1254; // Start with a reasonable base count
+                    const storedCount = localStorage.getItem('visitorBaseCount');
+                    if (storedCount) {
+                        baseCount = parseInt(storedCount, 10);
                     }
-                    element.innerHTML = currentHTML;
+                    
+                    // Add small random increment (1-3) to simulate real visitor growth
+                    const increment = Math.floor(Math.random() * 3) + 1;
+                    const newCount = baseCount + increment;
+                    
+                    // Store the new count for persistence
+                    localStorage.setItem('visitorBaseCount', newCount.toString());
+                    
+                    // Update the display
+                    const counterElement = document.getElementById('visitor-counter');
+                    if (counterElement) {
+                        counterElement.textContent = newCount.toLocaleString();
+                    }
+                }, 300);
+                break;
+                
+            case 'clear':
+                terminalOutput.innerHTML = ''; // Clear immediately
+                // Add a placeholder or slight padding if desired
+                const clearPara = document.createElement('p');
+                clearPara.innerHTML = '&nbsp;'; // Add a non-breaking space for minimal height
+                terminalOutput.appendChild(clearPara);
+                clearScreen = true; // Set the flag
+                break;
+                
+            case 'exit':
+                minimize = true;
+                break;
+                
+            default:
+                if (command.trim() === '') {
+                    outputText = ''; // No output for empty command
+                } else {
+                    outputText = `<span class="error-text">Command not found: ${command}</span>
+Type <span class="cmd-highlight">help</span> for available commands.`;
                 }
-
-                // ADDED: Periodically adjust height during typing
-                if (i % 5 === 0) { // Adjust every 5 characters (tweak frequency as needed)
-                    adjustTerminalHeight();
-                }
-
-                i++;
-                // Auto-scroll
-                if (terminalOutput) {
-                    terminalOutput.scrollTop = terminalOutput.scrollHeight;
-                }
-                setTimeout(type, speed); // Continue typing
-            } else {
-                // Typing finished
-                // ADDED: Final adjustment after typing is fully done
-                adjustTerminalHeight(); 
-                if (callback) {
-                    callback();
+        }
+        
+        if (minimize) {
+            // Minimize the terminal
+            if (terminalElement) {
+                terminalElement.classList.remove('visible');
+                terminalElement.style.height = '';
+                terminalElement.style.width = ''; // Reset width too
+                terminalElement.style.top = '';
+                terminalElement.style.left = '';
+                terminalElement.style.transform = '';
+                // Hide dimmer and reset icon
+                if (screenDimmer) screenDimmer.classList.add('hidden');
+                if (fullscreenIcon) fullscreenIcon.classList.add('hidden'); // Hide fullscreen icon too
+                if (terminalIcon) {
+                    terminalIcon.classList.remove('close-mode');
+                    terminalIcon.title = 'Open Terminal';
                 }
             }
-        }
+        } else if (clearScreen) {
+            // Clear the text regardless of mode
+            terminalOutput.innerHTML = '';
+            const clearPara = document.createElement('p');
+            clearPara.innerHTML = '&nbsp;';
+            terminalOutput.appendChild(clearPara);
+            terminalOutput.scrollTop = 0;
 
-        type(); // Start the typing process
+            // MODIFIED: Smoothly reset height IF in mini mode by setting the style
+            if (terminalElement.classList.contains('config-mini')) {
+                terminalElement.style.height = `${initialMiniHeightPx}px`;
+            }
+        } else {
+            // Append the paragraph element and display it with fade-in effect
+            terminalOutput.appendChild(outputPara);
+            fadeInEffect(outputPara, outputText);
+        }
     }
 
     // Function to auto-adjust terminal height
@@ -247,94 +519,6 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
              terminalOutput.scrollTop = terminalOutput.scrollHeight;
         }, 50);
-    }
-
-    // Function to process terminal commands
-    function processTerminalCommand(command) {
-        const outputPara = document.createElement('p');
-        const typingSpeed = 2; // Milliseconds per character - Much faster
-        let minimize = false;
-        let clearScreen = false; // Flag for clear command
-        let outputText = ''; // Store text to be typed
-
-        switch (command.toLowerCase()) {
-            case 'help':
-                outputText = 'Available commands:\n                   - help: Show this help message\n                   - ls: List projects\n                   - contact: Show contact information\n                   - clear: Clear the terminal screen\n                   - exit: Minimize the terminal';
-                break;
-            case 'ls':
-                const projectSections = document.querySelectorAll('.main-content');
-                let projectList = 'Projects:\n';
-                projectSections.forEach(section => {
-                    const titleElement = section.querySelector('h2');
-                    const imageElement = section.querySelector('.main-image');
-                    if (titleElement && imageElement && imageElement.dataset.url) {
-                        projectList += `- ${titleElement.textContent.trim()} (<a href="${imageElement.dataset.url}" target="_blank" style="color: #0f0; text-decoration: underline;">link</a>)\n`;
-                    } else if (titleElement) {
-                        projectList += `- ${titleElement.textContent.trim()} (no link found)\n`;
-                    }
-                });
-                outputText = projectList || 'No projects found.';
-                break;
-            case 'contact':
-                const mailLink = document.querySelector('.nav-content a[href="#"][data-hover*="@"]');
-                const discordLink = document.querySelector('.nav-content a[href="#"][data-hover*="arub"]');
-                let contactInfo = 'Contact Info:\n';
-                if (mailLink) contactInfo += `- Mail: ${mailLink.dataset.hover}\n`;
-                if (discordLink) contactInfo += `- Discord: ${discordLink.dataset.hover}`;
-                outputText = contactInfo;
-                break;
-            case 'clear':
-                terminalOutput.innerHTML = ''; // Clear immediately
-                // Add a placeholder or slight padding if desired
-                const clearPara = document.createElement('p');
-                clearPara.innerHTML = '&nbsp;'; // Add a non-breaking space for minimal height
-                terminalOutput.appendChild(clearPara);
-                clearScreen = true; // Set the flag
-                break;
-            case 'exit':
-                 minimize = true;
-                 break;
-            default:
-                outputText = `Command not found: ${command}. Type 'help' for available commands.`;
-        }
-        
-        if (minimize) {
-            // Minimize the terminal
-            if (terminalElement) {
-                terminalElement.classList.remove('visible');
-                terminalElement.style.height = '';
-                terminalElement.style.width = ''; // Reset width too
-                terminalElement.style.top = '';
-                terminalElement.style.left = '';
-                terminalElement.style.transform = '';
-                // Hide dimmer and reset icon
-                if (screenDimmer) screenDimmer.classList.add('hidden');
-                if (fullscreenIcon) fullscreenIcon.classList.add('hidden'); // Hide fullscreen icon too
-                if (terminalIcon) {
-                    terminalIcon.classList.remove('close-mode');
-                    terminalIcon.title = 'Open Terminal';
-                }
-            }
-        } else if (clearScreen) {
-            // Clear the text regardless of mode
-            terminalOutput.innerHTML = '';
-            const clearPara = document.createElement('p');
-            clearPara.innerHTML = '&nbsp;';
-            terminalOutput.appendChild(clearPara);
-            terminalOutput.scrollTop = 0;
-
-            // MODIFIED: Smoothly reset height IF in mini mode by setting the style
-            if (terminalElement.classList.contains('config-mini')) {
-                terminalElement.style.height = `${initialMiniHeightPx}px`;
-            }
-        } else {
-            // Append the paragraph element and start the typewriter effect
-            terminalOutput.appendChild(outputPara);
-            typewriterEffect(outputPara, outputText, typingSpeed, () => {
-                // REMOVED: Height adjustment now happens within typewriterEffect
-                // setTimeout(adjustTerminalHeight, 50); 
-            });
-        }
     }
 
     if (terminalIcon && terminalElement && screenDimmer && fullscreenIcon) {
@@ -880,3 +1064,71 @@ window.addEventListener('click', (event) => {
         modal.style.display = 'none';
     }
 });
+
+// Add custom CSS styles for the terminal output
+const terminalStyle = document.createElement('style');
+terminalStyle.textContent = `
+    /* Command highlighting */
+    .cmd-highlight {
+        color: #569cd6;
+        font-weight: bold;
+    }
+    
+    /* Error text styling */
+    .error-text {
+        color: #f14c4c;
+    }
+    
+    /* Output container styling */
+    .ls-output, .about-output, .projects-output, .docs-output, 
+    .cert-output, .learning-output, .contact-output, 
+    .time-output, .whoami-output, .visitors-output {
+        background: rgba(40, 44, 52, 0.5);
+        border-radius: 6px;
+        padding: 12px;
+        margin-bottom: 10px;
+    }
+    
+    /* Output container headers */
+    .ls-output h3, .about-output h3, .projects-output h3, .docs-output h3, 
+    .cert-output h3, .learning-output h3, .contact-output h3, 
+    .time-output h3, .whoami-output h3, .visitors-output h3 {
+        color: #e6c07b;
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+    
+    /* List styling in outputs */
+    .ls-output ul, .about-output ul, .projects-output ul, .docs-output ul, 
+    .cert-output ul, .learning-output ul, .contact-output ul {
+        padding-left: 20px;
+        margin: 8px 0;
+    }
+    
+    .ls-output li, .about-output li, .projects-output li, .docs-output li, 
+    .cert-output li, .learning-output li, .contact-output li {
+        margin-bottom: 5px;
+    }
+    
+    /* Link styling in terminal */
+    #terminal-output a {
+        color: #61afef;
+        text-decoration: none;
+        border-bottom: 1px dotted rgba(97, 175, 239, 0.5);
+        transition: color 0.2s, border-color 0.2s;
+    }
+    
+    #terminal-output a:hover {
+        color: #98c9f5;
+        border-bottom-color: rgba(152, 201, 245, 0.8);
+    }
+    
+    /* Visitor count styling */
+    .visitor-count {
+        color: #98c379;
+        font-weight: bold;
+    }
+`;
+document.head.appendChild(terminalStyle);
