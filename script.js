@@ -185,31 +185,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
         switch (primaryCommand) {
             case 'help':
-                outputText = `Available Commands:
-┌─────────────────────────────────────────────────┐
-│ <span class="cmd-highlight">help</span>        - Show this help message             │
-│ <span class="cmd-highlight">ls</span>          - List projects and pages            │
-│ <span class="cmd-highlight">about</span>       - Show info about me                 │
-│ <span class="cmd-highlight">projects</span>    - Show detailed project info         │
-│ <span class="cmd-highlight">docs</span>        - Show documentation                 │
-│ <span class="cmd-highlight">certifications</span> - Show my certifications          │
-│ <span class="cmd-highlight">learning</span>    - Show learning resources            │
-│ <span class="cmd-highlight">contact</span>     - Show contact information           │
-│ <span class="cmd-highlight">echo [text]</span> - Display text                       │
-│ <span class="cmd-highlight">time</span>        - Show current date and time         │
-│ <span class="cmd-highlight">whoami</span>      - Show who you are                   │
-│ <span class="cmd-highlight">visitors</span>    - Show visitor count                 │
-│ <span class="cmd-highlight">clear</span>       - Clear the terminal screen          │
-│ <span class="cmd-highlight">exit</span>        - Minimize the terminal              │
-└─────────────────────────────────────────────────┘
-Try typing <span class="cmd-highlight">help [command]</span> for more info on a specific command.`;
+                outputText = `<div class="terminal-widget">
+<h3>📋 Available Commands</h3>
+┌──────────────────────────────┐
+│ <span class="cmd-help">help</span>             -Show this help message
+│ <span class="cmd-help">projects</span>         -Show detailed project info
+│ <span class="cmd-help">certifs</span>          -Show my certifications
+│ <span class="cmd-help">sources</span>          -Show learning resources
+│ <span class="cmd-help">about</span>            -Show info about me
+│ <span class="cmd-help">time</span>             -Show current date and time
+│ <span class="cmd-help">whoami</span>           -Show who you are
+│ <span class="cmd-help">clear</span>            -Clear the terminal screen
+└──────────────────────────────┘
+<p>Try typing <span class="cmd-help">help [command]</span> for more info on a specific command.</p>
+</div>`;
                 break;
 
             case 'ls':
                 let projectList = '';
                 
                 if (args.length === 0 || args[0] === 'all') {
-                    projectList = `<div class="ls-output">
+                    projectList = `<div class="terminal-widget">
 <h3>📂 Projects</h3>
 <ul>`;
                     
@@ -235,7 +231,7 @@ Try typing <span class="cmd-highlight">help [command]</span> for more info on a 
 </ul>
 </div>`;
                 } else if (args[0] === 'projects') {
-                    projectList = `<div class="ls-output">
+                    projectList = `<div class="terminal-widget">
 <h3>📂 Projects</h3>
 <ul>`;
                     
@@ -252,7 +248,7 @@ Try typing <span class="cmd-highlight">help [command]</span> for more info on a 
                     
                     projectList += `</ul></div>`;
                 } else if (args[0] === 'pages') {
-                    projectList = `<div class="ls-output">
+                    projectList = `<div class="terminal-widget">
 <h3>📄 Pages</h3>
 <ul>
     <li><a href="Projects.html" target="_blank">Projects</a></li>
@@ -263,18 +259,23 @@ Try typing <span class="cmd-highlight">help [command]</span> for more info on a 
 </ul>
 </div>`;
                 } else {
-                    projectList = `Usage: ls [option]
-Available options:
-- all (default): List all projects and pages
-- projects: List only projects
-- pages: List only pages`;
+                    projectList = `<div class="terminal-widget">
+<h3>ℹ️ Usage</h3>
+<p>Usage: ls [option]</p>
+<p>Available options:</p>
+<ul>
+    <li>all (default): List all projects and pages</li>
+    <li>projects: List only projects</li>
+    <li>pages: List only pages</li>
+</ul>
+</div>`;
                 }
                 
                 outputText = projectList || 'No data found.';
                 break;
 
             case 'about':
-                outputText = `<div class="about-output">
+                outputText = `<div class="terminal-widget">
 <h3>👨‍💻 About Me</h3>
 <p>I'm Arub, a developer with a passion for creating digital experiences that are both functional and beautiful.</p>
 <p>My skills include:</p>
@@ -289,7 +290,7 @@ Available options:
                 break;
 
             case 'projects':
-                outputText = `<div class="projects-output">
+                outputText = `<div class="terminal-widget">
 <h3>🚀 Projects</h3>
 <ul>
     <li><strong>School Site</strong> - School website revamp using HTML, CSS, and JavaScript</li>
@@ -304,7 +305,7 @@ Available options:
                 break;
                 
             case 'docs':
-                outputText = `<div class="docs-output">
+                outputText = `<div class="terminal-widget">
 <h3>📚 Documentation</h3>
 <p>Visit the <a href="Docs.html" target="_blank">Docs page</a> to view all documentation for my projects.</p>
 <p>Documentation includes code snippets, explanations, and technical details about implementation.</p>
@@ -312,7 +313,8 @@ Available options:
                 break;
                 
             case 'certifications':
-                outputText = `<div class="cert-output">
+            case 'certifs':
+                outputText = `<div class="terminal-widget">
 <h3>🏆 Certifications</h3>
 <ul>
     <li><strong>PCAP™</strong> - Certified Associate Python Programmer (August 2024)</li>
@@ -323,7 +325,8 @@ Available options:
                 break;
                 
             case 'learning':
-                outputText = `<div class="learning-output">
+            case 'sources':
+                outputText = `<div class="terminal-widget">
 <h3>📖 Learning Sources</h3>
 <p>Visit the <a href="LearningSources.html" target="_blank">Learning Sources page</a> to view resources I've used to learn programming.</p>
 <p>These include online platforms, tutorials, courses, and documentation.</p>
@@ -334,7 +337,7 @@ Available options:
                 const mailLink = document.querySelector('.nav-content a[href="#"][data-hover*="@"]');
                 const discordLink = document.querySelector('.nav-content a[href="#"][data-hover*="arub"]');
                 
-                outputText = `<div class="contact-output">
+                outputText = `<div class="terminal-widget">
 <h3>📬 Contact Information</h3>
 <ul>`;
                 
@@ -354,9 +357,15 @@ Available options:
                 
             case 'echo':
                 if (args.length > 0) {
-                    outputText = args.join(' ');
+                    outputText = `<div class="terminal-widget">
+<h3>🔊 Echo</h3>
+<p>${args.join(' ')}</p>
+</div>`;
                 } else {
-                    outputText = 'Usage: echo [text] - displays the provided text';
+                    outputText = `<div class="terminal-widget">
+<h3>ℹ️ Usage</h3>
+<p>Usage: echo [text] - displays the provided text</p>
+</div>`;
                 }
                 break;
                 
@@ -372,23 +381,24 @@ Available options:
                     second: '2-digit',
                     timeZoneName: 'short'
                 };
-                outputText = `<div class="time-output">
+                outputText = `<div class="terminal-widget">
 <h3>⏰ Current Date & Time</h3>
 <p>${now.toLocaleDateString('en-US', options)}</p>
 </div>`;
                 break;
                 
             case 'whoami':
-                outputText = `<div class="whoami-output">
+                outputText = `<div class="terminal-widget">
 <h3>👤 You Are</h3>
 <p>A visitor exploring Arub's digital portfolio.</p>
 <p>Your current status: Curious Explorer</p>
+<p>Access level: Public Viewer</p>
 </div>`;
                 break;
                 
             case 'visitors':
                 // Use a fixed, incrementing visitor count instead of random number
-                outputText = `<div class="visitors-output">
+                outputText = `<div class="terminal-widget">
 <h3>👥 Visitor Statistics</h3>
 <p>Total visitors to date: <span class="visitor-count" id="visitor-counter">Loading...</span></p>
 <p>Thank you for being one of them!</p>
@@ -419,24 +429,47 @@ Available options:
                 break;
                 
             case 'clear':
-                terminalOutput.innerHTML = ''; // Clear immediately
-                // Add a placeholder or slight padding if desired
-                const clearPara = document.createElement('p');
-                clearPara.innerHTML = '&nbsp;'; // Add a non-breaking space for minimal height
-                terminalOutput.appendChild(clearPara);
-                clearScreen = true; // Set the flag
-                break;
+                // Clear terminal output
+                terminalOutput.innerHTML = '';
                 
-            case 'exit':
-                minimize = true;
+                // Add a confirmation message with fade-in effect
+                const clearPara = document.createElement('p');
+                fadeInEffect(clearPara, '<span style="color: #6A9955;">Terminal cleared.</span>');
+                terminalOutput.appendChild(clearPara);
+                
+                // Set a timeout to show welcome message after clearing
+                setTimeout(() => {
+                    // Create welcome message with fade-in effect
+                    const welcomeMsg = document.createElement('p');
+                    const welcomeContent = `<div class="terminal-widget">
+<h3>👋 Welcome to Arub's Portfolio Terminal</h3>
+<p>Type <span class="cmd-instruction">help</span> to see available commands.</p>
+</div>`;
+                    fadeInEffect(welcomeMsg, welcomeContent);
+                    terminalOutput.appendChild(welcomeMsg);
+                }, 700); // Show welcome message after a short delay
+                
+                // Set flag so we don't add the command to history
+                clearScreen = true;
+                
+                // Reset scroll position
+                terminalOutput.scrollTop = 0;
+                
+                // Adjust height for mini mode
+                if (terminalElement.classList.contains('config-mini')) {
+                    terminalElement.style.height = `${initialMiniHeightPx}px`;
+                }
                 break;
                 
             default:
                 if (command.trim() === '') {
                     outputText = ''; // No output for empty command
                 } else {
-                    outputText = `<span class="error-text">Command not found: ${command}</span>
-Type <span class="cmd-highlight">help</span> for available commands.`;
+                    outputText = `<div class="terminal-widget">
+<h3>ℹ️ Command Not Found</h3>
+<p>Command not found: ${command}</p>
+<p>Type <span class="cmd-help">help</span> for available commands.</p>
+</div>`;
                 }
         }
         
@@ -618,7 +651,7 @@ Type <span class="cmd-highlight">help</span> for available commands.`;
                 const command = terminalInput.value.trim();
                 if (command) {
                     const commandPara = document.createElement('p');
-                    commandPara.textContent = `> ${command}`;
+                    commandPara.innerHTML = `<span class="user-command">> ${command}</span>`;
                     terminalOutput.appendChild(commandPara);
                     terminalOutput.scrollTop = terminalOutput.scrollHeight;
                     processTerminalCommand(command);
@@ -1068,9 +1101,27 @@ window.addEventListener('click', (event) => {
 // Add custom CSS styles for the terminal output
 const terminalStyle = document.createElement('style');
 terminalStyle.textContent = `
-    /* Command highlighting */
+    /* Command highlighting for standard commands */
     .cmd-highlight {
         color: #569cd6;
+        font-weight: bold;
+    }
+    
+    /* Special aqua highlighting for help command */
+    .cmd-help {
+        color: #00ffff; /* Aqua color */
+        font-weight: bold;
+    }
+    
+    /* Instruction command highlighting */
+    .cmd-instruction {
+        color: #00ff00; /* Sharp green color */
+        font-weight: bold;
+    }
+    
+    /* User command styling */
+    .user-command {
+        color: #8BC34A; /* Light green color */
         font-weight: bold;
     }
     
@@ -1079,40 +1130,51 @@ terminalStyle.textContent = `
         color: #f14c4c;
     }
     
-    /* Output container styling */
-    .ls-output, .about-output, .projects-output, .docs-output, 
-    .cert-output, .learning-output, .contact-output, 
-    .time-output, .whoami-output, .visitors-output {
-        background: rgba(40, 44, 52, 0.5);
-        border-radius: 6px;
-        padding: 12px;
-        margin-bottom: 10px;
+    /* Success text styling */
+    .success-text {
+        color: #6A9955;
     }
     
-    /* Output container headers */
-    .ls-output h3, .about-output h3, .projects-output h3, .docs-output h3, 
-    .cert-output h3, .learning-output h3, .contact-output h3, 
-    .time-output h3, .whoami-output h3, .visitors-output h3 {
+    /* Terminal widget styling */
+    .terminal-widget {
+        background: linear-gradient(135deg, rgba(40, 44, 52, 0.7), rgba(30, 34, 42, 0.8));
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        border-left: 3px solid #61afef;
+    }
+    
+    /* Widget headers */
+    .terminal-widget h3 {
         color: #e6c07b;
         margin-top: 0;
-        margin-bottom: 10px;
-        font-size: 1rem;
+        margin-bottom: 12px;
+        font-size: 1.1rem;
         font-weight: 500;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 6px;
     }
     
-    /* List styling in outputs */
-    .ls-output ul, .about-output ul, .projects-output ul, .docs-output ul, 
-    .cert-output ul, .learning-output ul, .contact-output ul {
+    /* Lists in terminal widgets */
+    .terminal-widget ul {
         padding-left: 20px;
         margin: 8px 0;
     }
     
-    .ls-output li, .about-output li, .projects-output li, .docs-output li, 
-    .cert-output li, .learning-output li, .contact-output li {
-        margin-bottom: 5px;
+    .terminal-widget li {
+        margin-bottom: 4px;
+        position: relative;
     }
     
-    /* Link styling in terminal */
+    .terminal-widget li::before {
+        content: '•';
+        color: #61afef;
+        position: absolute;
+        left: -15px;
+    }
+    
+    /* Links in terminal */
     #terminal-output a {
         color: #61afef;
         text-decoration: none;
@@ -1129,6 +1191,21 @@ terminalStyle.textContent = `
     .visitor-count {
         color: #98c379;
         font-weight: bold;
+    }
+    
+    /* Command line styling */
+    .command-line {
+        margin: 6px 0;
+        color: #cccccc;
+    }
+    
+    .prompt {
+        color: #6A9955;
+        margin-right: 5px;
+    }
+    
+    .entered-command {
+        color: #8BC34A; /* Light green color */
     }
 `;
 document.head.appendChild(terminalStyle);
