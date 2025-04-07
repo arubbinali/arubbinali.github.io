@@ -271,39 +271,61 @@ body {
    }
 }
 
+/* Navbar entrance animation */
+@keyframes navbarEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background: rgb(10, 10, 10, 0.5);
+    background: rgba(25, 25, 25, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     z-index: 1000;
-    transition: all 0.3s ease;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
     height: 4rem;
-    overflow: hidden;
+    overflow: visible;
+    animation: navbarEntrance 0.6s ease-out forwards;
 }
 
 .nav-container {
-    width: 100%; /* Full width of the screen */
-    padding: 0 1rem; /* Padding on the left and right */
-    display: flex; /* Flexbox to align items */
-    justify-content: center; /* Centers the items horizontally */
-    box-sizing: border-box; /* Ensure padding doesn't affect the width calculation */
+    width: 100%; 
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 100%;
+    align-items: center;
 }
-
 
 .nav-items {
     display: flex;
-    padding-left: 1rem;
-    gap: clamp(1rem, 3vw, 4rem);
+    gap: clamp(1.5rem, 4vw, 5rem);
     flex-wrap: wrap;
     padding: 1rem 0;
+    position: relative;
 }
 
 .nav-item {
     position: relative;
     cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.nav-item:hover {
+    transform: translateY(-2px);
 }
 
 .nav-item:nth-child(2) {
@@ -311,91 +333,141 @@ body {
 }
 
 .nav-item span {
-    font-family: 'Montserrat', sans-serif;
-    font-size: clamp(0.7rem, 2vw, 0.9rem);
-    font-weight: 600;
-    letter-spacing: 1px;
-    opacity: 0.7;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.8rem, 2vw, 0.95rem);
+    font-weight: 400;
+    letter-spacing: 1.2px;
+    opacity: 0.85;
     transition: all 0.3s ease;
     white-space: nowrap;
     display: block;
-    padding: 0.5rem;
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-item span::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255,105,180,0.6), rgba(255,105,180,1));
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
 }
 
 .nav-item:hover span {
     opacity: 1;
-    color: #ff69b4;
-    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.nav-item:hover span::before {
+    width: 80%;
 }
 
 .nav-content {
-    padding: 0.5rem 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding: 0.6rem 0;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: all 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
     width: max-content;
+    transform: translateY(-10px);
+    visibility: hidden;
+    background: rgba(25, 25, 25, 0.95);
+    border-radius: 6px;
+    margin-top: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
 }
 
 .nav-item:hover .nav-content {
     opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
 }
 
 .nav-content a {
-    margin-left: -40px;
+    margin-left: 0;
     display: block;
-    padding: 0.5rem 2rem;
-    color: rgba(255, 255, 255, 0.7);
+    padding: 0.7rem 1.5rem;
+    color: rgba(255, 255, 255, 0.85);
     text-decoration: none;
     font-family: 'Poppins', sans-serif;
-    font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+    font-size: clamp(0.75rem, 1.5vw, 0.85rem);
     letter-spacing: 1px;
     transition: all 0.2s ease;
     white-space: nowrap;
     text-align: left;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-content a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: rgba(255, 105, 180, 0);
+    transition: all 0.3s ease;
 }
 
 .nav-content a:hover {
-    color: #ff69b4;
-    background: rgb(10, 10, 10, 0);
-    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+    color: rgba(255, 255, 255, 1);
+    background: rgba(40, 40, 40, 0.8);
+    padding-left: 2rem;
 }
 
-/* Dynamic heights for different menu items */
-.nav-item:nth-child(1):hover ~ .navbar,
-.nav-item:nth-child(1):hover .navbar,
-.navbar:has(.nav-item:nth-child(1):hover) {
-    height: calc(14rem); /* Base height + (number of items * item height) */
+.nav-content a:hover::before {
+    background: rgba(255, 105, 180, 1);
+    box-shadow: 0 0 8px rgba(255, 105, 180, 0.7);
 }
 
-.nav-item:nth-child(2):hover ~ .navbar,
-.nav-item:nth-child(2):hover .navbar,
-.navbar:has(.nav-item:nth-child(2):hover) {
-    height: calc(9rem);
-}
-
-/* Hover state for nav items */
-.nav-item:hover {
-    background: rgb(10, 10, 10, 0);
-}
-
-/* Update the hover-text class to position it 20px to the right of the navbar options */
-.hover-text {
+.nav-content a::after {
+    content: '';
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out; /* Smoother fade in/out */ 
-    font-family: 'Poppins', sans-serif;
-    font-size: clamp(0.8rem, 1.5vw, 1rem);
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.8);
-    pointer-events: none; 
-    left: -100px;
-    transform: translateX(80vw); 
-    background-color: rgb(48, 48, 48); /* Subtle background */
-    border-radius: 5px; /* Rounded corners */
-    padding: 5px 10px; /* Padding for better readability */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-  }
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-content a:last-child::after {
+    display: none;
+}
+
+/* Subtle animation for dropdown items */
+@keyframes fadeInDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.nav-content a {
+    animation: fadeInDropdown 0.2s ease-out forwards;
+    animation-play-state: paused;
+}
+
+.nav-item:hover .nav-content a:nth-child(1) { animation-play-state: running; animation-delay: 0.05s; }
+.nav-item:hover .nav-content a:nth-child(2) { animation-play-state: running; animation-delay: 0.1s; }
+.nav-item:hover .nav-content a:nth-child(3) { animation-play-state: running; animation-delay: 0.15s; }
+.nav-item:hover .nav-content a:nth-child(4) { animation-play-state: running; animation-delay: 0.2s; }
+.nav-item:hover .nav-content a:nth-child(5) { animation-play-state: running; animation-delay: 0.25s; }
 
 .nav-content a:hover ~ .hover-text {
     opacity: 1;
@@ -2311,4 +2383,95 @@ footer {
 .hover-text {
   opacity: 0 !important;
   pointer-events: none;
+}
+
+/* Hover-text for legacy support */
+.hover-text {
+    opacity: 0 !important;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: opacity 0.3s ease-in-out;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.8rem, 1.5vw, 1rem);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    left: -100px;
+    transform: translateX(80vw);
+}
+
+/* Logo and brand styling */
+.navbar-brand {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
+}
+
+.navbar-brand img {
+    height: 32px;
+    margin-right: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover img {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Enhance the navbar with subtle gradient */
+.navbar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        rgba(255, 105, 180, 0.4) 0%, 
+        rgba(255, 105, 180, 0.8) 50%, 
+        rgba(255, 105, 180, 0.4) 100%);
+    opacity: 0.8;
+}
+
+/* Smooth navbar appearance on scroll */
+.navbar.scrolled {
+    background: rgba(20, 20, 20, 0.95);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Subtle hover effect for nav items */
+.nav-item span {
+    position: relative;
+}
+
+.nav-item span::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle, rgba(255,105,180,0.1) 0%, rgba(255,105,180,0) 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 4px;
+    z-index: -1;
+}
+
+.nav-item:hover span::after {
+    opacity: 1;
+}
+
+.nav-content a:hover ~ .hover-text {
+    opacity: 0 !important;
+}
+
+.nav-content a:hover + .hover-text {
+    opacity: 0 !important;
 }

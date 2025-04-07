@@ -124,6 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Dynamic hover text for nav links
     const navLinks = document.querySelectorAll('.nav-content a');
     const hoverText = document.querySelector('.hover-text');
+    const navbar = document.querySelector('.navbar');
 
     // Create popup element
     const popup = document.createElement('div');
@@ -133,6 +134,19 @@ document.addEventListener("DOMContentLoaded", () => {
     // Track the current hover state
     let popupTimeout;
     let isHovering = false;
+
+    // Add scroll effect to navbar
+    const handleNavbarScroll = () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    };
+
+    // Initial call and add event listener
+    handleNavbarScroll();
+    window.addEventListener('scroll', handleNavbarScroll);
 
     navLinks.forEach(link => {
         link.addEventListener('mouseover', (e) => {
