@@ -2227,6 +2227,12 @@ footer {
     color: #c8ccd4; /* Main text color */
 }
 
+/* Remove gap at the top of terminal */
+#terminal-output > h3:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+
 #terminal-output p {
     margin: 0 0 7px 0; /* More spacing */
 }
