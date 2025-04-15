@@ -881,117 +881,24 @@ function animate() {
 // Start animation
 animate();
 
-// Handle button hover states and text glow
-document.querySelectorAll('.void-button').forEach(button => {
-    button.addEventListener('mouseenter', () => {
-        const centerTextElements = document.querySelectorAll('.center-text, .center-text > *');
-        const auraText = document.querySelector('.aura-text');
-        centerTextElements.forEach(element => {
-            element.style.textShadow = `
-                0 0 10px rgba(255, 255, 255, 0.8),
-                0 0 20px rgba(255, 255, 255, 0.6),
-                0 0 30px rgba(255, 255, 255, 0.4),
-                0 0 40px rgba(255, 255, 255, 0.2)`;
-        });
-        if (auraText) {
-            auraText.style.textShadow = `
-                0 0 10px rgba(255, 255, 255, 0.8),
-                0 0 20px rgba(255, 255, 255, 0.6),
-                0 0 30px rgba(255, 255, 255, 0.4),
-                0 0 40px rgba(255, 255, 255, 0.2)`;
-        }
-    });
-
-    button.addEventListener('mouseleave', () => {
-        const centerTextElements = document.querySelectorAll('.center-text, .center-text > *');
-        const auraText = document.querySelector('.aura-text');
-        centerTextElements.forEach(element => {
-            element.style.textShadow = 'none';
-        });
-        if (auraText) {
-            auraText.style.textShadow = 'none';
-        }
-    });
-});
-
-// Existing scroll handling code
-const navbar = document.querySelector('.navbar');
-const sections = document.querySelectorAll('.info-section');
-
-function updateScrollEffects(scrollPos) {
-    navbar.style.backgroundColor = `rgba(10, 10, 10, ${Math.min(0.95, 0.8 + scrollPos / 1000)})`;
-    
-    sections.forEach((section, index) => {
-        const rect = section.getBoundingClientRect();
-        const isInView = rect.top <= window.innerHeight * 0.8;
-        
-        if (isInView && !section.classList.contains('animated')) {
-            section.style.animationDelay = `${index * 0.2}s`;
-            section.classList.add('animated');
-        }
-    });
-}
-
-let ticking = false;
-window.addEventListener('scroll', () => {
-    if (!ticking) {
-        window.requestAnimationFrame(() => {
-            updateScrollEffects(window.pageYOffset);
-            ticking = false;
-        });
-        ticking = true;
-    }
-});
-
-// Dynamic shadow based on cursor
-document.addEventListener('mousemove', (e) => {
-    const centerTextElements = document.querySelectorAll('.center-text, .center-text > *');
-    
-    centerTextElements.forEach(element => {
-        const rect = element.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        
-        // Calculate angle between cursor and text center
-        const dx = e.clientX - centerX;
-        const dy = e.clientY - centerY;
-        
-        // Calculate shadow offset (opposite to cursor direction)
-        const shadowX = -dx / 15;
-        const shadowY = -dy / 15;
-        
-        // Create connected shadow effect with fade
-        let shadows = [];
-        const steps = 15;
-        
-        for(let i = 0; i <= steps; i++) {
-            const stepX = (shadowX * i) / steps;
-            const stepY = (shadowY * i) / steps;
-            // Calculate opacity that starts at 0.95 and fades to 0.1
-            const opacity = 0.95 - (i / steps) * 0.85;
-            shadows.push(`${stepX}px ${stepY}px 0 rgba(0, 0, 0, ${opacity})`);
-        }
-        
-        // Update shadow
-        element.style.textShadow = shadows.join(', ');
-    });
-});
-
 // Hamburger menu functionality
 const hamburgerMenu = document.querySelector('.hamburger-menu');
 const hamburgerLines = document.querySelector('.hamburger-lines');
 const sideMenu = document.querySelector('.side-menu');
+const navbarElement = document.querySelector('.navbar');
     
 if (hamburgerMenu && hamburgerLines) {
     hamburgerLines.addEventListener('click', (e) => {
         e.stopPropagation(); // Prevent event from bubbling up
         hamburgerMenu.classList.toggle('active');
+        document.body.classList.toggle('side-menu-open'); // Toggle class for navbar shift
     });
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
         if (!hamburgerMenu.contains(e.target) && hamburgerMenu.classList.contains('active')) {
             hamburgerMenu.classList.remove('active');
+            document.body.classList.remove('side-menu-open'); // Remove class when menu closes
         }
     });
 

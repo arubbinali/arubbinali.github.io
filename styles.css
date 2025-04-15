@@ -262,9 +262,7 @@ body {
     animation: moveBackground 80s ease-in-out infinite;
 }
 
-
-
-
+/* Adjust background attachment for mobile devices */
 @media (max-width: 768px) {
    body {
        background-attachment: scroll; /* On mobile, background doesn't stay fixed */
@@ -304,16 +302,22 @@ body {
     width: 100%; 
     padding: 0 1.5rem;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     box-sizing: border-box;
     height: 100%;
     align-items: center;
+    padding-left: 4rem; /* Add padding to prevent overlap with hamburger menu */
+    transition: padding-left 0.3s ease; /* Add transition for smooth movement */
+}
+
+body.side-menu-open .nav-container {
+    padding-left: 18rem; /* Increase padding when side menu is open */
 }
 
 .nav-items {
     display: flex;
-    gap: clamp(2rem, 5vw, 6rem);
-    justify-content: center;
+    gap: clamp(1.2rem, 3vw, 4rem); /* Reduced spacing between nav items */
+    justify-content: flex-start;
     flex-wrap: wrap;
     padding: 1rem 0;
     position: relative;
@@ -344,6 +348,12 @@ body {
     position: relative;
     overflow: hidden;
     text-align: center;
+}
+
+.nav-item span i {
+    margin-right: 6px;
+    font-size: 0.95rem;
+    opacity: 0.9;
 }
 
 .nav-item span::before {
@@ -407,6 +417,14 @@ body {
     text-align: left;
     position: relative;
     overflow: hidden;
+}
+
+.nav-content a i {
+    margin-right: 6px;
+    font-size: 0.9rem;
+    opacity: 0.85;
+    width: 16px;
+    text-align: center;
 }
 
 .nav-content a::before {
@@ -2003,6 +2021,11 @@ footer {
     transition: background-color 0.25s, box-shadow 0.25s, color 0.25s, border-color 0.25s, transform 0.2s;
 }
 
+#terminal-icon i {
+    margin-right: 5px;
+    font-size: 0.85rem;
+}
+
 #terminal-icon:hover {
     background-color: rgba(55, 60, 70, 0.95); /* Slightly lighter */
     border-color: rgba(100, 105, 115, 0.7);
@@ -2073,6 +2096,11 @@ footer {
     color: #ef9a9a;
     border-color: rgba(200, 130, 130, 0.8);
     box-shadow: 0 0 10px rgba(180, 100, 100, 0.5);
+}
+
+#fullscreen-icon i {
+    margin-right: 5px;
+    font-size: 0.85rem;
 }
 
 #terminal {
@@ -2146,6 +2174,11 @@ footer {
     text-align: center;
     display: none;
     cursor: default;
+}
+
+#terminal-header i {
+    margin-right: 5px;
+    font-size: 0.85rem;
 }
 
 #terminal.config-mini #terminal-header,
@@ -2379,4 +2412,24 @@ footer {
 
 .nav-content a:hover + .hover-text {
     opacity: 0 !important;
+}
+
+.center-text a {
+    text-decoration: none;
+    color: rgb(255, 192, 203, 0.85); /* Light pink color to indicate it's clickable */
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.center-text a:hover {
+    color: #fff; /* White on hover */
+}
+
+.center-text a i {
+    margin-right: 6px;
+    transition: transform 0.3s ease;
+}
+
+.center-text a:hover i {
+    transform: rotate(360deg) scale(1.2);
 }
