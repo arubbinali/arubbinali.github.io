@@ -312,7 +312,8 @@ body {
 
 .nav-items {
     display: flex;
-    gap: clamp(1.5rem, 4vw, 5rem);
+    gap: clamp(2rem, 5vw, 6rem);
+    justify-content: center;
     flex-wrap: wrap;
     padding: 1rem 0;
     position: relative;
@@ -322,14 +323,11 @@ body {
     position: relative;
     cursor: pointer;
     transition: transform 0.3s ease;
-}
-
-.nav-item:hover {
-    transform: translateY(-2px);
+    text-align: center;
 }
 
 .nav-item:nth-child(2) {
-    margin-right: -2rem;
+    margin-right: 0;
 }
 
 .nav-item span {
@@ -345,6 +343,7 @@ body {
     border-radius: 4px;
     position: relative;
     overflow: hidden;
+    text-align: center;
 }
 
 .nav-item span::before {
@@ -371,12 +370,12 @@ body {
 .nav-content {
     position: absolute;
     top: 100%;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
     padding: 0.6rem 0;
     opacity: 0;
     transition: all 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
     width: max-content;
-    transform: translateY(-10px);
     visibility: hidden;
     background: rgba(25, 25, 25, 0.95);
     border-radius: 6px;
@@ -390,7 +389,7 @@ body {
 
 .nav-item:hover .nav-content {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
     visibility: visible;
 }
 
@@ -480,13 +479,16 @@ body {
     transform: translateY(-50%) translateX(0);
 }
 
+.nav-item {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    text-align: center;
+}
 
-
-
-
-
-
-
+.nav-item:hover {
+    transform: translateY(-2px);
+}
 
 .button-group {
     position: absolute;
@@ -884,9 +886,6 @@ body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
-
-
-
 .main-glow-line {
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
@@ -895,11 +894,6 @@ body {
     width: 90%; /* Ensure a consistent width across all items */
 }
 
-
-
-
-
-/* Hamburger Menu Styles */
 .hamburger-menu {
     position: relative;
     z-index: 1001;
@@ -938,8 +932,6 @@ body {
     background-color: rgba(255, 255, 255, 1);
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
-
-/* Removed siren effect animation */
 
 .line {
     display: block;
@@ -989,7 +981,6 @@ body {
     margin-left: -10px;
 }
 
-/* Common hover effect base */
 .side-menu .menu-item::before {
     content: '';
     position: absolute;
@@ -1006,7 +997,6 @@ body {
     transform: scaleX(1);
 }
 
-/* Hamburger Menu Active State */
 .hamburger-menu.active .line1 {
     transform: translateY(9px) rotate(45deg);
     transform-origin: center;
@@ -1065,7 +1055,6 @@ body {
     }
 }
 
-/* Code Snippet Styles */
 .code-snippet {
     background: rgba(20, 20, 20, 0.5);
     border: 1px solid rgba(255, 255, 255, .1);
@@ -1123,8 +1112,6 @@ body {
     align-items: center;
     cursor: default;
 }
-
-
 
 .code-snippet-toggle {
     background: transparent;
@@ -1196,7 +1183,7 @@ body {
     );
     pointer-events: none;
 }
-/* Button Container */
+
 .button-container {
     margin-left: 0rem;
     margin-top: 1rem;
@@ -1205,7 +1192,6 @@ body {
     flex-wrap: wrap;
 }
 
-/* See More Button */
 .see-more-btn {
     margin-top: 25px;
     background: rgba(255, 255, 255, 0.05);
@@ -1219,7 +1205,7 @@ body {
     cursor: pointer;
     white-space: nowrap;
     position: relative; /* Needed for pseudo-elements */
-    overflow: hidden; /* Prevents the gradient from overflowing */
+    overflow: hidden;
     width: 240px;
     height: 55px;
     margin-right: 10px;
@@ -1233,8 +1219,6 @@ body {
     margin-right: 10px; /* Keep the space between the icon and text */
 }
 
-
-/* Hover Effect */
 .see-more-btn:hover {
     transform: translateY(-2px);
     background: rgba(255, 255, 255, 0.08);
@@ -1242,7 +1226,6 @@ body {
     border-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Before (gradient animation) */
 .see-more-btn::before {
     content: '';
     position: absolute;
@@ -1254,12 +1237,10 @@ body {
     transition: 0.5s;
 }
 
-/* Move gradient on hover */
 .see-more-btn:hover::before {
     left: 100%;
 }
 
-/* After (left side gradient border) */
 .see-more-btn::after {
     content: '';
     position: absolute;
@@ -1271,13 +1252,10 @@ body {
     border-radius: 4px 0 0 4px;
 }
 
-/* Active State */
 .see-more-btn:active {
     transform: translateY(.5px);
     background: rgba(50, 50, 50, 0.95);
 }
-
-
 
 .modal {
     display: none;
@@ -1317,6 +1295,7 @@ body {
     margin-top: 7px;
     font-family: 'Poppins', sans-serif;
 }
+
 .close-modal {
     position: static;
     color: rgba(255, 255, 255, 0.9);
@@ -1385,7 +1364,6 @@ body {
     user-select: none;
 }
 
-/* Scrollbar styles */
 .modal-code-wrapper::-webkit-scrollbar {
     width: 14px;
 }
@@ -1404,7 +1382,6 @@ body {
     background-color: #4f4f4f;
 }
 
-/* Code highlighting overrides */
 .token.comment,
 .token.prolog,
 .token.doctype,
@@ -1474,8 +1451,6 @@ body {
     display: flex; /* Make icons align in a row */
 }
 
-
-
 .language-icon {
     width: 26px;
     height: 26px;
@@ -1523,7 +1498,6 @@ body {
     background-repeat: no-repeat;
 }
 
-
 .scrolling-text {
     position: absolute;
     top: -60px; /* Start just above the visible area */
@@ -1551,7 +1525,6 @@ body {
     cursor: default;
 }
 
-/* Shade effects */
 .shade-effect-top {
     position: fixed;
     top: 0;
@@ -1613,7 +1586,6 @@ body {
     transform: scale(1.01); /* Slightly increase the size on hover */
 }
 
-/* Container for the iframe */
 .iframe-container {
     margin-top: 30px;
     margin-bottom: -65px;
@@ -1624,7 +1596,6 @@ body {
     overflow: hidden;
 }
 
-/* The iframe inside the container */
 .iframe-container iframe {
     position: absolute;
     border-radius: 10px;
@@ -1636,7 +1607,6 @@ body {
     transform: scale(0.6); /* Adjust the scale (0.75 for 75% of the original size) */
 }
 
-/* Adjust scale on window resize (if needed) */
 @media (max-width: 900px) {
     .iframe-container iframe {
         transform: scale(0.5); /* Adjust scaling for smaller screens */
@@ -1699,14 +1669,12 @@ body {
     background-image: url('img/server.png');
 }
 
-/* Container to wrap the video and apply styles */
 .video-container {
     max-width: 100%; /* Allow video to be responsive */
     margin: 0 auto;  /* Center the video horizontally */
     text-align: center; /* Center align the video */
 }
 
-/* Video element styling */
 video {
     margin-top: 10px;
     margin-bottom: 30px;
@@ -1722,7 +1690,6 @@ video.size {
     height: auto;
 }
 
-/* Hide the fullscreen button */
 video::-webkit-media-controls-fullscreen-button {
     display: none;
 }
@@ -1749,11 +1716,9 @@ video::-ms-fullscreen-button {
     z-index: 1000;  /* Ensure it's visible on top of other content */
     cursor: default;
 
-    /* Animation for hovering effect */
     animation: hoverUpDown 2s infinite ease-in-out;  /* Smooth up and down motion */
 }
 
-/* Keyframes for the up-and-down hover effect */
 @keyframes hoverUpDown {
     0%, 100% {
         transform: translate(-50%, 0%) rotate(-135deg);  /* Default position */
@@ -1762,8 +1727,6 @@ video::-ms-fullscreen-button {
         transform: translate(-50%, -20px) rotate(-135deg);  /* Move 10px up */
     }
 }
-
-
 
 .scroll-to-top {
     position: fixed;
@@ -1803,7 +1766,6 @@ video::-ms-fullscreen-button {
     border-top: 2px solid rgba(255, 255, 255, 1);  /* Fully opaque arrow on hover */
 }
 
-
 .about-text {
     font-family: 'Poppins', sans-serif;
     font-size: 10px;
@@ -1828,7 +1790,7 @@ video::-ms-fullscreen-button {
 .about-link a {
     color: #ff69b4;
     text-decoration: none; /* Remove default underline */
-    position: relative; /* Necessary for the pseudo-element positioning */
+    position: relative; /* Required for the pseudo-element positioning */
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
@@ -1852,7 +1814,6 @@ video::-ms-fullscreen-button {
     width: 100%; /* Expand the underline to full width on hover */
 }
 
-
 footer {
     font-family: 'Poppins', sans-serif;
     position: relative; /* Let the footer stay inside the flow of the document */
@@ -1867,7 +1828,6 @@ footer {
     cursor: default;
 }
 
-
 .sources-text {
     font-family: 'Poppins', sans-serif;
     font-size: 10px;
@@ -1880,7 +1840,6 @@ footer {
     text-align: left;
     cursor: default;
 }
-
 
 .sources-link {
     font-family: 'Poppins', sans-serif;
@@ -1921,6 +1880,7 @@ footer {
     color: aquamarine;
     text-decoration: none; /* Optional: removes underline */
 }
+
 .site-links a {
     color: rgb(238, 255, 127);
     text-decoration: none; /* Optional: removes underline */
@@ -1936,12 +1896,10 @@ footer {
     text-decoration: none; /* Optional: removes underline */
 }
 
-/* Add glow effect to headings and their respective categories */
 .sources-link h2 {
     transition: text-shadow 0.3s ease, color 0.3s ease;
 }
 
-/* Glow effects for individual categories */
 .sources-link h2:hover {
     color: #ffffff; /* Neutral white glow for headings */
     text-shadow: 0 0 25px #ffffff, 0 0 50px #ffffff; /* Strong white glow */
@@ -1963,7 +1921,6 @@ footer {
     text-shadow: 0 0 30px rgb(255, 125, 125), 0 0 60px rgb(255, 125, 125); /* Glow for IDE links */
 }
 
-/* Ensure smooth transitions for links */
 .sources-link div a {
     transition: text-shadow 0.3s ease; /* Smooth transitions */
 }
@@ -2004,7 +1961,6 @@ footer {
     text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
 }
 
-/* Cloudy popup effect */
 .language-switcher a::after {
     content: "Soon";
     position: absolute;
@@ -2024,14 +1980,12 @@ footer {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Show effect on hover */
 .language-switcher a:hover::after {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(-5px);
 }
 
-/* Terminal Icon/Button Styles - Updated for Serene Theme */
 #terminal-icon {
     position: fixed;
     top: 15px;
@@ -2057,7 +2011,6 @@ footer {
     transform: translateY(-1px);
 }
 
-/* Close Button Style */
 #terminal-icon.close-mode {
     color: #e57373; /* Muted red */
     border-color: rgba(180, 100, 100, 0.6);
@@ -2072,7 +2025,6 @@ footer {
     box-shadow: 0 0 10px rgba(180, 100, 100, 0.5);
 }
 
-/* Fullscreen Icon Styles - Updated */
 #fullscreen-icon {
     position: fixed;
     top: 15px;
@@ -2110,7 +2062,6 @@ footer {
     transform: translateY(-1px);
 }
 
-/* Fullscreen Active Style (Exit Fullscreen) */
 #fullscreen-icon.active-fullscreen {
     color: #e57373; /* Match close button red */
     border-color: rgba(180, 100, 100, 0.6);
@@ -2124,14 +2075,11 @@ footer {
     box-shadow: 0 0 10px rgba(180, 100, 100, 0.5);
 }
 
-/* Interactive Terminal Styles - Enhanced */
 #terminal {
     position: fixed;
-    /* MODIFIED background for transparency */
     background-color: rgba(30, 33, 39, 0.92); /* Dark blue/grey charcoal with 92% opacity */
     backdrop-filter: blur(5px); /* Add a blur effect to the background behind */
     -webkit-backdrop-filter: blur(5px); /* Safari support */
-    /* border: 1px solid rgba(60, 65, 75, 0.5); */ /* Option: remove border for cleaner look? */
     border: none; /* Cleaner look */
     border-radius: 10px; /* Softer radius */
     color: #d1d5db; /* Soft off-white */
@@ -2144,7 +2092,6 @@ footer {
     box-shadow: 0 8px 35px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(70, 75, 85, 0.7); /* Deeper shadow + subtle inset border */
     opacity: 0;
     visibility: hidden;
-    /* MODIFIED Transition for Morphing Effect - Refined Easing & Duration */
     transition: opacity 0.35s ease-in-out, 
                 visibility 0s linear 0.35s, 
                 top 0.35s ease-in-out, /* Reverted to ease-in-out */
@@ -2158,7 +2105,6 @@ footer {
                 backdrop-filter 0.35s ease-in-out;
 }
 
-/* Mini Terminal Configuration */
 #terminal.config-mini {
     top: 60px; /* Position for mini */
     right: 15px;
@@ -2170,9 +2116,7 @@ footer {
     border-radius: 10px;
 }
 
-/* Fullscreen Terminal Configuration - MODIFIED Positioning */
 #terminal.config-fullscreen {
-    /* Use top/right for consistent animation path */
     top: 7.5vh; /* (100vh - 85vh) / 2 */
     right: 7.5vw; /* (100vw - 85vw) / 2 */
     left: auto; /* Ensure left is not interfering */
@@ -2185,27 +2129,23 @@ footer {
     box-shadow: 0 12px 50px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(80, 85, 95, 0.8);
 }
 
-/* Visibility (handles fade) */
 #terminal.visible {
     opacity: 1;
     visibility: visible;
-    /* Use the main transition defined on #terminal */
     transition-delay: 0s; /* Override visibility delay when becoming visible */
 }
 
-/* Terminal Header Styles - Enhanced */
 #terminal-header {
     padding: 10px 15px; /* More padding */
     font-weight: 500;
     background-color: rgba(38, 41, 48, 0.9); /* Harmonized background */
-    /* border-bottom: 1px solid rgba(60, 65, 75, 0.5); */ /* Removed border */
+    border-bottom: 1px solid rgba(50, 55, 65, 0.6); /* Separator line */
     color: #adb5bd; /* Muted header text color */
     font-family: 'Poppins', sans-serif;
     font-size: 0.82rem; /* Smaller */
     text-align: center;
     display: none;
     cursor: default;
-    border-bottom: 1px solid rgba(50, 55, 65, 0.6); /* Separator line */
 }
 
 #terminal.config-mini #terminal-header,
@@ -2214,7 +2154,6 @@ footer {
     display: block !important;
 }
 
-/* Terminal Output Styles - Enhanced */
 #terminal-output {
     flex-grow: 1;
     overflow-y: auto;
@@ -2227,7 +2166,6 @@ footer {
     color: #c8ccd4; /* Main text color */
 }
 
-/* Remove gap at the top of terminal */
 #terminal-output > h3:first-child {
     margin-top: 0;
     padding-top: 0;
@@ -2237,7 +2175,6 @@ footer {
     margin: 0 0 7px 0; /* More spacing */
 }
 
-/* Style for links within terminal output */
 #terminal-output a {
     color: #569cd6; /* Muted blue for links */
     text-decoration: none; /* No underline by default */
@@ -2250,7 +2187,6 @@ footer {
     border-bottom-color: rgba(128, 182, 241, 0.8);
 }
 
-/* Terminal Scrollbar Styles - Enhanced */
 #terminal-output::-webkit-scrollbar {
     width: 7px;
 }
@@ -2264,11 +2200,11 @@ footer {
     background-color: rgba(80, 85, 95, 0.7); /* Muted thumb */
     border-radius: 4px;
 }
+
 #terminal-output::-webkit-scrollbar-thumb:hover {
     background-color: rgba(100, 105, 115, 0.9);
 }
 
-/* Terminal Input Line Styles - Enhanced */
 #terminal-input-line {
     display: flex;
     align-items: center;
@@ -2294,7 +2230,6 @@ footer {
     outline: none;
 }
 
-/* Screen Dimmer Styles - Unchanged */
 #screen-dimmer {
     position: fixed;
     top: 0;
@@ -2316,10 +2251,8 @@ footer {
     transition: opacity 0.3s ease-in-out, visibility 0s linear 0s;
 }
 
-/* NEW Keyframes for moving animation (assumes height is already shrunk) */
 @keyframes moveToWidgetCorner {
   0% {
-    /* Fullscreen Position, Fullscreen Width, Target Height */
     top: 7.5vh;
     right: 7.5vw;
     width: 85vw;
@@ -2327,7 +2260,6 @@ footer {
     opacity: 1;
   }
   100% {
-    /* Mini Position, Mini Width, Target Height */
     top: 60px;
     right: 15px;
     width: 360px;
@@ -2336,13 +2268,11 @@ footer {
   }
 }
 
-/* NEW Class to trigger the moving animation */
 .moving-to-widget-corner {
   animation: moveToWidgetCorner 0.2s ease-in-out forwards; /* Adjust duration/easing as needed */
-  /* Height is controlled by JS/inline style during this phase */
+  height: calc(100vh - 75px);
 }
 
-/* Hover Popup for Nav Dropdown Items */
 .nav-popup {
   position: fixed;
   transform: translateY(-50%) translateX(-10px);
@@ -2375,29 +2305,21 @@ footer {
   transform: translateY(-50%) translateX(0);
 }
 
-/* Hide the original hover text element since we're using the popup instead */
 .hover-text {
   opacity: 0 !important;
   pointer-events: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: opacity 0.3s ease-in-out;
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+  left: -100px;
+  transform: translateX(80vw);
 }
 
-/* Hover-text for legacy support */
-.hover-text {
-    opacity: 0 !important;
-    pointer-events: none;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: opacity 0.3s ease-in-out;
-    font-family: 'Poppins', sans-serif;
-    font-size: clamp(0.8rem, 1.5vw, 1rem);
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.8);
-    left: -100px;
-    transform: translateX(80vw);
-}
-
-/* Logo and brand styling */
 .navbar-brand {
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
@@ -2420,18 +2342,15 @@ footer {
     transform: scale(1.1) rotate(5deg);
 }
 
-/* Remove the navbar pink line at the top */
 .navbar::before {
     content: none; /* Disable the pink line at the very top */
 }
 
-/* Smooth navbar appearance on scroll */
 .navbar.scrolled {
     background: rgba(20, 20, 20, 0.95);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Restore the nav item hover effect with pink line underneath */
 .nav-item span {
     position: relative;
 }
