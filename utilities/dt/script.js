@@ -3,17 +3,37 @@ document.addEventListener('DOMContentLoaded', function() {
     const tabs = document.querySelectorAll('.tab');
     const tabPanes = document.querySelectorAll('.tab-pane');
     
+    // Get the active tab from localStorage or default to 'digital-clock'
+    const activeTab = localStorage.getItem('activeTab') || 'digital-clock';
+    
+    // Remove active class from all tabs and panes
+    tabs.forEach(tab => tab.classList.remove('active'));
+    tabPanes.forEach(pane => pane.classList.remove('active'));
+    
+    // Set the active tab based on stored value
+    const activeTabElement = document.querySelector(`.tab[data-tab="${activeTab}"]`);
+    const activePaneElement = document.getElementById(activeTab);
+    
+    if (activeTabElement && activePaneElement) {
+        activeTabElement.classList.add('active');
+        activePaneElement.classList.add('active');
+    }
+    
     tabs.forEach(tab => {
         tab.addEventListener('click', function() {
-            const targetTab = this.getAttribute('data-tab');
+            // Get the data-tab attribute
+            const tabId = this.getAttribute('data-tab');
+            
+            // Store the active tab in localStorage
+            localStorage.setItem('activeTab', tabId);
             
             // Remove active class from all tabs and panes
             tabs.forEach(t => t.classList.remove('active'));
             tabPanes.forEach(p => p.classList.remove('active'));
             
-            // Add active class to clicked tab and corresponding pane
+            // Add active class to current tab and corresponding pane
             this.classList.add('active');
-            document.getElementById(targetTab).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
         });
     });
     
@@ -159,6 +179,269 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('year-percentage').textContent = `${Math.round(yearProgress)}%`;
     }
     
+    // Stopwatch functionality
+    let stopwatchInterval;
+    let stopwatchTime = 0;
+    let stopwatchRunning = false;
+    let laps = [];
+
+    const stopwatchMinutes = document.getElementById('stopwatch-minutes');
+    const stopwatchSeconds = document.getElementById('stopwatch-seconds');
+    const stopwatchMS = document.getElementById('stopwatch-ms');
+    const startStopwatch = document.getElementById('start-stopwatch');
+    const pauseStopwatch = document.getElementById('pause-stopwatch');
+    const resetStopwatch = document.getElementById('reset-stopwatch');
+    const lapButton = document.getElementById('lap-button');
+    const lapsList = document.getElementById('laps-list');
+
+    // Initialize stopwatch display
+    function updateStopwatchDisplay() {
+        const minutes = Math.floor(stopwatchTime / 60000);
+        const seconds = Math.floor((stopwatchTime % 60000) / 1000);
+        const ms = Math.floor((stopwatchTime % 1000) / 10);
+        
+        stopwatchMinutes.textContent = String(minutes).padStart(2, '0');
+        stopwatchSeconds.textContent = String(seconds).padStart(2, '0');
+        stopwatchMS.textContent = String(ms).padStart(2, '0');
+    }
+
+    // Start the stopwatch
+    startStopwatch.addEventListener('click', () => {
+        if (!stopwatchRunning) {
+            const startTime = Date.now() - stopwatchTime;
+            
+            stopwatchInterval = setInterval(() => {
+                stopwatchTime = Date.now() - startTime;
+                updateStopwatchDisplay();
+            }, 10);
+            
+            stopwatchRunning = true;
+            startStopwatch.disabled = true;
+            pauseStopwatch.disabled = false;
+            resetStopwatch.disabled = false;
+            lapButton.disabled = false;
+        }
+    });
+
+    // Pause the stopwatch
+    pauseStopwatch.addEventListener('click', () => {
+        if (stopwatchRunning) {
+            clearInterval(stopwatchInterval);
+            stopwatchRunning = false;
+            startStopwatch.disabled = false;
+            pauseStopwatch.disabled = true;
+        }
+    });
+
+    // Reset the stopwatch
+    resetStopwatch.addEventListener('click', () => {
+        clearInterval(stopwatchInterval);
+        stopwatchTime = 0;
+        stopwatchRunning = false;
+        laps = [];
+        lapsList.innerHTML = '';
+        updateStopwatchDisplay();
+        startStopwatch.disabled = false;
+        pauseStopwatch.disabled = true;
+        resetStopwatch.disabled = true;
+        lapButton.disabled = true;
+    });
+
+    // Record a lap time
+    lapButton.addEventListener('click', () => {
+        if (stopwatchRunning) {
+            const lapTime = stopwatchTime;
+            const minutes = Math.floor(lapTime / 60000);
+            const seconds = Math.floor((lapTime % 60000) / 1000);
+            const ms = Math.floor((lapTime % 1000) / 10);
+            
+            const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${String(ms).padStart(2, '0')}`;
+            
+            laps.push({ index: laps.length + 1, time: lapTime, formatted: formattedTime });
+            
+            updateLapsList();
+        }
+    });
+
+    // Update the laps list display
+    function updateLapsList() {
+        lapsList.innerHTML = '';
+        
+        laps.forEach(lap => {
+            const lapItem = document.createElement('div');
+            lapItem.className = 'lap-item';
+            lapItem.innerHTML = `
+                <span>Lap ${lap.index}</span>
+                <span>${lap.formatted}</span>
+            `;
+            lapsList.appendChild(lapItem);
+        });
+        
+        // Scroll to the bottom of the list
+        lapsList.scrollTop = lapsList.scrollHeight;
+    }
+
+    // Timer functionality
+    let timerInterval;
+    let timerTime = 0;
+    let timerRunning = false;
+    let timerPaused = false;
+    let timerEnded = false;
+
+    const timerHoursInput = document.getElementById('timer-hours');
+    const timerMinutesInput = document.getElementById('timer-minutes');
+    const timerSecondsInput = document.getElementById('timer-seconds');
+    const timerDisplayHours = document.getElementById('timer-display-hours');
+    const timerDisplayMinutes = document.getElementById('timer-display-minutes');
+    const timerDisplaySeconds = document.getElementById('timer-display-seconds');
+    const startTimer = document.getElementById('start-timer');
+    const pauseTimer = document.getElementById('pause-timer');
+    const resetTimer = document.getElementById('reset-timer');
+
+    // Update timer display
+    function updateTimerDisplay() {
+        const hours = Math.floor(timerTime / 3600000);
+        const minutes = Math.floor((timerTime % 3600000) / 60000);
+        const seconds = Math.floor((timerTime % 60000) / 1000);
+        
+        timerDisplayHours.textContent = String(hours).padStart(2, '0');
+        timerDisplayMinutes.textContent = String(minutes).padStart(2, '0');
+        timerDisplaySeconds.textContent = String(seconds).padStart(2, '0');
+    }
+
+    // Start the timer
+    startTimer.addEventListener('click', () => {
+        if (timerRunning) return;
+        
+        if (!timerPaused) {
+            // Get time from inputs
+            const hours = parseInt(timerHoursInput.value) || 0;
+            const minutes = parseInt(timerMinutesInput.value) || 0;
+            const seconds = parseInt(timerSecondsInput.value) || 0;
+            
+            // Convert to milliseconds
+            timerTime = (hours * 3600 + minutes * 60 + seconds) * 1000;
+            
+            // If timer is 0, don't start
+            if (timerTime <= 0) return;
+            
+            timerEnded = false;
+        }
+        
+        const endTime = Date.now() + timerTime;
+        
+        timerInterval = setInterval(() => {
+            const remaining = endTime - Date.now();
+            
+            if (remaining <= 0) {
+                clearInterval(timerInterval);
+                timerTime = 0;
+                updateTimerDisplay();
+                timerRunning = false;
+                timerPaused = false;
+                timerEnded = true;
+                startTimer.disabled = false;
+                pauseTimer.disabled = true;
+                resetTimer.disabled = false;
+                
+                // Play notification sound or show alert when timer ends
+                playTimerEndSound();
+                return;
+            }
+            
+            timerTime = remaining;
+            updateTimerDisplay();
+        }, 100);
+        
+        timerRunning = true;
+        timerPaused = false;
+        startTimer.disabled = true;
+        pauseTimer.disabled = false;
+        resetTimer.disabled = false;
+        
+        // Disable inputs while timer is running
+        timerHoursInput.disabled = true;
+        timerMinutesInput.disabled = true;
+        timerSecondsInput.disabled = true;
+    });
+
+    // Pause the timer
+    pauseTimer.addEventListener('click', () => {
+        if (timerRunning) {
+            clearInterval(timerInterval);
+            timerRunning = false;
+            timerPaused = true;
+            startTimer.disabled = false;
+            pauseTimer.disabled = true;
+        }
+    });
+
+    // Reset the timer
+    resetTimer.addEventListener('click', () => {
+        clearInterval(timerInterval);
+        timerTime = 0;
+        timerRunning = false;
+        timerPaused = false;
+        timerEnded = false;
+        updateTimerDisplay();
+        startTimer.disabled = false;
+        pauseTimer.disabled = true;
+        resetTimer.disabled = true;
+        
+        // Re-enable inputs
+        timerHoursInput.disabled = false;
+        timerMinutesInput.disabled = false;
+        timerSecondsInput.disabled = false;
+        
+        // Reset input values
+        timerHoursInput.value = 0;
+        timerMinutesInput.value = 0;
+        timerSecondsInput.value = 0;
+    });
+
+    // Play sound when timer ends
+    function playTimerEndSound() {
+        // Create a quick audio context and oscillator for a beep sound
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.type = 'sine';
+            oscillator.frequency.value = 800;
+            gainNode.gain.value = 0.5;
+            
+            oscillator.start();
+            
+            // Beep for 500ms
+            setTimeout(() => {
+                oscillator.stop();
+            }, 500);
+        } catch (error) {
+            console.log('Audio not supported, fallback to alert');
+            alert('Timer finished!');
+        }
+    }
+
+    // Ensure inputs only accept numbers and are within valid ranges
+    timerHoursInput.addEventListener('input', () => {
+        if (timerHoursInput.value < 0) timerHoursInput.value = 0;
+        if (timerHoursInput.value > 99) timerHoursInput.value = 99;
+    });
+
+    timerMinutesInput.addEventListener('input', () => {
+        if (timerMinutesInput.value < 0) timerMinutesInput.value = 0;
+        if (timerMinutesInput.value > 59) timerMinutesInput.value = 59;
+    });
+
+    timerSecondsInput.addEventListener('input', () => {
+        if (timerSecondsInput.value < 0) timerSecondsInput.value = 0;
+        if (timerSecondsInput.value > 59) timerSecondsInput.value = 59;
+    });
+
     // Calendar Functionality
     let currentDate = new Date();
     let currentView = 'month';
