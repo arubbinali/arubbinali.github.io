@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Time Display</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Navbar Links -->
+        <div class="navbar-links">
+            <a href="https://arubbinali.github.io" target="_blank" title="My Website"><i class="fas fa-globe"></i></a>
+            <a href="https://github.com/arubbbinali" target="_blank" title="My GitHub"><i class="fab fa-github"></i></a>
+        </div>
+        
+        <div class="tab-container">
+            <div class="tabs">
+                <div class="tab active" data-tab="digital-clock">
+                    <i class="fas fa-clock"></i>
+                    <span>Digital Clock</span>
+                </div>
+                <div class="tab" data-tab="analog-clock">
+                    <i class="fas fa-circle-notch"></i>
+                    <span>Analog Clock</span>
+                </div>
+                <div class="tab" data-tab="date-display">
+                    <i class="fas fa-calendar-day"></i>
+                    <span>Date</span>
+                </div>
+                <div class="tab" data-tab="calendar">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Calendar</span>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane active" id="digital-clock">
+                    <div class="digital-clock-container">
+                        <div class="digital-clock">
+                            <div class="time-display">
+                                <div class="time-segment">
+                                    <div id="hours">00</div>
+                                </div>
+                                <div class="colon">:</div>
+                                <div class="time-segment">
+                                    <div id="minutes">00</div>
+                                </div>
+                                <div class="colon">:</div>
+                                <div class="time-segment">
+                                    <div id="seconds">00</div>
+                                </div>
+                                <div id="ampm">AM</div>
+                            </div>
+                            <div class="date-display-small">
+                                <div id="date-small">Monday, January 1, 2025</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="analog-clock">
+                    <div class="analog-clock-container">
+                        <div class="analog-clock">
+                            <div class="clock-face">
+                                <div class="clock-decoration"></div>
+                                <div class="hour-marks">
+                                    <div class="hour-mark mark-1"></div>
+                                    <div class="hour-mark mark-2"></div>
+                                    <div class="hour-mark mark-3"></div>
+                                    <div class="hour-mark mark-4"></div>
+                                    <div class="hour-mark mark-5"></div>
+                                    <div class="hour-mark mark-6"></div>
+                                    <div class="hour-mark mark-7"></div>
+                                    <div class="hour-mark mark-8"></div>
+                                    <div class="hour-mark mark-9"></div>
+                                    <div class="hour-mark mark-10"></div>
+                                    <div class="hour-mark mark-11"></div>
+                                    <div class="hour-mark mark-12"></div>
+                                </div>
+                                <div class="hour-numbers">
+                                    <div class="hour-number number-1">1</div>
+                                    <div class="hour-number number-2">2</div>
+                                    <div class="hour-number number-3">3</div>
+                                    <div class="hour-number number-4">4</div>
+                                    <div class="hour-number number-5">5</div>
+                                    <div class="hour-number number-6">6</div>
+                                    <div class="hour-number number-7">7</div>
+                                    <div class="hour-number number-8">8</div>
+                                    <div class="hour-number number-9">9</div>
+                                    <div class="hour-number number-10">10</div>
+                                    <div class="hour-number number-11">11</div>
+                                    <div class="hour-number number-12">12</div>
+                                </div>
+                                <div class="minute-marks"></div>
+                                <div class="hour-hand"></div>
+                                <div class="minute-hand"></div>
+                                <div class="second-hand"></div>
+                                <div class="center-point"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="date-display">
+                    <div class="date-display-container">
+                        <div class="date-display-full">
+                            <div class="date-title">Current Date</div>
+                            <div id="date-full">Monday, January 1, 2025</div>
+                            <div class="date-details">
+                                <div class="date-detail">
+                                    <div class="detail-label">Day of Year</div>
+                                    <div id="day-of-year">1</div>
+                                </div>
+                                <div class="date-detail">
+                                    <div class="detail-label">Week of Year</div>
+                                    <div id="week-of-year">1</div>
+                                </div>
+                                <div class="date-detail">
+                                    <div class="detail-label">Quarter</div>
+                                    <div id="quarter">Q1</div>
+                                </div>
+                            </div>
+                            <div class="progress-bars">
+                                <div class="progress-item">
+                                    <div class="progress-title">
+                                        <div class="progress-label">Week Progress</div>
+                                        <div class="progress-percentage" id="week-percentage">0%</div>
+                                    </div>
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar" id="week-progress" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="progress-title">
+                                        <div class="progress-label">Month Progress</div>
+                                        <div class="progress-percentage" id="month-percentage">0%</div>
+                                    </div>
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar" id="month-progress" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="progress-title">
+                                        <div class="progress-label">Year Progress</div>
+                                        <div class="progress-percentage" id="year-percentage">0%</div>
+                                    </div>
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar" id="year-progress" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="calendar">
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <div class="view-options">
+                                <button class="view-option active" data-view="month">Month</button>
+                                <button class="view-option" data-view="year">Year</button>
+                            </div>
+                            <div class="month-navigation">
+                                <button class="nav-button" id="prev-btn">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <div class="year-dropdown-container">
+                                    <div class="calendar-title-container">
+                                        <div id="calendar-title"><span id="month-name">January</span> <span id="year-value">2025</span></div>
+                                    </div>
+                                    <div class="year-dropdown" id="year-dropdown"></div>
+                                    <div class="month-dropdown" id="month-dropdown"></div>
+                                </div>
+                                <button class="nav-button" id="next-btn">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                                <button id="today-button">Today</button>
+                            </div>
+                        </div>
+                        <div class="calendar-views">
+                            <div class="calendar-view active" id="month-view">
+                                <div class="weekdays">
+                                    <div>Sun</div>
+                                    <div>Mon</div>
+                                    <div>Tue</div>
+                                    <div>Wed</div>
+                                    <div>Thu</div>
+                                    <div>Fri</div>
+                                    <div>Sat</div>
+                                </div>
+                                <div class="days"></div>
+                            </div>
+                            <div class="calendar-view" id="year-view">
+                                <div class="months-grid"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">Arub 2025</div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+    <script src="script.js"></script>
+</body>
+</html>

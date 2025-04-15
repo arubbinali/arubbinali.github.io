@@ -1,0 +1,994 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #000000 0%, #121212 40%, #181818 100%);
+    color: #fff;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Tab Container and Tabs */
+.tab-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.tabs {
+    display: flex;
+    background: rgba(10, 10, 10, 0.8);
+    border-bottom: 1px solid rgba(150, 150, 150, 0.2);
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.tab {
+    padding: 15px 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid rgba(150, 150, 150, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.tab i {
+    margin-right: 10px;
+    font-size: 18px;
+    color: rgba(200, 200, 200, 0.7);
+}
+
+.tab span {
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: rgba(220, 220, 220, 0.7);
+}
+
+.tab:hover {
+    background: rgba(40, 40, 40, 0.5);
+}
+
+.tab.active {
+    background: rgba(50, 50, 50, 0.7);
+    border-bottom: 2px solid rgba(180, 180, 180, 0.7);
+}
+
+.tab.active i, 
+.tab.active span {
+    color: rgba(255, 255, 255, 1);
+}
+
+.tab-content {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.tab-pane {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow: auto;
+}
+
+.tab-pane.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+}
+
+/* Digital Clock Tab */
+.digital-clock-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.digital-clock {
+    text-align: center;
+    color: rgba(240, 240, 240, 0.9);
+    padding: 60px 80px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, rgba(20, 20, 20, 0.7) 0%, rgba(15, 15, 15, 0.7) 100%);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5),
+                inset 0 1px 1px rgba(255, 255, 255, 0.05),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(50, 50, 50, 0.3);
+    max-width: 900px;
+    width: 100%;
+}
+
+.time-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.time-segment {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(25, 25, 25, 0.7) 0%, rgba(20, 20, 20, 0.7) 100%);
+    border-radius: 10px;
+    min-width: 180px;
+    min-height: 220px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(60, 60, 60, 0.3);
+    padding: 5px;
+}
+
+#hours, #minutes, #seconds {
+    font-size: 8rem;
+    font-weight: 200;
+    letter-spacing: 1px;
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(200, 200, 200, 0.5);
+}
+
+.colon {
+    font-size: 8rem;
+    font-weight: 200;
+    margin: 0 15px;
+    color: rgba(180, 180, 180, 0.8);
+    text-shadow: 0 0 10px rgba(180, 180, 180, 0.5);
+    animation: blinkColon 1s infinite alternate;
+}
+
+#ampm {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    margin-left: 20px;
+    color: rgba(220, 220, 220, 0.9);
+    align-self: flex-start;
+    margin-top: 40px;
+    letter-spacing: 1px;
+    font-weight: 400;
+    text-shadow: 0 0 10px rgba(220, 220, 220, 0.3);
+}
+
+.date-display-small {
+    margin-top: 20px;
+}
+
+#date-small {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: rgba(220, 220, 220, 0.9);
+    text-shadow: 0 0 5px rgba(200, 200, 200, 0.4);
+}
+
+/* Analog Clock Tab */
+.analog-clock-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.analog-clock {
+    width: 600px;
+    height: 600px;
+    position: relative;
+    margin: 0 auto;
+    transition: all 0.4s ease;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.clock-face {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(25, 25, 25, 0.9) 0%, rgba(15, 15, 15, 0.9) 100%);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 30px rgba(200, 200, 200, 0.15), 
+                inset 0 2px 4px rgba(255, 255, 255, 0.1),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(70, 70, 70, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease;
+}
+
+.clock-decoration {
+    position: absolute;
+    width: 88%;
+    height: 88%;
+    border-radius: 50%;
+    border: 1px solid rgba(150, 150, 150, 0.1);
+    box-shadow: inset 0 0 20px rgba(200, 200, 200, 0.05);
+    pointer-events: none;
+}
+
+.minute-mark {
+    position: absolute;
+    width: 2px;
+    height: 6px;
+    background: rgba(150, 150, 150, 0.6);
+    left: 50%;
+    top: 10px;
+    transform-origin: 50% 290px;
+    box-shadow: 0 0 2px rgba(100, 100, 100, 0.3);
+}
+
+.hour-marks {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.hour-mark {
+    position: absolute;
+    width: 4px;
+    height: 16px;
+    background: rgba(180, 180, 180, 0.85);
+    left: 50%;
+    top: 10px;
+    transform-origin: 50% 290px;
+    border-radius: 2px;
+    box-shadow: 0 0 3px rgba(150, 150, 150, 0.5);
+}
+
+.mark-1 { transform: rotate(30deg); }
+.mark-2 { transform: rotate(60deg); }
+.mark-3 { transform: rotate(90deg); }
+.mark-4 { transform: rotate(120deg); }
+.mark-5 { transform: rotate(150deg); }
+.mark-6 { transform: rotate(180deg); }
+.mark-7 { transform: rotate(210deg); }
+.mark-8 { transform: rotate(240deg); }
+.mark-9 { transform: rotate(270deg); }
+.mark-10 { transform: rotate(300deg); }
+.mark-11 { transform: rotate(330deg); }
+.mark-12 { transform: rotate(0deg); }
+
+.hour-numbers {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.hour-number {
+    position: absolute;
+    font-size: 2rem;
+    color: rgba(220, 220, 220, 0.9);
+    font-weight: 300;
+    text-shadow: 0 0 5px rgba(150, 150, 150, 0.5);
+    width: 40px;
+    height: 40px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.number-12 { top: 30px; left: 50%; transform: translateX(-50%); }
+.number-1 { top: 62px; right: 125px; }
+.number-2 { top: 135px; right: 62px; }
+.number-3 { right: 30px; top: 50%; transform: translateY(-50%); }
+.number-4 { bottom: 135px; right: 62px; }
+.number-5 { bottom: 62px; right: 125px; }
+.number-6 { bottom: 30px; left: 50%; transform: translateX(-50%); }
+.number-7 { bottom: 62px; left: 125px; }
+.number-8 { bottom: 135px; left: 62px; }
+.number-9 { left: 30px; top: 50%; transform: translateY(-50%); }
+.number-10 { top: 135px; left: 62px; }
+.number-11 { top: 62px; left: 125px; }
+
+.hour-hand, .minute-hand, .second-hand {
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
+    transform-origin: 50% 100%;
+    z-index: 10;
+    border-radius: 100px;
+}
+
+.hour-hand {
+    width: 12px;
+    height: 150px;
+    margin-left: -6px;
+    background: linear-gradient(to top, rgba(200, 200, 200, 0.9), rgba(150, 150, 150, 0.9));
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3), 0 0 10px rgba(150, 150, 150, 0.5);
+}
+
+.minute-hand {
+    width: 8px;
+    height: 220px;
+    margin-left: -4px;
+    background: linear-gradient(to top, rgba(200, 200, 200, 0.9), rgba(170, 170, 170, 0.9));
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3), 0 0 10px rgba(150, 150, 150, 0.5);
+}
+
+.second-hand {
+    width: 3px;
+    height: 250px;
+    margin-left: -1.5px;
+    background: rgba(200, 120, 120, 0.9);
+    box-shadow: 0 0 3px rgba(200, 120, 120, 0.7), 0 0 6px rgba(200, 120, 120, 0.5);
+}
+
+.center-point {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #ffffff, rgba(200, 200, 200, 0.9));
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px rgba(150, 150, 150, 0.8), 0 0 5px rgba(0, 0, 0, 0.4);
+    z-index: 11;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+/* Date Display Tab */
+.date-display-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.date-display-full {
+    background: linear-gradient(135deg, rgba(20, 20, 20, 0.85) 0%, rgba(15, 15, 15, 0.85) 100%);
+    padding: 50px 70px;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(150, 150, 150, 0.1),
+                inset 0 1px 1px rgba(255, 255, 255, 0.05),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(60, 60, 60, 0.4);
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+}
+
+.date-title {
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: rgba(180, 180, 180, 0.9);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+#date-full {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: rgba(220, 220, 220, 0.9);
+    text-shadow: 0 0 5px rgba(200, 200, 200, 0.4);
+    margin-bottom: 30px;
+}
+
+.date-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    padding: 20px 0;
+    border-top: 1px solid rgba(100, 100, 100, 0.2);
+    border-bottom: 1px solid rgba(100, 100, 100, 0.2);
+}
+
+.date-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.detail-label {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: rgba(180, 180, 180, 0.7);
+    margin-bottom: 10px;
+}
+
+#day-of-year, #week-of-year, #quarter {
+    font-size: 2rem;
+    font-weight: 300;
+    color: rgba(220, 220, 220, 0.9);
+}
+
+.progress-bars {
+    margin-top: 50px;
+    width: 100%;
+}
+
+.progress-item {
+    margin-bottom: 25px;
+}
+
+.progress-title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.progress-label {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(200, 200, 200, 0.8);
+}
+
+.progress-percentage {
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(220, 220, 220, 0.9);
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 10px;
+    background: rgba(30, 30, 30, 0.5);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, rgba(80, 80, 80, 0.9), rgba(130, 130, 130, 0.9));
+    border-radius: 5px;
+    transition: width 0.8s ease;
+    box-shadow: 0 0 5px rgba(150, 150, 150, 0.2);
+}
+
+/* Calendar Tab */
+.calendar-container {
+    width: 90%;
+    max-width: 1200px;
+    height: 85%;
+    margin-top: -5%;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, rgba(20, 20, 20, 0.85) 0%, rgba(15, 15, 15, 0.85) 100%);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(150, 150, 150, 0.1);
+    border: 1px solid rgba(60, 60, 60, 0.4);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: rgba(25, 25, 25, 0.85);
+    border-bottom: 1px solid rgba(100, 100, 100, 0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.view-options {
+    display: flex;
+}
+
+.view-option {
+    background: rgba(35, 35, 35, 0.5);
+    border: none;
+    color: rgba(200, 200, 200, 0.7);
+    padding: 8px 15px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.view-option:hover {
+    background: rgba(50, 50, 50, 0.7);
+}
+
+.view-option.active {
+    background: rgba(70, 70, 70, 0.7);
+    color: rgba(230, 230, 230, 1);
+    box-shadow: 0 0 15px rgba(120, 120, 120, 0.3);
+}
+
+.month-navigation {
+    display: flex;
+    align-items: center;
+}
+
+.nav-button {
+    background: rgba(35, 35, 35, 0.5);
+    border: none;
+    color: rgba(200, 200, 200, 0.7);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 50%;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.nav-button:hover {
+    background: rgba(50, 50, 50, 0.7);
+    color: rgba(230, 230, 230, 1);
+    box-shadow: 0 0 15px rgba(120, 120, 120, 0.3);
+}
+
+.calendar-title-container {
+    position: relative;
+    cursor: pointer;
+}
+
+#calendar-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: rgba(220, 220, 220, 0.9);
+    margin: 0 15px;
+    min-width: 180px;
+    text-align: center;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+#calendar-title:hover {
+    color: rgba(255, 255, 255, 1);
+    text-shadow: 0 0 10px rgba(180, 180, 180, 0.2);
+}
+
+#month-name, #year-value {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    display: inline-block;
+}
+
+#month-name {
+    margin-right: 5px;
+}
+
+#month-name.fade-out, #year-value.fade-out {
+    opacity: 0;
+    transform: translateY(-5px);
+}
+
+#month-name.fade-in, #year-value.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#today-button {
+    background: rgba(60, 60, 60, 0.5);
+    border: none;
+    color: rgba(220, 220, 220, 0.9);
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+#today-button:hover {
+    background: rgba(70, 70, 70, 0.7);
+    box-shadow: 0 0 15px rgba(120, 120, 120, 0.3);
+}
+
+.calendar-views {
+    flex: 1;
+    position: relative;
+    overflow: auto;
+}
+
+.calendar-view {
+    display: none;
+    padding: 20px;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.calendar-view.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Month View */
+.month-view {
+    display: flex;
+    flex-direction: column;
+}
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: 400;
+    color: rgba(180, 180, 180, 0.8);
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(100, 100, 100, 0.2);
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 5px;
+    padding: 10px 0;
+    flex: 1;
+    opacity: 1;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.days.fade-out {
+    opacity: 0;
+}
+
+.days.fade-in {
+    opacity: 1;
+}
+
+.day {
+    min-height: 100px;
+    padding: 5px;
+    text-align: right;
+    background: rgba(30, 30, 30, 0.3);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.day:hover {
+    background: rgba(40, 40, 40, 0.5);
+    box-shadow: 0 1px 5px rgba(150, 150, 150, 0.1);
+}
+
+.day.today {
+    background: rgba(50, 50, 50, 0.3);
+    box-shadow: 0 0 15px rgba(150, 150, 150, 0.15);
+    border: 1px solid rgba(100, 100, 100, 0.3);
+}
+
+.day.other-month {
+    opacity: 0.5;
+}
+
+.day-number {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(220, 220, 220, 0.9);
+    padding: 5px;
+}
+
+.day-tooltip {
+    display: none;
+    position: absolute;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(40, 40, 40, 0.95);
+    color: rgba(230, 230, 230, 0.9);
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    z-index: 10;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(70, 70, 70, 0.4);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+.day-tooltip:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(40, 40, 40, 0.95) transparent transparent transparent;
+}
+
+/* Year View */
+.year-view {
+    padding: 20px;
+}
+
+.months-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 20px;
+    padding: 15px;
+    height: calc(100% - 60px);
+    transition: opacity 0.4s ease;
+}
+
+.months-grid.fade-out {
+    opacity: 0;
+}
+
+.months-grid.fade-in {
+    opacity: 1;
+}
+
+.year-month {
+    background-color: rgba(30, 30, 30, 0.6);
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.year-month:hover {
+    background-color: rgba(45, 45, 45, 0.8);
+    transform: scale(1.03);
+}
+
+.year-month-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 8px;
+    color: #e0e0e0;
+}
+
+.mini-month {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 2px;
+    margin-top: 10px;
+    font-size: 0.7rem;
+}
+
+.mini-day {
+    text-align: center;
+    padding: 2px;
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+}
+
+.mini-day:hover {
+    background: rgba(50, 50, 50, 0.5);
+}
+
+.mini-day.today {
+    background: rgba(60, 60, 60, 0.5);
+    color: white;
+}
+
+/* Year Dropdown Menu */
+.year-dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.year-dropdown, .month-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    max-height: 0;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(25, 25, 25, 0.95) 100%);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6),
+                0 0 10px rgba(150, 150, 150, 0.1);
+    border-radius: 8px;
+    z-index: 100;
+    transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+    opacity: 0;
+    border: 1px solid rgba(70, 70, 70, 0.4);
+}
+
+.year-dropdown.active, .month-dropdown.active {
+    max-height: 300px;
+    opacity: 1;
+    overflow-y: auto;
+}
+
+.year-item, .month-item {
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    color: rgba(200, 200, 200, 0.7);
+    transition: all 0.3s ease;
+}
+
+.year-item:hover, .month-item:hover {
+    background: rgba(50, 50, 50, 0.7);
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 0 10px rgba(180, 180, 180, 0.3);
+}
+
+.year-item.selected, .month-item.selected {
+    background: rgba(70, 70, 70, 0.7);
+    color: rgba(255, 255, 255, 1);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Navbar Links */
+.navbar-links {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.navbar-links a {
+    color: #e0e0e0;
+    font-size: 1.2rem;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.navbar-links a:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Footer */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: rgba(150, 150, 150, 0.7);
+    background: rgba(10, 10, 10, 0.8);
+    border-top: 1px solid rgba(50, 50, 50, 0.3);
+    z-index: 3;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+/* Animations */
+@keyframes blinkColon {
+    from { opacity: 1; }
+    to { opacity: 0.3; }
+}
+
+@media (max-width: 768px) {
+    .tabs {
+        overflow-x: auto;
+    }
+    
+    .tab {
+        padding: 10px 15px;
+    }
+    
+    .tab i {
+        font-size: 16px;
+    }
+    
+    .time-segment {
+        min-width: 80px;
+        min-height: 100px;
+    }
+    
+    #hours, #minutes, #seconds {
+        font-size: 4rem;
+    }
+    
+    .colon {
+        font-size: 4rem;
+        margin: 0 5px;
+    }
+    
+    #ampm {
+        font-size: 1.2rem;
+        margin-left: 10px;
+        margin-top: 15px;
+    }
+    
+    #date-small {
+        font-size: 1.2rem;
+    }
+    
+    .analog-clock {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .minute-mark {
+        transform-origin: 50% 145px;
+    }
+    
+    .hour-mark {
+        transform-origin: 50% 147px;
+    }
+    
+    .hour-hand {
+        height: 80px;
+    }
+    
+    .minute-hand {
+        height: 110px;
+    }
+    
+    .second-hand {
+        height: 130px;
+    }
+    
+    .months-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(6, 1fr);
+    }
+}
+
+/* Date Tab */
+#date-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 20px;
+}
+
+#date-full {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+    color: #ffffff;
+    text-align: center;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.date-info {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(30, 30, 30, 0.6);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.date-info h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #d0d0d0;
+}
