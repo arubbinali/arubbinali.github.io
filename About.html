@@ -8,6 +8,7 @@
     <title>About</title>
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -85,25 +86,25 @@
             <div class="nav-items">
                 
                 <div class="nav-item">
-                    <span>Profiles</span>
+                    <span><i class="fas fa-user-circle"></i> Profiles</span>
                     <div class="nav-content">
-                        <a href="https://github.com/arubbinali/" data-hover="arubbinali" target="_blank">GitHub</a>
-                        <a href="https://www.linkedin.com/in/arubbinali/" data-hover="arubbinali" target="_blank">LinkedIn</a>
-                        <a href="https://leetcode.com/u/arubbinali/" data-hover="arubbinali" target="_blank">Leetcode</a>
-                        <a href="https://www.khanacademy.org/profile/mbinali06" data-hover="mbinali06" onclick="noScroll(event);">Khan Academy</a>
+                        <a href="https://github.com/arubbinali/" data-hover="arubbinali" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="https://www.linkedin.com/in/arubbinali/" data-hover="arubbinali" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                        <a href="https://leetcode.com/u/arubbinali/" data-hover="arubbinali" target="_blank"><i class="fas fa-code"></i> Leetcode</a>
+                        <a href="https://www.khanacademy.org/profile/mbinali06" data-hover="mbinali06" onclick="noScroll(event);"><i class="fas fa-graduation-cap"></i> Khan Academy</a>
                     </div>
                 </div>
                 <div class="nav-item">
-                    <span>Contact</span>
+                    <span><i class="fas fa-envelope"></i> Contact</span>
                     <div class="nav-content">
-                        <a href="#" data-hover="arubbinali@outlook.com" onclick="noScroll(event);">Mail</a>
-                        <a href="#" data-hover="arub" onclick="noScroll(event);">Discord</a>
+                        <a href="#" data-hover="arubbinali@outlook.com" onclick="noScroll(event);"><i class="fas fa-at"></i> Mail</a>
+                        <a href="#" data-hover="arub" onclick="noScroll(event);"><i class="fab fa-discord"></i> Discord</a>
                     </div>
                 </div>
                 <div class="nav-item">
-                    <span>Utilities</span>
+                    <span><i class="fas fa-tools"></i> Utilities</span>
                     <div class="nav-content">
-                        <a href="#" data-hover="Soon" onclick="noScroll(event);">Date & Time</a>
+                        <a href="https://arubbinali.github.io/utilities/dt/index.html" data-hover="Soon" target="_blank"><i class="far fa-clock"></i> Date & Time</a>
                     </div>
                 </div>
 
@@ -160,9 +161,9 @@
     <!-- Screen Dimmer Overlay -->
     <div id="screen-dimmer" class="hidden"></div>
 
-    <!-- Terminal Icon/Button -->
-    <div id="fullscreen-icon" title="Full Screen" class="hidden">Full Screen</div>
-    <div id="terminal-icon" title="Open Terminal">Terminal</div>
+    <!-- Terminal & Fullscreen buttons -->
+    <div id="terminal-icon" title="Open Terminal"><i class="fas fa-terminal"></i> Terminal</div>
+    <div id="fullscreen-icon" title="Full Screen" class="hidden"><i class="fas fa-expand-alt"></i> Full Screen</div>
 
     <!-- Interactive Terminal -->
     <div id="terminal">

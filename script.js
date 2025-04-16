@@ -1194,3 +1194,46 @@ terminalStyle.textContent = `
     }
 `;
 document.head.appendChild(terminalStyle);
+
+// Scroll animation for fade-in sections
+document.addEventListener("DOMContentLoaded", function() {
+    // Apply fade-in class to main content sections
+    const mainSections = document.querySelectorAll('.main-content, .info-section, .code-snippets-container, section');
+    
+    // Add fade-in-section class to all relevant elements
+    mainSections.forEach((section, index) => {
+        section.classList.add('fade-in-section');
+        
+        // Add staggered delay classes for a nicer effect
+        if (index % 5 === 0) section.classList.add('delay-1');
+        else if (index % 5 === 1) section.classList.add('delay-2');
+        else if (index % 5 === 2) section.classList.add('delay-3');
+        else if (index % 5 === 3) section.classList.add('delay-4');
+        else section.classList.add('delay-5');
+    });
+    
+    // Function to check if element is in viewport
+    function checkFadeElements() {
+        const fadeElements = document.querySelectorAll('.fade-in-section');
+        const triggerPoint = window.innerHeight * 0.85; // 85% of the viewport height
+        
+        fadeElements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            
+            if (elementTop < triggerPoint) {
+                element.classList.add('is-visible');
+            } else {
+                element.classList.remove('is-visible');
+            }
+        });
+    }
+    
+    // Check elements on load
+    checkFadeElements();
+    
+    // Check elements on scroll
+    window.addEventListener('scroll', checkFadeElements);
+    
+    // Also check on resize for responsiveness
+    window.addEventListener('resize', checkFadeElements);
+});
