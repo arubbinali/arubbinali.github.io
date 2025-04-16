@@ -556,16 +556,14 @@ body.side-menu-open .nav-container {
 .aura-text {
     font-family: 'Montserrat', sans-serif;
     font-weight: 100;
-    text-shadow: none;
     margin-bottom: 0.5rem;
     cursor: default;
+    position: relative;
+    display: inline-block;
+    transition: transform 0.3s ease-out;
+    z-index: 5;
 }
 
-/* Special style for main page aura text */
-.index-page .aura-text {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 300;
-}
 
 .code-text {
     font-family: 'Poppins', sans-serif;
@@ -1601,7 +1599,7 @@ video::-ms-fullscreen-button {
 }
 
 @keyframes hoverUpDown {
-    0%, 100% {
+    0% {
         transform: translate(-50%, 0%) rotate(-135deg);  /* Default position */
     }
     50% {
@@ -2451,194 +2449,122 @@ footer {
     width: 600px; /* Fixed width */
     margin: 12px auto 15px;
     position: relative;
+    perspective: 1000px;
 }
 
 .skill-badge {
     display: inline-flex;
     align-items: center;
     padding: 8px 14px;
-    background: transparent;
+    background: rgba(20, 20, 20, 0.6);
     border-radius: 20px;
     margin: 6px;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     color: #fff !important;
     text-decoration: none;
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     position: relative;
-    box-shadow: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
     transform: translateY(0);
+    overflow: hidden;
+}
+
+.badge-glow-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+    filter: blur(8px);
+}
+
+.badge-glow-effect.pulse {
+    opacity: 0.15;
+    animation: badgeGlowPulse 1.5s ease-in-out infinite;
+}
+
+.badge-ripple {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: 120%;
+    border-radius: 50%;
+    border: 2px solid;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.8;
+    z-index: 0;
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+    pointer-events: none;
+}
+
+.badge-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.badge-particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.badge-particles.active .badge-particle {
+    opacity: 0.7;
+    animation: particleFly 0.6s ease-out forwards;
+}
+
+.badge-click {
+    animation: badgeClickEffect 0.3s ease-out;
+}
+
+@keyframes badgeGlowPulse {
+    0% { opacity: 0.1; transform: scale(0.95); }
+    50% { opacity: 0.25; transform: scale(1.05); }
+    100% { opacity: 0.1; transform: scale(0.95); }
+}
+
+@keyframes badgeFloat {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-8px); }
+}
+
+@keyframes badgeClickEffect {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
 }
 
 .skill-badge:hover {
     color: #fff !important;
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background: rgba(40, 40, 40, 0.9);
 }
 
 .skill-badge i {
     margin-right: 6px;
     font-size: 0.85rem;
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-/* Individual skill badge colors */
-.skill-badge:nth-child(1) i { color: #3776AB; } /* Python */
-.skill-badge:nth-child(2) i { color: #A8B9CC; } /* C */
-.skill-badge:nth-child(3) i { color: #00599C; } /* C++ */
-.skill-badge:nth-child(4) i { color: #F7DF1E; } /* JavaScript */
-.skill-badge:nth-child(5) i { color: #E34F26; } /* HTML */
-.skill-badge:nth-child(6) i { color: #2965f1; } /* CSS */
-.skill-badge:nth-child(7) i { color: #4479A1; } /* SQL */
-.skill-badge:nth-child(8) i { color: #FCC624; } /* Linux */
-
-.skill-badge:hover {
-    transform: translateY(-2px);
-    background: rgba(40, 40, 40, 0.8);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    border-color: rgba(255, 255, 255, 0.25);
-}
-
-/* Adjust the explore button margin to position it closer to the skills */
-.explore-projects-btn {
-    margin-top: 15px;
-}
-
-.header-language {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 15px;
-    font-weight: normal;
-    color: #888;
-    margin-left: 10px;
-    padding: 2px 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.header-language .language-icon {
-    width: 18px;
-    height: 18px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233776AB' d='M11.914 0C5.82 0 6.2 2.656 6.2 2.656l.007 2.752h5.814v.826H3.9S0 5.789 0 11.969c0 6.18 3.403 5.96 3.403 5.96h2.03v-2.867s-.109-3.42 3.35-3.42h5.766s3.24.052 3.24-3.148V3.202S18.28 0 11.914 0zM8.708 1.85c.578 0 1.046.47 1.046 1.052 0 .581-.468 1.051-1.046 1.051-.579 0-1.046-.47-1.046-1.051 0-.582.467-1.052 1.046-1.052z'/%3E%3Cpath fill='%23FFD43B' d='M12.086 24c6.093 0 5.713-2.656 5.713-2.656l-.007-2.752h-5.814v-.826h8.121s3.9.445 3.9-5.735c0-6.18-3.403-5.96-3.403-5.96h-2.03v2.867s.109 3.42-3.35 3.42H9.45s-3.24-.052-3.24 3.148v5.292S5.72 24 12.086 24zm3.206-1.85c-.578 0-1.046-.47-1.046-1.052 0-.581.468-1.051 1.046-1.051.579 0 1.046.47 1.046 1.051 0 .582-.467 1.052-1.046 1.052z'/%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.scrolling-text {
-    position: absolute;
-    top: -60px; /* Start just above the visible area */
-    left: 0;
-    width: 100%;
-    text-align: center;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-    text-shadow: 5px 5px 10px rgba(0, 0, 0, 1); /* Corrected text-shadow */
-    font-size: 2rem;
-    transition: top 0.5s ease; /* Change transition property */
-}
-
-.code-snippet-content:hover .scrolling-text {
-    top: 153px; /* Move into view on hover */
-}
-
-.project-heading {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 4rem; /* Adjust size as needed */
-    color: #ea70fb; /* Set a color for the text */
-    margin: 20px 0; /* Add some spacing above and below */
-    text-align: center; /* Center the text */
-    cursor: default;
-}
-
-.shade-effect-top {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 15vh;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(10, 10, 10, 0));
-    pointer-events: none;
-    z-index: 10;
-}
-
-.shade-effect-bottom {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 15vh;
-    background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(10, 10, 10, 0));
-    pointer-events: none;
-    z-index: 10;
-}
-
-.shade-effect-left {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 15vw;
-    height: 100%;
-    background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(10, 10, 10, 0));
-    pointer-events: none;
-    z-index: 10;
-}
-
-.shade-effect-right {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 15vw;
-    height: 100%;
-    background: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(10, 10, 10, 0));
-    pointer-events: none;
-    z-index: 10;
-}
-
-.cert-image {
-    margin-top: 30px;   /* Apply top margin */
-    margin-bottom: 30px;
-    margin-left: auto;   /* Center horizontally */
-    margin-right: auto;  /* Center horizontally */
-    max-width: 100%;     /* Ensure the image scales down to fit its container */
-    height: auto;        /* Maintains the aspect ratio */
-    display: block;      /* Remove any unwanted spacing below the image */
-    border-radius: 10px;
-    cursor: pointer;
-    transition: transform .4s ease;  /* Smooth transition on transform */
-}
-
-.cert-image:hover {
-    transform: scale(1.01); /* Slightly increase the size on hover */
-}
-
-.iframe-container {
-    margin-top: 30px;
-    margin-bottom: -65px;
-    position: relative;
-    width: 100%; /* Set to 100% of the parent container */
-    height: 0;
-    padding-bottom: 56.25%; /* Aspect ratio of 16:9 (this can be adjusted to match the aspect ratio of your original content) */
-    overflow: hidden;
-}
-
-.iframe-container iframe {
-    position: absolute;
-    border-radius: 10px;
-    top: 0;
-    left: 0;
-    width: 1820px;
-    height: 140%;
-    transform-origin: 0 0; /* Set the origin to top-left */
-    transform: scale(0.6); /* Adjust the scale (0.75 for 75% of the original size) */
-}
-
-@media (max-width: 900px) {
-    .iframe-container iframe {
-        transform: scale(0.5); /* Adjust scaling for smaller screens */
-    }
+.skill-badge:hover i {
+    transform: scale(1.2);
+    filter: brightness(1.2);
 }
