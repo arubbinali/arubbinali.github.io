@@ -1483,152 +1483,15 @@ body.side-menu-open .nav-container {
 }
 
 .language-icon.html {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23E44D26' d='M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23E44D26' d='M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z'/%3E%3C/svg%3E");
 }
 
 .language-icon.css {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231572B6' d='M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231572B6' d='M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z'/%3E%3C/svg%3E");
 }
 
 .language-icon.python {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233776AB' d='M11.914 0C5.82 0 6.2 2.656 6.2 2.656l.007 2.752h5.814v.826H3.9S0 5.789 0 11.969c0 6.18 3.403 5.96 3.403 5.96h2.03v-2.867s-.109-3.42 3.35-3.42h5.766s3.24.052 3.24-3.148V3.202S18.28 0 11.914 0zM8.708 1.85c.578 0 1.046.47 1.046 1.052 0 .581-.468 1.051-1.046 1.051-.579 0-1.046-.47-1.046-1.051 0-.582.467-1.052 1.046-1.052z'/%3E%3Cpath fill='%23FFD43B' d='M12.086 24c6.093 0 5.713-2.656 5.713-2.656l-.007-2.752h-5.814v-.826h8.121s3.9.445 3.9-5.735c0-6.18-3.403-5.96-3.403-5.96h-2.03v2.867s.109 3.42-3.35 3.42H9.45s-3.24-.052-3.24 3.148v5.292S5.72 24 12.086 24zm3.206-1.85c-.578 0-1.046-.47-1.046-1.052 0-.581.468-1.051 1.046-1.051.579 0 1.046.47 1.046 1.051 0 .582-.467 1.052-1.046 1.052z'/%3E%3C/svg%3E");
-}
-
-.header-language {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 15px;
-    font-weight: normal;
-    color: #888;
-    margin-left: 10px;
-    padding: 2px 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.header-language .language-icon {
-    width: 18px;
-    height: 18px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233776AB' d='M11.914 0C5.82 0 6.2 2.656 6.2 2.656l.007 2.752h5.814v.826H3.9S0 5.789 0 11.969c0 6.18 3.403 5.96 3.403 5.96h2.03v-2.867s-.109-3.42 3.35-3.42h5.766s3.24.052 3.24-3.148V3.202S18.28 0 11.914 0zM8.708 1.85c.578 0 1.046.47 1.046 1.052 0 .581-.468 1.051-1.046 1.051-.579 0-1.046-.47-1.046-1.051 0-.582.467-1.052 1.046-1.052z'/%3E%3Cpath fill='%23FFD43B' d='M12.086 24c6.093 0 5.713-2.656 5.713-2.656l-.007-2.752h-5.814v-.826h8.121s3.9.445 3.9-5.735c0-6.18-3.403-5.96-3.403-5.96h-2.03v2.867s.109 3.42-3.35 3.42H9.45s-3.24-.052-3.24 3.148v5.292S5.72 24 12.086 24zm3.206-1.85c-.578 0-1.046-.47-1.046-1.052 0-.581.468-1.051 1.046-1.051.579 0 1.046.47 1.046 1.051 0 .582-.467 1.052-1.046 1.052z'/%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.scrolling-text {
-    position: absolute;
-    top: -60px; /* Start just above the visible area */
-    left: 0;
-    width: 100%;
-    text-align: center;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-    text-shadow: 5px 5px 10px rgba(0, 0, 0, 1); /* Corrected text-shadow */
-    font-size: 2rem;
-    transition: top 0.5s ease; /* Change transition property */
-}
-
-.code-snippet-content:hover .scrolling-text {
-    top: 153px; /* Move into view on hover */
-}
-
-.project-heading {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 4rem; /* Adjust size as needed */
-    color: #ea70fb; /* Set a color for the text */
-    margin: 20px 0; /* Add some spacing above and below */
-    text-align: center; /* Center the text */
-    cursor: default;
-}
-
-.shade-effect-top {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 15vh;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(10, 10, 10, 0));
-    pointer-events: none;
-    z-index: 10;
-}
-
-.shade-effect-bottom {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 15vh;
-    background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(10, 10, 10, 0));
-    pointer-events: none;
-    z-index: 10;
-}
-
-.shade-effect-left {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 15vw;
-    height: 100%;
-    background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(10, 10, 10, 0));
-    pointer-events: none;
-    z-index: 10;
-}
-
-.shade-effect-right {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 15vw;
-    height: 100%;
-    background: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(10, 10, 10, 0));
-    pointer-events: none;
-    z-index: 10;
-}
-
-.cert-image {
-    margin-top: 30px;   /* Apply top margin */
-    margin-bottom: 30px;
-    margin-left: auto;   /* Center horizontally */
-    margin-right: auto;  /* Center horizontally */
-    max-width: 100%;     /* Ensure the image scales down to fit its container */
-    height: auto;        /* Maintains the aspect ratio */
-    display: block;      /* Remove any unwanted spacing below the image */
-    border-radius: 10px;
-    cursor: pointer;
-    transition: transform .4s ease;  /* Smooth transition on transform */
-}
-
-.cert-image:hover {
-    transform: scale(1.01); /* Slightly increase the size on hover */
-}
-
-.iframe-container {
-    margin-top: 30px;
-    margin-bottom: -65px;
-    position: relative;
-    width: 100%; /* Set to 100% of the parent container */
-    height: 0;
-    padding-bottom: 56.25%; /* Aspect ratio of 16:9 (this can be adjusted to match the aspect ratio of your original content) */
-    overflow: hidden;
-}
-
-.iframe-container iframe {
-    position: absolute;
-    border-radius: 10px;
-    top: 0;
-    left: 0;
-    width: 1820px;
-    height: 140%;
-    transform-origin: 0 0; /* Set the origin to top-left */
-    transform: scale(0.6); /* Adjust the scale (0.75 for 75% of the original size) */
-}
-
-@media (max-width: 900px) {
-    .iframe-container iframe {
-        transform: scale(0.5); /* Adjust scaling for smaller screens */
-    }
 }
 
 .language-icon.features {
@@ -2578,4 +2441,204 @@ footer {
 }
 .fade-in-section.delay-5 {
     transition-delay: 0.5s;
+}
+
+/* Skills badges */
+.skills-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 600px; /* Fixed width */
+    margin: 12px auto 15px;
+    position: relative;
+}
+
+.skill-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 14px;
+    background: transparent;
+    border-radius: 20px;
+    margin: 6px;
+    transition: all 0.3s ease;
+    color: #fff !important;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+.skill-badge:hover {
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
+
+.skill-badge i {
+    margin-right: 6px;
+    font-size: 0.85rem;
+}
+
+/* Individual skill badge colors */
+.skill-badge:nth-child(1) i { color: #3776AB; } /* Python */
+.skill-badge:nth-child(2) i { color: #A8B9CC; } /* C */
+.skill-badge:nth-child(3) i { color: #00599C; } /* C++ */
+.skill-badge:nth-child(4) i { color: #F7DF1E; } /* JavaScript */
+.skill-badge:nth-child(5) i { color: #E34F26; } /* HTML */
+.skill-badge:nth-child(6) i { color: #2965f1; } /* CSS */
+.skill-badge:nth-child(7) i { color: #4479A1; } /* SQL */
+.skill-badge:nth-child(8) i { color: #FCC624; } /* Linux */
+
+.skill-badge:hover {
+    transform: translateY(-2px);
+    background: rgba(40, 40, 40, 0.8);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Adjust the explore button margin to position it closer to the skills */
+.explore-projects-btn {
+    margin-top: 15px;
+}
+
+.header-language {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 15px;
+    font-weight: normal;
+    color: #888;
+    margin-left: 10px;
+    padding: 2px 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.header-language .language-icon {
+    width: 18px;
+    height: 18px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233776AB' d='M11.914 0C5.82 0 6.2 2.656 6.2 2.656l.007 2.752h5.814v.826H3.9S0 5.789 0 11.969c0 6.18 3.403 5.96 3.403 5.96h2.03v-2.867s-.109-3.42 3.35-3.42h5.766s3.24.052 3.24-3.148V3.202S18.28 0 11.914 0zM8.708 1.85c.578 0 1.046.47 1.046 1.052 0 .581-.468 1.051-1.046 1.051-.579 0-1.046-.47-1.046-1.051 0-.582.467-1.052 1.046-1.052z'/%3E%3Cpath fill='%23FFD43B' d='M12.086 24c6.093 0 5.713-2.656 5.713-2.656l-.007-2.752h-5.814v-.826h8.121s3.9.445 3.9-5.735c0-6.18-3.403-5.96-3.403-5.96h-2.03v2.867s.109 3.42-3.35 3.42H9.45s-3.24-.052-3.24 3.148v5.292S5.72 24 12.086 24zm3.206-1.85c-.578 0-1.046-.47-1.046-1.052 0-.581.468-1.051 1.046-1.051.579 0 1.046.47 1.046 1.051 0 .582-.467 1.052-1.046 1.052z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.scrolling-text {
+    position: absolute;
+    top: -60px; /* Start just above the visible area */
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    text-shadow: 5px 5px 10px rgba(0, 0, 0, 1); /* Corrected text-shadow */
+    font-size: 2rem;
+    transition: top 0.5s ease; /* Change transition property */
+}
+
+.code-snippet-content:hover .scrolling-text {
+    top: 153px; /* Move into view on hover */
+}
+
+.project-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 4rem; /* Adjust size as needed */
+    color: #ea70fb; /* Set a color for the text */
+    margin: 20px 0; /* Add some spacing above and below */
+    text-align: center; /* Center the text */
+    cursor: default;
+}
+
+.shade-effect-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 15vh;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(10, 10, 10, 0));
+    pointer-events: none;
+    z-index: 10;
+}
+
+.shade-effect-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 15vh;
+    background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(10, 10, 10, 0));
+    pointer-events: none;
+    z-index: 10;
+}
+
+.shade-effect-left {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 15vw;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(10, 10, 10, 0));
+    pointer-events: none;
+    z-index: 10;
+}
+
+.shade-effect-right {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 15vw;
+    height: 100%;
+    background: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(10, 10, 10, 0));
+    pointer-events: none;
+    z-index: 10;
+}
+
+.cert-image {
+    margin-top: 30px;   /* Apply top margin */
+    margin-bottom: 30px;
+    margin-left: auto;   /* Center horizontally */
+    margin-right: auto;  /* Center horizontally */
+    max-width: 100%;     /* Ensure the image scales down to fit its container */
+    height: auto;        /* Maintains the aspect ratio */
+    display: block;      /* Remove any unwanted spacing below the image */
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform .4s ease;  /* Smooth transition on transform */
+}
+
+.cert-image:hover {
+    transform: scale(1.01); /* Slightly increase the size on hover */
+}
+
+.iframe-container {
+    margin-top: 30px;
+    margin-bottom: -65px;
+    position: relative;
+    width: 100%; /* Set to 100% of the parent container */
+    height: 0;
+    padding-bottom: 56.25%; /* Aspect ratio of 16:9 (this can be adjusted to match the aspect ratio of your original content) */
+    overflow: hidden;
+}
+
+.iframe-container iframe {
+    position: absolute;
+    border-radius: 10px;
+    top: 0;
+    left: 0;
+    width: 1820px;
+    height: 140%;
+    transform-origin: 0 0; /* Set the origin to top-left */
+    transform: scale(0.6); /* Adjust the scale (0.75 for 75% of the original size) */
+}
+
+@media (max-width: 900px) {
+    .iframe-container iframe {
+        transform: scale(0.5); /* Adjust scaling for smaller screens */
+    }
 }
