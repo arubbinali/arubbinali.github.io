@@ -2893,7 +2893,7 @@ main {
 
 /* Certificate images styling */
 .cert-image {
-    max-width: 85%;
+    max-width: 100%;
     height: auto;
     display: block;
     margin: 20px auto;
