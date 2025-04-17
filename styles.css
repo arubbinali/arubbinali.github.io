@@ -2865,3 +2865,9 @@ main {
     border-top: 1px solid #222;
     padding-bottom: 30px;
 }
+
+.project-heading {
+    text-align: center;
+    font-size: 4rem;
+    color: #ff6ea6;
+}
