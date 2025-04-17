@@ -1237,3 +1237,25 @@ document.addEventListener("DOMContentLoaded", function() {
     // Also check on resize for responsiveness
     window.addEventListener('resize', checkFadeElements);
 });
+
+// Hide scroll arrow on scroll, show/hide back to top button
+(function() {
+    const scrollArrow = document.getElementById('scrollArrow');
+    const scrollToTop = document.getElementById('scrollToTop');
+    function handleScroll() {
+        if(window.scrollY > 60) {
+            scrollArrow && scrollArrow.classList.add('hide');
+            scrollToTop && scrollToTop.classList.add('visible');
+        } else {
+            scrollArrow && scrollArrow.classList.remove('hide');
+            scrollToTop && scrollToTop.classList.remove('visible');
+        }
+    }
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    if(scrollToTop) {
+        scrollToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+})();

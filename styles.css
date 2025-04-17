@@ -2,6 +2,11 @@ html, body {
     scroll-behavior: smooth;
     font-family: 'Poppins', sans-serif;
     background-color: #0a0a0a;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 * {
@@ -193,6 +198,11 @@ html, body {
     text-align: center;
     opacity: 0;
     transition: opacity 1s ease-out;
+    width: 100vw;
+    min-width: 100%;
+    margin-left: -15px; /* Increased negative margin to cover left edge completely */
+    margin-right: -8px;
+    box-sizing: border-box;
 }
 
 #main-content-wrapper.hidden {
@@ -260,6 +270,31 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     animation: moveBackground 80s ease-in-out infinite;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+main {
+    width: 100vw;
+    min-width: 100%;
+    margin-left: -15px;
+    margin-right: -8px;
+    box-sizing: border-box;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.about-text, .sources-text, .cert-text {
+    width: 100%;
+    box-sizing: border-box;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 /* Adjust background attachment for mobile devices */
@@ -652,8 +687,13 @@ body.side-menu-open .nav-container {
     position: relative;
     margin-top: 100vh;
     padding: 4rem 2rem;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.3);
     z-index: 2;
+    width: 100vw;
+    min-width: 100%;
+    margin-left: -15px; /* Increased negative margin to cover left edge completely */
+    margin-right: -8px;
+    box-sizing: border-box;
 }
 
 .content-sections::before,
@@ -771,20 +811,23 @@ body.side-menu-open .nav-container {
 
 .main-sections {
     position: relative;
-    margin-top: 100vh; /* Adjusted margin to add space at the top */
-    padding: 0; /* Ensure no extra padding */
+    margin-top: 100vh;
+    padding: 0;
     background: rgba(0, 0, 0, 0.3);
     z-index: 2;
     display: grid;
-    grid-template-columns: repeat(3, 300px); /* Fixed width for each column */
-    grid-template-rows: repeat(2, 400px); /* Fixed height for each row */
-    gap: 110px; /* Fixed gap between containers */
-    justify-content: center; /* Center the grid horizontally */
-    align-content: center; /* Center the grid vertically */
-    width: 100%; /* Ensure full width */
-    height: 260vh; /* Full viewport height */
-    box-sizing: border-box; /* Ensure padding doesn't affect width/height */
-    overflow: hidden; /* Prevents unnecessary overflow */
+    grid-template-columns: repeat(3, 300px);
+    grid-template-rows: repeat(2, 400px);
+    gap: 110px;
+    justify-content: center;
+    align-content: center;
+    width: 100vw;
+    min-width: 100%;
+    height: 260vh;
+    box-sizing: border-box;
+    margin-left: -15px; /* Increased negative margin to cover left edge completely */
+    margin-right: -8px;
+    overflow: hidden;
     cursor: default;
 }
 
@@ -1581,68 +1624,53 @@ video::-ms-fullscreen-button {
     display: none;
 }
 
-.scroll-arrow {
-    position: fixed;
-    left: 50%;  /* Centers the arrow horizontally */
-    bottom: 10%;  /* Position the arrow 10% from the bottom */
-    transform: translateX(-50%) rotate(-135deg);  /* Center horizontally and rotate arrow */
-    width: 30px;
-    height: 30px;
-    border-left: 2px solid #fff;
-    border-top: 2px solid #fff;
-    opacity: 0.6;  /* Default opacity when the page loads */
-    transition: opacity 0.3s ease-out;  /* Smooth transition for opacity change */
-    z-index: 1000;  /* Ensure it's visible on top of other content */
-    cursor: default;
-
-    animation: hoverUpDown 2s infinite ease-in-out;  /* Smooth up and down motion */
-}
-
-@keyframes hoverUpDown {
-    0% {
-        transform: translate(-50%, 0%) rotate(-135deg);  /* Default position */
-    }
-    50% {
-        transform: translate(-50%, -20px) rotate(-135deg);  /* Move 10px up */
-    }
-}
-
+/* Back to top button styles */
 .scroll-to-top {
     position: fixed;
-    right: 2vw;  /* Adjusts position from the right */
-    bottom: 3vh;  /* Adjusts position from the bottom */
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;  /* Makes the element circular */
-    background-color: transparent;  /* Fully transparent background */
-    opacity: 0;  /* Hidden by default */
-    pointer-events: none;  /* Prevent interaction when hidden */
-    transition: opacity 0.3s ease-out, transform 0.3s ease-out;  /* Smooth appearance */
-    z-index: 1000;  /* Ensure it is above other elements */
-    cursor: pointer;
+    right: 32px;
+    bottom: 32px;
+    width: 46px;
+    height: 46px;
+    background: linear-gradient(135deg, #9e9eff 60%, #23272a 100%);
+    border-radius: 50%;
+    box-shadow: 0 2px 18px #23272a33;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s, background 0.2s;
+    z-index: 1002;
 }
-
 .scroll-to-top.visible {
     opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0);  /* Reset position */
+    visibility: visible;
 }
-
 .scroll-to-top .arrow {
-    width: 20px;
-    height: 20px;
-    border-right: 1px solid rgba(255, 255, 255, 0.6);  /* Right side of the arrow with slight transparency */
-    border-top: 1px solid rgba(255, 255, 255, 0.6);  /* Top side of the arrow with slight transparency */
-    transform: rotate(-45deg);  /* Rotates to point upwards */
-    transition: border-color 0.3s ease-out;  /* Smooth transition for the arrow color */
+    border: solid #fff;
+    border-width: 0 4px 4px 0;
+    display: inline-block;
+    padding: 10px;
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    margin-top: 2px;
+}
+.scroll-to-top:hover {
+    background: linear-gradient(135deg, #23272a 60%, #9e9eff 100%);
 }
 
-.scroll-to-top:hover .arrow {
-    border-right: 2px solid rgba(255, 255, 255, 1);  /* Fully opaque arrow on hover */
-    border-top: 2px solid rgba(255, 255, 255, 1);  /* Fully opaque arrow on hover */
+/* Stretch content and footer to right edge */
+#main-content-wrapper, .enhanced-footer {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-right: 0 !important;
+    border-radius: 0 0 0 0 !important;
+}
+
+.footer-content {
+    max-width: 100vw !important;
+    padding-right: 0 !important;
 }
 
 .about-text {
@@ -1695,16 +1723,23 @@ video::-ms-fullscreen-button {
 
 footer {
     font-family: 'Poppins', sans-serif;
-    position: relative; /* Let the footer stay inside the flow of the document */
+    position: relative;
     bottom: 0;
-    width: 100%;
+    width: 100vw;
+    min-width: 100%;
+    margin-left: -15px; /* Increased negative margin to cover left edge completely */
+    margin-right: -8px;
     text-align: center;
-    padding: 30px 0;
-    background-color: rgba(0, 0, 0, 0.8); /* Translucent background */
+    padding: 30px 0 0;
+    background-color: rgba(0, 0, 0, 0.8);
     color: white;
     font-size: 13px;
-    margin-top: 0px; /* This pushes the footer to the bottom if content is short */
+    margin-top: 0;
+    margin-bottom: 0;
     cursor: default;
+    padding-bottom: 20px; /* Add padding at the bottom of the footer */
+    box-sizing: border-box;
+    display: block;
 }
 
 .sources-text {
@@ -2467,9 +2502,9 @@ footer {
     font-weight: 500;
     border: 1px solid rgba(255, 255, 255, 0.15);
     position: relative;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-    transform: translateY(0);
     overflow: hidden;
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
 .badge-glow-effect {
@@ -2567,4 +2602,266 @@ footer {
 .skill-badge:hover i {
     transform: scale(1.2);
     filter: brightness(1.2);
+}
+
+#about-content, #certifications-content, #sources-content, #docs-content, #projects-content {
+    width: 100vw;
+    min-width: 100%;
+    margin-left: -15px; /* Increased negative margin to cover left edge completely */
+    margin-right: -8px;
+    box-sizing: border-box;
+}
+
+/* Footer styles */
+.enhanced-footer {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    background-color: rgba(10, 10, 10, 0.9);
+    color: #f5f5f5;
+    margin-top: 60px;
+    padding: 40px 0 20px;
+    position: relative;
+    border-top: 1px solid #333;
+    min-height: 200px;
+    box-sizing: border-box;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 180px;
+    margin: 0 15px 20px;
+}
+
+.footer-section h3 {
+    color: #9e9eff;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+    position: relative;
+}
+
+.footer-section h3:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 30px;
+    height: 2px;
+    background: #9e9eff;
+}
+
+.footer-section ul {
+    text-align: center;
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.footer-section ul li a {
+    color: #d4d4d4;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.footer-section ul li a:hover {
+    color: #9e9eff;
+    text-decoration: none;
+}
+
+/* --- Footer Category Animations & Pink Theme --- */
+.footer-section h3, .footer-section ul li a {
+    color: #9e9eff;
+    font-weight: 600;
+    transition: color 0.25s, transform 0.25s, text-shadow 0.25s;
+    position: relative;
+}
+.footer-section h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-shadow: 0 0 8px #ff6ea655, 0 0 18px #fff2;
+}
+.footer-section h3:hover {
+    color: #fff;
+    transform: scale(1.08) skewX(-3deg);
+    text-shadow: 0 0 20px #ff6ea6, 0 0 40px #ff6ea6;
+}
+.footer-section ul li a {
+    display: inline-block;
+    font-size: 1rem;
+    color: #ff6ea6;
+    text-decoration: none;
+    border-radius: 6px;
+    padding: 4px 8px;
+    transition: color 0.23s, background 0.23s, transform 0.23s, box-shadow 0.23s;
+}
+.footer-section ul li a:hover {
+    color: #fff;
+    background: #ff6ea6;
+    box-shadow: 0 2px 18px #ff6ea6aa, 0 0 10px #fff5;
+    transform: scale(1.08) rotate(-2deg);
+    text-shadow: 0 0 12px #fff, 0 0 24px #ff6ea6;
+}
+
+/* Remove blue underline from leftmost footer heading */
+.footer-section h3:after {
+    display: none !important;
+}
+
+/* Remove blue border/line from left edge of the footer */
+.enhanced-footer {
+    border-top: none !important;
+}
+
+/* Discord popup styles */
+.discord-link {
+    position: relative;
+}
+
+.discord-popup {
+    position: absolute;
+    background-color: #7289da;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    left: 100%;
+    top: 0;
+    margin-left: 15px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s cubic-bezier(0.4,2,.6,1),
+                visibility 0.3s cubic-bezier(0.4,2,.6,1),
+                transform 0.25s cubic-bezier(0.4,2,.6,1);
+    z-index: 10;
+    white-space: nowrap;
+}
+
+.discord-popup::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -6px;
+    transform: translateY(-50%);
+    border-width: 6px 6px 6px 0;
+    border-style: solid;
+    border-color: transparent #7289da transparent transparent;
+}
+
+.discord-link:hover .discord-popup {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-8px) scale(1.03);
+    pointer-events: auto;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #222;
+}
+
+.footer-bottom p {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+/* Ensure the main content area and footer position properly */
+#main-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    position: relative;
+}
+
+main {
+    flex: 1;
+}
+
+/* --- Enhanced Footer Social Icons --- */
+.footer-socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.footer-socials a {
+    color: #9e9eff;
+    font-size: 1.55rem;
+    transition: color 0.25s, transform 0.25s, box-shadow 0.25s;
+    position: relative;
+}
+.footer-socials a:hover {
+    color: #fff;
+    transform: scale(1.2) rotate(-6deg);
+    text-shadow: 0 0 10px #9e9eff, 0 0 30px #5541ff99;
+    z-index: 2;
+}
+.footer-socials .discord-link {
+    display: inline-block;
+}
+.footer-socials .discord-popup {
+    left: 50%;
+    top: -45px;
+    margin-left: -60px;
+    padding: 10px 16px;
+    font-size: 1rem;
+    border-radius: 8px;
+    white-space: nowrap;
+    box-shadow: 0 6px 24px #23272a99;
+    font-weight: 500;
+}
+.footer-socials .discord-link:hover .discord-popup {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-12px) scale(1.05);
+}
+
+/* Smoother Discord popup for both footer and socials */
+.discord-popup {
+    transition: opacity 0.3s cubic-bezier(.4,2,.6,1),
+                visibility 0.3s cubic-bezier(.4,2,.6,1),
+                transform 0.25s cubic-bezier(.4,2,.6,1);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 10;
+    white-space: nowrap;
+}
+.discord-link:hover .discord-popup {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-8px) scale(1.03);
+    pointer-events: auto;
+}
+
+/* Footer bottom padding for smoothness */
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #222;
+    padding-bottom: 30px;
 }
