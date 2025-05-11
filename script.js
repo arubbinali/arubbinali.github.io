@@ -205,6 +205,68 @@ document.addEventListener("DOMContentLoaded", () => {
         // Set the content immediately
         element.innerHTML = htmlContent;
         
+        // Apply consistent text styling to match index.html
+        element.style.fontSize = '0.88rem';
+        element.style.lineHeight = '1.65';
+        element.style.textAlign = 'left';
+        element.style.margin = '0 0 7px 0';
+        element.style.color = '#c8ccd4';
+        
+        // Style all paragraphs within the element
+        const paragraphs = element.querySelectorAll('p');
+        paragraphs.forEach(p => {
+            p.style.fontSize = '0.88rem';
+            p.style.margin = '0 0 7px 0';
+            p.style.lineHeight = '1.65';
+            p.style.textAlign = 'left';
+            p.style.color = '#c8ccd4';
+        });
+        
+        // Style terminal widgets and their content
+        const widgets = element.querySelectorAll('.terminal-widget');
+        widgets.forEach(widget => {
+            // Widget container styling
+            widget.style.fontSize = '0.88rem';
+            widget.style.lineHeight = '1.65';
+            widget.style.textAlign = 'left';
+            
+            // Widget headers
+            const headers = widget.querySelectorAll('h3');
+            headers.forEach(h => {
+                h.style.fontSize = '1rem';
+                h.style.margin = '0 0 10px 0';
+                h.style.textAlign = 'left';
+            });
+            
+            // Widget paragraphs
+            const widgetParagraphs = widget.querySelectorAll('p');
+            widgetParagraphs.forEach(p => {
+                p.style.fontSize = '0.88rem';
+                p.style.margin = '0 0 7px 0';
+                p.style.lineHeight = '1.65';
+                p.style.textAlign = 'left';
+                p.style.color = '#c8ccd4';
+            });
+            
+            // Widget lists
+            const lists = widget.querySelectorAll('ul, ol');
+            lists.forEach(list => {
+                list.style.textAlign = 'left';
+                list.style.paddingLeft = '20px';
+                list.style.margin = '8px 0';
+                
+                // List items
+                const items = list.querySelectorAll('li');
+                items.forEach(item => {
+                    item.style.fontSize = '0.88rem';
+                    item.style.lineHeight = '1.65';
+                    item.style.textAlign = 'left';
+                    item.style.color = '#c8ccd4';
+                    item.style.marginBottom = '4px';
+                });
+            });
+        });
+        
         // Apply fade-in effect
         element.style.opacity = '0';
         element.style.transition = 'opacity 0.4s ease-in';

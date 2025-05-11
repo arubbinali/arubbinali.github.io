@@ -13810,20 +13810,20 @@ else:
         <div id="terminal-icon" title="Open Terminal"><i class="fas fa-terminal"></i> Terminal</div>
         <div id="fullscreen-icon" title="Full Screen" class="hidden"><i class="fas fa-expand-alt"></i> Full Screen</div>
 
-        <!-- Interactive Terminal -->
-        <div id="terminal">
-            <div id="terminal-header">Terminal</div>
-            <div id="terminal-output">
-                    <h3>👋 Welcome to my Portfolio Terminal</h3>
-                    <p>This module is currently under development.</p>
-                    <p>Type <b>help</b> to see available commands.</p>
-            </div>
-            <div id="terminal-input-line">
-                <span class="prompt">$&gt;</span>
-                <input type="text" id="terminal-input" autofocus autocomplete="off">
-            </div>
+    <!-- Interactive Terminal -->
+    <div id="terminal" style="font-size: 0.88rem; line-height: 1.65; text-align: left;">
+        <div id="terminal-header"><i class="fas fa-terminal"></i> Terminal</div>
+        <div id="terminal-output" style="font-size: 0.88rem; line-height: 1.65; text-align: left; padding: 15px; color: #c8ccd4;">
+            <h3 style="margin-top: 0; padding-top: 0;">👋 Welcome to my Portfolio Terminal</h3>
+            <p style="margin: 0 0 7px 0; font-size: 0.88rem;">This module is currently under development.</p>
+            <p style="margin: 0 0 7px 0; font-size: 0.88rem;">Type <b>help</b> to see available commands.</p>
         </div>
-        <!-- End Interactive Terminal -->
+        <div id="terminal-input-line" style="padding: 10px 15px;">
+            <span class="prompt" style="margin-right: 10px; color: #569cd6; font-weight: 500; font-size: 0.9rem;">$&gt;</span>
+            <input type="text" id="terminal-input" autofocus autocomplete="off" style="color: #d1d5db; font-size: 0.88rem;">
+        </div>
+    </div>
+    <!-- End Interactive Terminal -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
