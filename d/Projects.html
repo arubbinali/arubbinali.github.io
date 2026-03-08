@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+<body>
+
+    <!-- Mobile/Zoom out text -->
+    <div id="mobile-message">
+        <p>Run the website on a laptop or PC & zoom out if you are already using one.</p>
+    </div>
+
+    <!-- Intro screen -->
+    <div id="intro-screen">
+        <div id="intro-text-wrapper">
+            <span class="intro-letter">P</span>
+            <span class="intro-letter">r</span>
+            <span class="intro-letter">o</span>
+            <span class="intro-letter">j</span>
+            <span class="intro-letter">e</span>
+            <span class="intro-letter">c</span>
+            <span class="intro-letter">t</span>
+            <span class="intro-letter">s</span>
+        </div>
+        <div class="intro-logo">Arub 2024 - 2025</div>
+    </div>
+
+    <div id="main-content-wrapper" class="hidden">
+    <canvas id="particleCanvas"></canvas>
+    <nav class="navbar">
+        <div class="hamburger-menu">
+            <div class="hamburger-lines">
+                <span class="line line1"></span>
+                <span class="line line2"></span>
+                <span class="line line3"></span>
+            </div>
+            <div class="side-menu">
+                <a href="index.html" class="menu-item">
+                    <h5 class="left-navbar-text">
+                        <div class="code-language">
+                            <i class="language-icon home"></i>
+                        </div>
+                        Home
+                    </h5>
+                </a>
+                <a href="Docs.html" class="menu-item">
+                    <h5 class="left-navbar-text">
+                        <div class="code-language">
+                            <i class="language-icon code"></i>
+                        </div>
+                        Docs
+                    </h5>
+                </a>
+                <a href="Certifications.html" class="menu-item">
+                    <h5 class="left-navbar-text">
+                        <div class="code-language">
+                            <i class="language-icon certification"></i>
+                        </div>
+                        Certifications
+                    </h5>
+                </a>
+                <a href="LearningSources.html" class="menu-item">
+                    <h5 class="left-navbar-text">
+                        <div class="code-language">
+                            <i class="language-icon server"></i>
+                        </div>
+                        Learning Sources
+                    </h5>
+                </a>
+                <a href="About.html" class="menu-item">
+                    <h5 class="left-navbar-text">
+                        <div class="code-language">
+                            <i class="language-icon about"></i>
+                        </div>
+                        About
+                    </h5>
+                </a>
+            </div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-items">
+
+                <div class="nav-item">
+                    <span><i class="fas fa-user-circle"></i> Profiles</span>
+                    <div class="nav-content">
+                        <a href="https://github.com/arubbinali/" data-hover="arubbinali" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="https://www.linkedin.com/in/arubbinali/" data-hover="arubbinali" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                        <a href="https://leetcode.com/u/arubbinali/" data-hover="arubbinali" target="_blank"><i class="fas fa-code"></i> Leetcode</a>
+                        <a href="https://www.khanacademy.org/profile/mbinali06" data-hover="mbinali06" onclick="noScroll(event);"><i class="fas fa-graduation-cap"></i> Khan Academy</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <span><i class="fas fa-envelope"></i> Contact</span>
+                    <div class="nav-content">
+                        <a href="#" data-hover="arubbinali@outlook.com" onclick="noScroll(event);"><i class="fas fa-at"></i> Mail</a>
+                        <a href="#" data-hover="arub" onclick="noScroll(event);"><i class="fab fa-discord"></i> Discord</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <span><i class="fas fa-tools"></i> Utilities</span>
+                    <div class="nav-content">
+                        <a href="https://arubbinali.github.io/utilities/dt/index.html" data-hover="View Module" target="_blank"><i class="far fa-clock"></i> Date & Time</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <span><i class="fas fa-tools"></i> New</span>
+                    <div class="nav-content">
+                        <a href="https://arubbinali.github.io/main" data-hover="View Website" target="_blank"><i class="far fa-clock"></i> My New Page</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="hover-text"></div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="center-text">
+            <div class="aura-text"><i class="fas fa-folder-open"></i> Projects</div>
+            <div class="code-text">Showcase of My Projects</div>
+        </div>
+
+        <div class="scroll-spacer" style="height: 0vh;"></div>
+
+        <div class="content-sections">
+
+
+
+            <!-- School site -->
+            <div id="school-projects">
+                <h2 class="project-heading">School Site</h2>
+                <div class="glow-line"></div>
+                <div class="code-snippets-container">
+
+                    <section class="info-section">
+                        <h2 class="project-heading">My School's Revamped Website (Main Page)</h2>
+                        <div class="cert-text">
+                            Officially presented my <a href="https://pisjes.edu.sa/" target="_blank">school</a>'s <b>enhanced variant of their existing website</b>
+                            (main page) to the school's <b><a href="https://www.linkedin.com/in/adnannasir/" target="_blank">principal</a>
+                                & web developer</b> and got the project <b>approved on 16th November 2024</b>.<br><br>
+                            
+                            See the school's website on 16th November 2024
+                            <a href="https://web.archive.org/web/20241116012342/https://pisjes.edu.sa/" target="_blank">here</a> for comparison.
+                            
+                            <div class="iframe-container">
+                                <iframe src="for site/move/main.html" frameborder="0"></iframe>
+                            </div>
+
+                            <!-- School Features -->
+                            <div class="code-snippet">
+                                <div class="code-snippet-header">
+                                    <h5 class="code-snippet-title">
+                                        <div class="code-language">
+                                            <i class="language-icon features"></i>
+                                        </div>
+                                        Website Features
+                                    </h5>
+                                    <button class="code-snippet-toggle">+</button>
+                                </div>
+
+                                <div class="code-snippet-content">
+                                    <h5 class="code-snippet-title">&nbsp;New Features & Changes:<h5><br>
+                                    <pre class="code-snippet-code"><code class="language-html">Dark Mode
+Interactive Widgets (Navbar, Buttons, Footer)
+Widget Shadows
+Smoother Transitions & Fluid Animations (Banner Text, Pop up box)
+Modern Interface & Elegant Visuals
+Color Variants instead of Fixed Colors & Enhanced Fonts</code></pre>
+                                </div>
+                            </div>
+
+                        <h5 class="code-snippet-title">&nbsp;&nbsp;&nbsp;&nbsp;&#8202;
+                            <div class="code-language">
+                                <i class="language-icon duration"></i>
+                            </div>
+                            Project Duration:&nbsp;&nbsp;&nbsp;150+ hours (2.5 months)<br>
+                        </h5>
+
+                        <div class="button-container">
+                            
+                        <button class="see-more-btn" onclick="window.open('https://arubbinali.github.io/for%20site/move/main.html', '_blank')">
+                            <i class="language-icon project"></i>See Website
+                        </button>
+
+                        <button class="see-more-btn" onclick="window.open('https://arubbinali.github.io/Docs.html#school-docs', '_blank')">
+                            <i class="language-icon code"></i>Docs
+                        </button>
+
+                        </div>
+                        
+                        
+                        
+                </div>
+                </section>
+                </div>
+
+            </div>
+
+            <!-- Inheritance -->
+            <div id="inheritance-projects">
+            <h2 class="project-heading">Islamic Inheritance Calculator</h2>
+            <div class="glow-line"></div>
+            <div class="code-snippets-container">
+
+                <section class="info-section">
+
+                <h2 class="project-heading">Terminal-Based Islamic Inheritance Calculator</h2>
+                <div class="cert-text">A <b>terminal-based graphical Inheritance Calculator</b> developed solely in <a href="https://www.python.org/" target="_blank">Python</a>,
+                    designed to model <b>inheritance distribution</b> according to
+                    <a href="https://islamqa.info/en/answers/225165/rules-of-inheritance-in-islam" target="_blank">Islamic jurisprudence laws</a>.<br><br>
+                    
+                    Presented the Calculator as my <b>first project</b> at my school's annual science & art exhibition in <b>November 2021 (Grade 9)</b> and placed 2nd position.<br><br>
+
+                <!-- Inputs -->
+                <div class="code-snippet">
+                    <div class="code-snippet-header">
+                        <h5 class="code-snippet-title">
+                            <div class="code-language">
+                                <i class="language-icon video"></i>
+                            </div>
+                            Inheritance Calculator
+                        </h5>
+                        <button class="code-snippet-toggle">+</button>
+                    </div>
+
+                    <div class="code-snippet-content">
+                        <div class="video-container">
+                            <video class="size" loading="lazy" controls>
+                                <source src="vid/inheritance.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <pre class="code-snippet-code"><code class="language-html"></code></pre>
+                    </div>
+                </div>
+
+                <!-- Input Details-->
+                <div class="code-snippet">
+                    <div class="code-snippet-header">
+                        <h5 class="code-snippet-title">
+                            <div class="code-language">
+                                <i class="language-icon details"></i>
+                            </div>
+                            Input Details
+                        </h5>
+                        <button class="code-snippet-toggle">+</button>
+                    </div>
+
+                    <div class="code-snippet-content">
+                        <h5 class="code-snippet-title">&nbsp;The program prompts you to indicate the following:<h5><br>
+                        <pre class="code-snippet-code"><code class="language-html">13 inputs on relationship count (Spouse, Children, Grand Children, Siblings, etc)                            
+Wealth
+Zakat
+Mehr
+Loan
+Will</code></pre>
+                    </div>
+                </div>
+
+            
+
+
+                <!-- Outputs Features -->
+                <div class="code-snippet">
+                    <div class="code-snippet-header">
+                        <h5 class="code-snippet-title">
+                            <div class="code-language">
+                                <i class="language-icon details"></i>
+                            </div>
+                            Display Layouts
+                        </h5>
+                        <button class="code-snippet-toggle">+</button>
+                    </div>
+
+                    <div class="code-snippet-content">
+                        <h5 class="code-snippet-title">&nbsp;The shares of the heirs are presented in the following formats:<h5><br>
+                        <pre class="code-snippet-code"><code class="language-html">Text
+Percentages & Fractions of each heir's share
+Tree structure
+Table structure
+Array format
+Pie chart</code></pre>
+                    </div>
+                </div>
+
+                <!-- Project Features -->
+                <div class="code-snippet">
+                    <div class="code-snippet-header">
+                        <h5 class="code-snippet-title">
+                            <div class="code-language">
+                                <i class="language-icon features"></i>
+                            </div>
+                            Project Features
+                        </h5>
+                        <button class="code-snippet-toggle">+</button>
+                    </div>
+
+                    <div class="code-snippet-content">
+                        <h5 class="code-snippet-title">&nbsp;Main project skills:<h5><br>
+                        <pre class="code-snippet-code"><code class="language-html">Complex Validations & Exceptions
+Multiple libraries used for a graphical and user-friendly terminal interface
+Loading Bars, Colors & Emojis
+Accurately implemented Islamic Inheritance laws</code></pre>
+                    </div>
+                </div>
+
+
+
+                
+
+                    <h5 class="code-snippet-title">&nbsp;&nbsp;&nbsp;&nbsp;&#8202;
+                        <div class="code-language">
+                            <i class="language-icon duration"></i>
+                        </div>
+                        Project Duration:&nbsp;&nbsp;&nbsp;90+ hours (29 days)<br>
+                    </h5>
+                    <button class="see-more-btn" onclick="window.open('https://arubbinali.github.io/Docs.html#inheritance-docs', '_blank')">
+                        <i class="language-icon code"></i>
+                        Docs
+                    </button>
+
+                </div>
+                </section>
+                </div>
+                
+            </div>
+
+            <!-- GUI -->
+            <div id="gui-projects">
+            <h2 class="project-heading">Mathematical & Utility GUI software</h2>
+            <div class="glow-line"></div>
+            <div class="code-snippets-container">
+
+                <section class="info-section">
+
+                <h2 class="project-heading">Prototype GUI Software</h2>
+                <div class="cert-text">A <b>Prototype GUI Software</b> developed in <a href="https://www.python.org/" target="_blank">Python</a>
+                    (<a href="https://docs.python.org/3/library/tkinter.html#" target="_blank">Tkinter</a>
+                    & <a href="https://customtkinter.tomschimansky.com/" target="_blank">CustomTkinter</a>),
+                    featuring <b>mathematical calculators</b>, <b>time</b>, <b>utility</b>, and <b>miscellaneous modules</b>.
+                    It provides a simple interface for basic tasks, showcasing core GUI development concepts.<br><br>
+                    
+                    Presented the project as my <b>first GUI software</b> with <a href="https://github.com/shariqnauman/" target="_blank">Shariq</a> and <a href="https://github.com/Badareharm/" target="_blank">Ahmad</a> at my school's annual science & art exhibition in
+                    <b>November 2023 (Grade 11)</b> and placed 2nd position.<br><br>
+
+                    <!-- About -->
+                    <div class="code-snippet">
+                        <div class="code-snippet-header">
+                            <h5 class="code-snippet-title">
+                                <div class="code-language">
+                                    <i class="language-icon video"></i>
+                                </div>
+                                About
+                            </h5>
+                            <button class="code-snippet-toggle">+</button>
+                        </div>
+
+                        <div class="code-snippet-content">
+                            <div class="video-container">
+                                <video class="size" loading="lazy" controls>
+                                    <source src="vid/gui_main.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <pre class="code-snippet-code"><code class="language-html"></code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Code Overview -->
+                    <div class="code-snippet">
+                        <div class="code-snippet-header">
+                            <h5 class="code-snippet-title">
+                                <div class="code-language">
+                                    <i class="language-icon video"></i>
+                                </div>
+                                Code Overview
+                            </h5>
+                            <button class="code-snippet-toggle">+</button>
+                        </div>
+
+                        <div class="code-snippet-content">
+                            <div class="video-container">
+                                <video class="size" loading="lazy" controls>
+                                    <source src="vid/gui_code.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <pre class="code-snippet-code"><code class="language-html"></code></pre>
+                        </div>
+                    </div>
+
+                    <!-- MathLabGUI Video -->
+                    <div class="code-snippet">
+                        <div class="code-snippet-header">
+                            <h5 class="code-snippet-title">
+                                <div class="code-language">
+                                    <i class="language-icon video"></i>
+                                </div>
+                                MathLabGUI
+                            </h5>
+                            <button class="code-snippet-toggle">+</button>
+                        </div>
+
+                        <div class="code-snippet-content">
+                            <div class="video-container">
+                                <video class="size" loading="lazy" controls>
+                                    <source src="vid/mathlabgui.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <pre class="code-snippet-code"><code class="language-html"></code></pre>
+                        </div>
+                    </div>
+
+                    <h5 class="code-snippet-title">&nbsp;&nbsp;&nbsp;&nbsp;&#8202;
+                        <div class="code-language">
+                            <i class="language-icon duration"></i>
+                        </div>
+                        Project Duration:&nbsp;&nbsp;&nbsp;120+ hours (2 months)<br>
+                    </h5>
+
+                    <button class="see-more-btn" onclick="window.open('https://arubbinali.github.io/Docs.html#gui-docs', '_blank')">
+                        <i class="language-icon code"></i>
+                        Docs
+                    </button>
+
+                </div>
+                </section>
+                </div>
+                
+            </div>
+
+
+            <!-- MySQL Workbench -->
+            <div id="mysql-projects">
+            <h2 class="project-heading">MySQL Query Executor & Visualizer</h2>
+            <div class="glow-line"></div>
+            <div class="code-snippets-container">
+
+
+
+            
+                <section class="info-section">
+
+                <h2 class="project-heading">MySQL Query Executor & Visualizer (GUI)</h2>
+                <div class="cert-text">A graphical <b>MySQL Query Executor</b> developed in <a href="https://www.python.org/" target="_blank">Python</a>
+                    (<a href="https://docs.python.org/3/library/tkinter.html#" target="_blank">Tkinter</a>
+                    & <a href="https://customtkinter.tomschimansky.com/" target="_blank">CustomTkinter</a>)
+                    & <a href="https://www.mysql.com/" target="_blank">SQL</a> with a Data Manipulation Language Executor,
+                    Data Query Language Executor and a Table Schema Viewer.<br><br>
+                    
+                    A private group project completed in September 2024 with <a href="https://github.com/Badareharm/" target="_blank">Ahmad</a>.<br><br>
+
+                    <!-- DMLExecutor -->
+                    <div class="code-snippet">
+                        <div class="code-snippet-header">
+                            <h5 class="code-snippet-title">
+                                <div class="code-language">
+                                    <i class="language-icon video"></i>
+                                </div>
+                                DMLExecutor
+                            </h5>
+                            <button class="code-snippet-toggle">+</button>
+                        </div>
+
+                        <div class="code-snippet-content">
+                            <div class="video-container">
+                                <video class="size" loading="lazy" controls>
+                                    <source src="vid/dmlexecutor.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <pre class="code-snippet-code"><code class="language-html"></code></pre>
+                        </div>
+                    </div>
+
+                    <!-- DQLExecutor -->
+                    <div class="code-snippet">
+                        <div class="code-snippet-header">
+                            <h5 class="code-snippet-title">
+                                <div class="code-language">
+                                    <i class="language-icon video"></i>
+                                </div>
+                                DQLExecutor
+                            </h5>
+                            <button class="code-snippet-toggle">+</button>
+                        </div>
+
+                        <div class="code-snippet-content">
+                            <div class="video-container">
+                                <video class="size" loading="lazy" controls>
+                                    <source src="vid/dqlexecutor.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <pre class="code-snippet-code"><code class="language-html"></code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Table Description -->
+                    <div class="code-snippet">
+                        <div class="code-snippet-header">
+                            <h5 class="code-snippet-title">
+                                <div class="code-language">
+                                    <i class="language-icon video"></i>
+                                </div>
+                                Table Description
+                            </h5>
+                            <button class="code-snippet-toggle">+</button>
+                        </div>
+
+                        <div class="code-snippet-content">
+                            <div class="video-container">
+                                <video class="size" loading="lazy" controls>
+                                    <source src="vid/tabledescription.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <pre class="code-snippet-code"><code class="language-html"></code></pre>
+                        </div>
+                    </div>
+
+                    <h5 class="code-snippet-title">&nbsp;&nbsp;&nbsp;&nbsp;&#8202;
+                        <div class="code-language">
+                            <i class="language-icon duration"></i>
+                        </div>
+                        Project Duration:&nbsp;&nbsp;&nbsp;100+ hours (1.5 months)<br>
+                    </h5>
+
+                    <button class="see-more-btn" onclick="window.open('https://arubbinali.github.io/Docs.html#mysql-docs', '_blank')">
+                        <i class="language-icon code"></i>
+                        Docs
+                    </button>
+
+                </div>
+                </section>
+                </div>
+                
+            </div>
+
+
+            <!-- Bonus Projects -->
+            <div id="bonus-projects">
+                <h2 class="project-heading">BONUS</h2>
+                <div class="glow-line"></div>
+                <div class="code-snippets-container">
+    
+    
+    
+                
+                    <section class="info-section">
+                    <h2 class="project-heading">A compilation of my mini Js projects on Khan Academy</h2>
+                    <div class="cert-text">
+                        I began learning <a href="https://www.javascript.com/" target="_blank">JavaScript</a> (<a href="https://github.com/processing-js/processing-js" target="_blank">ProcessingJS</a>)
+                        on <a href="https://www.khanacademy.org/" target="_blank">Khan Academy</a> in 2017 and developed <b>several mini-projects</b> along the way.
+                        This project serves as the final
+                        <a href="https://www.khanacademy.org/computer-programming/a-compilation-of-my-mini-js-programs-2017-2020/6623482539327488" target="_blank">compilation</a>,
+                        linking all my previous work into <b>one central project</b>.<br><br>
+                        
+                        Compilation of my Khan Academy projects from <b>2017 to 2020</b>.<br><br><br>
+                    </div>
+
+                    <h2 class="project-heading">My Digital Portfolio (This Website)</h2>
+                    <div class="cert-text">A compilation showcasing all my professional <b>solo projects</b>, <b>group projects</b>, <b>certifications</b> and <b>docs</b>.
+                        Learn more <a href="https://arubbinali.github.io/About.html#about-content" target="_blank">about</a> the website.<br><br>
+                        
+                        All showacased work on the website is from <b>2017 to the present day</b>.<br><br>
+                    </div>
+                    </section>
+                    </div>
+                    
+                </div>
+
+
+        </div>
+
+        
+    </main>
+
+    <!-- Screen Dimmer Overlay -->
+    <div id="screen-dimmer" class="hidden"></div>
+
+    <!-- Terminal & Fullscreen buttons -->
+    <div id="terminal-icon" title="Open Terminal"><i class="fas fa-terminal"></i> Terminal</div>
+    <div id="fullscreen-icon" title="Full Screen" class="hidden"><i class="fas fa-expand-alt"></i> Full Screen</div>
+
+    <!-- Interactive Terminal -->
+    <div id="terminal" style="font-size: 0.88rem; line-height: 1.65; text-align: left;">
+        <div id="terminal-header"><i class="fas fa-terminal"></i> Terminal</div>
+        <div id="terminal-output" style="font-size: 0.88rem; line-height: 1.65; text-align: left; padding: 15px; color: #c8ccd4;">
+            <h3 style="margin-top: 0; padding-top: 0;">👋 Welcome to my Portfolio Terminal</h3>
+            <p style="margin: 0 0 7px 0; font-size: 0.88rem;">Type <b>help</b> to see available commands.</p>
+        </div>
+        <div id="terminal-input-line" style="padding: 10px 15px;">
+            <span class="prompt" style="margin-right: 10px; color: #569cd6; font-weight: 500; font-size: 0.9rem;">$&gt;</span>
+            <input type="text" id="terminal-input" autofocus autocomplete="off" style="color: #d1d5db; font-size: 0.88rem;">
+        </div>
+    </div>
+    <!-- End Interactive Terminal -->
+
+    <div class="scroll-arrow" id="scrollArrow"></div>
+    <div class="scroll-to-top" id="scrollToTop"><span class="arrow"></span></div>
+    <footer class="enhanced-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="Projects.html"><i class="fas fa-folder-open"></i> Projects</a></li>
+                    <li><a href="Docs.html"><i class="fas fa-book"></i> Documentation</a></li>
+                    <li><a href="Certifications.html"><i class="fa-solid fa-award"></i> Certifications</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="LearningSources.html"><i class="fas fa-lightbulb"></i> Learning Sources</a></li>
+                    <li><a href="About.html"><i class="fas fa-user"></i> About Me</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Utilities</h3>
+                <ul>
+                    <li><a href="https://arubbinali.github.io/utilities/dt/index.html" target="_blank"><i class="far fa-clock"></i> Date & Time</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-socials">
+                <a href="https://github.com/arubbinali/" class="discord-link" target="_blank" title="GitHub"><i class="fab fa-github"></i><div class="discord-popup">arubbinali</div></a>
+                <a href="https://www.linkedin.com/in/arubbinali/" class="discord-link" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i><div class="discord-popup">arubbinali</div></a>
+                <a href="#" class="discord-link" title="Discord"><i class="fab fa-discord"></i><div class="discord-popup">arub</div></a>
+            </div>
+            <p>&copy; Arub 2024 - 2026 | All Rights Reserved</p>
+        </div>
+    </footer>
+    </div>
+
+    <script>
+        // Function to truncate code for preview
+        function truncateCode(code, lines = 100) {
+            const codeLines = code.split('\n');
+            if (codeLines.length > lines) {
+                return codeLines.slice(0, lines).join('\n');
+            }
+            return code;    
+        }
+    
+        // Function to toggle code snippet visibility
+        document.querySelectorAll('.code-snippet-header').forEach(header => {
+            const content = header.nextElementSibling;
+            const codeElement = content.querySelector('code');
+            const fullCode = codeElement.textContent;
+            
+            // Store full code and set truncated preview
+            codeElement.dataset.fullCode = fullCode;
+            codeElement.textContent = truncateCode(fullCode);
+            
+            // Apply line numbers initially to truncated code
+            content.querySelector('.code-snippet-code').innerHTML = formatCodeWithLineNumbers(codeElement.textContent);
+    
+            header.addEventListener('click', () => {
+                const toggle = header.querySelector('.code-snippet-toggle');
+                content.classList.toggle('expanded');
+                toggle.textContent = content.classList.contains('expanded') ? '-' : '+';
+                
+                // When expanded, show full code with line numbers
+                if (content.classList.contains('expanded')) {
+                    codeElement.innerHTML = formatCodeWithLineNumbers(codeElement.dataset.fullCode);
+                } else {
+                    codeElement.innerHTML = formatCodeWithLineNumbers(truncateCode(codeElement.dataset.fullCode));
+                }
+            });
+        });
+    
+        // Function to format code with line numbers for modal
+        function formatCodeWithLineNumbers(code) {
+            const lines = code.split('\n');
+            const totalLines = lines.length;
+            const lineNumberWidth = totalLines.toString().length;
+    
+            return lines.map((line, index) => {
+                const lineNum = (index + 1).toString().padStart(lineNumberWidth, ' ');
+                return `<span class="code-line"><span class="line-number" style="width: ${lineNumberWidth}ch">${lineNum}&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="line-content">${line}</span></span>`;
+            }).join('\n');
+        }
+    </script>
+    <script src="script.js" defer></script>
+</body>
+</html>
