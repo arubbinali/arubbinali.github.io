@@ -1,0 +1,35 @@
+.page-transition {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  background-color: black;
+  overflow: hidden;
+  animation-duration: 0.9s;
+  animation-timing-function: ease;
+}
+
+.page-transition.fade-in {
+  animation-name: fadeInFromBlack;
+}
+
+.page-transition.fade-out {
+  animation-name: fadeOutToBlack;
+}
+
+@keyframes fadeInFromBlack {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutToBlack {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
