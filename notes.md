@@ -2,12 +2,25 @@
 
 how is yalllll, i js started to work on this page, tonight is the 11th of august 2026. ive just put whatever really under this text so dont mind me but yeahh, have an ice cream :)
 
-# Shalom my friends
+<iframe
+  src="https://quran.com/embed/v1?verses=25%3A70&reciter=10&mushaf=kfgqpc_v1"
+  width="100%"
+  data-quran-embed="true"
+  allow="clipboard-write"
+  frameborder="0">
+</iframe>
+<script defer src="https://quran.com/widget/embed-widget.v1.js"></script>
 
+## Helloww lameloww ball
 
-
-# Helloww lameloww ball
-
+<iframe
+  src="https://quran.com/embed/v1?verses=13%3A28&reciter=10&mushaf=kfgqpc_v1"
+  width="100%"
+  data-quran-embed="true"
+  allow="clipboard-write"
+  frameborder="0">
+</iframe>
+<script defer src="https://quran.com/widget/embed-widget.v1.js"></script>
 
 # **irrefutable proof of Allaah and all His attributes** 
 [here](https://trueislamlibrary.com/post/the-argument-from-specification-and-definition-a-logical-proof-of-god-and-his-attributes)
