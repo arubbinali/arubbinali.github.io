@@ -13,11 +13,6 @@
 </head>
 <body>
     
-    <!-- Mobile/Zoom out text -->
-    <div id="mobile-message">
-        <p>Run the website on a laptop or PC & zoom out if you are already using one.</p>
-    </div>
-
     <!-- Intro screen -->
     <div id="intro-screen">
         <div id="intro-text-wrapper">
@@ -220,7 +215,7 @@
     </div>
     <!-- End Interactive Terminal -->
 
-    <div class="scroll-arrow" id="scrollArrow"></div>
+    <button class="scroll-arrow" id="scrollArrow" type="button" aria-label="Scroll to page content"></button>
     <div class="scroll-to-top" id="scrollToTop"><span class="arrow"></span></div>
     <footer class="enhanced-footer">
         <div class="footer-content">
@@ -257,6 +252,7 @@
     </footer>
     </div>
 
+    <script src="vendor/lenis.min.js" defer></script>
     <script src="script.js" defer></script>
 </body>
 </html>

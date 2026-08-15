@@ -240,7 +240,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }, { threshold: 0.5 });
 
-    observer.observe(document.querySelector(".count"));
+    const counterSection = document.querySelector(".count");
+    if (counterSection) observer.observe(counterSection);
 });
 
 

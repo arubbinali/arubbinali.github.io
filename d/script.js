@@ -1,10 +1,3 @@
-window.onload = function() {
-    let preloadIframe = document.createElement("iframe");
-    preloadIframe.src = "for site/move/main.html";
-    preloadIframe.style.display = "none";
-    document.body.appendChild(preloadIframe);
-};
-
 document.addEventListener('DOMContentLoaded', () => {
     // Get the elements
     const introScreen = document.getElementById('intro-screen'); // Updated id
@@ -31,6 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
 // Ensure the DOM is fully loaded before running the script
 document.addEventListener('DOMContentLoaded', function () {
     const scrollArrow = document.getElementById('scrollArrow');  // Get the down arrow element
+
+    if (scrollArrow) {
+        scrollArrow.addEventListener('click', function() {
+            const contentSection = document.querySelector('.main-sections, .content-sections');
+            if (!contentSection) return;
+            const target = contentSection.getBoundingClientRect().top + window.scrollY;
+            if (window.portfolioLenis) window.portfolioLenis.scrollTo(target);
+            else window.scrollTo({ top: target, behavior: 'smooth' });
+        });
+    }
 
     // Function to handle scroll behavior and fading of the arrow
     function handleScroll() {
@@ -832,35 +835,6 @@ document.querySelectorAll('.main-image').forEach(image => {
     event.preventDefault(); // Prevents the default behavior of the button click
 }
 
-// Function to check if the device is mobile
-function isMobile() {
-    return window.innerWidth <= 1000 || /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent);
-}
-
-// Check on page load
-window.onload = function() {
-    if (isMobile()) {
-        // If it's mobile, hide content and show mobile message
-        document.getElementById('mobile-message').style.display = 'flex';
-        document.getElementById('content').style.display = 'none';
-    } else {
-        // If it's not mobile (i.e., laptop/PC), hide the mobile message
-        document.getElementById('mobile-message').style.display = 'none';
-        document.getElementById('content').style.display = 'block';
-    }
-};
-
-// Re-check when the window is resized
-window.onresize = function() {
-    if (isMobile()) {
-        document.getElementById('mobile-message').style.display = 'flex';
-        document.getElementById('content').style.display = 'none';
-    } else {
-        document.getElementById('mobile-message').style.display = 'none';
-        document.getElementById('content').style.display = 'block';
-    }
-};
-
 // Matrix Digital Rain Animation
 const canvas = document.getElementById('particleCanvas');
 const ctx = canvas.getContext('2d');
@@ -984,10 +958,14 @@ const firebaseConfig = {
     measurementId: "G-4HJCK9D24W"
 };
 
-// Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const database = firebase.database(app);
-const visitorRef = database.ref('visitors');
+// Initialize Firebase when its SDK is available. The portfolio should remain
+// usable when trackers are blocked or the network is unavailable.
+let visitorRef = null;
+if (typeof firebase !== 'undefined') {
+    const app = firebase.initializeApp(firebaseConfig);
+    const database = firebase.database(app);
+    visitorRef = database.ref('visitors');
+}
 
 // Function to update counter display with animation
 function updateCounterDisplay(count) {
@@ -1017,7 +995,7 @@ function updateCounterDisplay(count) {
 
 document.addEventListener('DOMContentLoaded', function() {
     // Check if this is a new session
-    if (!sessionStorage.getItem('hasVisited')) {
+    if (visitorRef && !sessionStorage.getItem('hasVisited')) {
         sessionStorage.setItem('hasVisited', 'true');
         
         // Increment visitor count in Firebase
@@ -1027,13 +1005,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Listen for real-time updates
-    visitorRef.on('value', (snapshot) => {
-        const count = snapshot.val() || 0;
-        updateCounterDisplay(count);
-    });
+    if (visitorRef) {
+        visitorRef.on('value', (snapshot) => {
+            const count = snapshot.val() || 0;
+            updateCounterDisplay(count);
+        });
+    }
     
     // Counter display setup
     const counterDisplay = document.querySelector('.counter-display');
+    const counterValue = document.getElementById('cntr');
+    if (!counterDisplay || !counterValue) return;
 
     function createDigitBox() {
         const box = document.createElement('div');
@@ -1111,7 +1093,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Update display
-    document.getElementById('cntr').textContent = 0;
+    counterValue.textContent = 0;
 });
 
 // Modal functionality
@@ -1134,9 +1116,13 @@ document.querySelectorAll('.see-more-btn').forEach(button => {
 });
 
 // Close modal when clicking the close button or outside
-document.querySelector('.close-modal').addEventListener('click', () => {
-    document.getElementById('codeModal').style.display = 'none';
-});
+const closeModalButton = document.querySelector('.close-modal');
+if (closeModalButton) {
+    closeModalButton.addEventListener('click', () => {
+        const modal = document.getElementById('codeModal');
+        if (modal) modal.style.display = 'none';
+    });
+}
 
 window.addEventListener('click', (event) => {
     const modal = document.getElementById('codeModal');
@@ -1300,6 +1286,28 @@ document.addEventListener("DOMContentLoaded", function() {
     window.addEventListener('resize', checkFadeElements);
 });
 
+// Match the smooth scrolling used by the main portfolio while preserving
+// native touch scrolling and accessibility preferences.
+document.addEventListener('DOMContentLoaded', function() {
+    if (!window.Lenis || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const lenis = new window.Lenis({
+        duration: 1.2,
+        easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2
+    });
+
+    function smoothScrollFrame(time) {
+        lenis.raf(time);
+        requestAnimationFrame(smoothScrollFrame);
+    }
+    requestAnimationFrame(smoothScrollFrame);
+    window.portfolioLenis = lenis;
+});
+
 // Hide scroll arrow on scroll, show/hide back to top button
 (function() {
     const scrollArrow = document.getElementById('scrollArrow');
@@ -1317,7 +1325,8 @@ document.addEventListener("DOMContentLoaded", function() {
     handleScroll();
     if(scrollToTop) {
         scrollToTop.addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (window.portfolioLenis) window.portfolioLenis.scrollTo(0);
+            else window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
 })();
