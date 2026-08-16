@@ -27,9 +27,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (scrollArrow) {
         scrollArrow.addEventListener('click', function() {
-            const contentSection = document.querySelector('.main-sections, .content-sections');
+            const isPortfolioHome = document.body.classList.contains('portfolio-home');
+            const contentSection = isPortfolioHome
+                ? document.querySelector('.main-content')
+                : document.querySelector('.content-sections');
             if (!contentSection) return;
-            const target = contentSection.getBoundingClientRect().top + window.scrollY;
+            const revealOffset = isPortfolioHome ? Math.min(window.innerHeight * 0.12, 120) : 0;
+            const target = contentSection.getBoundingClientRect().top + window.scrollY - revealOffset;
             if (window.portfolioLenis) window.portfolioLenis.scrollTo(target);
             else window.scrollTo({ top: target, behavior: 'smooth' });
         });
