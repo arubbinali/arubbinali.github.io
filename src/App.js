@@ -1,12 +1,12 @@
 // test deploy
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import Lenis from "lenis";
 import Main from "./pages/main";
-import About from "./pages/about";
-import Why from "./pages/why";
 import Resume from "./pages/resume";
 import Notes from "./pages/notes";
+
+const TRLPage = lazy(() => import("./pages/trl"));
 
 function App() {
   useEffect(() => {
@@ -20,6 +20,9 @@ function App() {
       smoothTouch: false,
       touchMultiplier: 2,
       infinite: false,
+      prevent: (node) =>
+        document.body.classList.contains("trl-page-active") ||
+        Boolean(node.closest?.("[data-lenis-prevent]")),
     });
 
     let frameId;
@@ -42,10 +45,16 @@ function App() {
         {/* root route goes to main page */}
         <Route path="/" element={<Main />} />
         <Route path="/main" element={<Main />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/why" element={<Why />} />
         <Route path="/resume" element={<Resume />} />
         <Route path="/notes" element={<Notes />} />
+        <Route
+          path="/trl"
+          element={
+            <Suspense fallback={<div style={{ background: "#000", color: "#8a9099", display: "grid", fontFamily: "Montserrat, sans-serif", minHeight: "100vh", placeItems: "center" }}>Loading TRL…</div>}>
+              <TRLPage />
+            </Suspense>
+          }
+        />
         {/* fallback: unknown routes go to main page */}
         <Route path="*" element={<Main />} />
       </Routes>
