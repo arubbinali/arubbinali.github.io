@@ -20,6 +20,7 @@ export const TIMEZONE_OPTIONS = [
   { id: "Asia/Seoul", city: "Seoul", country: "South Korea", aliases: "korea" },
   { id: "Australia/Sydney", city: "Sydney", country: "Australia", aliases: "australia nsw" },
   { id: "Australia/Melbourne", city: "Melbourne", country: "Australia", aliases: "australia victoria" },
+  { id: "Australia/Canberra", city: "Canberra", country: "Australia", aliases: "australia act capital" },
   { id: "Pacific/Auckland", city: "Auckland", country: "New Zealand", aliases: "nz" },
   { id: "Europe/Paris", city: "Paris", country: "France", aliases: "france cet" },
   { id: "Europe/Berlin", city: "Berlin", country: "Germany", aliases: "germany cet" },
@@ -40,7 +41,7 @@ export const TIMEZONE_OPTIONS = [
 ];
 
 export function getDefaultTimezones() {
-  const defaultIds = ["Europe/Istanbul", "Asia/Gaza", "trl/Dagestan"];
+  const defaultIds = ["Australia/Canberra", "Asia/Gaza", "trl/Dagestan"];
   return defaultIds.map((id) => TIMEZONE_OPTIONS.find((option) => option.id === id));
 }
 

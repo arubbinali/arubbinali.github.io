@@ -123,6 +123,8 @@ body {
 .main-discord-icon svg { height: 14px; width: 14px; }
 .main-github-connection { text-decoration: none; }
 .main-github-icon { background: #31343a; color: #f1f3f5; }
+.main-linkedin-connection { text-decoration: none; }
+.main-linkedin-icon { background: #31526a; color: #e5f1f8; }
 .main-discord-status { background: #7e9b89; border-radius: 50%; box-shadow: 0 0 0 3px rgba(126,155,137,.1); height: 5px; width: 5px; }
 
 .main-discord-card {

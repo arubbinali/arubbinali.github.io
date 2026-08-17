@@ -19,6 +19,14 @@ function GitHubIcon() {
   );
 }
 
+function LinkedInIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="currentColor" d="M5.34 7.65H1.7V19.3h3.64V7.65ZM3.52 1.7a2.11 2.11 0 1 0 0 4.22 2.11 2.11 0 0 0 0-4.22ZM19.3 7.38c-1.75 0-2.92.96-3.4 1.88h-.05V7.65h-3.49V19.3H16v-5.76c0-1.52.29-2.99 2.17-2.99 1.85 0 1.87 1.73 1.87 3.09v5.66h3.65v-6.38c0-3.13-.68-5.54-4.39-5.54Z" />
+    </svg>
+  );
+}
+
 function Main() {
   const [showContent, setShowContent] = useState(false);
   const [discordCopied, setDiscordCopied] = useState(false);
@@ -101,6 +109,15 @@ function Main() {
             <span className="main-discord-card">
               <strong>arubbinali</strong>
               <small>View GitHub profile</small>
+            </span>
+          </a>
+          <a className="main-discord-connection main-linkedin-connection" href="https://www.linkedin.com/in/arubbinali" target="_blank" rel="noopener noreferrer" aria-label="Open arubbinali on LinkedIn">
+            <span className="main-discord-icon main-linkedin-icon"><LinkedInIcon /></span>
+            <span className="main-discord-label">LinkedIn</span>
+            <span className="main-discord-status" aria-hidden="true" />
+            <span className="main-discord-card">
+              <strong>arubbinali</strong>
+              <small>View LinkedIn profile</small>
             </span>
           </a>
         </footer>

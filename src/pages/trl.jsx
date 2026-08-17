@@ -6,6 +6,7 @@ import HistoryPanel from "../features/trl/HistoryPanel";
 import NotesPanel from "../features/trl/NotesPanel";
 import TimezonePanel from "../features/trl/TimezonePanel";
 import TRLContextMenu from "../features/trl/TRLContextMenu";
+import TRLIcon from "../features/trl/TRLIcon";
 import WidgetFrame from "../features/trl/WidgetFrame";
 import { calculate } from "../features/trl/mathEngine";
 import { readLocalValue, writeLocalValue } from "../features/trl/storage";
@@ -231,6 +232,10 @@ function TRLPage() {
 
   return (
     <div className="trl-app" onContextMenu={(event) => openContextMenu(event)}>
+      <a className="trl-home-link" href="/" aria-label="Back to home">
+        <TRLIcon name="arrow" />
+        <span>Home</span>
+      </a>
       <main className={`trl-workspace ${layoutReady ? "is-ready" : ""} ${expandedWidget ? "has-expanded" : ""}`} ref={boardRef}>
         {!visibleWidgetIds.length && (
           <div className="trl-empty-workspace">
