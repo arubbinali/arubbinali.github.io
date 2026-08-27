@@ -89,11 +89,13 @@ body {
   -webkit-background-clip: text;
   width: 100%;
 }.center-text .main-home-translation{color:#c8c4bc;
-  font-size: clamp(.7rem, .95vw, .86rem);
-  font-weight: 300;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(.82rem, 1.1vw, .98rem);
+  font-weight: 400;
   line-height: 1.7;
   margin: 0 auto;
   max-width: 900px;
+  letter-spacing: .02em;
 }
 
 .temp-link {

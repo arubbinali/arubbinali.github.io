@@ -6,6 +6,7 @@ import Main from "./pages/main";
 import Resume from "./pages/resume";
 import Notes from "./pages/notes";
 import Light from "./pages/light";
+import About from "./pages/about";
 
 const TRLPage = lazy(() => import("./pages/trl"));
 
@@ -49,6 +50,7 @@ function App() {
         <Route path="/resume" element={<Resume />} />
         <Route path="/notes" element={<Notes />} />
         <Route path="/light" element={<Light />} />
+        <Route path="/about" element={<About />} />
         <Route
           path="/trl"
           element={

@@ -561,9 +561,9 @@
   color: rgba(235,231,219,.48);
   cursor: pointer;
   display: flex;
-  font: 300 .62rem/1 'Montserrat', sans-serif;
+  font: 400 .75rem/1 'Montserrat', sans-serif;
   gap: .65rem;
-  letter-spacing: .16em;
+  letter-spacing: .14em;
   padding: .75rem;
   position: fixed;
   left: 28px;
