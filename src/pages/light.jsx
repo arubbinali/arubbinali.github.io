@@ -5,26 +5,10 @@ import IntroAnimation from "../components/intro";
 import "./light.css";
 
 const READERS = [
-  {
-    id: "muslim",
-    label: "Muslim",
-    labelAr: "مسلم",
-  },
-  {
-    id: "christian",
-    label: "Christian",
-    labelAr: "مسيحي",
-  },
-  {
-    id: "jew",
-    label: "Jew",
-    labelAr: "يهودي",
-  },
-  {
-    id: "atheist",
-    label: "atheist",
-    labelAr: "ملحد",
-  },
+  { id: "muslim", label: "Muslim", labelAr: "مسلم" },
+  { id: "christian", label: "Christian", labelAr: "مسيحي" },
+  { id: "jew", label: "Jew", labelAr: "يهودي" },
+  { id: "atheist", label: "atheist", labelAr: "ملحد" },
 ];
 
 const LANGUAGES = [
@@ -40,21 +24,10 @@ const DIRECTORY = [
     eyebrow: "Begin here",
     eyebrowAr: "ابدأ هنا",
     entries: [
-      {
-        id: "signs",
-        title: "The signs in the horizons",
-        titleAr: "اياتنا في الافاق",
-        description: "Qur'an 41:53, approached through four different ways of reading.",
-        descriptionAr: "قراءة الاية ٤١:٥٣ من خلال أربع وجهات نظر مختلفة.",
-        available: true,
-      },
-      {
-        id: "first-question",
-        title: "Before the first question",
-        titleAr: "قبل السؤال الأول",
-        description: "A short orientation to belief, evidence, and honest inquiry.",
-        descriptionAr: "تمهيد قصير حول الإيمان والدليل والبحث الصادق.",
-      },
+      { id: "signs", title: "The signs in the horizons", titleAr: "اياتنا في الافاق", description: "Qur'an 41:53, approached through four different ways of reading.", descriptionAr: "قراءة الاية ٤١:٥٣ من خلال أربع وجهات نظر مختلفة.", available: true },
+      { id: "first-question", title: "Before the first question", titleAr: "قبل السؤال الأول", description: "A short orientation to belief, evidence, and honest inquiry.", descriptionAr: "تمهيد قصير حول الإيمان والدليل والبحث الصادق." },
+      { id: "purpose", title: "On purpose and direction", titleAr: "عن الغاية والاتجاه", description: "What it means to live with intention in a distracted age.", descriptionAr: "ما معنى العيش بقصد في عصر مشتت." },
+      { id: "starting-point", title: "Where to begin", titleAr: "من أين نبدأ", description: "A practical map for honest seekers.", descriptionAr: "خريطة عملية للباحثين الصادقين." },
     ],
   },
   {
@@ -64,20 +37,25 @@ const DIRECTORY = [
     eyebrow: "Claims, examined",
     eyebrowAr: "مراجعة الادعاءات",
     entries: [
-      {
-        id: "silent-universe",
-        title: "The myth of a silent universe",
-        titleAr: "خرافة الكون الصامت",
-        description: "On signs, meaning, and whether reality speaks beyond itself.",
-        descriptionAr: "عن الايات والمعنى، وهل يشير الواقع إلى ما وراءه.",
-      },
-      {
-        id: "certainty-doubt",
-        title: "Certainty and doubt",
-        titleAr: "اليقين والشك",
-        description: "What skepticism can reveal—and what it quietly assumes.",
-        descriptionAr: "ما الذي يكشفه الشك، وما الذي يفترضه بصمت.",
-      },
+      { id: "silent-universe", title: "The myth of a silent universe", titleAr: "خرافة الكون الصامت", description: "On signs, meaning, and whether reality speaks beyond itself.", descriptionAr: "عن الايات والمعنى، وهل يشير الواقع إلى ما وراءه." },
+      { id: "certainty-doubt", title: "Certainty and doubt", titleAr: "اليقين والشك", description: "What skepticism can reveal—and what it quietly assumes.", descriptionAr: "ما الذي يكشفه الشك، وما الذي يفترضه بصمت." },
+      { id: "design-illusion", title: "Design or illusion?", titleAr: "تصميم أم وهم؟", description: "Examining the fine-tuning argument from multiple angles.", descriptionAr: "تحليل حجة الضبط الدقيق من زوايا متعددة." },
+      { id: "problem-evil", title: "The problem of suffering", titleAr: "مشكلة المعاناة", description: "A response to one of the oldest objections.", descriptionAr: "رد على أحد أقدم الاعتراضات." },
+      { id: "science-faith", title: "Science versus faith?", titleAr: "العلم ضد الإيمان؟", description: "Why the conflict thesis doesn't hold up.", descriptionAr: "لماذا نظرية الصدام لا تصمد." },
+    ],
+  },
+  {
+    id: "proofs",
+    title: "Proofs",
+    titleAr: "ادلة",
+    eyebrow: "Evidence, gathered",
+    eyebrowAr: "الأدلة",
+    entries: [
+      { id: "cosmic", title: "The cosmic fine-tuning", titleAr: "الضبط الدقيق الكوني", description: "Why the constants of physics point beyond themselves.", descriptionAr: "لماذا ثوابت الفيزياء تشير إلى ما وراءها." },
+      { id: "consciousness", title: "The hard problem of consciousness", titleAr: "المشكلة الصعبة في الوعي", description: "On the mystery that materialism struggles to explain.", descriptionAr: "عن اللغز الذي يعجز المادية عن تفسيره." },
+      { id: "moral", title: "Moral reality", titleAr: "الحقائق الأخلاقية", description: "Why objective morality makes more sense with God.", descriptionAr: "لماذا الأخلاق الموضوعية تتسق أكثر مع الله." },
+      { id: "information", title: "The origin of information", titleAr: "منشأ المعلومات", description: "What DNA reveals about design and intention.", descriptionAr: "ما يكشفه الحمض النووي عن التصميم والقصد." },
+      { id: "resurrection", title: "The resurrection question", titleAr: "سؤال القيامة", description: "Historical evidence for the most consequential claim.", descriptionAr: "الدليل التاريخي على أهم ادعاء في التاريخ." },
     ],
   },
   {
@@ -87,20 +65,11 @@ const DIRECTORY = [
     eyebrow: "Kept close",
     eyebrowAr: "نصوص قريبة",
     entries: [
-      {
-        id: "wonder",
-        title: "A note on wonder",
-        titleAr: "ملاحظة عن الدهشة",
-        description: "Small observations worth returning to slowly.",
-        descriptionAr: "تأملات صغيرة تستحق العودة إليها ببطء.",
-      },
-      {
-        id: "soul-remembers",
-        title: "What the soul remembers",
-        titleAr: "ما تتذكره الروح",
-        description: "Fragments on recognition, longing, and return.",
-        descriptionAr: "شذرات عن المعرفة والحنين والعودة.",
-      },
+      { id: "wonder", title: "A note on wonder", titleAr: "ملاحظة عن الدهشة", description: "Small observations worth returning to slowly.", descriptionAr: "تأملات صغيرة تستحق العودة إليها ببطء." },
+      { id: "soul-remembers", title: "What the soul remembers", titleAr: "ما تتذكره الروح", description: "Fragments on recognition, longing, and return.", descriptionAr: "شذرات عن المعرفة والحنين والعودة." },
+      { id: "quiet-truth", title: "The quiet truth", titleAr: "الحقيقة الهادئة", description: "On the kind of knowledge that settles rather than excites.", descriptionAr: "عن نوع المعرفة الذي يهدئ بدل ما يثير." },
+      { id: "letter-young", title: "A letter to the younger self", titleAr: "رسالة للذات الأصغر", description: "What I'd say if I could speak across years.", descriptionAr: "ما الذي سأقوله لو أستطيع التحدث عبر السنوات." },
+      { id: "return", title: "On returning", titleAr: "عن العودة", description: "Meditation on homecoming and what waits there.", descriptionAr: "تأمل في العودة إلى الوطن وما ينتظر هناك." },
     ],
   },
 ];
@@ -146,6 +115,7 @@ export default function Light() {
   const [languageHovered, setLanguageHovered] = useState(false);
   const [controlsHidden, setControlsHidden] = useState(false);
   const [content, setContent] = useState("");
+  const [hoveredSection, setHoveredSection] = useState(null);
   const pickerRef = useRef(null);
   const languageRef = useRef(null);
   const readerStageRef = useRef(null);
@@ -155,7 +125,6 @@ export default function Light() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-
     const close = (event) => {
       if (!pickerRef.current?.contains(event.target)) setOpen(false);
       if (!languageRef.current?.contains(event.target)) setLanguageOpen(false);
@@ -171,26 +140,21 @@ export default function Light() {
       controlsHiddenRef.current = hidden;
       setControlsHidden(hidden);
     };
-
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-
       if (scrollPosition > 2) {
         setOpen(false);
         setLanguageOpen(false);
         setPickerHovered(false);
         setLanguageHovered(false);
       }
-
       if (!reader || scrollPosition <= 2) {
         updateControlsHidden(false);
         return;
       }
-
       if (!controlsHiddenRef.current && readerStageRef.current && readingInnerRef.current) {
         const controlsBottom = readerStageRef.current.getBoundingClientRect().bottom;
         const articleTop = readingInnerRef.current.getBoundingClientRect().top;
-
         if (articleTop <= controlsBottom + 72) updateControlsHidden(true);
       }
     };
@@ -282,9 +246,7 @@ export default function Light() {
     entries: section.entries.filter((entry) => {
       if (!normalizedQuery) return true;
       return [section.title, section.titleAr, entry.title, entry.titleAr, entry.description, entry.descriptionAr]
-        .join(" ")
-        .toLocaleLowerCase()
-        .includes(normalizedQuery);
+        .join(" ").toLocaleLowerCase().includes(normalizedQuery);
     }),
   })).filter((section) => section.entries.length);
 
@@ -295,40 +257,14 @@ export default function Light() {
       <div className={`light-shell ${showContent ? "is-visible" : ""}`}>
         <div className="light-ambient" aria-hidden="true">
           {MOTES.map((mote) => (
-            <i
-              className="light-mote"
-              key={mote.id}
-              style={{
-                "--mote-x": `${mote.x}%`,
-                "--mote-delay": `${mote.delay}s`,
-                "--mote-duration": `${mote.duration}s`,
-                "--mote-size": `${mote.size}px`,
-              }}
-            />
+            <i className="light-mote" key={mote.id} style={{ "--mote-x": `${mote.x}%`, "--mote-delay": `${mote.delay}s`, "--mote-duration": `${mote.duration}s`, "--mote-size": `${mote.size}px` }} />
           ))}
         </div>
 
         <section className="light-language-stage" aria-label="Choose a language">
           <div className="light-control-label">{language.id === "ar" ? "اللغة" : "Language"}</div>
-          <div
-            className={`light-picker light-language-picker ${languageOpen ? "is-open" : ""}`}
-            ref={languageRef}
-            onMouseEnter={() => {
-              setLanguageOpen(true);
-              setLanguageHovered(true);
-            }}
-            onMouseLeave={() => {
-              setLanguageOpen(false);
-              setLanguageHovered(false);
-            }}
-          >
-            <button
-              className="light-picker-trigger"
-              type="button"
-              aria-haspopup="listbox"
-              aria-expanded={languageOpen}
-              onClick={() => setLanguageOpen(true)}
-            >
+          <div className={`light-picker light-language-picker ${languageOpen ? "is-open" : ""}`} ref={languageRef} onMouseEnter={() => { setLanguageOpen(true); setLanguageHovered(true); }} onMouseLeave={() => { setLanguageOpen(false); setLanguageHovered(false); }}>
+            <button className="light-picker-trigger" type="button" aria-haspopup="listbox" aria-expanded={languageOpen} onClick={() => setLanguageOpen(true)}>
               <span>{language.label}</span>
               <Chevron />
             </button>
@@ -337,15 +273,7 @@ export default function Light() {
                 {MOTES.slice(0, 14).map((mote) => <i key={mote.id} style={{ "--rain-x": `${mote.x}%`, "--rain-delay": `${mote.delay}s` }} />)}
               </div>
               {LANGUAGES.map((choice, index) => (
-                <button
-                  className={`light-option ${language.id === choice.id ? "is-selected" : ""}`}
-                  key={choice.id}
-                  type="button"
-                  role="option"
-                  aria-selected={language.id === choice.id}
-                  style={{ "--option-index": index }}
-                  onClick={() => changeLanguage(choice)}
-                >
+                <button className={`light-option ${language.id === choice.id ? "is-selected" : ""}`} key={choice.id} type="button" role="option" aria-selected={language.id === choice.id} style={{ "--option-index": index }} onClick={() => changeLanguage(choice)}>
                   <span>{choice.label}</span>
                   <i aria-hidden="true" />
                 </button>
@@ -354,27 +282,14 @@ export default function Light() {
           </div>
         </section>
 
-        <button
-          className="light-context-button"
-          type="button"
-          onClick={view === "reader" ? returnToDirectory : goHome}
-        >
+        <button className="light-context-button" type="button" onClick={view === "reader" ? returnToDirectory : goHome}>
           <span aria-hidden="true">←</span>
-          {view === "reader"
-            ? (language.id === "ar" ? "الدليل" : "Directory")
-            : (language.id === "ar" ? "الرئيسية" : "Home")}
+          {view === "reader" ? (language.id === "ar" ? "الدليل" : "Directory") : (language.id === "ar" ? "الرئيسية" : "Home")}
         </button>
 
         <label className="light-search">
           <SearchIcon />
-          <input
-            type="search"
-            value={query}
-            onFocus={() => view === "reader" && returnToDirectory()}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder={language.id === "ar" ? "ابحث في المكتبة" : "Search the directory"}
-            aria-label={language.id === "ar" ? "ابحث في المكتبة" : "Search the directory"}
-          />
+          <input type="search" value={query} onFocus={() => view === "reader" && returnToDirectory()} onChange={(event) => setQuery(event.target.value)} placeholder={language.id === "ar" ? "ابحث في المكتبة" : "Search the directory"} aria-label={language.id === "ar" ? "ابحث في المكتبة" : "Search the directory"} />
           {query && <button type="button" onClick={() => setQuery("")} aria-label="Clear search">×</button>}
         </label>
 
@@ -386,37 +301,55 @@ export default function Light() {
               <span>{language.id === "ar" ? "مساحة للأسئلة والحجج والنصوص التي أعود إليها." : "A growing directory of questions, arguments, and pieces I return to."}</span>
             </header>
 
-            <div className="light-directory-sections" key={`${language.id}-${normalizedQuery}`}>
-              {visibleSections.map((section, sectionIndex) => (
-                <section className="light-directory-section" key={section.id} style={{ "--section-index": sectionIndex }}>
-                  <header>
-                    <span>{localize(section, "eyebrow")}</span>
-                    <h2>{localize(section, "title")}</h2>
-                    <small>{String(section.order).padStart(2, "0")}</small>
-                  </header>
-                  <div className="light-directory-entries">
-                    {section.entries.map((entry) => (
-                      <button
-                        className={`light-directory-entry ${entry.available ? "is-available" : ""}`}
-                        key={entry.id}
-                        type="button"
-                        onClick={entry.available ? openReader : undefined}
-                        aria-disabled={!entry.available}
-                      >
-                        <span className="light-entry-orbit" aria-hidden="true" />
-                        <span className="light-entry-copy">
-                          <strong>{localize(entry, "title")}</strong>
-                          <small>{localize(entry, "description")}</small>
+            <div className="light-directory-accordion" key={`${language.id}-${normalizedQuery}`}>
+              {visibleSections.map((section, sectionIndex) => {
+                const isExpanded = hoveredSection === section.id;
+                return (
+                  <div
+                    className={`light-directory-accordion-item ${isExpanded ? "is-expanded" : ""}`}
+                    key={section.id}
+                    style={{ "--section-index": sectionIndex }}
+                    onMouseEnter={() => setHoveredSection(section.id)}
+                    onMouseLeave={() => setHoveredSection(null)}
+                  >
+                    <header className="light-directory-accordion-header">
+                      <span className="light-directory-accordion-eyebrow">{localize(section, "eyebrow")}</span>
+                      <div className="light-directory-accordion-title-row">
+                        <h2>{localize(section, "title")}</h2>
+                        <span className="light-directory-accordion-count">{section.entries.length}</span>
+                        <span className="light-directory-accordion-chevron" aria-hidden="true">
+                          <Chevron />
                         </span>
-                        <span className="light-entry-meta">
-                          {entry.available ? (language.id === "ar" ? "اقرأ" : "Read") : (language.id === "ar" ? "قريبا" : "Soon")}
-                          <i aria-hidden="true">↗</i>
-                        </span>
-                      </button>
-                    ))}
+                      </div>
+                    </header>
+
+                    <div className="light-directory-accordion-body">
+                      <div className="light-directory-accordion-inner">
+                        {section.entries.map((entry, entryIndex) => (
+                          <button
+                            className={`light-directory-entry ${entry.available ? "is-available" : ""}`}
+                            key={entry.id}
+                            type="button"
+                            onClick={entry.available ? openReader : undefined}
+                            aria-disabled={!entry.available}
+                            style={{ "--entry-index": entryIndex }}
+                          >
+                            <span className="light-entry-orbit" aria-hidden="true" />
+                            <span className="light-entry-copy">
+                              <strong>{localize(entry, "title")}</strong>
+                              <small>{localize(entry, "description")}</small>
+                            </span>
+                            <span className="light-entry-meta">
+                              {entry.available ? (language.id === "ar" ? "اقرأ" : "Read") : (language.id === "ar" ? "قريبا" : "Soon")}
+                              <i aria-hidden="true">↗</i>
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                </section>
-              ))}
+                );
+              })}
             </div>
 
             {!visibleSections.length && (
@@ -432,50 +365,17 @@ export default function Light() {
           <div className="light-question">
             {language.id === "ar" ? "أقرأ هذا بصفتي" : <>Reading this as <span key={article}>{article}</span></>}
           </div>
-          <div
-            className={`light-picker ${open ? "is-open" : ""}`}
-            ref={pickerRef}
-            onMouseEnter={() => {
-              setOpen(true);
-              setPickerHovered(true);
-            }}
-            onMouseLeave={() => {
-              setOpen(false);
-              setPickerHovered(false);
-              setHoveredReader(null);
-            }}
-          >
-            <button
-              className="light-picker-trigger"
-              type="button"
-              aria-haspopup="listbox"
-              aria-expanded={open}
-              onClick={() => setOpen(true)}
-            >
+          <div className={`light-picker ${open ? "is-open" : ""}`} ref={pickerRef} onMouseEnter={() => { setOpen(true); setPickerHovered(true); }} onMouseLeave={() => { setOpen(false); setPickerHovered(false); setHoveredReader(null); }}>
+            <button className="light-picker-trigger" type="button" aria-haspopup="listbox" aria-expanded={open} onClick={() => setOpen(true)}>
               <span>{reader ? displayReader(reader) : "..."}</span>
               <Chevron />
             </button>
-
             <div className="light-options" role="listbox" aria-label="Reading perspective">
               <div className="light-particle-rain" aria-hidden="true">
                 {MOTES.slice(0, 14).map((mote) => <i key={mote.id} style={{ "--rain-x": `${mote.x}%`, "--rain-delay": `${mote.delay}s` }} />)}
               </div>
               {READERS.map((choice, index) => (
-                <button
-                  className={`light-option ${reader?.id === choice.id ? "is-selected" : ""}`}
-                  key={choice.id}
-                  type="button"
-                  role="option"
-                  aria-selected={reader?.id === choice.id}
-                  style={{ "--option-index": index }}
-                  onMouseEnter={() => setHoveredReader(choice)}
-                  onFocus={() => {
-                    setPickerHovered(true);
-                    setHoveredReader(choice);
-                  }}
-                  onBlur={() => setHoveredReader(null)}
-                  onClick={() => chooseReader(choice)}
-                >
+                <button className={`light-option ${reader?.id === choice.id ? "is-selected" : ""}`} key={choice.id} type="button" role="option" aria-selected={reader?.id === choice.id} style={{ "--option-index": index }} onMouseEnter={() => setHoveredReader(choice)} onFocus={() => { setPickerHovered(true); setHoveredReader(choice); }} onBlur={() => setHoveredReader(null)} onClick={() => chooseReader(choice)}>
                   <span>{displayReader(choice)}</span>
                   <i aria-hidden="true" />
                 </button>
@@ -486,12 +386,7 @@ export default function Light() {
 
         {view === "reader" && <section className={`light-reading ${reader ? "is-visible" : ""}`} aria-live="polite" aria-busy={reader && !content}>
           {reader && (
-            <div
-              className={`light-reading-inner ${language.id === "ar" ? "is-arabic" : ""}`}
-              dir={language.id === "ar" ? "rtl" : "ltr"}
-              key={`${reader.id}-${language.id}`}
-              ref={readingInnerRef}
-            >
+            <div className={`light-reading-inner ${language.id === "ar" ? "is-arabic" : ""}`} dir={language.id === "ar" ? "rtl" : "ltr"} key={`${reader.id}-${language.id}`} ref={readingInnerRef}>
               {content ? <ReactMarkdown>{content}</ReactMarkdown> : <div className="light-content-loading" aria-label="Loading" />}
             </div>
           )}
