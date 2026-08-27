@@ -88,10 +88,7 @@ body {
   text-shadow: 0 0 24px rgba(234,227,207,.11);
   -webkit-background-clip: text;
   width: 100%;
-}
-
-.center-text .main-home-translation {
-  color: #96948e;
+}.center-text .main-home-translation{color:#c8c4bc;
   font-size: clamp(.7rem, .95vw, .86rem);
   font-weight: 300;
   line-height: 1.7;

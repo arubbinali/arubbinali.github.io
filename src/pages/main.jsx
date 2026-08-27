@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import "../App.css";
 import IntroAnimation from "../components/intro";
 import ShinyText from "../components/ShinyText";
@@ -76,7 +76,7 @@ function Main() {
               />
             </h1>
             <p className="main-home-translation">
-              We will show them Our signs in the horizons and within themselves until it becomes clear to them that it is the truth. But is it not sufficient concerning your Lord that He is, over all things, a Witness?
+              We will show them Our signs in the horizons and within themselves until it becomes clear to them that it is the truth. Is it not sufficient concerning your Lord that He is, over all things, a Witness?
             </p>
           </div>
 
@@ -92,16 +92,10 @@ function Main() {
               here
             </a>
           </p>
-          <p>
-            You can access TRL{" "}
-            <a href="/trl" className="temp-link" style={{ color: "grey" }}>here</a>{" "}
-            <span style={{ color: "grey" }}>(under development)</span>
-          </p>
-
-          <a href="/light" className="main-light-link">
+          <Link to="/light" state={{ skipIntro: true }} className="main-light-link">
             <span>Read in the light</span>
             <span aria-hidden="true">↗</span>
-          </a>
+          </Link>
 
         </div>
 

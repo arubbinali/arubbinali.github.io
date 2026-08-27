@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import IntroAnimation from "../components/intro";
 import "./light.css";
 
@@ -132,7 +132,8 @@ function SearchIcon() {
 
 export default function Light() {
   const navigate = useNavigate();
-  const [showContent, setShowContent] = useState(false);
+  const location = useLocation();
+  const [showContent, setShowContent] = useState(() => Boolean(location.state?.skipIntro));
   const [view, setView] = useState("directory");
   const [viewTransitioning, setViewTransitioning] = useState(false);
   const [query, setQuery] = useState("");
