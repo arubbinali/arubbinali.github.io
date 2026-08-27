@@ -129,7 +129,7 @@ body {
 
 .center-text .main-verse-arabic {
   color: #e8e8e8;
-  font-family: 'Uthmanic Hafs', 'Traditional Arabic', serif;
+  font-family: 'King Fahd Complex V2', 'Uthmanic Hafs', 'Traditional Arabic', serif;
   font-size: clamp(1.45rem, 2.25vw, 2.15rem);
   font-weight: 400;
   letter-spacing: 0;

@@ -4,6 +4,12 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'King Fahd Complex V2';
+  src: url('https://fonts.quran.ws/assets/fonts/digital-khatt-v2.woff2') format('woff2');
+  font-display: swap;
+}
+
 .light-page {
   background: #050606;
   color: #f2f1ed;
@@ -659,7 +665,7 @@
 .light-reading blockquote p:first-child {
   color: #ded9cb;
   direction: rtl;
-  font-family: 'Uthmanic Hafs', 'Traditional Arabic', serif;
+  font-family: 'King Fahd Complex V2', 'Uthmanic Hafs', 'Traditional Arabic', serif;
   font-size: clamp(1.65rem, 3.3vw, 2.55rem);
   line-height: 2;
   margin: 0;
