@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import "../App.css";
 import IntroAnimation from "../components/intro";
 import ShinyText from "../components/ShinyText";
@@ -28,7 +29,8 @@ function LinkedInIcon() {
 }
 
 function Main() {
-  const [showContent, setShowContent] = useState(false);
+  const location = useLocation();
+  const [showContent, setShowContent] = useState(() => Boolean(location.state?.skipIntro));
   const [discordCopied, setDiscordCopied] = useState(false);
 
   const copyDiscord = async () => {
@@ -65,12 +67,18 @@ function Main() {
           className="center-text"
           style={{ zIndex: 2, fontFamily: "Montserrat, sans-serif" }}
         >
-          <h1>
-            <ShinyText
-              text="Welcome to My New Page, It's still in the making"
-              speed={4}
-            />
-          </h1>
+          <div className="main-home-verse" aria-label="Quran 41:53">
+            <h1 className="main-home-ayah" lang="ar" dir="rtl">
+              <ShinyText
+                className="main-home-ayah-shine"
+                text="سنريهم اياتنا في الآفاق وفي أنفسهم حتى يتبين لهم أنه الحق أولم يكف بربك أنه على كل شيء شهيد"
+                speed={4}
+              />
+            </h1>
+            <p className="main-home-translation">
+              We will show them Our signs in the horizons and within themselves until it becomes clear to them that it is the truth. But is it not sufficient concerning your Lord that He is, over all things, a Witness?
+            </p>
+          </div>
 
           <p>
             You can find my digital portfolio{" "}
@@ -89,6 +97,11 @@ function Main() {
             <a href="/trl" className="temp-link" style={{ color: "grey" }}>here</a>{" "}
             <span style={{ color: "grey" }}>(under development)</span>
           </p>
+
+          <a href="/light" className="main-light-link">
+            <span>Read in the light</span>
+            <span aria-hidden="true">↗</span>
+          </a>
 
         </div>
 

@@ -1,6 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;600&display=swap');
 
+@font-face {
+  font-family: 'Uthmanic Hafs';
+  src: url('https://verses.quran.foundation/fonts/quran/hafs/uthmanic_hafs/UthmanicHafs1Ver18.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'King Fahd Complex V2';
+  src: url('https://fonts.quran.ws/assets/fonts/digital-khatt-v2.woff2') format('woff2');
+  font-display: swap;
+}
+
 .App {
   position: relative;
   width: 100%;
@@ -30,6 +42,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400; /* light weight for a sleek look */
   letter-spacing: 1px;
+  width: min(calc(100% - 3rem), 1080px);
 }
 
 .center-text h1 {
@@ -42,6 +55,48 @@ body {
   font-size: 1.2rem;
   opacity: 0.8;
   font-weight: 400;
+}
+
+.main-home-verse {
+  margin: 0 auto clamp(1.35rem, 3vh, 2.25rem);
+  max-width: 1180px;
+  width: 94vw;
+}
+
+.center-text .main-home-ayah {
+  font-family: 'King Fahd Complex V2', 'Uthmanic Hafs', 'Traditional Arabic', serif;
+  font-size: clamp(1.45rem, 2.55vw, 2.2rem);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 2.05;
+  margin: 0 auto .9rem;
+  width: 100%;
+}
+
+.center-text .main-home-ayah-shine {
+  background: linear-gradient(
+    112deg,
+    rgba(231,227,216,.52) 34%,
+    rgba(255,255,255,.98) 49%,
+    rgba(231,227,216,.52) 64%
+  );
+  background-clip: text;
+  background-size: 220% 100%;
+  color: rgba(214,210,199,.68);
+  display: block;
+  font-family: inherit;
+  text-shadow: 0 0 24px rgba(234,227,207,.11);
+  -webkit-background-clip: text;
+  width: 100%;
+}
+
+.center-text .main-home-translation {
+  color: #96948e;
+  font-size: clamp(.7rem, .95vw, .86rem);
+  font-weight: 300;
+  line-height: 1.7;
+  margin: 0 auto;
+  max-width: 900px;
 }
 
 .temp-link {
@@ -68,6 +123,53 @@ body {
 .dont-click-link:hover {
   text-decoration: underline;
   text-decoration-color: red;
+}
+
+.main-verse {
+  margin: clamp(2rem, 5vh, 4rem) auto 0;
+  max-width: 920px;
+}
+
+.center-text .main-verse-arabic {
+  color: #e8e8e8;
+  font-family: 'Uthmanic Hafs', 'Traditional Arabic', serif;
+  font-size: clamp(1.45rem, 2.25vw, 2.15rem);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.9;
+  margin: 0 0 .85rem;
+  opacity: .92;
+}
+
+.center-text .main-verse-translation {
+  color: #9b9b9b;
+  font-size: clamp(.72rem, 1.05vw, .9rem);
+  font-weight: 300;
+  line-height: 1.7;
+  margin: 0 auto 1.25rem;
+  max-width: 780px;
+}
+
+.main-light-link {
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,.32);
+  color: #d9d9d9;
+  display: inline-flex;
+  font-size: .72rem;
+  gap: .6rem;
+  letter-spacing: .14em;
+  padding: .35rem .08rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: border-color 250ms ease, color 250ms ease, gap 250ms ease;
+}
+
+.main-light-link:hover,
+.main-light-link:focus-visible {
+  border-color: #fff;
+  color: #fff;
+  gap: .9rem;
+  outline: none;
 }
 
 .main-discord-footer {
@@ -397,4 +499,18 @@ body {
     right: 1rem;
     top: 1rem;
   }
+
+  .center-text {
+    width: calc(100% - 2rem);
+  }
+
+  .center-text h1 { font-size: 2rem; }
+  .center-text > p { font-size: .92rem; }
+  .center-text .main-home-ayah { font-size: clamp(1.12rem, 5.4vw, 1.32rem); line-height: 1.85; }
+  .center-text .main-home-translation { font-size: .64rem; line-height: 1.55; }
+  .main-verse { margin-top: 1.5rem; }
+  .center-text .main-verse-arabic { font-size: 1.25rem; line-height: 1.75; }
+  .center-text .main-verse-translation { font-size: .65rem; line-height: 1.55; }
+  .main-discord-footer { bottom: 14px; }
+  .main-discord-label { display: none; }
 }
