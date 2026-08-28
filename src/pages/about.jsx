@@ -64,14 +64,19 @@ export default function About() {
         </button>
 
         <div
-          className="center-text"
+          className="center-text about-center"
           style={{ zIndex: 2, fontFamily: "Montserrat, sans-serif" }}
         >
-          <h1 style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 600, marginBottom: "1.5rem" }}>
+          <p className="about-kicker">A little context</p>
+          <h1 className="about-title">
             About
           </h1>
 
-          <p>
+          <p className="about-intro">
+            I&apos;m an engineering student, and this site is my personal space for da&apos;wah—bringing together careful arguments, useful reflections, and sincere invitations to look at faith with an open mind.
+          </p>
+
+          <p className="about-portfolio">
             You can find my digital portfolio{" "}
             <a
               href="https://doaor.com/d/"

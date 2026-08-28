@@ -1,12 +1,24 @@
-import React, { useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import "../App.css";
 import IntroAnimation from "../components/intro";
 import ShinyText from "../components/ShinyText";
 
 function Main() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [showContent, setShowContent] = useState(() => Boolean(location.state?.skipIntro));
+  const [leaving, setLeaving] = useState(false);
+  const navigationTimerRef = useRef(null);
+
+  useEffect(() => () => window.clearTimeout(navigationTimerRef.current), []);
+
+  const enterLight = (event) => {
+    event.preventDefault();
+    if (leaving) return;
+    setLeaving(true);
+    navigationTimerRef.current = window.setTimeout(() => navigate("/light", { state: { skipIntro: true } }), 320);
+  };
 
   return (
     <div
@@ -21,7 +33,7 @@ function Main() {
       {!showContent && <IntroAnimation onFinish={() => setShowContent(true)} />}
 
       <div
-        className={`main-content ${showContent ? "fade-in" : "hidden"}`}
+        className={`main-content ${showContent ? "fade-in" : "hidden"} ${leaving ? "is-leaving" : ""}`}
         style={{
           position: "relative",
           width: "100%",
@@ -29,7 +41,7 @@ function Main() {
         }}
       >
         <div
-          className="center-text"
+          className="center-text main-home-center"
           style={{ zIndex: 2, fontFamily: "Montserrat, sans-serif" }}
         >
           <div className="main-home-verse" aria-label="Quran 41:53">
@@ -45,7 +57,7 @@ function Main() {
             </p>
           </div>
 
-          <Link to="/light" state={{ skipIntro: true }} className="main-light-link">
+          <Link to="/light" state={{ skipIntro: true }} className="main-light-link" onClick={enterLight}>
             <span>Read in the light</span>
             <span aria-hidden="true">↗</span>
           </Link>

@@ -1,20 +1,29 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { useNavigate, useLocation } from "react-router-dom";
 import IntroAnimation from "../components/intro";
 import "./light.css";
 
 const READERS = [
-  { id: "muslim", label: "Muslim", labelAr: "مسلم" },
-  { id: "christian", label: "Christian", labelAr: "مسيحي" },
-  { id: "jew", label: "Jew", labelAr: "يهودي" },
-  { id: "atheist", label: "atheist", labelAr: "ملحد" },
+  { id: "muslim", label: "Muslim", labelAr: "مسلم", labelZh: "穆斯林", labelJa: "ムスリム" },
+  { id: "christian", label: "Christian", labelAr: "مسيحي", labelZh: "基督徒", labelJa: "キリスト教徒" },
+  { id: "jew", label: "Jew", labelAr: "يهودي", labelZh: "犹太教徒", labelJa: "ユダヤ教徒" },
+  { id: "atheist", label: "atheist", labelAr: "ملحد", labelZh: "无神论者", labelJa: "無神論者" },
 ];
 
 const LANGUAGES = [
-  { id: "en", label: "English" },
-  { id: "ar", label: "العربية" },
+  { id: "en", label: "English", available: true },
+  { id: "ar", label: "العربية", available: false },
+  { id: "zh", label: "中文", available: false },
+  { id: "ja", label: "日本語", available: false },
 ];
+
+const UI_COPY = {
+  en: { language: "Language", home: "Home", directory: "Directory", search: "Search the library", results: "Search results", empty: "No matching passages yet.", soon: "Soon", read: "Read", library: "The light library", intro: "Ideas worth reading slowly.", introNote: "A growing directory of questions, arguments, and pieces I return to.", reading: "Reading this as", overview: "Overview" },
+  ar: { language: "اللغة", home: "الرئيسية", directory: "الدليل", search: "ابحث في المكتبة", results: "نتائج البحث", empty: "لا توجد نتائج.", soon: "قريبا", read: "اقرأ", library: "مكتبة النور", intro: "أفكار تستحق أن تقرأ ببطء.", introNote: "مساحة للأسئلة والحجج والنصوص التي أعود إليها.", reading: "أقرأ هذا بصفتي", overview: "نظرة عامة" },
+  zh: { language: "语言", home: "主页", directory: "目录", search: "搜索资料库", results: "搜索结果", empty: "没有找到相关内容。", soon: "即将推出", read: "阅读", library: "光之资料库", intro: "值得慢慢阅读的思想。", introNote: "一个不断扩展的问题、论证与文章目录。", reading: "以此身份阅读", overview: "概览" },
+  ja: { language: "言語", home: "ホーム", directory: "目次", search: "ライブラリを検索", results: "検索結果", empty: "一致する文章はありません。", soon: "近日公開", read: "読む", library: "光のライブラリ", intro: "ゆっくり読む価値のある思想。", introNote: "問い、論証、そして何度も読み返す文章の目次。", reading: "この立場で読む", overview: "概要" },
+};
 
 const DIRECTORY = [
   {
@@ -25,9 +34,17 @@ const DIRECTORY = [
     eyebrowAr: "ابدأ هنا",
     entries: [
       { id: "signs", title: "The signs in the horizons", titleAr: "اياتنا في الافاق", description: "Qur'an 41:53, approached through four different ways of reading.", descriptionAr: "قراءة الاية ٤١:٥٣ من خلال أربع وجهات نظر مختلفة.", available: true },
-      { id: "first-question", title: "Before the first question", titleAr: "قبل السؤال الأول", description: "A short orientation to belief, evidence, and honest inquiry.", descriptionAr: "تمهيد قصير حول الإيمان والدليل والبحث الصادق." },
-      { id: "purpose", title: "On purpose and direction", titleAr: "عن الغاية والاتجاه", description: "What it means to live with intention in a distracted age.", descriptionAr: "ما معنى العيش بقصد في عصر مشتت." },
-      { id: "starting-point", title: "Where to begin", titleAr: "من أين نبدأ", description: "A practical map for honest seekers.", descriptionAr: "خريطة عملية للباحثين الصادقين." },
+    ],
+  },
+  {
+    id: "new-to-islaam",
+    title: "New to Islaam",
+    titleAr: "جديد في الإسلام",
+    eyebrow: "A clear beginning",
+    eyebrowAr: "بداية واضحة",
+    entries: [
+      { id: "become-muslim", title: "How to become Muslim? What to do next?", titleAr: "كيف تصبح مسلما؟ وماذا بعد؟", description: "The testimony of faith and the first steps that follow it.", descriptionAr: "شهادة الإيمان والخطوات الأولى التي تليها.", available: true },
+      { id: "five-pillars", title: "The 5 pillars of islam", titleAr: "أركان الإسلام الخمسة", description: "The essential acts that shape a Muslim life.", descriptionAr: "العبادات الأساسية التي تشكل حياة المسلم.", available: true },
     ],
   },
   {
@@ -37,11 +54,8 @@ const DIRECTORY = [
     eyebrow: "Claims, examined",
     eyebrowAr: "مراجعة الادعاءات",
     entries: [
-      { id: "silent-universe", title: "The myth of a silent universe", titleAr: "خرافة الكون الصامت", description: "On signs, meaning, and whether reality speaks beyond itself.", descriptionAr: "عن الايات والمعنى، وهل يشير الواقع إلى ما وراءه." },
-      { id: "certainty-doubt", title: "Certainty and doubt", titleAr: "اليقين والشك", description: "What skepticism can reveal—and what it quietly assumes.", descriptionAr: "ما الذي يكشفه الشك، وما الذي يفترضه بصمت." },
-      { id: "design-illusion", title: "Design or illusion?", titleAr: "تصميم أم وهم؟", description: "Examining the fine-tuning argument from multiple angles.", descriptionAr: "تحليل حجة الضبط الدقيق من زوايا متعددة." },
-      { id: "problem-evil", title: "The problem of suffering", titleAr: "مشكلة المعاناة", description: "A response to one of the oldest objections.", descriptionAr: "رد على أحد أقدم الاعتراضات." },
-      { id: "science-faith", title: "Science versus faith?", titleAr: "العلم ضد الإيمان؟", description: "Why the conflict thesis doesn't hold up.", descriptionAr: "لماذا نظرية الصدام لا تصمد." },
+      { id: "aisha-six", title: "Aisha 6", titleAr: "عائشة ٦", description: "A careful examination of the claim, its sources, and its historical context.", descriptionAr: "دراسة متأنية للادعاء ومصادره وسياقه التاريخي.", available: true },
+      { id: "isis-alqaeda", title: "ISIS/Al Qaeda", titleAr: "داعش والقاعدة", description: "What their violence represents—and what Islam actually teaches.", descriptionAr: "ما الذي يمثله عنفهم، وما الذي يعلمه الإسلام بالفعل.", available: true },
     ],
   },
   {
@@ -51,28 +65,54 @@ const DIRECTORY = [
     eyebrow: "Evidence, gathered",
     eyebrowAr: "الأدلة",
     entries: [
-      { id: "cosmic", title: "The cosmic fine-tuning", titleAr: "الضبط الدقيق الكوني", description: "Why the constants of physics point beyond themselves.", descriptionAr: "لماذا ثوابت الفيزياء تشير إلى ما وراءها." },
-      { id: "consciousness", title: "The hard problem of consciousness", titleAr: "المشكلة الصعبة في الوعي", description: "On the mystery that materialism struggles to explain.", descriptionAr: "عن اللغز الذي يعجز المادية عن تفسيره." },
-      { id: "moral", title: "Moral reality", titleAr: "الحقائق الأخلاقية", description: "Why objective morality makes more sense with God.", descriptionAr: "لماذا الأخلاق الموضوعية تتسق أكثر مع الله." },
-      { id: "information", title: "The origin of information", titleAr: "منشأ المعلومات", description: "What DNA reveals about design and intention.", descriptionAr: "ما يكشفه الحمض النووي عن التصميم والقصد." },
-      { id: "resurrection", title: "The resurrection question", titleAr: "سؤال القيامة", description: "Historical evidence for the most consequential claim.", descriptionAr: "الدليل التاريخي على أهم ادعاء في التاريخ." },
+      { id: "creator", title: "Existence of a creator; Allaah", titleAr: "وجود الخالق؛ الله", description: "Why existence, order, and dependence point to the Creator.", descriptionAr: "كيف يشير الوجود والنظام والافتقار إلى الخالق.", available: true },
+      { id: "quraan-word", title: "The Quraan is the word of Allaah", titleAr: "القرآن كلام الله", description: "A beginning look at the case for the divine origin of the Quraan.", descriptionAr: "نظرة أولية في أدلة المصدر الإلهي للقرآن.", available: true },
     ],
   },
   {
-    id: "favorites",
-    title: "My favorite",
-    titleAr: "مختاراتي",
-    eyebrow: "Kept close",
-    eyebrowAr: "نصوص قريبة",
+    id: "closed-heart",
+    title: "Too chad to be wrong",
+    titleAr: "أنا معاد للإسلام / أعتقد أنني لا يمكن أن أكون مخطئا / أنكر المنطق",
+    eyebrow: "A word between us",
+    eyebrowAr: "كلمة بيننا",
     entries: [
-      { id: "wonder", title: "A note on wonder", titleAr: "ملاحظة عن الدهشة", description: "Small observations worth returning to slowly.", descriptionAr: "تأملات صغيرة تستحق العودة إليها ببطء." },
-      { id: "soul-remembers", title: "What the soul remembers", titleAr: "ما تتذكره الروح", description: "Fragments on recognition, longing, and return.", descriptionAr: "شذرات عن المعرفة والحنين والعودة." },
-      { id: "quiet-truth", title: "The quiet truth", titleAr: "الحقيقة الهادئة", description: "On the kind of knowledge that settles rather than excites.", descriptionAr: "عن نوع المعرفة الذي يهدئ بدل ما يثير." },
-      { id: "letter-young", title: "A letter to the younger self", titleAr: "رسالة للذات الأصغر", description: "What I'd say if I could speak across years.", descriptionAr: "ما الذي سأقوله لو أستطيع التحدث عبر السنوات." },
-      { id: "return", title: "On returning", titleAr: "عن العودة", description: "Meditation on homecoming and what waits there.", descriptionAr: "تأمل في العودة إلى الوطن وما ينتظر هناك." },
+      { id: "open-your-heart", title: "May the one who created you open your heart, will work especially on this page for you soon", titleAr: "أسأل من خلقك أن يفتح قلبك يا صديقي، سأعمل على هذه الصفحة قريبا.", description: "Belief does not alter truth: 1 + 1 remains 2.", descriptionAr: "أسأل من خلقك أن يفتح قلبك يا صديقي، سأعمل على هذه الصفحة قريبا.", available: true },
     ],
   },
 ];
+
+const DIRECTORY_LOCALE = {
+  zh: {
+    introduction: { title: "介绍", eyebrow: "从这里开始" },
+    signs: { title: "天地与自身中的迹象", description: "从四种不同的阅读视角理解《古兰经》41:53。" },
+    "new-to-islaam": { title: "初识伊斯兰", eyebrow: "清晰的起点" },
+    "become-muslim": { title: "如何成为穆斯林？接下来该做什么？", description: "信仰作证，以及之后最初的几步。" },
+    "five-pillars": { title: "伊斯兰的五大支柱", description: "塑造穆斯林生活的基本功修。" },
+    refutations: { title: "回应质疑", eyebrow: "审视主张" },
+    "aisha-six": { title: "阿伊莎六岁", description: "谨慎考察这一主张、其来源与历史背景。" },
+    "isis-alqaeda": { title: "ISIS／基地组织", description: "他们的暴力代表什么，以及伊斯兰真正教导什么。" },
+    proofs: { title: "证据", eyebrow: "汇集证据" },
+    creator: { title: "造物主——安拉的存在", description: "存在、秩序与依赖为何指向造物主。" },
+    "quraan-word": { title: "《古兰经》是安拉的言语", description: "初步考察《古兰经》神圣来源的证据。" },
+    "closed-heart": { title: "我是仇视伊斯兰者／我不可能错／我否认逻辑", eyebrow: "我们之间的一句话" },
+    "open-your-heart": { title: "愿创造你的主开启你的心，我的朋友；此页即将完善。", description: "愿创造你的主开启你的心，我的朋友；此页即将完善。" },
+  },
+  ja: {
+    introduction: { title: "はじめに", eyebrow: "ここから始める" },
+    signs: { title: "地平線と自らの内にあるしるし", description: "クルアーン41章53節を四つの読み方から考えます。" },
+    "new-to-islaam": { title: "イスラームを知り始めた方へ", eyebrow: "明確な出発点" },
+    "become-muslim": { title: "ムスリムになるには？その次にすることは？", description: "信仰告白と、その後の最初の歩み。" },
+    "five-pillars": { title: "イスラームの五柱", description: "ムスリムの生き方を形づくる基本の崇拝。" },
+    refutations: { title: "反論への回答", eyebrow: "主張を検討する" },
+    "aisha-six": { title: "アーイシャは6歳だったのか", description: "主張、史料、歴史的背景を丁寧に検討します。" },
+    "isis-alqaeda": { title: "ISIS／アルカーイダ", description: "彼らの暴力が何を意味し、イスラームが実際に何を教えるか。" },
+    proofs: { title: "証明", eyebrow: "証拠を集める" },
+    creator: { title: "創造主アッラーの存在", description: "存在、秩序、依存が創造主を指し示す理由。" },
+    "quraan-word": { title: "クルアーンはアッラーの言葉", description: "クルアーンの神的起源を示す根拠への導入。" },
+    "closed-heart": { title: "私はイスラーム嫌悪者だ／自分が間違うはずがない／論理を否定する", eyebrow: "私たちの間の一言" },
+    "open-your-heart": { title: "あなたを創造された御方が心を開いてくださいますように、友よ。この頁は近日整えます。", description: "あなたを創造された御方が心を開いてくださいますように、友よ。この頁は近日整えます。" },
+  },
+};
 
 const MOTES = Array.from({ length: 52 }, (_, index) => ({
   id: index,
@@ -81,6 +121,22 @@ const MOTES = Array.from({ length: 52 }, (_, index) => ({
   duration: 6 + ((index * 13) % 31) / 10,
   size: 1 + (index % 3),
 }));
+
+const INTRO_ENTRY = DIRECTORY[0].entries[0];
+const ALL_ENTRIES = DIRECTORY.flatMap((section) => section.entries);
+const ENTRY_CATEGORY = Object.fromEntries(DIRECTORY.flatMap((section) => section.entries.map((entry) => [entry.id, section.id])));
+
+function contentPath(languageId, entry, readerId) {
+  const category = ENTRY_CATEGORY[entry.id];
+  if (entry.id === INTRO_ENTRY.id) return `/light/content/${languageId}/${category}/${entry.id}/${readerId}.md`;
+  return `/light/content/${languageId}/${category}/${entry.id}.md`;
+}
+
+function directoryText(item, key, languageId) {
+  if (DIRECTORY_LOCALE[languageId]?.[item.id]?.[key]) return DIRECTORY_LOCALE[languageId][item.id][key];
+  if (languageId === "ar") return item[`${key}Ar`] || item[key];
+  return item[key];
+}
 
 function Chevron() {
   return (
@@ -99,6 +155,41 @@ function SearchIcon() {
   );
 }
 
+function cleanMarkdownLine(line) {
+  return line
+    .replace(/^>\s?/, "")
+    .replace(/^[-*+]\s+/, "")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/[*_`~]/g, "")
+    .trim();
+}
+
+function excerptAround(text, query, radius = 92) {
+  const lowerText = text.toLocaleLowerCase();
+  const index = lowerText.indexOf(query);
+  if (index < 0 || text.length <= radius * 2) return text;
+  const start = Math.max(0, index - radius);
+  const end = Math.min(text.length, index + query.length + radius);
+  return `${start > 0 ? "…" : ""}${text.slice(start, end).trim()}${end < text.length ? "…" : ""}`;
+}
+
+function HighlightedText({ text, query }) {
+  if (!query) return text;
+  const lowerText = text.toLocaleLowerCase();
+  const pieces = [];
+  let cursor = 0;
+  let matchIndex = lowerText.indexOf(query, cursor);
+
+  while (matchIndex >= 0) {
+    if (matchIndex > cursor) pieces.push(text.slice(cursor, matchIndex));
+    pieces.push(<u key={`${matchIndex}-${cursor}`}>{text.slice(matchIndex, matchIndex + query.length)}</u>);
+    cursor = matchIndex + query.length;
+    matchIndex = lowerText.indexOf(query, cursor);
+  }
+  if (cursor < text.length) pieces.push(text.slice(cursor));
+  return pieces;
+}
+
 export default function Light() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -106,10 +197,14 @@ export default function Light() {
   const [view, setView] = useState("directory");
   const [viewTransitioning, setViewTransitioning] = useState(false);
   const [query, setQuery] = useState("");
+  const [searchFocused, setSearchFocused] = useState(false);
+  const [searchDocuments, setSearchDocuments] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [pickerHovered, setPickerHovered] = useState(false);
   const [hoveredReader, setHoveredReader] = useState(null);
   const [reader, setReader] = useState(null);
+  const [selectedEntry, setSelectedEntry] = useState(INTRO_ENTRY);
   const [language, setLanguage] = useState(LANGUAGES[0]);
   const [languageOpen, setLanguageOpen] = useState(false);
   const [languageHovered, setLanguageHovered] = useState(false);
@@ -118,16 +213,21 @@ export default function Light() {
   const [hoveredSection, setHoveredSection] = useState(null);
   const pickerRef = useRef(null);
   const languageRef = useRef(null);
+  const searchRef = useRef(null);
   const readerStageRef = useRef(null);
   const readingInnerRef = useRef(null);
   const controlsHiddenRef = useRef(false);
   const transitionTimerRef = useRef(null);
+  const isIntroduction = selectedEntry.id === INTRO_ENTRY.id;
+  const writeupReady = view === "reader" && (!isIntroduction || Boolean(reader));
+  const ui = UI_COPY[language.id];
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     const close = (event) => {
       if (!pickerRef.current?.contains(event.target)) setOpen(false);
       if (!languageRef.current?.contains(event.target)) setLanguageOpen(false);
+      if (!searchRef.current?.contains(event.target)) setSearchFocused(false);
     };
     document.addEventListener("pointerdown", close);
     return () => document.removeEventListener("pointerdown", close);
@@ -148,26 +248,30 @@ export default function Light() {
         setPickerHovered(false);
         setLanguageHovered(false);
       }
-      if (!reader || scrollPosition <= 2) {
+      if (view === "directory") {
+        updateControlsHidden(scrollPosition > 110);
+        return;
+      }
+      if (!writeupReady || scrollPosition <= 2) {
         updateControlsHidden(false);
         return;
       }
-      if (!controlsHiddenRef.current && readerStageRef.current && readingInnerRef.current) {
-        const controlsBottom = readerStageRef.current.getBoundingClientRect().bottom;
+      if (readingInnerRef.current) {
+        const controlsBottom = readerStageRef.current?.getBoundingClientRect().bottom || 92;
         const articleTop = readingInnerRef.current.getBoundingClientRect().top;
-        if (articleTop <= controlsBottom + 72) updateControlsHidden(true);
+        updateControlsHidden(articleTop <= controlsBottom + 72);
       }
     };
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [reader]);
+  }, [reader, view, writeupReady]);
 
   useEffect(() => {
-    if (!reader) return;
+    if (view !== "reader" || (isIntroduction && !reader)) return;
     let active = true;
     setContent("");
-    fetch(`/light/content/${language.id}/${reader.id}.md`)
+    fetch(contentPath(language.id, selectedEntry, reader?.id || READERS[0].id))
       .then((response) => {
         if (!response.ok) throw new Error(`Unable to load ${response.url}`);
         return response.text();
@@ -175,9 +279,30 @@ export default function Light() {
       .then((markdown) => active && setContent(markdown))
       .catch(() => active && setContent("# Content unavailable\n\nThis reading could not be loaded."));
     return () => { active = false; };
-  }, [language.id, reader]);
+  }, [language.id, reader, selectedEntry, view, isIntroduction]);
+
+  useEffect(() => {
+    let active = true;
+    setSearchLoading(true);
+    const documents = ALL_ENTRIES.flatMap((entry) => entry.id === INTRO_ENTRY.id
+      ? READERS.map((choice) => ({ entry, choice }))
+      : [{ entry, choice: READERS[0] }]);
+    Promise.all(documents.map(({ entry, choice }) =>
+      fetch(contentPath(language.id, entry, choice.id))
+        .then((response) => response.ok ? response.text() : "")
+        .then((markdown) => ({ entry, choice, markdown }))
+    )).then((documents) => {
+      if (active) setSearchDocuments(documents);
+    }).finally(() => {
+      if (active) setSearchLoading(false);
+    });
+    return () => { active = false; };
+  }, [language.id]);
 
   const chooseReader = (choice) => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    controlsHiddenRef.current = false;
+    setControlsHidden(false);
     setReader(choice);
     setOpen(false);
     setPickerHovered(false);
@@ -199,8 +324,10 @@ export default function Light() {
     }, 280);
   };
 
-  const openReader = () => transitionView("reader", () => {
+  const openReader = (entry = INTRO_ENTRY) => transitionView("reader", () => {
+    setSelectedEntry(entry);
     setReader(null);
+    setContent("");
     setControlsHidden(false);
   });
 
@@ -220,6 +347,7 @@ export default function Light() {
   };
 
   const changeLanguage = (choice) => {
+    if (!choice.available) return;
     if (choice.id === language.id) {
       setLanguageOpen(false);
       setLanguageHovered(false);
@@ -237,21 +365,102 @@ export default function Light() {
 
   const activeGrammarReader = hoveredReader || reader;
   const article = activeGrammarReader?.id === "atheist" ? "an" : "a";
-  const displayReader = (choice) => language.id === "ar" ? choice.labelAr : choice.label;
-  const localize = (item, key) => language.id === "ar" ? item[`${key}Ar`] : item[key];
+  const displayReader = (choice) => choice[`label${language.id === "en" ? "" : language.id.charAt(0).toUpperCase() + language.id.slice(1)}`] || choice.label;
+  const localize = (item, key) => directoryText(item, key, language.id);
   const normalizedQuery = query.trim().toLocaleLowerCase();
   const visibleSections = DIRECTORY.map((section, sectionIndex) => ({
     ...section,
     order: sectionIndex + 1,
-    entries: section.entries.filter((entry) => {
-      if (!normalizedQuery) return true;
-      return [section.title, section.titleAr, entry.title, entry.titleAr, entry.description, entry.descriptionAr]
-        .join(" ").toLocaleLowerCase().includes(normalizedQuery);
-    }),
-  })).filter((section) => section.entries.length);
+    entries: section.entries,
+  }));
+
+  const searchResults = useMemo(() => {
+    if (!normalizedQuery) return [];
+    const results = [];
+
+    DIRECTORY.forEach((section) => {
+      section.entries.forEach((entry) => {
+        const title = directoryText(entry, "title", language.id);
+        const description = directoryText(entry, "description", language.id);
+        const category = directoryText(section, "title", language.id);
+        const matchedText = [title, description].find((value) => value.toLocaleLowerCase().includes(normalizedQuery));
+        if (matchedText) {
+          results.push({
+            id: `directory-${section.id}-${entry.id}`,
+            heading: `${category} · ${title}`,
+            excerpt: excerptAround(matchedText, normalizedQuery),
+            available: Boolean(entry.available),
+            kind: "directory",
+            entryId: entry.id,
+          });
+        }
+      });
+    });
+
+    searchDocuments.forEach(({ entry, choice, markdown }) => {
+      let pageTitle = directoryText(entry, "title", language.id);
+      let sectionTitle = entry.id === INTRO_ENTRY.id
+        ? (choice[`label${language.id === "en" ? "" : language.id.charAt(0).toUpperCase() + language.id.slice(1)}`] || choice.label)
+        : ui.overview;
+      let documentHits = 0;
+
+      markdown.split(/\r?\n/).forEach((rawLine, lineIndex) => {
+        const headingMatch = rawLine.match(/^(#{1,3})\s+(.+)/);
+        if (headingMatch) {
+          const headingText = cleanMarkdownLine(headingMatch[2]);
+          if (headingMatch[1].length === 1) pageTitle = headingText;
+          else sectionTitle = headingText;
+          return;
+        }
+
+        const line = cleanMarkdownLine(rawLine);
+        if (!line || line.length < 12 || !line.toLocaleLowerCase().includes(normalizedQuery) || documentHits >= 2) return;
+        results.push({
+          id: `writeup-${entry.id}-${choice.id}-${lineIndex}`,
+          heading: `${pageTitle} · ${sectionTitle}`,
+          excerpt: excerptAround(line, normalizedQuery),
+          available: true,
+          kind: "writeup",
+          readerId: choice.id,
+          entryId: entry.id,
+        });
+        documentHits += 1;
+      });
+    });
+
+    return results.slice(0, 9);
+  }, [language.id, normalizedQuery, searchDocuments, ui.overview]);
+
+  const openSearchResult = (result) => {
+    if (!result.available) return;
+    setQuery("");
+    setSearchFocused(false);
+
+    if (result.kind === "writeup") {
+      const selectedReader = READERS.find((choice) => choice.id === result.readerId);
+      const resultEntry = ALL_ENTRIES.find((entry) => entry.id === result.entryId) || INTRO_ENTRY;
+      if (!selectedReader) return;
+      if (view === "reader") {
+        setSelectedEntry(resultEntry);
+        setReader(resultEntry.id === INTRO_ENTRY.id ? selectedReader : null);
+        setControlsHidden(false);
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      } else {
+        transitionView("reader", () => {
+          setSelectedEntry(resultEntry);
+          setReader(resultEntry.id === INTRO_ENTRY.id ? selectedReader : null);
+          setControlsHidden(false);
+        });
+      }
+      return;
+    }
+
+    const resultEntry = ALL_ENTRIES.find((entry) => entry.id === result.entryId) || INTRO_ENTRY;
+    openReader(resultEntry);
+  };
 
   return (
-    <main className={`light-page ${view === "directory" ? "is-directory" : "is-reader"} ${viewTransitioning ? "is-view-transitioning" : ""} ${pickerHovered || languageHovered ? "is-considering" : ""} ${reader ? "has-reader" : ""} ${controlsHidden ? "controls-hidden" : ""} ${language.id === "ar" ? "is-arabic-ui" : ""}`}>
+    <main className={`light-page ${view === "directory" ? "is-directory" : "is-reader"} ${viewTransitioning ? "is-view-transitioning" : ""} ${pickerHovered || languageHovered || searchFocused ? "is-considering" : ""} ${searchFocused ? "is-searching" : ""} ${reader ? "has-reader" : ""} ${view === "reader" && !isIntroduction ? "is-standard-writeup" : ""} ${controlsHidden ? "controls-hidden" : ""} ${language.id === "ar" ? "is-arabic-ui" : ""}`}>
       {!showContent && <IntroAnimation onFinish={() => setShowContent(true)} />}
 
       <div className={`light-shell ${showContent ? "is-visible" : ""}`}>
@@ -262,7 +471,7 @@ export default function Light() {
         </div>
 
         <section className="light-language-stage" aria-label="Choose a language">
-          <div className="light-control-label">{language.id === "ar" ? "اللغة" : "Language"}</div>
+          <div className="light-control-label">{ui.language}</div>
           <div className={`light-picker light-language-picker ${languageOpen ? "is-open" : ""}`} ref={languageRef} onMouseEnter={() => { setLanguageOpen(true); setLanguageHovered(true); }} onMouseLeave={() => { setLanguageOpen(false); setLanguageHovered(false); }}>
             <button className="light-picker-trigger" type="button" aria-haspopup="listbox" aria-expanded={languageOpen} onClick={() => setLanguageOpen(true)}>
               <span>{language.label}</span>
@@ -273,8 +482,9 @@ export default function Light() {
                 {MOTES.slice(0, 14).map((mote) => <i key={mote.id} style={{ "--rain-x": `${mote.x}%`, "--rain-delay": `${mote.delay}s` }} />)}
               </div>
               {LANGUAGES.map((choice, index) => (
-                <button className={`light-option ${language.id === choice.id ? "is-selected" : ""}`} key={choice.id} type="button" role="option" aria-selected={language.id === choice.id} style={{ "--option-index": index }} onClick={() => changeLanguage(choice)}>
-                  <span>{choice.label}</span>
+                <button className={`light-option ${language.id === choice.id ? "is-selected" : ""} ${!choice.available ? "is-coming-soon" : ""}`} key={choice.id} type="button" role="option" aria-selected={language.id === choice.id} aria-disabled={!choice.available} style={{ "--option-index": index }} onClick={() => changeLanguage(choice)}>
+                  <span className="light-option-label">{choice.label}</span>
+                  {!choice.available && <span className="light-option-soon">Soon</span>}
                   <i aria-hidden="true" />
                 </button>
               ))}
@@ -284,24 +494,72 @@ export default function Light() {
 
         <button className="light-context-button" type="button" onClick={view === "reader" ? returnToDirectory : goHome}>
           <span aria-hidden="true">←</span>
-          {view === "reader" ? (language.id === "ar" ? "الدليل" : "Directory") : (language.id === "ar" ? "الرئيسية" : "Home")}
+          {view === "reader" ? ui.directory : ui.home}
         </button>
 
-        <label className="light-search">
-          <SearchIcon />
-          <input type="search" value={query} onFocus={() => view === "reader" && returnToDirectory()} onChange={(event) => setQuery(event.target.value)} placeholder={language.id === "ar" ? "ابحث في المكتبة" : "Search the directory"} aria-label={language.id === "ar" ? "ابحث في المكتبة" : "Search the directory"} />
-          {query && <button type="button" onClick={() => setQuery("")} aria-label="Clear search">×</button>}
-        </label>
+        <div className={`light-search-shell ${searchFocused && normalizedQuery ? "has-results" : ""}`} ref={searchRef}>
+          <label className="light-search">
+            <SearchIcon />
+            <input
+              type="search"
+              value={query}
+              onFocus={() => setSearchFocused(true)}
+              onChange={(event) => { setQuery(event.target.value); setSearchFocused(true); }}
+              onKeyDown={(event) => {
+                if (event.key === "Escape") {
+                  setQuery("");
+                  setSearchFocused(false);
+                  event.currentTarget.blur();
+                }
+              }}
+              placeholder={ui.search}
+              aria-label={ui.search}
+              role="combobox"
+              aria-autocomplete="list"
+              aria-expanded={Boolean(searchFocused && normalizedQuery)}
+              aria-controls="light-search-results"
+            />
+            {query && <button type="button" onClick={() => setQuery("")} aria-label="Clear search">×</button>}
+          </label>
+
+          {searchFocused && normalizedQuery && (
+            <div className="light-search-results" id="light-search-results" role="listbox" data-lenis-prevent key={`${language.id}-${normalizedQuery}`}>
+              <div className="light-search-results-heading">
+                <span>{ui.results}</span>
+                <small>{searchLoading ? "…" : searchResults.length}</small>
+              </div>
+              {!searchLoading && searchResults.map((result, resultIndex) => (
+                <button
+                  className={`light-search-result ${result.available ? "is-available" : ""}`}
+                  key={result.id}
+                  type="button"
+                  role="option"
+                  aria-selected="false"
+                  aria-disabled={!result.available}
+                  style={{ "--result-index": resultIndex }}
+                  onClick={() => openSearchResult(result)}
+                >
+                  <strong>{result.heading}</strong>
+                  <span><HighlightedText text={result.excerpt} query={normalizedQuery} /></span>
+                  {!result.available && <small>{ui.soon}</small>}
+                </button>
+              ))}
+              {!searchLoading && !searchResults.length && (
+                <p className="light-search-empty">{ui.empty}</p>
+              )}
+            </div>
+          )}
+        </div>
 
         {view === "directory" && (
           <section className="light-directory" dir={language.id === "ar" ? "rtl" : "ltr"} key={language.id}>
             <header className="light-directory-intro">
-              <p>{language.id === "ar" ? "مكتبة النور" : "The light library"}</p>
-              <h1>{language.id === "ar" ? "أفكار تستحق أن تقرأ ببطء." : "Ideas worth reading slowly."}</h1>
-              <span>{language.id === "ar" ? "مساحة للأسئلة والحجج والنصوص التي أعود إليها." : "A growing directory of questions, arguments, and pieces I return to."}</span>
+              <p>{ui.library}</p>
+              <h1>{ui.intro}</h1>
+              <span>{ui.introNote}</span>
             </header>
 
-            <div className="light-directory-accordion" key={`${language.id}-${normalizedQuery}`}>
+            <div className="light-directory-accordion" key={language.id}>
               {visibleSections.map((section, sectionIndex) => {
                 const isExpanded = hoveredSection === section.id;
                 return (
@@ -330,7 +588,7 @@ export default function Light() {
                             className={`light-directory-entry ${entry.available ? "is-available" : ""}`}
                             key={entry.id}
                             type="button"
-                            onClick={entry.available ? openReader : undefined}
+                            onClick={entry.available ? () => openReader(entry) : undefined}
                             aria-disabled={!entry.available}
                             style={{ "--entry-index": entryIndex }}
                           >
@@ -340,7 +598,7 @@ export default function Light() {
                               <small>{localize(entry, "description")}</small>
                             </span>
                             <span className="light-entry-meta">
-                              {entry.available ? (language.id === "ar" ? "اقرأ" : "Read") : (language.id === "ar" ? "قريبا" : "Soon")}
+                              {entry.available ? ui.read : ui.soon}
                               <i aria-hidden="true">↗</i>
                             </span>
                           </button>
@@ -355,15 +613,15 @@ export default function Light() {
             {!visibleSections.length && (
               <div className="light-directory-empty">
                 <span>·</span>
-                <p>{language.id === "ar" ? "لا توجد نتائج بعد." : "Nothing here yet."}</p>
+                <p>{ui.empty}</p>
               </div>
             )}
           </section>
         )}
 
-        {view === "reader" && <section className="light-reader-stage" aria-label="Choose a reading perspective" ref={readerStageRef}>
+        {view === "reader" && isIntroduction && <section className="light-reader-stage" aria-label="Choose a reading perspective" ref={readerStageRef}>
           <div className="light-question">
-            {language.id === "ar" ? "أقرأ هذا بصفتي" : <>Reading this as <span key={article}>{article}</span></>}
+            {language.id === "en" ? <>{ui.reading} <span key={article}>{article}</span></> : ui.reading}
           </div>
           <div className={`light-picker ${open ? "is-open" : ""}`} ref={pickerRef} onMouseEnter={() => { setOpen(true); setPickerHovered(true); }} onMouseLeave={() => { setOpen(false); setPickerHovered(false); setHoveredReader(null); }}>
             <button className="light-picker-trigger" type="button" aria-haspopup="listbox" aria-expanded={open} onClick={() => setOpen(true)}>
@@ -384,9 +642,9 @@ export default function Light() {
           </div>
         </section>}
 
-        {view === "reader" && <section className={`light-reading ${reader ? "is-visible" : ""}`} aria-live="polite" aria-busy={reader && !content}>
-          {reader && (
-            <div className={`light-reading-inner ${language.id === "ar" ? "is-arabic" : ""}`} dir={language.id === "ar" ? "rtl" : "ltr"} key={`${reader.id}-${language.id}`} ref={readingInnerRef}>
+        {view === "reader" && <section className={`light-reading ${writeupReady ? "is-visible" : ""}`} aria-live="polite" aria-busy={writeupReady && !content}>
+          {writeupReady && (
+            <div className={`light-reading-inner ${language.id === "ar" ? "is-arabic" : ""}`} dir={language.id === "ar" ? "rtl" : "ltr"} key={`${selectedEntry.id}-${reader?.id || "standard"}-${language.id}`} ref={readingInnerRef}>
               {content ? <ReactMarkdown>{content}</ReactMarkdown> : <div className="light-content-loading" aria-label="Loading" />}
             </div>
           )}
