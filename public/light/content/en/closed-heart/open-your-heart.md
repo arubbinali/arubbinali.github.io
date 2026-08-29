@@ -1,5 +1,5 @@
 *A word between us*
 
-# Open your heart to the truth, will work especially on this page for you soon
+# The arrogant do not learn
 
-Belief does not alter truth: 1 + 1 remains 2.
+Soon

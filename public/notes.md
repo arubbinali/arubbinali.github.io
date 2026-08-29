@@ -24,7 +24,7 @@ how is yalllll, i js started to work on this page, tonight is the 11th of august
 </iframe>
 <script defer src="https://quran.com/widget/embed-widget.v1.js"></script>
 
-# **irrefutable proof of Allaah and all His attributes** 
+# **irrefutable proof of Allah and all His attributes**
 https://trueislamlibrary.com/post/the-argument-from-specification-and-definition-a-logical-proof-of-god-and-his-attributes
 objective arguemnts, absolutely irrefutable if ur a rational human with an ability to read and understand english :)
 
@@ -40,5 +40,5 @@ objective arguemnts, absolutely irrefutable if ur a rational human with an abili
 
 **8. bonus: why not ask the jews why rebecca was 3 when isaac was 40 & the christians about mary pregnant at 12?**
 
-Allaah (God) does not waste the efforts of His creation, seek the truth with the open heart and your creator will guide you.
+Allah (God) does not waste the efforts of His creation, seek the truth with the open heart and your creator will guide you.
 much love big dawgs, shalom.

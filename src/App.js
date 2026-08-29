@@ -1,5 +1,5 @@
 // test deploy
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import Lenis from "lenis";
 import Main from "./pages/main";
@@ -9,6 +9,24 @@ import Light from "./pages/light";
 import About from "./pages/about";
 
 const TRLPage = lazy(() => import("./pages/trl"));
+
+function AnimatedRoutes() {
+  const location = useLocation();
+  return (
+    <div className="route-stage" key={location.pathname}>
+      <Routes location={location}>
+        <Route path="/" element={<Main />} />
+        <Route path="/main" element={<Main />} />
+        <Route path="/resume" element={<Resume />} />
+        <Route path="/notes" element={<Notes />} />
+        <Route path="/light/*" element={<Light />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/trl" element={<Suspense fallback={<div style={{ background: "#000", color: "#8a9099", display: "grid", fontFamily: "Montserrat, sans-serif", minHeight: "100vh", placeItems: "center" }}>Loading TRL…</div>}><TRLPage /></Suspense>} />
+        <Route path="*" element={<Main />} />
+      </Routes>
+    </div>
+  );
+}
 
 function App() {
   useEffect(() => {
@@ -43,25 +61,7 @@ function App() {
 
   return (
     <Router>
-      <Routes>
-        {/* root route goes to main page */}
-        <Route path="/" element={<Main />} />
-        <Route path="/main" element={<Main />} />
-        <Route path="/resume" element={<Resume />} />
-        <Route path="/notes" element={<Notes />} />
-        <Route path="/light" element={<Light />} />
-        <Route path="/about" element={<About />} />
-        <Route
-          path="/trl"
-          element={
-            <Suspense fallback={<div style={{ background: "#000", color: "#8a9099", display: "grid", fontFamily: "Montserrat, sans-serif", minHeight: "100vh", placeItems: "center" }}>Loading TRL…</div>}>
-              <TRLPage />
-            </Suspense>
-          }
-        />
-        {/* fallback: unknown routes go to main page */}
-        <Route path="*" element={<Main />} />
-      </Routes>
+      <AnimatedRoutes />
     </Router>
   );
 }

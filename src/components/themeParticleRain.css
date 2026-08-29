@@ -1,0 +1,42 @@
+.theme-particle-rain {
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: fixed;
+  z-index: 0;
+  transition: filter .55s cubic-bezier(.2,.7,.2,1), opacity .55s ease;
+}
+
+.is-considering .theme-particle-rain { filter: blur(18px); opacity: .34; }
+
+.theme-particle-rain i {
+  animation: themeParticleFall var(--particle-duration) linear var(--particle-delay) infinite;
+  background: var(--particle-color, rgba(244, 235, 208, .72));
+  border-radius: 50%;
+  box-shadow: 0 0 7px var(--particle-glow, rgba(244, 235, 208, .58));
+  height: var(--particle-size);
+  left: var(--particle-x);
+  opacity: 0;
+  position: absolute;
+  top: -4vh;
+  width: var(--particle-size);
+  will-change: opacity, transform;
+}
+
+:root[data-theme="dark"] { --particle-color: rgba(244,235,208,.72); --particle-glow: rgba(244,235,208,.62); }
+:root[data-theme="light"] { --particle-color: rgba(105,88,48,.48); --particle-glow: rgba(105,88,48,.32); }
+:root[data-theme="stillwater"] { --particle-color: rgba(148,218,208,.7); --particle-glow: rgba(88,193,181,.62); }
+:root[data-theme="sepia"] { --particle-color: rgba(239,190,116,.68); --particle-glow: rgba(213,145,64,.56); }
+:root[data-theme="sage"] { --particle-color: rgba(172,218,167,.66); --particle-glow: rgba(108,181,110,.56); }
+:root[data-theme="aubergine"] { --particle-color: rgba(228,172,236,.68); --particle-glow: rgba(194,112,207,.58); }
+
+@keyframes themeParticleFall {
+  0% { opacity: 0; transform: translate3d(0, -5vh, 0) scale(.68); }
+  10% { opacity: .62; }
+  68% { opacity: .38; }
+  100% { opacity: 0; transform: translate3d(var(--particle-drift), 110vh, 0) scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-particle-rain i { animation: none; opacity: .18; top: calc(var(--particle-x) * .95); }
+}

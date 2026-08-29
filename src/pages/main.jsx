@@ -3,6 +3,8 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 import "../App.css";
 import IntroAnimation from "../components/intro";
 import ShinyText from "../components/ShinyText";
+import { SiteChrome } from "../components/SiteChrome";
+import { DIRECTORY } from "./light";
 
 function Main() {
   const location = useLocation();
@@ -13,11 +15,10 @@ function Main() {
 
   useEffect(() => () => window.clearTimeout(navigationTimerRef.current), []);
 
-  const enterLight = (event) => {
-    event.preventDefault();
+  const enterRoute = (path) => {
     if (leaving) return;
     setLeaving(true);
-    navigationTimerRef.current = window.setTimeout(() => navigate("/light", { state: { skipIntro: true } }), 320);
+    navigationTimerRef.current = window.setTimeout(() => navigate(path, { state: { skipIntro: true } }), 320);
   };
 
   return (
@@ -26,7 +27,7 @@ function Main() {
       style={{
         position: "relative",
         overflow: "hidden",
-        backgroundColor: "black",
+        backgroundColor: "var(--site-bg)",
         minHeight: "100vh",
       }}
     >
@@ -40,6 +41,7 @@ function Main() {
           minHeight: "100vh",
         }}
       >
+        <SiteChrome sections={DIRECTORY} currentView="home" buttonLabel="Structure" onNavigate={enterRoute} />
         <div
           className="center-text main-home-center"
           style={{ zIndex: 2, fontFamily: "Montserrat, sans-serif" }}
@@ -57,21 +59,15 @@ function Main() {
             </p>
           </div>
 
-          <Link to="/light" state={{ skipIntro: true }} className="main-light-link" onClick={enterLight}>
+          <Link to="/light" state={{ skipIntro: true }} className="main-light-link" onClick={(event) => { event.preventDefault(); enterRoute("/light"); }}>
             <span>Read in the light</span>
             <span aria-hidden="true">↗</span>
           </Link>
         </div>
 
-        <footer className="main-discord-footer">
-          <Link to="/about" className="main-discord-connection" style={{ textDecoration: "none" }}>
-            <span className="main-discord-icon" style={{ background: "#31343a", color: "#f1f3f5" }}>
-              <svg viewBox="0 0 24 24" aria-hidden="true" style={{ height: 14, width: 14 }}>
-                <path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-              </svg>
-            </span>
-            <span className="main-discord-label">About</span>
-            <span className="main-discord-status" aria-hidden="true" />
+        <footer className="main-about-footer">
+          <Link to="/about" className="main-about-link" onClick={(event) => { event.preventDefault(); enterRoute("/about"); }}>
+            <span aria-hidden="true">⌘</span> About
           </Link>
         </footer>
       </div>

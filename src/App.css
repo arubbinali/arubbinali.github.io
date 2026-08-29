@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;600&display=swap');
-
 @font-face {
   font-family: 'Uthmanic Hafs';
   src: url('https://verses.quran.foundation/fonts/quran/hafs/uthmanic_hafs/UthmanicHafs1Ver18.woff2') format('woff2');
@@ -18,7 +17,8 @@
   width: 100%;
   height: 100vh; /* full screen height */
   overflow: hidden;
-  background-color: #000; /* or any background you want */
+  background-color: var(--site-bg); /* or any background you want */
+  transition: background-color .65s cubic-bezier(.16,1,.3,1), color .65s ease;
 }
 
 /* smooth scrolling throughout the site */
@@ -30,6 +30,9 @@ html {
 body {
   font-family: 'Montserrat', sans-serif;
 }
+
+.route-stage { animation: routeStageIn .55s cubic-bezier(.16,1,.3,1) both; min-height: 100vh; }
+@keyframes routeStageIn { from { filter: blur(8px); opacity: 0; } to { filter: none; opacity: 1; } }
 
 .center-text {
   position: absolute;
@@ -77,26 +80,40 @@ body {
   background: linear-gradient(
     112deg,
     rgba(224,219,205,.72) 34%,
-    rgba(255,255,255,1) 49%,
+    #fff 49%,
     rgba(224,219,205,.72) 64%
   );
   background-clip: text;
   background-size: 220% 100%;
   color: transparent;
   display: block;
-  filter: drop-shadow(0 0 11px rgba(237,231,214,.16));
+  filter: brightness(1.35) drop-shadow(0 0 18px rgba(255,255,255,.38));
   font-family: inherit;
-  text-shadow: 0 0 28px rgba(234,227,207,.22);
+  text-shadow: 0 0 18px rgba(255,255,255,.46), 0 0 42px rgba(234,227,207,.34);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: homeAyahShine 4s linear infinite;
   width: 100%;
 }
 
+:root[data-theme="light"] .center-text,
+:root[data-theme="light"] .center-text .about-title { color: #25241f; }
+:root[data-theme="light"] .center-text .main-home-translation,
+:root[data-theme="light"] .center-text .about-intro,
+:root[data-theme="light"] .center-text .about-portfolio { color: rgba(45,42,34,.72); }
+:root[data-theme="light"] .center-text .main-home-ayah-shine {
+  background-image: linear-gradient(112deg, #5e5542 34%, #171610 49%, #5e5542 64%);
+  filter: drop-shadow(0 0 10px rgba(87,70,37,.12));
+}
+:root[data-theme="stillwater"] .center-text .main-home-ayah-shine {
+  background-image: linear-gradient(112deg, #a9bab7 34%, #f5fbf9 49%, #a9bab7 64%);
+}
+:root[data-theme="light"] .main-light-link { border-color: rgba(42,39,31,.3); color: #4a463a; }
+
 @keyframes homeAyahShine {
-  0% { background-position: 100% 50%; filter: drop-shadow(0 0 9px rgba(237,231,214,.13)); }
-  50% { filter: drop-shadow(0 0 16px rgba(237,231,214,.23)); }
-  100% { background-position: -100% 50%; filter: drop-shadow(0 0 9px rgba(237,231,214,.13)); }
+  0% { background-position: -100% 50%; filter: brightness(1.25) drop-shadow(0 0 14px rgba(255,255,255,.28)); }
+  50% { filter: brightness(1.5) drop-shadow(0 0 24px rgba(255,255,255,.5)); }
+  100% { background-position: 100% 50%; filter: brightness(1.25) drop-shadow(0 0 14px rgba(255,255,255,.28)); }
 }
 
 .main-home-center {
@@ -142,13 +159,20 @@ body {
   opacity: 1;
 }
 .center-text .about-portfolio {
-  color: rgba(225,221,210,.68);
-  font-size: .75rem;
+  color: var(--site-fg);
+  filter: drop-shadow(0 0 12px var(--site-glow));
+  font-size: clamp(1rem, 1.8vw, 1.3rem);
   font-weight: 300;
-  letter-spacing: .04em;
+  letter-spacing: .02em;
   margin: 0;
   opacity: 1;
 }
+.about-portfolio .temp-link { color: #8fb5ff !important; font-weight: 400; text-shadow: 0 0 14px rgba(113,161,255,.4); }
+:root[data-theme="light"] .about-portfolio .temp-link { color: #805b20 !important; text-shadow: 0 0 12px rgba(138,91,25,.24); }
+:root[data-theme="stillwater"] .about-portfolio .temp-link { color: #71d3c9 !important; }
+:root[data-theme="sepia"] .about-portfolio .temp-link { color: #f0b865 !important; }
+:root[data-theme="sage"] .about-portfolio .temp-link { color: #9bd39e !important; }
+:root[data-theme="aubergine"] .about-portfolio .temp-link { color: #dfa4e8 !important; }
 
 .temp-link {
   color: rgb(75, 89, 244);
@@ -236,6 +260,16 @@ body {
   z-index: 12;
 }
 
+.main-about-footer { bottom: 25px; position: absolute; right: 25px; z-index: 15; }
+.main-content .site-structure { bottom: 25px; left: 25px; top: auto; }
+.main-content .site-structure-panel { bottom: calc(100% + 4px); top: auto; transform: translateY(10px) scale(.975); transform-origin: bottom left; border-radius: 22px; }
+.main-content .site-structure::after { bottom: 100%; height: 14px; pointer-events: auto; top: auto; }
+.main-content .site-structure.is-open .site-structure-panel,
+.main-content .site-structure:hover .site-structure-panel,
+.main-content .site-structure:focus-within .site-structure-panel { transform: translateY(0) scale(1); }
+.main-about-link { align-items: center; background: none; border: none; box-shadow: none; color: var(--site-muted); display: flex; font: 400 .7rem/1 'Montserrat',sans-serif; gap: .65rem; letter-spacing: .14em; padding: .75rem; text-decoration: none; text-shadow: 0 2px 12px rgba(0,0,0,.35); text-transform: uppercase; transition: color .3s ease, transform .35s cubic-bezier(.16,1,.3,1); }
+.main-about-link:hover, .main-about-link:focus-visible { color: var(--site-fg); outline: none; transform: translateX(-3px); }
+
 .main-discord-connection {
   align-items: center;
   background: rgba(12, 15, 21, .82);
@@ -261,6 +295,16 @@ body {
   outline: none;
   transform: translateY(-2px);
 }
+
+:root[data-theme="light"] .main-discord-connection { background: rgba(255,255,255,.32); border-color: rgba(49,44,34,.17); color: rgba(45,42,34,.7); }
+:root[data-theme="light"] .main-discord-connection:hover { background: rgba(255,255,255,.58); border-color: rgba(49,44,34,.3); color: #252119; }
+:root[data-theme="light"] .main-discord-card { background: rgba(242,238,227,.97); border-color: rgba(49,44,34,.16); }
+:root[data-theme="light"] .main-discord-card strong { color: #252119; }
+:root[data-theme="light"] .main-discord-card small { color: rgba(45,42,34,.6); }
+:root[data-theme="stillwater"] .main-discord-connection,
+:root[data-theme="sage"] .main-discord-connection { background: rgba(17,36,39,.82); border-color: rgba(157,200,195,.2); color: #adc5c1; }
+:root[data-theme="sepia"] .main-discord-connection { background: rgba(42,31,18,.86); border-color: rgba(220,183,128,.22); color: #d0b58d; }
+:root[data-theme="aubergine"] .main-discord-connection { background: rgba(39,22,41,.86); border-color: rgba(213,166,219,.22); color: #c9aacd; }
 
 .main-discord-icon {
   align-items: center;
@@ -318,7 +362,7 @@ body {
 
 .fade-in {
   opacity: 1;
-  animation: fadeInSmooth 2s ease forwards;
+  animation: fadeInSmooth .55s cubic-bezier(.16,1,.3,1) forwards;
 }
 
 .main-content.is-leaving {
@@ -575,4 +619,8 @@ body {
   .center-text .main-verse-translation { font-size: .65rem; line-height: 1.55; }
   .main-discord-footer { bottom: 14px; }
   .main-discord-label { display: none; }
+  .main-about-footer { bottom: 9px; right: 9px; left: auto; }
+  .main-content .site-structure { bottom: 9px; left: 9px; top: auto; }
+  .main-content .site-structure-panel { bottom: calc(100% + 4px); top: auto; border-radius: 16px; }
+  .main-about-link { font-size: .58rem; padding: .65rem; }
 }

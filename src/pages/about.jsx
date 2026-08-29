@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
+import { SiteChrome } from "../components/SiteChrome";
+import { DIRECTORY } from "./light";
 
 function DiscordIcon() {
   return (
@@ -29,6 +31,16 @@ function LinkedInIcon() {
 export default function About() {
   const navigate = useNavigate();
   const [discordCopied, setDiscordCopied] = useState(false);
+  const [leaving, setLeaving] = useState(false);
+  const navigationTimerRef = useRef(null);
+
+  useEffect(() => () => window.clearTimeout(navigationTimerRef.current), []);
+
+  const goRoute = (path) => {
+    if (leaving) return;
+    setLeaving(true);
+    navigationTimerRef.current = window.setTimeout(() => navigate(path, { state: { skipIntro: true } }), 320);
+  };
 
   const copyDiscord = async () => {
     await navigator.clipboard?.writeText("doaor");
@@ -42,26 +54,19 @@ export default function About() {
       style={{
         position: "relative",
         overflow: "hidden",
-        backgroundColor: "black",
+        backgroundColor: "var(--site-bg)",
         minHeight: "100vh",
       }}
     >
       <div
-        className="fade-in"
+        className={`main-content fade-in ${leaving ? "is-leaving" : ""}`}
         style={{
           position: "relative",
           width: "100%",
           minHeight: "100vh",
         }}
       >
-        <button
-          className="light-context-button"
-          type="button"
-          onClick={() => navigate("/", { state: { skipIntro: true } })}
-          style={{ position: "fixed", top: 27, left: 32, zIndex: 10 }}
-        >
-          <span aria-hidden="true">←</span> Home
-        </button>
+        <SiteChrome sections={DIRECTORY} currentView="about" buttonLabel="Home" buttonTarget="/" onNavigate={goRoute} showStructure={false} />
 
         <div
           className="center-text about-center"
@@ -77,7 +82,7 @@ export default function About() {
           </p>
 
           <p className="about-portfolio">
-            You can find my digital portfolio{" "}
+            You can find my works{" "}
             <a
               href="https://doaor.com/d/"
               target="_blank"

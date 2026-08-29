@@ -1,8 +1,8 @@
 *A practical beginning*
 
-# How to become Muslim? What to do next?
+# How to become Muslim?
 
-Becoming Muslim begins with sincere belief in the oneness of Allaah and in Muhammad as His messenger, expressed through the testimony of faith. No ceremony, audience, or perfect past is required.
+Becoming Muslim begins with sincere belief in the oneness of Allah and in Muhammad as His messenger, expressed through the testimony of faith. No ceremony, audience, or perfect past is required.
 
 ## The first steps
 
