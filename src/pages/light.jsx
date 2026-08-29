@@ -1,15 +1,21 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import ReactMarkdown from "react-markdown";
 import { useNavigate, useLocation } from "react-router-dom";
+import Lenis from "lenis";
 import IntroAnimation from "../components/intro";
 import { SiteChrome } from "../components/SiteChrome";
+import { glossify, LibraryJournal, ReaderExperience } from "../components/ReaderExperience";
+import { LIGHT_CONTENT, SITE_COMMITS } from "../generated/lightData";
 import "./light.css";
 
 const READERS = [
   { id: "muslim", label: "Muslim", labelAr: "مسلم", labelZh: "穆斯林", labelJa: "ムスリム" },
   { id: "christian", label: "Christian", labelAr: "مسيحي", labelZh: "基督徒", labelJa: "キリスト教徒" },
   { id: "jew", label: "Jew", labelAr: "يهودي", labelZh: "犹太教徒", labelJa: "ユダヤ教徒" },
+  { id: "buddhist", label: "Buddhist", labelAr: "بوذي", labelZh: "佛教徒", labelJa: "仏教徒" },
   { id: "atheist", label: "atheist", labelAr: "ملحد", labelZh: "无神论者", labelJa: "無神論者" },
+  { id: "agnostic", label: "agnostic", labelAr: "لاأدري", labelZh: "不可知论者", labelJa: "不可知論者" },
 ];
 
 const ACTIVE_LANGUAGE = { id: "en", label: "English", available: true };
@@ -29,7 +35,7 @@ export const DIRECTORY = [
     eyebrow: "Begin here",
     eyebrowAr: "ابدأ هنا",
     entries: [
-      { id: "signs", title: "The signs in the horizons", titleAr: "اياتنا في الافاق", description: "Qur'an 41:53, approached through four different ways of reading.", descriptionAr: "قراءة الاية ٤١:٥٣ من خلال أربع وجهات نظر مختلفة.", available: true },
+      { id: "signs", title: "The signs in the horizons", titleAr: "اياتنا في الافاق", description: "Qur'an 41:53, approached through six different ways of reading.", descriptionAr: "قراءة الاية ٤١:٥٣ من خلال ست وجهات نظر مختلفة.", available: true },
     ],
   },
   {
@@ -139,6 +145,26 @@ function contentPath(languageId, entry, readerId) {
   return `/light/content/${languageId}/${category}/${entry.id}.md`;
 }
 
+function contentKey(languageId, entry, readerId) {
+  const category = ENTRY_CATEGORY[entry.id];
+  if (entry.id === INTRO_ENTRY.id) return `${languageId}/${category}/${entry.id}/${readerId}.md`;
+  return `${languageId}/${category}/${entry.id}.md`;
+}
+
+async function loadMarkdown(languageId, entry, readerId) {
+  const key = contentKey(languageId, entry, readerId);
+  const fallback = LIGHT_CONTENT[key];
+  try {
+    const response = await fetch(contentPath(languageId, entry, readerId), { cache: "no-cache" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const markdown = await response.text();
+    if (/^\s*<!doctype html/i.test(markdown)) throw new Error("HTML fallback returned for Markdown");
+    return markdown || fallback || "";
+  } catch {
+    return fallback || "";
+  }
+}
+
 function directoryText(item, key, languageId) {
   if (DIRECTORY_LOCALE[languageId]?.[item.id]?.[key]) return DIRECTORY_LOCALE[languageId][item.id][key];
   if (languageId === "ar") return item[`${key}Ar`] || item[key];
@@ -197,6 +223,13 @@ function HighlightedText({ text, query }) {
   return pieces;
 }
 
+const MARKDOWN_COMPONENTS = {
+  p: ({ children }) => <p>{glossify(children)}</p>,
+  li: ({ children }) => <li>{glossify(children)}</li>,
+  h2: ({ children }) => <h2>{glossify(children)}</h2>,
+  h3: ({ children }) => <h3>{glossify(children)}</h3>,
+};
+
 export default function Light() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -219,18 +252,29 @@ export default function Light() {
   const [controlsHidden, setControlsHidden] = useState(false);
   const [content, setContent] = useState("");
   const [hoveredSection, setHoveredSection] = useState(null);
+  const [readingMode, setReadingMode] = useState(() => window.localStorage.getItem("doaor-reading-mode") || "study");
   const pickerRef = useRef(null);
+  const lightPageRef = useRef(null);
   const searchRef = useRef(null);
   const readerStageRef = useRef(null);
   const readingInnerRef = useRef(null);
   const controlsHiddenRef = useRef(false);
+
+  useEffect(() => {
+    document.documentElement.classList.add("light-scroll-owned");
+    document.body.classList.add("light-scroll-owned");
+    return () => {
+      document.documentElement.classList.remove("light-scroll-owned");
+      document.body.classList.remove("light-scroll-owned");
+    };
+  }, []);
   const transitionTimerRef = useRef(null);
   const isIntroduction = selectedEntry.id === INTRO_ENTRY.id;
   const writeupReady = view === "reader" && (!isIntroduction || Boolean(reader));
   const ui = UI_COPY[language.id];
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    lightPageRef.current?.scrollTo({ top: 0, left: 0, behavior: "auto" });
     const close = (event) => {
       if (!pickerRef.current?.contains(event.target)) setOpen(false);
       if (!searchRef.current?.contains(event.target)) setSearchFocused(false);
@@ -239,7 +283,35 @@ export default function Light() {
     return () => document.removeEventListener("pointerdown", close);
   }, []);
 
+  useEffect(() => {
+    const wrapper = lightPageRef.current;
+    const scrollContent = wrapper?.querySelector(".light-shell");
+    if (!wrapper || !scrollContent) return undefined;
+    const smoothScroll = new Lenis({
+      wrapper,
+      content: scrollContent,
+      duration: 1.15,
+      easing: (value) => Math.min(1, 1.001 - Math.pow(2, -10 * value)),
+      smoothWheel: true,
+      smoothTouch: false,
+      prevent: (node) => {
+        const prevented = node.closest?.("[data-lenis-prevent]");
+        return Boolean(prevented && prevented !== wrapper);
+      },
+    });
+    let frameId;
+    const frame = (time) => { smoothScroll.raf(time); frameId = window.requestAnimationFrame(frame); };
+    frameId = window.requestAnimationFrame(frame);
+    return () => { window.cancelAnimationFrame(frameId); smoothScroll.destroy(); };
+  }, []);
+
   useEffect(() => () => window.clearTimeout(transitionTimerRef.current), []);
+
+  useEffect(() => {
+    const changeMode = (event) => setReadingMode(event.detail || "study");
+    window.addEventListener("doaor:reading-mode", changeMode);
+    return () => window.removeEventListener("doaor:reading-mode", changeMode);
+  }, []);
 
   useEffect(() => {
     const parts = location.pathname.split("/").filter(Boolean);
@@ -262,7 +334,7 @@ export default function Light() {
       setControlsHidden(hidden);
     };
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
+      const scrollPosition = lightPageRef.current?.scrollTop || 0;
       if (scrollPosition > 2) {
         setOpen(false);
         setPickerHovered(false);
@@ -275,6 +347,12 @@ export default function Light() {
         updateControlsHidden(false);
         return;
       }
+      if (isIntroduction && readingInnerRef.current && readerStageRef.current) {
+        const controlsBottom = readerStageRef.current.getBoundingClientRect().bottom;
+        const articleTop = readingInnerRef.current.getBoundingClientRect().top;
+        updateControlsHidden(articleTop <= controlsBottom + 36);
+        return;
+      }
       if (readingInnerRef.current) {
         const controlsBottom = readerStageRef.current?.getBoundingClientRect().bottom || 92;
         const articleTop = readingInnerRef.current.getBoundingClientRect().top;
@@ -282,21 +360,18 @@ export default function Light() {
       }
     };
     handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [reader, view, writeupReady]);
+    const scrollTarget = lightPageRef.current;
+    scrollTarget?.addEventListener("scroll", handleScroll, { passive: true });
+    return () => scrollTarget?.removeEventListener("scroll", handleScroll);
+  }, [isIntroduction, reader, view, writeupReady]);
 
   useEffect(() => {
     if (view !== "reader" || (isIntroduction && !reader)) return;
     let active = true;
     setContent("");
-    fetch(contentPath(language.id, selectedEntry, reader?.id || READERS[0].id))
-      .then((response) => {
-        if (!response.ok) throw new Error(`Unable to load ${response.url}`);
-        return response.text();
-      })
+    loadMarkdown(language.id, selectedEntry, reader?.id || READERS[0].id)
       .then((markdown) => active && setContent(markdown))
-      .catch(() => active && setContent("# Content unavailable\n\nThis reading could not be loaded."));
+      .catch(() => active && setContent("# This page is being restored\n\nPlease return to the directory and try again."));
     return () => { active = false; };
   }, [language.id, reader, selectedEntry, view, isIntroduction]);
 
@@ -307,8 +382,7 @@ export default function Light() {
       ? READERS.map((choice) => ({ entry, choice }))
       : [{ entry, choice: READERS[0] }]);
     Promise.all(documents.map(({ entry, choice }) =>
-      fetch(contentPath(language.id, entry, choice.id))
-        .then((response) => response.ok ? response.text() : "")
+      loadMarkdown(language.id, entry, choice.id)
         .then((markdown) => ({ entry, choice, markdown }))
     )).then((documents) => {
       if (active) setSearchDocuments(documents);
@@ -319,14 +393,15 @@ export default function Light() {
   }, [language.id]);
 
   const chooseReader = (choice) => {
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     controlsHiddenRef.current = false;
     setControlsHidden(false);
-    setReader(choice);
     setOpen(false);
     setPickerHovered(false);
     setHoveredReader(null);
-    navigate(`/light/${INTRO_ENTRY.id}/${choice.id}`, { state: { skipIntro: true }, replace: true });
+    transitionView("reader", () => {
+      setReader(choice);
+      navigate(`/light/${INTRO_ENTRY.id}/${choice.id}`, { state: { skipIntro: true }, replace: true });
+    });
   };
 
   const transitionView = (nextView, callback) => {
@@ -337,9 +412,9 @@ export default function Light() {
     transitionTimerRef.current = window.setTimeout(() => {
       setView(nextView);
       callback?.();
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      lightPageRef.current?.scrollTo({ top: 0, left: 0, behavior: "auto" });
       window.requestAnimationFrame(() => window.requestAnimationFrame(() => setViewTransitioning(false)));
-    }, 320);
+    }, 460);
   };
 
   const openReader = (entry = INTRO_ENTRY, selectedReader = null, highlight = null) => transitionView("reader", () => {
@@ -363,12 +438,18 @@ export default function Light() {
   const goHome = () => {
     window.clearTimeout(transitionTimerRef.current);
     setViewTransitioning(true);
-    transitionTimerRef.current = window.setTimeout(() => navigate("/", { state: { skipIntro: true } }), 320);
+    transitionTimerRef.current = window.setTimeout(() => navigate("/", { state: { skipIntro: true } }), 460);
   };
 
   const navigateFromStructure = (path) => {
     if (path === "/") {
       goHome();
+      return;
+    }
+    if (!path.startsWith("/light")) {
+      window.clearTimeout(transitionTimerRef.current);
+      setViewTransitioning(true);
+      transitionTimerRef.current = window.setTimeout(() => navigate(path, { state: { skipIntro: true } }), 460);
       return;
     }
     if (path === "/light") {
@@ -388,7 +469,7 @@ export default function Light() {
   };
 
   const activeGrammarReader = hoveredReader || reader;
-  const article = activeGrammarReader?.id === "atheist" ? "an" : "a";
+  const article = ["atheist", "agnostic"].includes(activeGrammarReader?.id) ? "an" : "a";
   const displayReader = (choice) => choice[`label${language.id === "en" ? "" : language.id.charAt(0).toUpperCase() + language.id.slice(1)}`] || choice.label;
   const localize = (item, key) => directoryText(item, key, language.id);
   const normalizedQuery = query.trim().toLocaleLowerCase();
@@ -511,7 +592,7 @@ export default function Light() {
   }, [content, location.state]);
 
   return (
-    <main className={`light-page ${view === "directory" ? "is-directory" : "is-reader"} ${viewTransitioning ? "is-view-transitioning" : ""} ${pickerHovered || searchFocused ? "is-considering" : ""} ${searchFocused ? "is-searching" : ""} ${reader ? "has-reader" : ""} ${view === "reader" && !isIntroduction ? "is-standard-writeup" : ""} ${controlsHidden ? "controls-hidden" : ""}`}>
+    <main ref={lightPageRef} data-lenis-prevent className={`light-page reading-mode-${readingMode} ${view === "directory" ? "is-directory" : "is-reader"} ${viewTransitioning ? "is-view-transitioning" : ""} ${pickerHovered || searchFocused ? "is-considering" : ""} ${searchFocused ? "is-searching" : ""} ${reader ? "has-reader" : ""} ${view === "reader" && !isIntroduction ? "is-standard-writeup" : ""} ${controlsHidden ? "controls-hidden" : ""}`}>
       {!showContent && <IntroAnimation onFinish={() => setShowContent(true)} />}
 
       <div className={`light-shell ${showContent ? "is-visible" : ""}`}>
@@ -596,11 +677,8 @@ export default function Light() {
                     className={`light-directory-accordion-item ${isExpanded ? "is-expanded" : ""}`}
                     key={section.id}
                     style={{ "--section-index": sectionIndex }}
-                    onMouseEnter={() => setHoveredSection(section.id)}
-                    onMouseLeave={() => { if (window.matchMedia?.("(hover: hover)").matches) setHoveredSection(null); }}
-                    onClick={() => { if (!window.matchMedia?.("(hover: hover)").matches) setHoveredSection((current) => current === section.id ? null : section.id); }}
                   >
-                    <header className="light-directory-accordion-header" role="button" tabIndex="0" aria-expanded={isExpanded} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setHoveredSection((current) => current === section.id ? null : section.id); } }}>
+                    <header className="light-directory-accordion-header" role="button" tabIndex="0" aria-expanded={isExpanded} onClick={() => setHoveredSection((current) => current === section.id ? null : section.id)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setHoveredSection((current) => current === section.id ? null : section.id); } }}>
                       <span className="light-directory-accordion-eyebrow">{localize(section, "eyebrow")}</span>
                       <div className="light-directory-accordion-title-row">
                         <span className="light-directory-accordion-order">{String(section.order).padStart(2, "0")}</span>
@@ -641,6 +719,8 @@ export default function Light() {
               })}
             </div>
 
+            <LibraryJournal commits={SITE_COMMITS} />
+
             {!visibleSections.length && (
               <div className="light-directory-empty">
                 <span>·</span>
@@ -650,7 +730,7 @@ export default function Light() {
           </section>
         )}
 
-        {view === "reader" && isIntroduction && <section className="light-reader-stage" aria-label="Choose a reading perspective" ref={readerStageRef}>
+        {view === "reader" && isIntroduction && createPortal(<section className={`light-reader-stage ${reader ? "is-docked" : ""} ${viewTransitioning ? "is-view-transitioning" : ""} ${controlsHidden ? "is-scroll-hidden" : ""} ${searchFocused ? "is-search-dimmed" : ""}`} aria-label="Choose a reading perspective" ref={readerStageRef}>
           <div className="light-question">
             {language.id === "en" ? <>{ui.reading} <span key={article}>{article}</span></> : ui.reading}
           </div>
@@ -671,12 +751,13 @@ export default function Light() {
               ))}
             </div>
           </div>
-        </section>}
+        </section>, document.body)}
 
         {view === "reader" && <section className={`light-reading ${writeupReady ? "is-visible" : ""}`} aria-live="polite" aria-busy={writeupReady && !content}>
           {writeupReady && (
             <div className={`light-reading-inner ${language.id === "ar" ? "is-arabic" : ""}`} dir={language.id === "ar" ? "rtl" : "ltr"} key={`${selectedEntry.id}-${reader?.id || "standard"}-${language.id}`} ref={readingInnerRef}>
-              {content ? <ReactMarkdown>{content}</ReactMarkdown> : <div className="light-content-loading" aria-label="Loading" />}
+              {content ? <ReactMarkdown components={MARKDOWN_COMPONENTS}>{content}</ReactMarkdown> : <div className="light-content-loading" aria-label="Loading" />}
+              {content && <ReaderExperience entry={selectedEntry} sections={DIRECTORY} onNavigate={navigateFromStructure} content={content} />}
             </div>
           )}
         </section>}

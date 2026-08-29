@@ -39,7 +39,7 @@ export default function About() {
   const goRoute = (path) => {
     if (leaving) return;
     setLeaving(true);
-    navigationTimerRef.current = window.setTimeout(() => navigate(path, { state: { skipIntro: true } }), 320);
+    navigationTimerRef.current = window.setTimeout(() => navigate(path, { state: { skipIntro: true } }), 460);
   };
 
   const copyDiscord = async () => {

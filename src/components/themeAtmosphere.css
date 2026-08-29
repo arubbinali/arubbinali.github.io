@@ -1,0 +1,36 @@
+.theme-atmosphere {
+  --atmosphere-rgb: 226, 216, 186;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: fixed;
+  z-index: 0;
+  transition: filter .95s cubic-bezier(.2,.7,.2,1), opacity .95s ease;
+}
+:root[data-theme="light"] .theme-atmosphere { --atmosphere-rgb: 105, 83, 40; }
+:root[data-theme="stillwater"] .theme-atmosphere { --atmosphere-rgb: 103, 190, 180; }
+:root[data-theme="sepia"] .theme-atmosphere { --atmosphere-rgb: 218, 157, 77; }
+:root[data-theme="sage"] .theme-atmosphere { --atmosphere-rgb: 119, 176, 121; }
+:root[data-theme="aubergine"] .theme-atmosphere { --atmosphere-rgb: 184, 113, 195; }
+
+.theme-atmosphere::before { animation: atmosphereVeil 42s ease-in-out -12s infinite alternate; background:radial-gradient(ellipse at 18% 32%,rgba(var(--atmosphere-rgb),.11),transparent 38%),radial-gradient(ellipse at 78% 68%,rgba(var(--atmosphere-rgb),.075),transparent 42%),linear-gradient(125deg,transparent 20%,rgba(var(--atmosphere-rgb),.025) 48%,transparent 76%);content:'';inset:-18%;position:absolute;transform:rotate(-4deg);will-change:transform; }
+.theme-aurora { border-radius: 44% 56% 62% 38% / 55% 44% 56% 45%; filter: blur(76px); opacity: .1; position: absolute; will-change: transform; }
+.theme-aurora-one { animation: atmosphereOrbit 30s ease-in-out infinite alternate; background: rgba(var(--atmosphere-rgb),.72); height:min(48vw,640px);left:-14vw;top:5vh;width:min(66vw,860px); }
+.theme-aurora-two { animation: atmosphereOrbitTwo 38s ease-in-out -11s infinite alternate; background: rgba(var(--atmosphere-rgb),.46); bottom:-20vw;height:min(54vw,700px);right:-8vw;width:min(70vw,920px); }
+.theme-aurora-three { animation: atmosphereOrbit 46s ease-in-out -23s infinite alternate-reverse;background:rgba(var(--atmosphere-rgb),.3);height:min(36vw,480px);left:42vw;top:20vh;width:min(52vw,680px); }
+.theme-constellation { animation: constellationDrift 38s ease-in-out infinite alternate; fill: none; inset: -4%; opacity: .18; position: absolute; stroke: rgba(var(--atmosphere-rgb),.3); stroke-dasharray: 1 13; stroke-linecap: round; stroke-width: .7; width: 108%; height: 108%; }
+.theme-star-field { inset: 0; position: absolute; }
+.theme-star-field i { animation: starBreathe 5.5s ease-in-out var(--star-delay) infinite; background: rgba(var(--atmosphere-rgb),.68); border-radius: 50%; box-shadow: 0 0 10px rgba(var(--atmosphere-rgb),.44); height: var(--star-size); left: var(--star-x); opacity: .18; position: absolute; top: var(--star-y); width: var(--star-size); }
+.is-considering .theme-atmosphere { filter: blur(15px); opacity: .28; }
+.theme-atmosphere.is-subdued { filter:blur(9px) brightness(.72);opacity:.5; }
+
+@keyframes atmosphereOrbit { from { transform: translate3d(-4vw,-3vh,0) rotate(-5deg) scale(.94); } to { transform: translate3d(18vw,11vh,0) rotate(8deg) scale(1.1); } }
+@keyframes atmosphereOrbitTwo { from { transform:translate3d(8vw,4vh,0) rotate(6deg) scale(1.06); } to { transform:translate3d(-15vw,-9vh,0) rotate(-7deg) scale(.93); } }
+@keyframes atmosphereVeil { from { transform:translate3d(-3vw,-2vh,0) rotate(-4deg) scale(1); } to { transform:translate3d(5vw,4vh,0) rotate(3deg) scale(1.05); } }
+@keyframes constellationDrift { to { transform: translate3d(-2.5vw,2vh,0) scale(1.025); } }
+@keyframes starBreathe { 0%,100% { opacity: .1; transform: scale(.75); } 48% { opacity: .62; transform: scale(1.25); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-atmosphere * { animation: none !important; }
+  .theme-star-field i { opacity: .24; }
+}

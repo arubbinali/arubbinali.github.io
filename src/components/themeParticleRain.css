@@ -4,37 +4,41 @@
   pointer-events: none;
   position: fixed;
   z-index: 0;
-  transition: filter .55s cubic-bezier(.2,.7,.2,1), opacity .55s ease;
+  transition: filter .9s cubic-bezier(.2,.7,.2,1), opacity .9s ease;
 }
 
 .is-considering .theme-particle-rain { filter: blur(18px); opacity: .34; }
+.theme-particle-rain.is-subdued { filter: blur(8px) brightness(.72); opacity: .48; }
 
 .theme-particle-rain i {
   animation: themeParticleFall var(--particle-duration) linear var(--particle-delay) infinite;
   background: var(--particle-color, rgba(244, 235, 208, .72));
   border-radius: 50%;
-  box-shadow: 0 0 7px var(--particle-glow, rgba(244, 235, 208, .58));
+  box-shadow: 0 0 6px var(--particle-glow, rgba(244, 235, 208, .72)), 0 0 15px var(--particle-glow, rgba(244, 235, 208, .45));
   height: var(--particle-size);
+  filter: blur(var(--particle-blur));
   left: var(--particle-x);
   opacity: 0;
   position: absolute;
   top: -4vh;
-  width: var(--particle-size);
+  width: var(--particle-width);
   will-change: opacity, transform;
 }
 
-:root[data-theme="dark"] { --particle-color: rgba(244,235,208,.72); --particle-glow: rgba(244,235,208,.62); }
-:root[data-theme="light"] { --particle-color: rgba(105,88,48,.48); --particle-glow: rgba(105,88,48,.32); }
-:root[data-theme="stillwater"] { --particle-color: rgba(148,218,208,.7); --particle-glow: rgba(88,193,181,.62); }
-:root[data-theme="sepia"] { --particle-color: rgba(239,190,116,.68); --particle-glow: rgba(213,145,64,.56); }
-:root[data-theme="sage"] { --particle-color: rgba(172,218,167,.66); --particle-glow: rgba(108,181,110,.56); }
-:root[data-theme="aubergine"] { --particle-color: rgba(228,172,236,.68); --particle-glow: rgba(194,112,207,.58); }
+:root[data-theme="dark"] { --particle-color: rgba(255,246,218,.9); --particle-glow: rgba(255,242,202,.78); }
+:root[data-theme="light"] { --particle-color: rgba(78,60,23,.72); --particle-glow: rgba(91,65,17,.5); }
+:root[data-theme="stillwater"] { --particle-color: rgba(160,238,226,.86); --particle-glow: rgba(88,205,190,.76); }
+:root[data-theme="sepia"] { --particle-color: rgba(251,202,126,.84); --particle-glow: rgba(225,151,59,.72); }
+:root[data-theme="sage"] { --particle-color: rgba(188,235,181,.82); --particle-glow: rgba(110,193,112,.72); }
+:root[data-theme="aubergine"] { --particle-color: rgba(239,185,248,.84); --particle-glow: rgba(207,122,222,.74); }
 
 @keyframes themeParticleFall {
-  0% { opacity: 0; transform: translate3d(0, -5vh, 0) scale(.68); }
-  10% { opacity: .62; }
-  68% { opacity: .38; }
-  100% { opacity: 0; transform: translate3d(var(--particle-drift), 110vh, 0) scale(1.08); }
+  0% { opacity: 0; transform: translate3d(0, -5vh, 0) scale(.62); }
+  9% { opacity: var(--particle-peak); }
+  32% { opacity: var(--particle-soft); transform: translate3d(var(--particle-mid-drift), 34vh, 0) scale(.86); }
+  57% { opacity: var(--particle-peak); transform: translate3d(0, 62vh, 0) scale(.96); }
+  78% { opacity: var(--particle-soft); transform: translate3d(var(--particle-drift), 86vh, 0) scale(1.03); }
+  100% { opacity: 0; transform: translate3d(var(--particle-mid-drift), 110vh, 0) scale(1.08); }
 }
 
 @media (prefers-reduced-motion: reduce) {

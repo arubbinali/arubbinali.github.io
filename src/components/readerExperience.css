@@ -1,0 +1,58 @@
+.reader-glossary-term { border-bottom:1px dotted var(--site-muted);cursor:help;position:relative; }
+.reader-glossary-term::after { backdrop-filter:blur(16px);background:var(--site-panel);border:1px solid var(--site-line);border-radius:10px;bottom:calc(100% + 9px);box-shadow:0 15px 45px rgba(0,0,0,.28);color:var(--site-fg);content:attr(data-definition);font:300 .64rem/1.55 'Montserrat';left:50%;max-width:260px;opacity:0;padding:.75rem;pointer-events:none;position:absolute;text-align:left;text-transform:none;transform:translate(-50%,7px);transition:.25s ease;visibility:hidden;width:max-content;z-index:35; }
+.reader-glossary-term:hover::after,.reader-glossary-term:focus::after { opacity:1;transform:translate(-50%,0);visibility:visible; }
+
+.reader-progress { align-items:center;display:flex;gap:.55rem;position:fixed;right:clamp(30px,2.35vw,42px);top:50%;transform:translateY(-50%);z-index:14; }
+.reader-progress>span { color:var(--site-muted);font:400 .62rem/1 'Montserrat';letter-spacing:.1em;writing-mode:vertical-rl; }
+.reader-progress>div { background:var(--site-line);height:clamp(130px,25vh,240px);position:relative;width:1px; }
+.reader-progress>div>i { background:var(--site-fg);box-shadow:0 0 9px var(--site-glow);left:0;position:absolute;top:0;transition:height .14s linear;width:1px; }
+.reader-progress button { background:var(--site-bg);border:1px solid var(--site-muted);border-radius:50%;height:6px;left:50%;padding:0;position:absolute;transform:translate(-50%,-50%);width:6px; }
+:root[data-theme="light"] .reader-progress>span { color:#211f19; }
+:root[data-theme="light"] .reader-progress>div { background:rgba(28,25,18,.38); }
+:root[data-theme="light"] .reader-progress>div>i { background:#17150f;box-shadow:0 0 10px rgba(82,59,18,.5); }
+:root[data-theme="light"] .reader-progress button { border-color:#272219; }
+
+.reader-related { border-top:1px solid var(--site-line);margin:6rem auto 2rem;max-width:780px;padding-top:2rem;width:100%; }
+.reader-related header small { color:var(--site-muted);font:400 .48rem/1 'Montserrat';letter-spacing:.15em;text-transform:uppercase; }
+.reader-related header h2 { font:300 1.55rem/1.2 'Montserrat';margin:.6rem 0 1rem; }
+.reader-related>div { display:grid;gap:.35rem; }
+.reader-related button { align-items:center;background:rgba(255,255,255,.02);border:0;border-radius:12px;color:var(--site-fg);cursor:pointer;display:grid;gap:.7rem;grid-template-columns:28px 1fr auto;padding:.9rem;text-align:left;transition:.3s ease; }
+.reader-related button:hover { background:rgba(255,255,255,.055);transform:translateX(4px); }
+.reader-related button span,.reader-related button i { color:var(--site-muted);font:.48rem 'Montserrat';font-style:normal; }
+.reader-related button strong { font:300 .74rem/1.4 'Montserrat'; }
+
+.library-journal { border-top:1px solid var(--site-line);margin:8rem auto 0;max-width:900px;padding:3.5rem 0 2rem; }
+.library-journal>header { align-items:flex-end;display:flex;gap:2rem;justify-content:space-between; }
+.library-journal>header small { color:var(--site-muted);font:400 .48rem 'Montserrat';letter-spacing:.16em;text-transform:uppercase; }
+.library-journal>header h2 { color:var(--site-fg);font:200 clamp(2rem,4vw,3.3rem)/1 'Montserrat';margin:.6rem 0 0; }
+.library-journal-actions { align-items:flex-end;display:flex;flex-direction:column;gap:.75rem; }
+.library-journal-actions a,.library-journal-actions button { background:none;border:0;color:var(--site-muted);cursor:pointer;font:400 .48rem/1.2 'Montserrat';letter-spacing:.1em;padding:.2rem;text-decoration:none;text-transform:uppercase;transition:color .28s ease,transform .28s ease; }
+.library-journal-actions a:hover,.library-journal-actions button:hover { color:var(--site-fg);transform:translateX(2px); }
+.library-journal-intro { color:var(--site-muted);font:300 .75rem/1.7 'Montserrat';max-width:690px; }
+.library-commit-list article { align-items:start;display:grid;gap:.8rem;grid-template-columns:7px 1fr auto;opacity:1;padding:.8rem 0;position:relative;transform:none;transition:opacity .45s ease calc(var(--commit-index,0)*45ms),transform .55s cubic-bezier(.16,1,.3,1) calc(var(--commit-index,0)*45ms); }
+.library-commit-list article:not(:last-child)::after { background:var(--site-line);content:'';height:100%;left:3px;position:absolute;top:1rem;width:1px; }
+.library-commit-list article>i { background:var(--site-fg);border-radius:50%;box-shadow:0 0 10px var(--site-glow);height:7px;margin-top:.2rem;width:7px;z-index:1; }
+.library-commit-list article div>a { color:var(--site-fg);display:block;font:300 .68rem/1.45 'Montserrat';text-decoration:none;transition:color .28s ease,transform .28s ease; }
+.library-commit-list article div>a:hover { color:var(--site-fg);text-decoration:underline;text-decoration-color:var(--site-muted);text-underline-offset:.25em;transform:translateX(2px); }
+.library-commit-list article span { color:var(--site-muted);font:300 .48rem/1.4 'Montserrat'; }
+.library-commit-hash { color:var(--site-muted);font:400 .48rem 'Montserrat';text-decoration:none;transition:color .25s ease; }
+.library-commit-hash:hover { color:var(--site-fg); }
+.library-commit-reveal { display:grid;grid-template-rows:0fr;opacity:0;pointer-events:none;transition:grid-template-rows .75s cubic-bezier(.16,1,.3,1),opacity .45s ease,visibility 0s linear .75s;visibility:hidden; }
+.library-commit-reveal-inner { min-height:0;overflow:hidden; }
+.library-commit-history article { opacity:0;transform:translateY(-12px); }
+.library-journal.is-expanded .library-commit-reveal { grid-template-rows:1fr;opacity:1;pointer-events:auto;transition:grid-template-rows .75s cubic-bezier(.16,1,.3,1),opacity .45s ease,visibility 0s;visibility:visible; }
+.library-journal.is-expanded .library-commit-history article { opacity:1;transform:translateY(0); }
+
+.light-page.reading-mode-focus .light-reading-inner { max-width:720px; }
+.light-page.reading-mode-sources .reader-glossary-term { border-bottom-style:solid; }
+
+@media(max-width:720px){
+  .reader-progress{display:none}
+  .reader-related{margin-top:4rem}
+  .library-journal{margin-top:5rem}
+  .library-journal>header{align-items:flex-start;flex-direction:column;gap:1rem}
+  .library-journal-actions{align-items:flex-start}
+  .reader-glossary-term::after{left:0;transform:translate(0,7px);width:min(240px,70vw)}
+  .reader-glossary-term:hover::after,.reader-glossary-term:focus::after{transform:none}
+}
+@media(prefers-reduced-motion:reduce){.library-commit-reveal,.library-commit-list article,.reader-related *{animation:none!important;transition:none!important}}

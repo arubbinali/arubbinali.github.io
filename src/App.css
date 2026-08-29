@@ -31,8 +31,11 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-.route-stage { animation: routeStageIn .55s cubic-bezier(.16,1,.3,1) both; min-height: 100vh; }
-@keyframes routeStageIn { from { filter: blur(8px); opacity: 0; } to { filter: none; opacity: 1; } }
+.route-stage { animation: routeStageIn .72s cubic-bezier(.16,1,.3,1) both; min-height: 100vh; }
+@keyframes routeStageIn {
+  from { filter: blur(5px); opacity: 0; transform: translateY(10px); }
+  to { filter: none; opacity: 1; transform: none; }
+}
 
 .center-text {
   position: absolute;
@@ -100,7 +103,7 @@ body {
 :root[data-theme="light"] .center-text .about-title { color: #25241f; }
 :root[data-theme="light"] .center-text .main-home-translation,
 :root[data-theme="light"] .center-text .about-intro,
-:root[data-theme="light"] .center-text .about-portfolio { color: rgba(45,42,34,.72); }
+:root[data-theme="light"] .center-text .about-portfolio { color: rgba(24,22,17,.88); }
 :root[data-theme="light"] .center-text .main-home-ayah-shine {
   background-image: linear-gradient(112deg, #5e5542 34%, #171610 49%, #5e5542 64%);
   filter: drop-shadow(0 0 10px rgba(87,70,37,.12));
@@ -109,6 +112,10 @@ body {
   background-image: linear-gradient(112deg, #a9bab7 34%, #f5fbf9 49%, #a9bab7 64%);
 }
 :root[data-theme="light"] .main-light-link { border-color: rgba(42,39,31,.3); color: #4a463a; }
+:root[data-theme="light"] .main-light-link,
+:root[data-theme="light"] .main-about-link,
+:root[data-theme="light"] .site-structure-trigger,
+:root[data-theme="light"] .site-settings-trigger { color: rgba(25,23,18,.76); }
 
 @keyframes homeAyahShine {
   0% { background-position: -100% 50%; filter: brightness(1.25) drop-shadow(0 0 14px rgba(255,255,255,.28)); }
@@ -117,8 +124,18 @@ body {
 }
 
 .main-home-center {
-  transform: translate(calc(-50% - clamp(4px, .55vw, 14px)), -50%);
+  align-items:center;
+  display:flex;
+  flex-direction:column;
+  transform: translate(-50%, -50%);
+  width:min(calc(100% - 3rem), 1180px);
 }
+
+.main-home-verse,
+.center-text .main-home-ayah,
+.center-text .main-home-ayah-shine,
+.center-text .main-home-translation { margin-left:auto;margin-right:auto;text-align:center; }
+.main-home-verse { width:100%; }
 
 .center-text .main-home-translation {
   color: #c8c4bc;
@@ -249,7 +266,7 @@ body {
 
 .main-discord-footer {
   align-items: center;
-  bottom: clamp(24px, 4vh, 44px);
+  bottom: clamp(68px, 8vh, 88px);
   display: flex;
   gap: 10px;
   justify-content: center;
@@ -367,11 +384,11 @@ body {
 
 .main-content.is-leaving {
   animation: none;
-  filter: blur(8px);
+  filter: blur(4px);
   opacity: 0;
   pointer-events: none;
-  transform: scale(.995);
-  transition: filter .32s ease, opacity .32s ease, transform .32s cubic-bezier(.16,1,.3,1);
+  transform: translateY(-7px) scale(.998);
+  transition: filter .46s cubic-bezier(.4,0,.2,1), opacity .46s cubic-bezier(.4,0,.2,1), transform .46s cubic-bezier(.4,0,.2,1);
 }
 
 @keyframes fadeInSmooth {
@@ -617,10 +634,22 @@ body {
   .main-verse { margin-top: 1.5rem; }
   .center-text .main-verse-arabic { font-size: 1.25rem; line-height: 1.75; }
   .center-text .main-verse-translation { font-size: .65rem; line-height: 1.55; }
-  .main-discord-footer { bottom: 14px; }
+  .main-discord-footer { bottom: 54px; }
   .main-discord-label { display: none; }
   .main-about-footer { bottom: 9px; right: 9px; left: auto; }
   .main-content .site-structure { bottom: 9px; left: 9px; top: auto; }
   .main-content .site-structure-panel { bottom: calc(100% + 4px); top: auto; border-radius: 16px; }
   .main-about-link { font-size: .58rem; padding: .65rem; }
+}
+
+.main-content.is-entering-light {
+  filter: blur(4px);
+  opacity: 0;
+  transform: translateY(-7px) scale(.998);
+  transition-duration: .46s;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-stage { animation-duration: .01ms; }
 }

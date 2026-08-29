@@ -11,14 +11,19 @@ function Main() {
   const navigate = useNavigate();
   const [showContent, setShowContent] = useState(() => Boolean(location.state?.skipIntro));
   const [leaving, setLeaving] = useState(false);
+  const [leavingTarget, setLeavingTarget] = useState("");
   const navigationTimerRef = useRef(null);
 
   useEffect(() => () => window.clearTimeout(navigationTimerRef.current), []);
 
   const enterRoute = (path) => {
     if (leaving) return;
+    setLeavingTarget(path);
     setLeaving(true);
-    navigationTimerRef.current = window.setTimeout(() => navigate(path, { state: { skipIntro: true } }), 320);
+    navigationTimerRef.current = window.setTimeout(
+      () => navigate(path, { state: { skipIntro: true } }),
+      460,
+    );
   };
 
   return (
@@ -34,7 +39,7 @@ function Main() {
       {!showContent && <IntroAnimation onFinish={() => setShowContent(true)} />}
 
       <div
-        className={`main-content ${showContent ? "fade-in" : "hidden"} ${leaving ? "is-leaving" : ""}`}
+        className={`main-content ${showContent ? "fade-in" : "hidden"} ${leaving ? "is-leaving" : ""} ${leavingTarget === "/light" ? "is-entering-light" : ""}`}
         style={{
           position: "relative",
           width: "100%",
@@ -71,6 +76,7 @@ function Main() {
           </Link>
         </footer>
       </div>
+
     </div>
   );
 }

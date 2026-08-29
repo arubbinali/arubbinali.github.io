@@ -1,6 +1,7 @@
 {
   "short_name": "doaor",
-  "name": "doaor",
+  "name": "doaor — The Light Library",
+  "description": "A growing library of questions, arguments, and reflections about Islam.",
   "icons": [
     {
       "src": "logo.png",
@@ -8,8 +9,10 @@
       "sizes": "any"
     }
   ],
-  "start_url": ".",
+  "start_url": "/light",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "any",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#000000"
 }

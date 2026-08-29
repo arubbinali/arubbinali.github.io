@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import "./siteChrome.css";
 import { ThemeParticleRain } from "./ThemeParticleRain";
 
@@ -31,10 +32,60 @@ export function SiteChrome({
   const [structureOpen, setStructureOpen] = useState(false);
   const [structurePinned, setStructurePinned] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [theme, setTheme] = useState(() => window.localStorage.getItem("doaor-theme") || "light");
-  const [fontScale, setFontScale] = useState(() => Number(window.localStorage.getItem("doaor-font-scale")) || 100);
+  const [theme, setTheme] = useState(() => window.localStorage.getItem("doaor-theme") || "dark");
+  const [fontScale, setFontScale] = useState(() => {
+    const savedScale = window.localStorage.getItem("doaor-font-scale");
+    const defaultVersion = window.localStorage.getItem("doaor-font-default-version");
+    if (defaultVersion !== "104") {
+      window.localStorage.setItem("doaor-font-default-version", "104");
+      if (!savedScale || savedScale === "100") return 104;
+    }
+    return Number(savedScale) || 104;
+  });
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  const [paletteClosing, setPaletteClosing] = useState(false);
+  const [paletteQuery, setPaletteQuery] = useState("");
+  const [paletteIndex, setPaletteIndex] = useState(0);
+  const [paletteKeyboardMoved, setPaletteKeyboardMoved] = useState(false);
+  const [online, setOnline] = useState(() => navigator.onLine);
   const structureRef = useRef(null);
   const settingsRef = useRef(null);
+  const paletteInputRef = useRef(null);
+  const paletteCloseTimerRef = useRef(null);
+  const paletteScrollRef = useRef({ element: null, top: 0 });
+  const paletteReturnFocusRef = useRef(null);
+
+  const openPalette = useCallback(() => {
+    window.clearTimeout(paletteCloseTimerRef.current);
+    const pageScroller = document.querySelector(".light-page");
+    const scrollElement = pageScroller && pageScroller.scrollHeight > pageScroller.clientHeight
+      ? pageScroller
+      : document.scrollingElement;
+    paletteScrollRef.current = { element: scrollElement, top: scrollElement?.scrollTop || 0 };
+    paletteReturnFocusRef.current = document.activeElement;
+    setPaletteIndex(0);
+    setPaletteKeyboardMoved(false);
+    setPaletteQuery("");
+    setPaletteClosing(false);
+    setPaletteOpen(true);
+  }, []);
+
+  const closePalette = useCallback((afterClose) => {
+    if (!paletteOpen || paletteClosing) return;
+    setPaletteClosing(true);
+    window.clearTimeout(paletteCloseTimerRef.current);
+    paletteCloseTimerRef.current = window.setTimeout(() => {
+      setPaletteOpen(false);
+      setPaletteClosing(false);
+      setPaletteQuery("");
+      paletteReturnFocusRef.current?.focus?.({ preventScroll: true });
+      const { element, top } = paletteScrollRef.current;
+      if (element && Math.abs(element.scrollTop - top) > 1) {
+        element.scrollTo({ top, left: 0, behavior: "auto" });
+      }
+      afterClose?.();
+    }, 360);
+  }, [paletteClosing, paletteOpen]);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -55,6 +106,60 @@ export function SiteChrome({
     return () => document.removeEventListener("pointerdown", close);
   }, []);
 
+  useEffect(() => {
+    const update = () => setOnline(navigator.onLine);
+    window.addEventListener("online", update); window.addEventListener("offline", update);
+    return () => { window.removeEventListener("online", update); window.removeEventListener("offline", update); };
+  }, []);
+
+  useEffect(() => {
+    const onKeyDown = (event) => {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") { event.preventDefault(); paletteOpen ? closePalette() : openPalette(); return; }
+      if (event.key === "Escape" && paletteOpen) { event.preventDefault(); closePalette(); }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [closePalette, openPalette, paletteOpen]);
+
+  useEffect(() => {
+    if (!paletteOpen || paletteClosing) return undefined;
+    const timer = window.setTimeout(() => paletteInputRef.current?.focus({ preventScroll: true }), 40);
+    return () => window.clearTimeout(timer);
+  }, [paletteClosing, paletteOpen]);
+
+  useEffect(() => () => window.clearTimeout(paletteCloseTimerRef.current), []);
+
+  const savedBookmarkKey = paletteOpen ? window.localStorage.getItem("doaor-bookmarks") || "[]" : "[]";
+  const paletteCommands = useMemo(() => {
+    const pages = sections.flatMap((section) => section.entries.filter((entry) => entry.id !== currentEntryId).map((entry) => ({ id: `page-${entry.id}`, group: section.title, label: entry.title, hint: "Open write-up", run: () => onNavigate(`/light/${entry.id}`) })));
+    let savedIds = [];
+    try { savedIds = JSON.parse(savedBookmarkKey) || []; } catch { savedIds = []; }
+    const savedPages = [...new Set(savedIds.map((id) => id.split(":")[0]))].map((id) => sections.flatMap((section) => section.entries).find((entry) => entry.id === id)).filter((entry) => entry && entry.id !== currentEntryId).map((entry) => ({ id: `saved-${entry.id}`, group: "Saved readings", label: entry.title, hint: "Bookmarked on this device", run: () => onNavigate(`/light/${entry.id}`) }));
+    const themes = THEMES.filter((choice) => choice.id !== theme).map((choice) => ({ id: `theme-${choice.id}`, group: "Themes", label: `${choice.label} theme`, hint: choice.note, run: () => setTheme(choice.id) }));
+    const modes = ["focus", "study", "sources"].map((mode) => ({ id: `mode-${mode}`, group: "Reading modes", label: `${mode[0].toUpperCase()}${mode.slice(1)} mode`, hint: "Change the reader", run: () => { window.localStorage.setItem("doaor-reading-mode", mode); window.dispatchEvent(new CustomEvent("doaor:reading-mode", { detail: mode })); } }));
+    const navigation = [
+      { id: "nav-home", group: "Navigation", label: "Home", hint: "Root page", run: () => onNavigate("/") },
+      { id: "nav-directory", group: "Navigation", label: "Directory", hint: "Browse every write-up", run: () => onNavigate("/light") },
+      { id: "nav-about", group: "Navigation", label: "About", hint: "About doaor", run: () => onNavigate("/about") },
+    ].filter((command) => !((currentView === "home" && command.id === "nav-home") || (currentView === "directory" && command.id === "nav-directory") || (currentView === "about" && command.id === "nav-about")));
+    return [
+      ...navigation,
+      { id: "open-settings", group: "Actions", label: "Open settings", hint: "Theme, type, language", run: () => setSettingsOpen(true) },
+      { id: "open-journal", group: "Navigation", label: "Library journal", hint: "Changes, dates, and repository history", run: () => { onNavigate("/light"); window.setTimeout(() => document.getElementById("editorial-journal")?.scrollIntoView({ behavior: "smooth" }), 650); } },
+      ...savedPages, ...pages, ...themes, ...modes,
+    ];
+  }, [currentEntryId, currentView, onNavigate, savedBookmarkKey, sections, theme]);
+
+  const filteredCommands = useMemo(() => {
+    const query = paletteQuery.trim().toLowerCase();
+    if (!query) return paletteCommands.slice(0, 14);
+    return paletteCommands.map((command) => ({ command, score: command.label.toLowerCase().startsWith(query) ? 0 : command.label.toLowerCase().includes(query) ? 1 : command.group.toLowerCase().includes(query) ? 2 : 9 })).filter(({ score }) => score < 9).sort((a, b) => a.score - b.score).map(({ command }) => command).slice(0, 18);
+  }, [paletteCommands, paletteQuery]);
+
+  useEffect(() => setPaletteIndex(0), [paletteQuery, paletteOpen]);
+
+  const runPaletteCommand = (command) => { if (!command) return; closePalette(command.run); };
+
   const choosePath = (path) => {
     setStructureOpen(false);
     setStructurePinned(false);
@@ -73,7 +178,7 @@ export function SiteChrome({
 
   return (
     <>
-      <ThemeParticleRain />
+      {createPortal(<ThemeParticleRain subdued={paletteOpen} />, document.body)}
       {showStructure && <nav
         className={`site-structure ${structureOpen ? "is-open" : ""}`}
         ref={structureRef}
@@ -92,7 +197,7 @@ export function SiteChrome({
           {buttonLabel}
         </button>
 
-        <div className="site-structure-panel">
+        <div className="site-structure-panel" data-lenis-prevent tabIndex="0" onWheel={(event) => event.stopPropagation()}>
           <header>
             <span>Site map</span>
             <small>{currentView === "reader" ? "You are here" : "Choose a path"}</small>
@@ -143,7 +248,7 @@ export function SiteChrome({
         onMouseEnter={() => setSettingsOpen(true)}
         onMouseLeave={() => setSettingsOpen(false)}
       >
-        <button className="site-settings-trigger" type="button" aria-label="Settings" aria-expanded={settingsOpen} onClick={() => setSettingsOpen((value) => !value)}>
+        <button className="site-settings-trigger" type="button" aria-label="Settings" aria-expanded={settingsOpen} onClick={() => setSettingsOpen(true)}>
           <svg className="site-settings-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5A3.5 3.5 0 1 0 12 8.5a3.5 3.5 0 0 0 0 7Zm7.43-2.53c.04-.32.07-.65.07-.97s-.03-.66-.07-.98l2.11-1.65a.5.5 0 0 0 .12-.64l-2-3.46a.5.5 0 0 0-.61-.22l-2.49 1a7.04 7.04 0 0 0-1.67-.98l-.38-2.65A.49.49 0 0 0 14 2h-4a.49.49 0 0 0-.49.42l-.38 2.65c-.61.25-1.17.59-1.67.98l-2.49-1a.5.5 0 0 0-.61.22l-2 3.46a.49.49 0 0 0 .12.64l2.11 1.65c-.04.32-.07.66-.07.98s.03.65.07.97l-2.11 1.65a.5.5 0 0 0-.12.64l2 3.46a.5.5 0 0 0 .61.22l2.49-1c.5.4 1.06.73 1.67.98l.38 2.65c.05.24.26.42.49.42h4c.24 0 .44-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.67-.98l2.49 1a.5.5 0 0 0 .61-.22l2-3.46a.5.5 0 0 0-.12-.64l-2.11-1.65Z" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
           <span>Settings</span>
         </button>
@@ -177,6 +282,16 @@ export function SiteChrome({
           </section>
         </div>
       </aside>
+
+      <button className={`site-command-trigger ${currentView === "reader" ? "is-reader" : ""}`} type="button" onClick={openPalette} aria-label="Open command palette"><span>⌘</span><b>K</b><em>Navigate</em></button>
+      {!online && <div className="site-network-status" role="status"><i /> Offline library</div>}
+      {paletteOpen && createPortal(<div className={`site-command-backdrop ${paletteClosing ? "is-closing" : ""}`} role="presentation" data-lenis-prevent onWheel={(event) => event.stopPropagation()} onMouseDown={(event) => { if (event.target === event.currentTarget) closePalette(); }}>
+        <section className="site-command-palette" role="dialog" aria-modal="true" aria-label="Command palette">
+          <label><span aria-hidden="true">⌕</span><input ref={paletteInputRef} value={paletteQuery} onChange={(event) => { setPaletteQuery(event.target.value); setPaletteKeyboardMoved(false); }} onKeyDown={(event) => { if (event.key === "ArrowDown") { event.preventDefault(); setPaletteKeyboardMoved(true); setPaletteIndex((index) => Math.min(index + 1, filteredCommands.length - 1)); } if (event.key === "ArrowUp") { event.preventDefault(); setPaletteKeyboardMoved(true); setPaletteIndex((index) => Math.max(index - 1, 0)); } if (event.key === "Enter") { event.preventDefault(); if (paletteQuery.trim() || paletteKeyboardMoved) runPaletteCommand(filteredCommands[paletteIndex]); } }} placeholder="Go anywhere, change a theme, enter a reading mode…" aria-label="Search commands"/><kbd>ESC</kbd></label>
+          <div className="site-command-results" data-lenis-prevent>{filteredCommands.map((command, index) => <button className={index === paletteIndex ? "is-active" : ""} key={command.id} type="button" onMouseMove={() => setPaletteIndex(index)} onClick={() => runPaletteCommand(command)}><span><small>{command.group}</small><strong>{command.label}</strong></span><em>{command.hint}</em><i>↗</i></button>)}{!filteredCommands.length && <p>No matching command. Try a page title, theme, or reading mode.</p>}</div>
+          <footer><span><kbd>↑</kbd><kbd>↓</kbd> move</span><span><kbd>↵</kbd> open</span></footer>
+        </section>
+      </div>, document.body)}
     </>
   );
 }
