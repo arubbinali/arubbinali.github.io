@@ -51,6 +51,11 @@ export const LIGHT_CONTENT = {
 };
 export const SITE_COMMITS = [
   {
+    "hash": "e2aa53f",
+    "date": "2026-09-02T00:45:14+08:00",
+    "message": "Add Quranic context to the Creator proof"
+  },
+  {
     "hash": "f97566b",
     "date": "2026-09-02T00:37:44+08:00",
     "message": "Created the commit history page & misc."
@@ -104,10 +109,5 @@ export const SITE_COMMITS = [
     "hash": "d94f810",
     "date": "2026-08-28T05:52:43+08:00",
     "message": "`"
-  },
-  {
-    "hash": "f36daf6",
-    "date": "2026-08-28T05:37:07+08:00",
-    "message": "chore: remove old build artifacts"
   }
 ];
