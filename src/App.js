@@ -7,6 +7,7 @@ import Resume from "./pages/resume";
 import Notes from "./pages/notes";
 import Light from "./pages/light";
 import About from "./pages/about";
+import History from "./pages/history";
 
 const TRLPage = lazy(() => import("./pages/trl"));
 
@@ -21,6 +22,7 @@ function AnimatedRoutes() {
         <Route path="/notes" element={<Notes />} />
         <Route path="/light/*" element={<Light />} />
         <Route path="/about" element={<About />} />
+        <Route path="/history" element={<History />} />
         <Route path="/trl" element={<Suspense fallback={<div style={{ background: "#000", color: "#8a9099", display: "grid", fontFamily: "Montserrat, sans-serif", minHeight: "100vh", placeItems: "center" }}>Loading TRL…</div>}><TRLPage /></Suspense>} />
         <Route path="*" element={<Main />} />
       </Routes>

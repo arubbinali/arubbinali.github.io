@@ -140,12 +140,12 @@ export function SiteChrome({
     const navigation = [
       { id: "nav-home", group: "Navigation", label: "Home", hint: "Root page", run: () => onNavigate("/") },
       { id: "nav-directory", group: "Navigation", label: "Directory", hint: "Browse every write-up", run: () => onNavigate("/light") },
+      { id: "nav-history", group: "Navigation", label: "Commit history", hint: "Published changes and GitHub commits", run: () => onNavigate("/history") },
       { id: "nav-about", group: "Navigation", label: "About", hint: "About doaor", run: () => onNavigate("/about") },
-    ].filter((command) => !((currentView === "home" && command.id === "nav-home") || (currentView === "directory" && command.id === "nav-directory") || (currentView === "about" && command.id === "nav-about")));
+    ].filter((command) => !((currentView === "home" && command.id === "nav-home") || (currentView === "directory" && command.id === "nav-directory") || (currentView === "history" && command.id === "nav-history") || (currentView === "about" && command.id === "nav-about")));
     return [
       ...navigation,
       { id: "open-settings", group: "Actions", label: "Open settings", hint: "Theme, type, language", run: () => setSettingsOpen(true) },
-      { id: "open-journal", group: "Navigation", label: "Library journal", hint: "Changes, dates, and repository history", run: () => { onNavigate("/light"); window.setTimeout(() => document.getElementById("editorial-journal")?.scrollIntoView({ behavior: "smooth" }), 650); } },
       ...savedPages, ...pages, ...themes, ...modes,
     ];
   }, [currentEntryId, currentView, onNavigate, savedBookmarkKey, sections, theme]);

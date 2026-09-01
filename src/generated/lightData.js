@@ -51,6 +51,21 @@ export const LIGHT_CONTENT = {
 };
 export const SITE_COMMITS = [
   {
+    "hash": "64ab824",
+    "date": "2026-08-30T17:30:17+08:00",
+    "message": "Add Microsoft Clarity analytics and deploy"
+  },
+  {
+    "hash": "7ec52fa",
+    "date": "2026-08-30T05:20:42+08:00",
+    "message": "deploy: publish latest site build"
+  },
+  {
+    "hash": "4c4282f",
+    "date": "2026-08-30T05:07:56+08:00",
+    "message": "Refine the Light library with smoother navigation and richer reading tools"
+  },
+  {
     "hash": "6cf7ed9",
     "date": "2026-08-30T00:31:27+08:00",
     "message": "deploy: publish latest site build"
@@ -94,20 +109,5 @@ export const SITE_COMMITS = [
     "hash": "0d45238",
     "date": "2026-08-28T05:36:32+08:00",
     "message": "deploy: publish latest site build"
-  },
-  {
-    "hash": "9d76819",
-    "date": "2026-08-28T05:34:50+08:00",
-    "message": "Use King Fahd Complex V2 font for all Quran aayaat"
-  },
-  {
-    "hash": "131c890",
-    "date": "2026-08-28T05:23:53+08:00",
-    "message": "Remove TRL from homepage, skip intro on light page, improve verse visibility"
-  },
-  {
-    "hash": "595e15f",
-    "date": "2026-08-28T03:54:39+08:00",
-    "message": "`"
   }
 ];

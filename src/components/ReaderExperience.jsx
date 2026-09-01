@@ -31,9 +31,9 @@ export function glossify(children, path = "g") {
   });
 }
 
-function Commit({ commit, index }) {
+function Commit({ commit, index, highlighted = false }) {
   return (
-    <article style={{ "--commit-index": index }}>
+    <article className={highlighted ? "is-highlighted" : ""} id={`commit-${commit.hash}`} style={{ "--commit-index": index }}>
       <i />
       <div>
         <a href={`${REPOSITORY_URL}/commit/${commit.hash}`} target="_blank" rel="noreferrer">{commit.message}</a>
@@ -44,28 +44,28 @@ function Commit({ commit, index }) {
   );
 }
 
-export function LibraryJournal({ commits }) {
-  const [expanded, setExpanded] = useState(false);
+export function LibraryJournal({ commits, standalone = false, title = "Library journal", highlightedHash = null }) {
+  const [expanded, setExpanded] = useState(standalone);
   const primary = commits.slice(0, 4);
   const history = commits.slice(4);
   return (
     <section className={`library-journal ${expanded ? "is-expanded" : ""}`} id="editorial-journal">
       <header>
-        <div><small>Development history</small><h2>Library journal</h2></div>
+        <div><small>Development history</small><h2>{title}</h2></div>
         <div className="library-journal-actions">
           <a href={REPOSITORY_URL} target="_blank" rel="noreferrer">GitHub repository ↗</a>
-          {history.length > 0 && <button type="button" aria-expanded={expanded} onClick={() => setExpanded((value) => !value)}>{expanded ? "Show less" : "Full history"}</button>}
+          {!standalone && history.length > 0 && <button type="button" aria-expanded={expanded} onClick={() => setExpanded((value) => !value)}>{expanded ? "Show less" : "Full history"}</button>}
         </div>
       </header>
       <p className="library-journal-intro">A transparent record of what changed and when it changed. Select any commit to inspect the exact code changes on GitHub.</p>
       <div className="library-commit-list library-commit-primary">
-        {primary.map((commit, index) => <Commit commit={commit} index={index} key={`${commit.hash}-${commit.date}`} />)}
+        {primary.map((commit, index) => <Commit commit={commit} highlighted={highlightedHash === commit.hash} index={index} key={`${commit.hash}-${commit.date}`} />)}
         {!commits.length && <p>No published update records yet.</p>}
       </div>
       {history.length > 0 && <div className="library-commit-reveal" aria-hidden={!expanded}>
         <div className="library-commit-reveal-inner">
           <div className="library-commit-list library-commit-history">
-            {history.map((commit, index) => <Commit commit={commit} index={index} key={`${commit.hash}-${commit.date}`} />)}
+            {history.map((commit, index) => <Commit commit={commit} highlighted={highlightedHash === commit.hash} index={index} key={`${commit.hash}-${commit.date}`} />)}
           </div>
         </div>
       </div>}

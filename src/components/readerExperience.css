@@ -35,6 +35,8 @@
 .library-commit-list article div>a { color:var(--site-fg);display:block;font:300 .68rem/1.45 'Montserrat';text-decoration:none;transition:color .28s ease,transform .28s ease; }
 .library-commit-list article div>a:hover { color:var(--site-fg);text-decoration:underline;text-decoration-color:var(--site-muted);text-underline-offset:.25em;transform:translateX(2px); }
 .library-commit-list article span { color:var(--site-muted);font:300 .48rem/1.4 'Montserrat'; }
+.library-commit-list article.is-highlighted { animation:commitSearchGlow 1.8s cubic-bezier(.16,1,.3,1); }
+@keyframes commitSearchGlow { 0%,100% { background:transparent;box-shadow:none; } 24%,65% { background:color-mix(in srgb,var(--site-glow) 12%,transparent);box-shadow:0 0 28px color-mix(in srgb,var(--site-glow) 30%,transparent); } }
 .library-commit-hash { color:var(--site-muted);font:400 .48rem 'Montserrat';text-decoration:none;transition:color .25s ease; }
 .library-commit-hash:hover { color:var(--site-fg); }
 .library-commit-reveal { display:grid;grid-template-rows:0fr;opacity:0;pointer-events:none;transition:grid-template-rows .75s cubic-bezier(.16,1,.3,1),opacity .45s ease,visibility 0s linear .75s;visibility:hidden; }

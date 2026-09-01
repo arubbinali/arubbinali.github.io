@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Lenis from "lenis";
 import IntroAnimation from "../components/intro";
 import { SiteChrome } from "../components/SiteChrome";
-import { glossify, LibraryJournal, ReaderExperience } from "../components/ReaderExperience";
+import { glossify, ReaderExperience } from "../components/ReaderExperience";
 import { LIGHT_CONTENT, SITE_COMMITS } from "../generated/lightData";
 import "./light.css";
 
@@ -21,7 +21,7 @@ const READERS = [
 const ACTIVE_LANGUAGE = { id: "en", label: "English", available: true };
 
 const UI_COPY = {
-  en: { language: "Language", home: "Home", directory: "Directory", search: "Search the library", results: "Search results", empty: "No matching passages yet.", soon: "Soon", read: "Read", library: "The light library", intro: "Ideas worth reading slowly.", introNote: "A growing directory of questions, arguments, and pieces I return to.", progressNote: "No sections are complete just yet, I am currently working on it :)", reading: "Reading this as", overview: "Overview" },
+  en: { language: "Language", home: "Home", directory: "Directory", search: "Search the library", results: "Search results", empty: "No matching passages yet.", soon: "Soon", read: "Read", library: "The light library", intro: "Ideas worth reading slowly.", introNote: "A growing directory of questions, arguments, and pieces I return to.", progressNote: "I have not yet started to work on any of the write ups, do reach out if you can help, id really appreciate it :)", contribute: "Reach out", reading: "Reading this as", overview: "Overview" },
   ar: { language: "اللغة", home: "الرئيسية", directory: "الدليل", search: "ابحث في المكتبة", results: "نتائج البحث", empty: "لا توجد نتائج.", soon: "قريبا", read: "اقرأ", library: "مكتبة النور", intro: "أفكار تستحق أن تقرأ ببطء.", introNote: "مساحة للأسئلة والحجج والنصوص التي أعود إليها.", reading: "أقرأ هذا بصفتي", overview: "نظرة عامة" },
   zh: { language: "语言", home: "主页", directory: "目录", search: "搜索资料库", results: "搜索结果", empty: "没有找到相关内容。", soon: "即将推出", read: "阅读", library: "光之资料库", intro: "值得慢慢阅读的思想。", introNote: "一个不断扩展的问题、论证与文章目录。", reading: "以此身份阅读", overview: "概览" },
   ja: { language: "言語", home: "ホーム", directory: "目次", search: "ライブラリを検索", results: "検索結果", empty: "一致する文章はありません。", soon: "近日公開", read: "読む", library: "光のライブラリ", intro: "ゆっくり読む価値のある思想。", introNote: "問い、論証、そして何度も読み返す文章の目次。", reading: "この立場で読む", overview: "概要" },
@@ -483,6 +483,18 @@ export default function Light() {
     if (!normalizedQuery) return [];
     const results = [];
 
+    const historyTerms = "commit history github repository development history library journal updates changes";
+    const matchingCommit = SITE_COMMITS.find((commit) => commit.message.toLocaleLowerCase().includes(normalizedQuery));
+    if (historyTerms.includes(normalizedQuery) || matchingCommit) {
+      results.push({
+        id: "page-commit-history",
+        heading: "Commit history",
+        excerpt: matchingCommit?.message || "A dated record of the site's published changes, with links to every commit on GitHub.",
+        available: true,
+        kind: "history",
+      });
+    }
+
     DIRECTORY.forEach((section) => {
       section.entries.forEach((entry) => {
         const title = directoryText(entry, "title", language.id);
@@ -542,6 +554,13 @@ export default function Light() {
     const arrivalQuery = query.trim();
     setQuery("");
     setSearchFocused(false);
+
+    if (result.kind === "history") {
+      window.clearTimeout(transitionTimerRef.current);
+      setViewTransitioning(true);
+      transitionTimerRef.current = window.setTimeout(() => navigate("/history", { state: { skipIntro: true } }), 460);
+      return;
+    }
 
     if (result.kind === "writeup") {
       const selectedReader = READERS.find((choice) => choice.id === result.readerId);
@@ -666,7 +685,10 @@ export default function Light() {
               <p>{ui.library}</p>
               <h1>{ui.intro}</h1>
               <span>{ui.introNote}</span>
-              {ui.progressNote && <small className="light-directory-progress">{ui.progressNote}</small>}
+              {ui.progressNote && <aside className="light-directory-progress">
+                <span>{ui.progressNote}</span>
+                <button type="button" onClick={() => navigateFromStructure("/about")}>{ui.contribute || "Contact"}<i aria-hidden="true">↗</i></button>
+              </aside>}
             </header>
 
             <div className="light-directory-accordion" key={language.id}>
@@ -719,7 +741,10 @@ export default function Light() {
               })}
             </div>
 
-            <LibraryJournal commits={SITE_COMMITS} />
+            <button className="light-directory-history-link" type="button" onClick={() => navigateFromStructure("/history")}>
+              <strong>View commit history</strong>
+              <i aria-hidden="true">↗</i>
+            </button>
 
             {!visibleSections.length && (
               <div className="light-directory-empty">
