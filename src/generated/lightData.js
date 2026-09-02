@@ -21,7 +21,7 @@ export const LIGHT_CONTENT = {
   "en/new-to-islaam/become-muslim.md": "*A practical beginning*\n\n# How to become Muslim?\n\nBecoming Muslim begins with sincere belief in the oneness of Allah and in Muhammad as His messenger, expressed through the testimony of faith. No ceremony, audience, or perfect past is required.\n\n## The first steps\n\nBegin gently: learn the prayer, keep close to trustworthy people, read the Quraan, and ask questions without embarrassment. A new beginning is meant to be lived one faithful step at a time.\n",
   "en/new-to-islaam/five-pillars.md": "*The shape of a Muslim life*\n\n# The 5 pillars of islam\n\nThe five pillars give worship a steady rhythm: the testimony of faith, the daily prayers, charity, fasting in Ramadan, and pilgrimage for those able to make it.\n\n## More than a checklist\n\nEach pillar trains a different part of the person. Together they join belief, time, wealth, restraint, community, and remembrance into a life directed toward Allah.\n",
   "en/new-to-islaam/what-next.md": "*A steady beginning*\n\n# What next?\n\nThe first steps do not need to be rushed. Learn the prayer, build consistency, stay close to trustworthy Muslims, and let knowledge grow with practice.\n\n## A fuller guide is coming\n\nThis page will become a practical path for the days and months after accepting Islam.\n",
-  "en/proofs/creator.md": "*Why is there something rather than nothing?*\n\n# Existence of a creator; Allah\n\nEverything dependent points beyond itself. The universe changes, begins, follows intelligible order, and contains things that could have been otherwise. These are not the qualities of an ultimate explanation.\n\n## From creation to the Creator\n\nThis page will build the case carefully: why a necessary, independent, knowing, and willing Creator best explains the existence of everything else—and why that Creator is Allah.\n\n> سنريهم اياتنا في الآفاق وفي أنفسهم حتى يتبين لهم أنه الحق أولم يكف بربك أنه على كل شيء شهيد\n>\n> *We will show them Our signs in the horizons and within themselves until it becomes clear to them that it is the truth. But is it not sufficient concerning your Lord that He is, over all things, a Witness?*\n",
+  "en/proofs/creator.md": "# Existence of a creator; Allah\n\n## This write up objectively proves and establishes the existence of a creator using the basic principles of fundamental logic.\n\nNote: For one to reject what follows, they must reject the 3 basic principles of fundamental logic which is tantamount to saying; 2 is not the answer to 1 + 1, or that there are more than 1 answers to 1 + 1.\n\n---\n\n#### Got a lot of work to do in university, visit the page again in a week, I'll hopefully have added to this page by then :)",
   "en/proofs/quraan-word.md": "*An invitation to examine the claim*\n\n# The Quraan is the word of Allah\n\nThe Quraan presents itself not merely as inspired reflection, but as revelation from the Creator. That claim can be examined through its preservation, language, message, historical setting, internal coherence, and effect.\n\n## A cumulative case\n\nNo single slogan will carry the argument. This page will gather the strands and ask which explanation makes the best sense of the text before us.\n",
   "en/refutations/aisha-six.md": "*Read the claim carefully*\n\n# Aisha 6\n\nThis discussion deserves more than a slogan. It requires attention to the reports themselves, the difference between a marriage contract and married life, historical norms, chronology, and the standards by which the past is judged.\n\n## A careful answer is coming\n\nThis page will develop the sources and arguments in full. For now, it marks the question as one to meet honestly, precisely, and without evasion.\n",
   "en/refutations/isis-alqaeda.md": "*Violence does not become sacred by borrowing sacred words*\n\n# ISIS/Al Qaeda\n\nThe crimes of extremist organizations do not define Islam. Their methods, indiscriminate violence, rebellion, and treatment of innocent life must be measured against the Quraan, the prophetic tradition, and the judgments of qualified scholarship.\n\n## Claims and sources\n\nThis page will separate propaganda from scripture and examine the texts most often quoted without their conditions, context, or legal framework.\n",
@@ -50,6 +50,11 @@ export const LIGHT_CONTENT = {
   "zh/refutations/isis-alqaeda.md": "*暴力不会因借用神圣词语而变得神圣*\n\n# ISIS／基地组织\n\n极端组织的罪行不能定义伊斯兰。他们对无辜生命的暴力必须依据《古兰经》、先知传统与合格学者的判断来衡量。\n\n## 主张与证据\n\n本页将区分宣传与经文，并检视那些常被脱离条件、语境与法律框架引用的文本。\n"
 };
 export const SITE_COMMITS = [
+  {
+    "hash": "32ace37",
+    "date": "2026-09-02T00:48:20+08:00",
+    "message": "Deleted repeated text from quran.md"
+  },
   {
     "hash": "e2aa53f",
     "date": "2026-09-02T00:45:14+08:00",
@@ -103,11 +108,6 @@ export const SITE_COMMITS = [
   {
     "hash": "52e31b5",
     "date": "2026-08-28T06:14:18+08:00",
-    "message": "`"
-  },
-  {
-    "hash": "d94f810",
-    "date": "2026-08-28T05:52:43+08:00",
     "message": "`"
   }
 ];

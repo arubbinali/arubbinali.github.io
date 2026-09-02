@@ -1132,6 +1132,23 @@ body.light-scroll-owned {
   display: none;
 }
 
+/* Creator-page reading test: preserve the cinematic opener, then use a stable
+   left edge for the argument itself. */
+.light-reading-inner.is-creator-reading-test > p:not(:first-child),
+.light-reading-inner.is-creator-reading-test h2,
+.light-reading-inner.is-creator-reading-test ul,
+.light-reading-inner.is-creator-reading-test ol {
+  margin-left: 0;
+  margin-right: 0;
+  text-align: left;
+}
+
+.light-reading-inner.is-creator-reading-test h2,
+.light-reading-inner.is-creator-reading-test ul,
+.light-reading-inner.is-creator-reading-test ol {
+  max-width: 700px;
+}
+
 .light-reading-inner.is-arabic {
   font-family: 'Montserrat', 'Tahoma', sans-serif;
 }

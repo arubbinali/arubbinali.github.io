@@ -780,7 +780,7 @@ export default function Light() {
 
         {view === "reader" && <section className={`light-reading ${writeupReady ? "is-visible" : ""}`} aria-live="polite" aria-busy={writeupReady && !content}>
           {writeupReady && (
-            <div className={`light-reading-inner ${language.id === "ar" ? "is-arabic" : ""}`} dir={language.id === "ar" ? "rtl" : "ltr"} key={`${selectedEntry.id}-${reader?.id || "standard"}-${language.id}`} ref={readingInnerRef}>
+            <div className={`light-reading-inner ${language.id === "ar" ? "is-arabic" : ""} ${selectedEntry.id === "creator" ? "is-creator-reading-test" : ""}`} dir={language.id === "ar" ? "rtl" : "ltr"} key={`${selectedEntry.id}-${reader?.id || "standard"}-${language.id}`} ref={readingInnerRef}>
               {content ? <ReactMarkdown components={MARKDOWN_COMPONENTS}>{content}</ReactMarkdown> : <div className="light-content-loading" aria-label="Loading" />}
               {content && <ReaderExperience entry={selectedEntry} sections={DIRECTORY} onNavigate={navigateFromStructure} content={content} />}
             </div>
