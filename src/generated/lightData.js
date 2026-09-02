@@ -51,6 +51,11 @@ export const LIGHT_CONTENT = {
 };
 export const SITE_COMMITS = [
   {
+    "hash": "be9f0b7",
+    "date": "2026-09-02T16:55:09+08:00",
+    "message": "Refine the Creator proof and reading experience"
+  },
+  {
     "hash": "32ace37",
     "date": "2026-09-02T00:48:20+08:00",
     "message": "Deleted repeated text from quran.md"
@@ -104,10 +109,5 @@ export const SITE_COMMITS = [
     "hash": "cea4abf",
     "date": "2026-08-28T06:49:30+08:00",
     "message": "deploy: publish latest site build with about page, directory redesign, and font updates"
-  },
-  {
-    "hash": "52e31b5",
-    "date": "2026-08-28T06:14:18+08:00",
-    "message": "`"
   }
 ];
