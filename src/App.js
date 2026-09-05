@@ -1,5 +1,5 @@
 // test deploy
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Navigate, Routes, Route, useLocation } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import Lenis from "lenis";
 import Main from "./pages/main";
@@ -8,6 +8,7 @@ import Notes from "./pages/notes";
 import Light from "./pages/light";
 import About from "./pages/about";
 import History from "./pages/history";
+import Works from "./pages/works";
 
 const TRLPage = lazy(() => import("./pages/trl"));
 
@@ -23,6 +24,8 @@ function AnimatedRoutes() {
         <Route path="/light/*" element={<Light />} />
         <Route path="/about" element={<About />} />
         <Route path="/history" element={<History />} />
+        <Route path="/works/*" element={<Works />} />
+        <Route path="/d/*" element={<Navigate to="/works/" replace />} />
         <Route path="/trl" element={<Suspense fallback={<div style={{ background: "#000", color: "#8a9099", display: "grid", fontFamily: "Montserrat, sans-serif", minHeight: "100vh", placeItems: "center" }}>Loading TRL…</div>}><TRLPage /></Suspense>} />
         <Route path="*" element={<Main />} />
       </Routes>

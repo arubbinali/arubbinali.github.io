@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../App.css";
 import IntroAnimation from "../components/intro";
+import SiteNav from "../components/SiteNav";
 
 function Resume() {
   const [showContent, setShowContent] = useState(false);
@@ -53,6 +54,8 @@ function Resume() {
           {/* Add your resume content */}
         </div>
       </div>
+
+      <SiteNav site="main" currentKey="resume" />
     </div>
   );
 }

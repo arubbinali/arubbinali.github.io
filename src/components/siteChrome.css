@@ -38,17 +38,17 @@ body { overflow-x: hidden; }
 .site-structure-trigger,
 .site-settings-trigger,
 .site-simple-back {
-  align-items: center; background: none; border: none; color: var(--site-muted); cursor: pointer;
+  align-items: center; background: none; border: none; color: color-mix(in srgb,var(--site-fg) 82%,transparent); cursor: pointer;
   outline: none; -webkit-appearance: none; box-shadow: none; text-shadow: 0 2px 12px rgba(0,0,0,.35);
-  display: flex; font: 400 .7rem/1 'Montserrat', sans-serif; gap: .65rem; letter-spacing: .14em;
-  padding: .75rem; text-transform: uppercase; transition: color .3s ease, transform .35s cubic-bezier(.16,1,.3,1);
+  display: flex; font: 400 .78rem/1 'Montserrat', sans-serif; gap: .68rem; letter-spacing: .14em;
+  padding: .88rem; text-transform: uppercase; transition: color .3s ease, transform .35s cubic-bezier(.16,1,.3,1);
 }
 .site-structure-trigger:hover, .site-structure-trigger:focus-visible,
 .site-settings-trigger:hover, .site-settings-trigger:focus-visible,
 .site-simple-back:hover, .site-simple-back:focus-visible { color: var(--site-fg); outline: none; }
-.site-structure-trigger:hover { transform: translateX(-3px); }
+.site-structure-trigger:hover { transform: translateX(-3px) scale(1.06); }
 .site-simple-back { left: 25px; position: fixed; top: 25px; z-index: 40; }
-.site-simple-back:hover { transform: translateX(-3px); }
+.site-simple-back:hover { transform: translateX(-3px) scale(1.06); }
 
 .site-structure-panel {
   backdrop-filter: blur(28px) saturate(120%); background: var(--site-panel); border: 1px solid var(--site-line);
@@ -79,6 +79,8 @@ body { overflow-x: hidden; }
 .site-structure-destination i { font-size: .5rem; font-style: normal; letter-spacing: .12em; text-transform: uppercase; }
 .site-structure-destination.is-next { animation: structureDestination 2.4s ease-in-out infinite; }
 .site-structure-destination.is-current { box-shadow: inset 0 0 0 1px var(--site-line), 0 0 22px var(--site-glow); }
+.site-structure-destination.is-featured { margin-bottom:.45rem;box-shadow:inset 0 0 0 1px var(--site-line),0 0 22px color-mix(in srgb,var(--site-glow) 55%,transparent); }
+.site-structure-destination.is-featured strong { text-shadow:0 0 14px var(--site-glow); }
 @keyframes structureDestination { 50% { background: rgba(255,255,255,.07); box-shadow: 0 0 22px var(--site-glow); color: var(--site-fg); } }
 .site-structure-tree section { border-top: 1px solid var(--site-line); padding: .8rem .35rem .25rem; }
 .site-structure-category { align-items: center; display: flex; gap: .65rem; margin-bottom: .35rem; }
@@ -96,6 +98,7 @@ body { overflow-x: hidden; }
 .site-settings { position: fixed; right: 25px; top: 25px; z-index: 42; }
 .site-settings-icon { height: 18px; opacity: .65; width: 18px; transition: opacity .3s ease; }
 .site-settings-trigger:hover .site-settings-icon { opacity: 1; }
+.site-settings-trigger:hover,.site-settings-trigger:focus-visible { transform:scale(1.06); }
 .site-settings::before { content: ''; height: 14px; left: 0; position: absolute; right: 0; top: 100%; }
 .site-settings-panel { backdrop-filter: blur(28px) saturate(120%); background: var(--site-panel); border: 1px solid var(--site-line); border-radius: 20px; box-shadow: 0 25px 70px rgba(0,0,0,.42); box-sizing: border-box; max-height: min(78vh, 720px); opacity: 0; overflow-y: auto; overscroll-behavior: contain; padding: .8rem; pointer-events: none; position: absolute; right: 0; top: calc(100% + 8px); transform: translateY(8px) scale(.975); transform-origin: top right; transition: background-color .65s ease, border-color .65s ease, opacity .28s ease, transform .38s cubic-bezier(.16,1,.3,1), visibility .28s ease; visibility: hidden; width: min(90vw, 370px); }
 .site-settings.is-open .site-settings-panel { opacity: 1; pointer-events: auto; transform: none; visibility: visible; }
@@ -131,10 +134,10 @@ body { overflow-x: hidden; }
 @media (max-width: 640px) {
   .site-structure { left: 5px; top: 9px; }
   .site-simple-back { left: 5px; top: 9px; }
-  .site-structure-trigger { font-size: .58rem; padding: .65rem; }
+  .site-structure-trigger { font-size: .66rem; padding: .72rem; }
   .site-structure-panel { border-radius: 0 16px 16px 16px; max-height: calc(100dvh - 78px); padding: .7rem; width: min(calc(100vw - 20px), 390px); }
   .site-settings { right: 10px; top: max(9px, env(safe-area-inset-top)); }
-  .site-settings-trigger { font-size: .54rem; padding: .65rem .75rem; }
+  .site-settings-trigger { font-size: .62rem; padding: .72rem .8rem; }
   .site-settings-trigger span:last-child { display: none; }
   .site-settings-panel { max-height: 76dvh; overflow: auto; width: min(calc(100vw - 20px), 370px); }
   .site-theme-grid { grid-template-columns: 1fr; }
@@ -142,13 +145,16 @@ body { overflow-x: hidden; }
 
 @media (hover: none) { .site-structure::after { display: none; } }
 
-.site-command-trigger { align-items:center;background:none;border:0;bottom:20px;color:var(--site-muted);cursor:pointer;display:flex;font-family:'Montserrat',sans-serif;gap:.3rem;left:50%;letter-spacing:.08em;padding:.65rem;position:fixed;transform:translateX(-50%);transition:color .3s ease,transform .3s ease;z-index:28; }
-.site-command-trigger:hover,.site-command-trigger:focus-visible { color:var(--site-fg);outline:none;transform:translateX(-50%) translateY(-2px); }
+.site-command-trigger { align-items:center;background:none;border:0;bottom:20px;color:color-mix(in srgb,var(--site-fg) 82%,transparent);cursor:pointer;display:flex;font:400 .78rem/1 'Montserrat',sans-serif;gap:.5rem;left:50%;letter-spacing:.12em;padding:.88rem;position:fixed;text-transform:uppercase;transform:translateX(-50%);transition:color .3s ease,transform .3s ease;z-index:28; }
+.site-command-trigger:hover,.site-command-trigger:focus-visible { color:var(--site-fg);outline:none;transform:translateX(-50%) translateY(-2px) scale(1.06); }
 .site-command-trigger.is-reader { bottom:20px; }
 .site-network-status { align-items:center;background:var(--site-panel);border:1px solid var(--site-line);border-radius:99px;bottom:24px;color:var(--site-muted);display:flex;font:400 .46rem/1 'Montserrat';gap:.45rem;left:24px;letter-spacing:.08em;padding:.55rem .7rem;position:fixed;text-transform:uppercase;z-index:30; }.site-network-status i{background:var(--site-fg);border-radius:50%;height:4px;opacity:.65;width:4px}
-.site-command-trigger span,.site-command-trigger b { font-size:.52rem;font-weight:400; }.site-command-trigger b { border:1px solid var(--site-line);border-radius:5px;padding:.18rem .26rem; }.site-command-trigger em { font-size:.43rem;font-style:normal;text-transform:uppercase; }
+.site-command-trigger span,.site-command-trigger b { font-size:.6rem;font-weight:400; }.site-command-trigger b { border:1px solid var(--site-line);border-radius:5px;padding:.2rem .3rem; }.site-command-trigger em { font-size:.5rem;font-style:normal;text-transform:uppercase; }
+:root[data-theme="light"] .site-structure-trigger,:root[data-theme="light"] .site-settings-trigger,:root[data-theme="light"] .site-simple-back,:root[data-theme="light"] .site-command-trigger { color:#171610; }
 .site-command-backdrop { align-items:flex-start;backdrop-filter:blur(18px);background:rgba(0,0,0,.24);display:flex;inset:0;justify-content:center;opacity:1;padding-top:min(17vh,150px);position:fixed;transition:backdrop-filter .36s ease,background-color .36s ease,opacity .36s ease;z-index:100;animation:commandBackdropIn .3s ease; }
 .site-command-palette { background:var(--site-panel);border:1px solid var(--site-line);border-radius:22px;box-shadow:0 40px 120px rgba(0,0,0,.55);max-height:min(72vh,690px);opacity:1;overflow:hidden;transform:none;transition:filter .34s ease,opacity .3s ease,transform .36s cubic-bezier(.4,0,.2,1);width:min(calc(100vw - 28px),680px);animation:commandPaletteIn .38s cubic-bezier(.16,1,.3,1); }
+.site-command-backdrop { box-sizing:border-box; }
+.site-command-results button i { transition:opacity .22s ease; }
 .site-command-backdrop.is-closing { backdrop-filter:blur(0);background:rgba(0,0,0,0);opacity:0; }
 .site-command-backdrop.is-closing .site-command-palette { filter:blur(7px);opacity:0;transform:translateY(12px) scale(.98); }
 @keyframes commandBackdropIn { from{opacity:0} } @keyframes commandPaletteIn { from{filter:blur(8px);opacity:0;transform:translateY(18px) scale(.975)} }

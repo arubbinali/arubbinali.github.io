@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import "../App.css";
 import IntroAnimation from "../components/intro";
+import SiteNav from "../components/SiteNav";
 
 const translationIds = {
   English: "131",
@@ -234,6 +235,8 @@ function Notes() {
 
         <NotesDocument markdown={markdown} error={error} language={language} />
       </div>
+
+      <SiteNav site="main" currentKey="notes" />
     </div>
   );
 }

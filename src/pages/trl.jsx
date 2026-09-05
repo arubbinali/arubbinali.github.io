@@ -8,6 +8,7 @@ import TimezonePanel from "../features/trl/TimezonePanel";
 import TRLContextMenu from "../features/trl/TRLContextMenu";
 import TRLIcon from "../features/trl/TRLIcon";
 import WidgetFrame from "../features/trl/WidgetFrame";
+import SiteNav from "../components/SiteNav";
 import { calculate } from "../features/trl/mathEngine";
 import { readLocalValue, writeLocalValue } from "../features/trl/storage";
 import useWidgetLayout from "../features/trl/useWidgetLayout";
@@ -236,6 +237,7 @@ function TRLPage() {
         <TRLIcon name="arrow" />
         <span>Home</span>
       </a>
+      <SiteNav site="main" currentKey="trl" />
       <main className={`trl-workspace ${layoutReady ? "is-ready" : ""} ${expandedWidget ? "has-expanded" : ""}`} ref={boardRef}>
         {!visibleWidgetIds.length && (
           <div className="trl-empty-workspace">

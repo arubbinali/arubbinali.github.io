@@ -1,0 +1,8 @@
+/* Match the Light directory. Keep controls outside this single content layer. */
+:root { --search-blur:7px; --search-opacity:.48; }
+.search-focus-content { transition: filter .32s ease, opacity .32s ease; }
+[data-search-focused="true"] > .search-focus-content { filter: blur(var(--search-blur)); opacity: var(--search-opacity); }
+.landing-search-content { min-height:100vh; }
+@media (prefers-reduced-motion: reduce) {
+  .search-focus-content { transition: none; }
+}

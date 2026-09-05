@@ -51,6 +51,16 @@ export const LIGHT_CONTENT = {
 };
 export const SITE_COMMITS = [
   {
+    "hash": "eee8908",
+    "date": "2026-09-02T17:12:38+08:00",
+    "message": "Fix deployment to target the active Pages source"
+  },
+  {
+    "hash": "28902ed",
+    "date": "2026-09-02T17:09:35+08:00",
+    "message": "Deploy the current Light site from the configured Pages source"
+  },
+  {
     "hash": "be9f0b7",
     "date": "2026-09-02T16:55:09+08:00",
     "message": "Refine the Creator proof and reading experience"
@@ -99,15 +109,5 @@ export const SITE_COMMITS = [
     "hash": "62ca058",
     "date": "2026-08-28T22:11:44+08:00",
     "message": "deploy: publish latest site build"
-  },
-  {
-    "hash": "802d7cd",
-    "date": "2026-08-28T21:57:36+08:00",
-    "message": "Add new content in multiple languages addressing various themes of faith and inquiry"
-  },
-  {
-    "hash": "cea4abf",
-    "date": "2026-08-28T06:49:30+08:00",
-    "message": "deploy: publish latest site build with about page, directory redesign, and font updates"
   }
 ];

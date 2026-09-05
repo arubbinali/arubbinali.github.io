@@ -4,6 +4,8 @@ import "../App.css";
 import IntroAnimation from "../components/intro";
 import ShinyText from "../components/ShinyText";
 import { SiteChrome } from "../components/SiteChrome";
+import SiteNav from "../components/SiteNav";
+import LibrarySearch from "../components/LibrarySearch";
 import { DIRECTORY } from "./light";
 
 function Main() {
@@ -11,17 +13,18 @@ function Main() {
   const navigate = useNavigate();
   const [showContent, setShowContent] = useState(() => Boolean(location.state?.skipIntro));
   const [leaving, setLeaving] = useState(false);
+  const [searchFocused, setSearchFocused] = useState(false);
   const [leavingTarget, setLeavingTarget] = useState("");
   const navigationTimerRef = useRef(null);
 
   useEffect(() => () => window.clearTimeout(navigationTimerRef.current), []);
 
-  const enterRoute = (path) => {
+  const enterRoute = (path, state = {}) => {
     if (leaving) return;
     setLeavingTarget(path);
     setLeaving(true);
     navigationTimerRef.current = window.setTimeout(
-      () => navigate(path, { state: { skipIntro: true } }),
+      () => navigate(path, { state: { skipIntro: true, ...state } }),
       460,
     );
   };
@@ -46,7 +49,10 @@ function Main() {
           minHeight: "100vh",
         }}
       >
-        <SiteChrome sections={DIRECTORY} currentView="home" buttonLabel="Structure" onNavigate={enterRoute} />
+        <SiteChrome sections={DIRECTORY} currentView="home" buttonLabel="Structure" onNavigate={enterRoute} showStructure={false} />
+        <SiteNav site="main" currentKey="home" onNavigate={enterRoute} />
+        <LibrarySearch sections={DIRECTORY} currentPath="/" onNavigate={enterRoute} onFocusChange={setSearchFocused}/>
+        <div data-search-focused={searchFocused}><div className="landing-search-content search-focus-content">
         <div
           className="center-text main-home-center"
           style={{ zIndex: 2, fontFamily: "Montserrat, sans-serif" }}
@@ -70,6 +76,7 @@ function Main() {
           </Link>
         </div>
 
+        </div></div>
         <footer className="main-about-footer">
           <Link to="/about" className="main-about-link" onClick={(event) => { event.preventDefault(); enterRoute("/about"); }}>
             <span aria-hidden="true">⌘</span> About

@@ -5,6 +5,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Lenis from "lenis";
 import IntroAnimation from "../components/intro";
 import { SiteChrome } from "../components/SiteChrome";
+import SiteNav from "../components/SiteNav";
+import SearchResults from "../components/SearchResults";
 import { glossify, ReaderExperience } from "../components/ReaderExperience";
 import { LIGHT_CONTENT, SITE_COMMITS } from "../generated/lightData";
 import "./light.css";
@@ -566,16 +568,26 @@ export default function Light() {
       const selectedReader = READERS.find((choice) => choice.id === result.readerId);
       const resultEntry = ALL_ENTRIES.find((entry) => entry.id === result.entryId) || INTRO_ENTRY;
       if (!selectedReader) return;
+      const targetPath = `/light/${resultEntry.id}${resultEntry.id === INTRO_ENTRY.id ? `/${selectedReader.id}` : ""}`;
+      if (location.pathname === targetPath) {
+        navigate(targetPath, { replace: true, state: { skipIntro: true, highlight: arrivalQuery, highlightContext: result.lineText || "", highlightNonce: Date.now() } });
+        return;
+      }
       transitionView("reader", () => {
         setSelectedEntry(resultEntry);
         setReader(resultEntry.id === INTRO_ENTRY.id ? selectedReader : null);
         setControlsHidden(false);
-        navigate(`/light/${resultEntry.id}${resultEntry.id === INTRO_ENTRY.id ? `/${selectedReader.id}` : ""}`, { state: { skipIntro: true, highlight: arrivalQuery, highlightContext: result.lineText || "" } });
+        navigate(targetPath, { state: { skipIntro: true, highlight: arrivalQuery, highlightContext: result.lineText || "" } });
       });
       return;
     }
 
     const resultEntry = ALL_ENTRIES.find((entry) => entry.id === result.entryId) || INTRO_ENTRY;
+    const targetPath = `/light/${resultEntry.id}`;
+    if (view === "reader" && location.pathname === targetPath) {
+      navigate(targetPath, { replace: true, state: { skipIntro: true, highlight: arrivalQuery, highlightNonce: Date.now() } });
+      return;
+    }
     openReader(resultEntry, null, arrivalQuery);
   };
 
@@ -625,13 +637,15 @@ export default function Light() {
           onNavigate={navigateFromStructure}
           showStructure={false}
         />
-        <div className={`light-search-shell ${searchFocused && normalizedQuery ? "has-results" : ""}`} ref={searchRef}>
+        <SiteNav site="main" currentKey="light" onNavigate={navigateFromStructure} />
+        <div className={`light-search-shell ${searchFocused && normalizedQuery ? "has-results" : ""}`} ref={searchRef} onFocus={() => setSearchFocused(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setSearchFocused(false); }}>
           <label className="light-search">
             <SearchIcon />
             <input
               type="search"
               value={query}
               onFocus={() => setSearchFocused(true)}
+              onClick={() => setSearchFocused(true)}
               onChange={(event) => { setQuery(event.target.value); setSearchFocused(true); }}
               onKeyDown={(event) => {
                 if (event.key === "Escape") {
@@ -650,8 +664,7 @@ export default function Light() {
             {query && <button type="button" onClick={() => setQuery("")} aria-label="Clear search">×</button>}
           </label>
 
-          {searchFocused && normalizedQuery && (
-            <div className="light-search-results" id="light-search-results" role="listbox" data-lenis-prevent>
+            <SearchResults open={Boolean(searchFocused && normalizedQuery)} id="light-search-results" role="listbox">
               <div className="light-search-results-heading">
                 <span>{ui.results}</span>
                 <small>{searchLoading ? "…" : searchResults.length}</small>
@@ -675,8 +688,7 @@ export default function Light() {
               {!searchLoading && !searchResults.length && (
                 <p className="light-search-empty">{ui.empty}</p>
               )}
-            </div>
-          )}
+            </SearchResults>
         </div>
 
         {view === "directory" && (

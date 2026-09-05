@@ -24,9 +24,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "prestart": "node scripts/generate-light-data.mjs",
+    "prestart": "node scripts/generate-light-data.mjs && node scripts/generate-works-data.mjs",
     "start": "react-scripts start",
-    "prebuild": "node scripts/generate-light-data.mjs",
+    "prebuild": "node scripts/generate-light-data.mjs && node scripts/generate-works-data.mjs",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

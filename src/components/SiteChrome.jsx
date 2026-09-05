@@ -28,20 +28,19 @@ export function SiteChrome({
   buttonTarget = null,
   onNavigate,
   showStructure = true,
+  directoryPath = "/light",
+  entryBasePath = "/light",
+  structureRootLabel = "Directory",
+  structureFeature = null,
+  navigationCommands = null,
+  pinnedCommand = null,
+  includeReadingModes = true,
 }) {
   const [structureOpen, setStructureOpen] = useState(false);
   const [structurePinned, setStructurePinned] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [theme, setTheme] = useState(() => window.localStorage.getItem("doaor-theme") || "dark");
-  const [fontScale, setFontScale] = useState(() => {
-    const savedScale = window.localStorage.getItem("doaor-font-scale");
-    const defaultVersion = window.localStorage.getItem("doaor-font-default-version");
-    if (defaultVersion !== "104") {
-      window.localStorage.setItem("doaor-font-default-version", "104");
-      if (!savedScale || savedScale === "100") return 104;
-    }
-    return Number(savedScale) || 104;
-  });
+  const [fontScale, setFontScale] = useState(104);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [paletteClosing, setPaletteClosing] = useState(false);
   const [paletteQuery, setPaletteQuery] = useState("");
@@ -131,30 +130,31 @@ export function SiteChrome({
 
   const savedBookmarkKey = paletteOpen ? window.localStorage.getItem("doaor-bookmarks") || "[]" : "[]";
   const paletteCommands = useMemo(() => {
-    const pages = sections.flatMap((section) => section.entries.filter((entry) => entry.id !== currentEntryId).map((entry) => ({ id: `page-${entry.id}`, group: section.title, label: entry.title, hint: "Open write-up", run: () => onNavigate(`/light/${entry.id}`) })));
+    const pages = sections.flatMap((section) => section.entries.filter((entry) => entry.id !== currentEntryId).map((entry) => ({ id: `page-${entry.id}`, group: section.title, label: entry.title, hint: "Open page", run: () => onNavigate(`${entryBasePath}/${entry.id}`) })));
     let savedIds = [];
     try { savedIds = JSON.parse(savedBookmarkKey) || []; } catch { savedIds = []; }
-    const savedPages = [...new Set(savedIds.map((id) => id.split(":")[0]))].map((id) => sections.flatMap((section) => section.entries).find((entry) => entry.id === id)).filter((entry) => entry && entry.id !== currentEntryId).map((entry) => ({ id: `saved-${entry.id}`, group: "Saved readings", label: entry.title, hint: "Bookmarked on this device", run: () => onNavigate(`/light/${entry.id}`) }));
+    const savedPages = [...new Set(savedIds.map((id) => id.split(":")[0]))].map((id) => sections.flatMap((section) => section.entries).find((entry) => entry.id === id)).filter((entry) => entry && entry.id !== currentEntryId).map((entry) => ({ id: `saved-${entry.id}`, group: "Saved readings", label: entry.title, hint: "Bookmarked on this device", run: () => onNavigate(`${entryBasePath}/${entry.id}`) }));
     const themes = THEMES.filter((choice) => choice.id !== theme).map((choice) => ({ id: `theme-${choice.id}`, group: "Themes", label: `${choice.label} theme`, hint: choice.note, run: () => setTheme(choice.id) }));
-    const modes = ["focus", "study", "sources"].map((mode) => ({ id: `mode-${mode}`, group: "Reading modes", label: `${mode[0].toUpperCase()}${mode.slice(1)} mode`, hint: "Change the reader", run: () => { window.localStorage.setItem("doaor-reading-mode", mode); window.dispatchEvent(new CustomEvent("doaor:reading-mode", { detail: mode })); } }));
-    const navigation = [
+    const modes = includeReadingModes ? ["focus", "study", "sources"].map((mode) => ({ id: `mode-${mode}`, group: "Reading modes", label: `${mode[0].toUpperCase()}${mode.slice(1)} mode`, hint: "Change the reader", run: () => { window.localStorage.setItem("doaor-reading-mode", mode); window.dispatchEvent(new CustomEvent("doaor:reading-mode", { detail: mode })); } })) : [];
+    const defaultNavigation = [
       { id: "nav-home", group: "Navigation", label: "Home", hint: "Root page", run: () => onNavigate("/") },
-      { id: "nav-directory", group: "Navigation", label: "Directory", hint: "Browse every write-up", run: () => onNavigate("/light") },
+      { id: "nav-directory", group: "Navigation", label: "Directory", hint: "Browse every page", run: () => onNavigate(directoryPath) },
       { id: "nav-history", group: "Navigation", label: "Commit history", hint: "Published changes and GitHub commits", run: () => onNavigate("/history") },
       { id: "nav-about", group: "Navigation", label: "About", hint: "About doaor", run: () => onNavigate("/about") },
     ].filter((command) => !((currentView === "home" && command.id === "nav-home") || (currentView === "directory" && command.id === "nav-directory") || (currentView === "history" && command.id === "nav-history") || (currentView === "about" && command.id === "nav-about")));
+    const navigation = navigationCommands || defaultNavigation;
     return [
       ...navigation,
       { id: "open-settings", group: "Actions", label: "Open settings", hint: "Theme, type, language", run: () => setSettingsOpen(true) },
       ...savedPages, ...pages, ...themes, ...modes,
     ];
-  }, [currentEntryId, currentView, onNavigate, savedBookmarkKey, sections, theme]);
+  }, [currentEntryId, currentView, directoryPath, entryBasePath, includeReadingModes, navigationCommands, onNavigate, savedBookmarkKey, sections, theme]);
 
   const filteredCommands = useMemo(() => {
     const query = paletteQuery.trim().toLowerCase();
-    if (!query) return paletteCommands.slice(0, 14);
+    if (!query) return [...(pinnedCommand ? [pinnedCommand] : []), ...paletteCommands].slice(0, 14);
     return paletteCommands.map((command) => ({ command, score: command.label.toLowerCase().startsWith(query) ? 0 : command.label.toLowerCase().includes(query) ? 1 : command.group.toLowerCase().includes(query) ? 2 : 9 })).filter(({ score }) => score < 9).sort((a, b) => a.score - b.score).map(({ command }) => command).slice(0, 18);
-  }, [paletteCommands, paletteQuery]);
+  }, [paletteCommands, paletteQuery, pinnedCommand]);
 
   useEffect(() => setPaletteIndex(0), [paletteQuery, paletteOpen]);
 
@@ -184,6 +184,7 @@ export function SiteChrome({
         ref={structureRef}
         onMouseEnter={() => setStructureOpen(true)}
         onMouseLeave={() => { if (!structurePinned) setStructureOpen(false); }}
+        onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) { setStructureOpen(false); setStructurePinned(false); } }}
         aria-label="Website structure"
       >
         <button
@@ -203,12 +204,16 @@ export function SiteChrome({
             <small>{currentView === "reader" ? "You are here" : "Choose a path"}</small>
           </header>
 
+          {structureFeature && <button className="site-structure-destination is-featured" type="button" onClick={() => choosePath(structureFeature.path)}>
+            <span>{structureFeature.symbol || "∞"}</span><strong>{structureFeature.label}</strong><i>{structureFeature.hint || "Open"}</i>
+          </button>}
+
           <button
             className={`site-structure-destination ${currentView === "directory" ? "is-current" : ""} ${buttonTarget === "/light" ? "is-next" : ""}`}
             type="button"
-            onClick={() => choosePath("/light")}
+            onClick={() => choosePath(directoryPath)}
           >
-            <span>00</span><strong>Directory</strong><i>Overview</i>
+            <span>00</span><strong>{structureRootLabel}</strong><i>Overview</i>
           </button>
 
           <div className="site-structure-tree">
@@ -222,7 +227,7 @@ export function SiteChrome({
                   {section.entries.map((entry) => {
                     const isCurrent = currentEntryId === entry.id;
                     return (
-                      <button className={isCurrent ? "is-current" : ""} key={entry.id} type="button" onClick={() => choosePath(`/light/${entry.id}`)}>
+                      <button className={isCurrent ? "is-current" : ""} key={entry.id} type="button" onClick={() => choosePath(`${entryBasePath}/${entry.id}`)}>
                         <i aria-hidden="true" />
                         <span>{entry.title}</span>
                         {isCurrent && <small>{entry.id === "signs" && currentReaderId ? currentReaderId : "Here"}</small>}
@@ -274,12 +279,14 @@ export function SiteChrome({
               <strong aria-hidden="true">A</strong>
             </div>
           </section>
-          <section className="site-settings-group">
-            <div className="site-settings-heading"><span>Language</span><small>Translations</small></div>
-            <div className="site-language-settings">
-              {SETTINGS_LANGUAGES.map((choice) => <button className={choice.available ? "is-selected" : "is-locked"} key={choice.id} type="button" disabled={!choice.available}><span>{choice.label}</span><small>{choice.available ? "Active" : "Soon"}</small></button>)}
-            </div>
-          </section>
+          {!currentView.startsWith("works") && (
+            <section className="site-settings-group">
+              <div className="site-settings-heading"><span>Language</span><small>Translations</small></div>
+              <div className="site-language-settings">
+                {SETTINGS_LANGUAGES.map((choice) => <button className={choice.available ? "is-selected" : "is-locked"} key={choice.id} type="button" disabled={!choice.available}><span>{choice.label}</span><small>{choice.available ? "Active" : "Soon"}</small></button>)}
+              </div>
+            </section>
+          )}
         </div>
       </aside>
 

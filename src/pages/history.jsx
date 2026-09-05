@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Lenis from "lenis";
 import { SiteChrome } from "../components/SiteChrome";
+import SiteNav from "../components/SiteNav";
+import SearchResults from "../components/SearchResults";
 import { LibraryJournal } from "../components/ReaderExperience";
 import { LIGHT_CONTENT, SITE_COMMITS } from "../generated/lightData";
 import { DIRECTORY } from "./light";
@@ -96,7 +98,7 @@ export default function History() {
   };
 
   return (
-    <main className={`history-page main-content fade-in ${leaving ? "is-leaving" : ""}`} data-lenis-prevent ref={pageRef}>
+    <main className={`history-page main-content fade-in ${leaving ? "is-leaving" : ""} ${searchFocused ? "is-searching" : ""}`} data-lenis-prevent ref={pageRef}>
       <SiteChrome
         sections={DIRECTORY}
         currentView="history"
@@ -105,22 +107,23 @@ export default function History() {
         onNavigate={goRoute}
         showStructure={false}
       />
+      <SiteNav site="main" currentKey="history" onNavigate={goRoute} />
 
-      <div className={`light-search-shell history-search-shell ${searchFocused && normalizedQuery ? "has-results" : ""}`} ref={searchRef}>
+      <div className={`light-search-shell history-search-shell ${searchFocused && normalizedQuery ? "has-results" : ""}`} ref={searchRef} onFocus={() => setSearchFocused(true)} onClick={() => { if (document.activeElement?.tagName === "INPUT") setSearchFocused(true); }} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setSearchFocused(false); }}>
         <label className="light-search">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.4"/><path d="m16 16 4 4" fill="none" stroke="currentColor" strokeWidth="1.4"/></svg>
           <input type="search" value={query} onFocus={() => setSearchFocused(true)} onChange={(event) => { setQuery(event.target.value);setSearchFocused(true); }} onKeyDown={(event) => { if (event.key === "Escape") { setQuery("");setSearchFocused(false);event.currentTarget.blur(); } }} placeholder="Search the library" aria-label="Search the library" role="combobox" aria-expanded={Boolean(searchFocused && normalizedQuery)} aria-controls="history-search-results" />
           {query && <button type="button" onClick={() => setQuery("")} aria-label="Clear search">×</button>}
         </label>
-        {searchFocused && normalizedQuery && <div className="light-search-results" id="history-search-results" role="listbox" data-lenis-prevent>
+        <SearchResults open={Boolean(searchFocused && normalizedQuery)} id="history-search-results" role="listbox">
           <div className="light-search-results-heading"><span>Search results</span><small>{searchResults.length}</small></div>
           {searchResults.map((result, index) => <button className="light-search-result is-available" key={result.id} type="button" role="option" aria-selected="false" style={{ "--result-index": index }} onClick={() => openResult(result)}><strong>{result.heading}</strong><span>{result.excerpt}</span></button>)}
           {!searchResults.length && <p className="light-search-empty">No matching passages yet.</p>}
-        </div>}
+        </SearchResults>
       </div>
 
-      <div className="history-scroll-content" ref={contentRef}>
-        <div className="history-content">
+      <div className="history-scroll-content" ref={contentRef} data-search-focused={searchFocused}>
+        <div className="history-content search-focus-content">
           <header className="history-hero">
             <p>Development record</p>
             <h1>Commit history</h1>

@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import { SiteChrome } from "../components/SiteChrome";
+import SiteNav from "../components/SiteNav";
+import LibrarySearch from "../components/LibrarySearch";
 import { DIRECTORY } from "./light";
 
 function DiscordIcon() {
@@ -32,14 +34,15 @@ export default function About() {
   const navigate = useNavigate();
   const [discordCopied, setDiscordCopied] = useState(false);
   const [leaving, setLeaving] = useState(false);
+  const [searchFocused, setSearchFocused] = useState(false);
   const navigationTimerRef = useRef(null);
 
   useEffect(() => () => window.clearTimeout(navigationTimerRef.current), []);
 
-  const goRoute = (path) => {
+  const goRoute = (path, state = {}) => {
     if (leaving) return;
     setLeaving(true);
-    navigationTimerRef.current = window.setTimeout(() => navigate(path, { state: { skipIntro: true } }), 460);
+    navigationTimerRef.current = window.setTimeout(() => navigate(path, { state: { skipIntro: true, ...state } }), 460);
   };
 
   const copyDiscord = async () => {
@@ -67,6 +70,9 @@ export default function About() {
         }}
       >
         <SiteChrome sections={DIRECTORY} currentView="about" buttonLabel="Home" buttonTarget="/" onNavigate={goRoute} showStructure={false} />
+        <SiteNav site="main" currentKey="about" onNavigate={goRoute} />
+        <LibrarySearch sections={DIRECTORY} currentPath="/about" onNavigate={goRoute} onFocusChange={setSearchFocused}/>
+        <div data-search-focused={searchFocused}><div className="landing-search-content search-focus-content">
 
         <div
           className="center-text about-center"
@@ -124,6 +130,7 @@ export default function About() {
             </span>
           </a>
         </footer>
+        </div></div>
       </div>
     </div>
   );
