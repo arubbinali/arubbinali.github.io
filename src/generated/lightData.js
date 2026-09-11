@@ -51,6 +51,11 @@ export const LIGHT_CONTENT = {
 };
 export const SITE_COMMITS = [
   {
+    "hash": "1c6708e",
+    "date": "2026-09-06T02:30:45+08:00",
+    "message": "Unify site search and refine the portfolio experience"
+  },
+  {
     "hash": "eee8908",
     "date": "2026-09-02T17:12:38+08:00",
     "message": "Fix deployment to target the active Pages source"
@@ -104,10 +109,5 @@ export const SITE_COMMITS = [
     "hash": "2aa593c",
     "date": "2026-08-30T00:25:39+08:00",
     "message": "Update blur effects, settings hover behavior, language dropdown, and content edits"
-  },
-  {
-    "hash": "62ca058",
-    "date": "2026-08-28T22:11:44+08:00",
-    "message": "deploy: publish latest site build"
   }
 ];

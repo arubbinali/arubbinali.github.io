@@ -12,7 +12,7 @@ import ShinyText from "../components/ShinyText";
 import { SiteChrome } from "../components/SiteChrome";
 import { WORKS_CODE_SNIPPETS } from "../generated/worksData";
 
-const LEGACY_ROOT = "https://doaor.com/d";
+const LEGACY_ROOT = "https://doaor.com/old";
 const legacyAsset = (path) => `${LEGACY_ROOT}/${path.replace(/^\/+/, "")}`;
 
 const WORKS_PAGES = [
@@ -274,7 +274,7 @@ function PortfolioTerminal({onNavigate}) {
   </>;
 }
 
-function WorksHome({onNavigate}) { return <div className="works-home-hub"><div className="works-home-core"><h1 className="main-home-ayah works-home-name" lang="ar" dir="rtl" aria-label="Arub"><ShinyText className="main-home-ayah-shine" text="ارب" speed={4}/></h1><span>Selected work · 2017—present</span></div><nav className="works-home-links" aria-label="Portfolio pages">{WORKS_PAGES.map((page,index)=><a className="works-home-node" href={`/works/${page.id}`} key={page.id} onClick={(event)=>{event.preventDefault();onNavigate(`/works/${page.id}`)}}><small>{String(index+1).padStart(2,"0")}</small><strong>{page.title}</strong><span>{page.summary}</span></a>)}</nav></div>; }
+function WorksHome({onNavigate}) { return <div className="works-home-hub"><div className="works-home-core"><h1 className="main-home-ayah works-home-name" lang="ar" dir="rtl" aria-label="Arub"><ShinyText className="main-home-ayah-shine" text="ارب" speed={4}/></h1><span>Selected work · 2017—present</span></div><nav className="works-home-links" aria-label="Portfolio pages">{WORKS_PAGES.map((page,index)=><a className="works-home-node" href={`/works/${page.id}`} key={page.id} onClick={(event)=>{event.preventDefault();onNavigate(`/works/${page.id}`)}}><small>{String(index+1).padStart(2,"0")}</small><strong>{page.title}</strong><span>{page.summary}</span></a>)}</nav><a className="works-legacy-link" href="/old/">View my previous portfolio <span aria-hidden="true">→</span></a></div>; }
 
 function pageKey(pathname) { const leaf = pathname.split("/").filter(Boolean).pop()?.toLowerCase() || ""; if (!leaf || leaf === "works" || leaf === "index.html" || leaf === "index") return "home"; return leaf.replace(/\.html$/, ""); }
 
@@ -316,7 +316,7 @@ export default function Works() {
   return <div className={`App works-site ${isHome ? "works-home" : "works-subpage"}`} style={{ position: "relative", overflow: isHome ? "hidden" : "visible", backgroundColor: "var(--site-bg)", minHeight: "100vh", height: isHome ? "100vh" : "auto" }}>
     {isHome && !showContent && <IntroAnimation onFinish={() => setShowContent(true)}/>}
     {showContent && <>
-      <SiteChrome sections={WORKS_DIRECTORY} currentEntryId={isHome ? null : `${key}.html`} currentView={isHome ? "works-home" : "works-page"} buttonLabel={isHome ? "Structure" : "Home"} buttonTarget={isHome ? null : "/works/"} onNavigate={enterRoute} showStructure={false} directoryPath="/works/" entryBasePath="/works" structureRootLabel="Home" structureFeature={{ symbol: "∞", label: "Light", hint: "Main site", path: "/light" }} navigationCommands={navigationCommands} pinnedCommand={pinnedLight} includeReadingModes={false}/>
+      <SiteChrome sections={WORKS_DIRECTORY} currentEntryId={isHome ? null : `${key}.html`} currentView={isHome ? "works-home" : "works-page"} buttonLabel="Home" buttonTarget={isHome ? "/" : "/works/"} onNavigate={enterRoute} showStructure={false} directoryPath="/works/" entryBasePath="/works" structureRootLabel="Home" structureFeature={{ symbol: "∞", label: "Light", hint: "Main site", path: "/light" }} navigationCommands={navigationCommands} pinnedCommand={pinnedLight} includeReadingModes={false}/>
       <SiteNav site="works" currentKey={key} onNavigate={enterRoute}/><PortfolioTerminal onNavigate={enterRoute}/>
     </>}
     <div className={`main-content works-stage ${showContent ? "fade-in" : "hidden"} ${leaving ? "is-leaving" : ""}`} data-search-focused={searchFocused}>

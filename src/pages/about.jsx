@@ -90,7 +90,7 @@ export default function About() {
           <p className="about-portfolio">
             You can find my works{" "}
             <a
-              href="https://doaor.com/d/"
+              href="https://doaor.com/works/"
               target="_blank"
               rel="noopener noreferrer"
               className="temp-link"

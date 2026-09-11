@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300;700&display=swap');
 
 .intro-container {
   background-color: #000;
@@ -15,12 +16,24 @@
 }
 
 .intro-text {
-  font-size: 7rem;
-  font-weight: 200;
-  font-family: 'Montserrat', sans-serif;
-  color: white;
-  display: flex;
-  gap: 10px;
+  align-items:center;
+  color:white;
+  display:flex;
+  font-family:"Montserrat Alternates",sans-serif;
+  font-size:clamp(4.8rem,11vw,7rem);
+  font-weight:700;
+  gap:clamp(4px,1vw,10px);
+  position: relative;
+  z-index: 1;
+}
+
+.intro-text > span {
+  animation: introVideoReveal 1s ease-in-out var(--intro-letter-delay) forwards, flicker 1.5s ease-in-out var(--intro-glow-delay) infinite alternate;
+  display:block;
+  line-height:1;
+  opacity: 0;
+  text-shadow:0 0 5px #fff,0 0 15px #fff,0 0 25px rgba(255,255,255,.9),0 0 35px rgba(255,255,255,.7);
+  transform: translateY(10px) scale(.97);
 }
 
 .intro-subtext {
@@ -34,10 +47,8 @@
   animation-delay: 1.8s;
 }
 
-.intro-text span {
-  opacity: 0;
-  text-shadow: 0 0 5px #fff, 0 0 15px #fff, 0 0 25px rgba(255, 255, 255, 0.9), 0 0 35px rgba(255, 255, 255, 0.7);
-  animation: fadeIn 1s ease-in-out forwards, flicker 1.5s infinite alternate;
+@keyframes introVideoReveal {
+  to { opacity:1; transform:none; }
 }
 
 @keyframes fadeIn {
@@ -49,6 +60,10 @@
   0% { text-shadow: 0 0 5px #fff, 0 0 15px #fff, 0 0 25px rgba(255, 255, 255, 0.9), 0 0 35px rgba(255, 255, 255, 0.7); }
   50% { text-shadow: 0 0 6px #fff, 0 0 12px #fff, 0 0 22px rgba(255, 255, 255, 0.8), 0 0 32px rgba(255, 255, 255, 0.6); }
   100% { text-shadow: 0 0 4px #fff, 0 0 10px #fff, 0 0 20px rgba(255, 255, 255, 0.7), 0 0 30px rgba(255, 255, 255, 0.5); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-text > span { animation:fadeIn .01s linear forwards; transform:none; }
 }
 
 @keyframes softGlow {

@@ -48,15 +48,15 @@
 .works-code-library { display:grid;gap:5rem;min-width:0; }
 .works-code-group { scroll-margin-top:7rem; }.works-code-group>header{border-bottom:1px solid var(--site-line);margin-bottom:1rem;padding-bottom:1.2rem}.works-code-group>header small{color:var(--site-muted);font-size:.43rem;letter-spacing:.16em;text-transform:uppercase}.works-code-group>header h2{color:var(--site-fg);font-size:clamp(1.65rem,3.5vw,2.7rem);font-weight:250;letter-spacing:-.045em;margin:.55rem 0}.works-code-group>header p{color:var(--site-muted);font-size:.55rem;margin:0}
 .works-docs-chapter{border-bottom:1px solid color-mix(in srgb,var(--site-fg) 24%,transparent);padding:0 0 1.4rem}.works-docs-chapter small{color:var(--site-muted);font-size:.43rem;letter-spacing:.18em;text-transform:uppercase}.works-docs-chapter h2{color:#c697ff;font-size:clamp(2.4rem,5vw,4.4rem);font-weight:230;letter-spacing:-.055em;margin:.45rem 0;text-shadow:0 0 28px rgba(154,82,245,.42)}.works-docs-chapter span{color:var(--site-muted);font-size:.58rem}
-.works-docs-chapter h2::before{background:url("https://doaor.com/d/img/project.png") center/contain no-repeat;content:"";display:inline-block;filter:drop-shadow(0 0 10px var(--site-glow));height:30px;margin-right:.8rem;width:30px}.works-docs-chapter.is-certifications h2::before{background-image:url("https://doaor.com/d/img/award.png")}
+.works-docs-chapter h2::before{background:url("https://doaor.com/old/img/project.png") center/contain no-repeat;content:"";display:inline-block;filter:drop-shadow(0 0 10px var(--site-glow));height:30px;margin-right:.8rem;width:30px}.works-docs-chapter.is-certifications h2::before{background-image:url("https://doaor.com/old/img/award.png")}
 .works-code-group>header h2,.works-project-list article>h2{align-items:center;display:flex;gap:.75rem}
 .works-code-group>header h2::before,.works-project-list article>h2::before{background-position:center;background-repeat:no-repeat;background-size:contain;content:none;filter:drop-shadow(0 0 9px var(--site-glow));flex:0 0 auto;height:25px;opacity:.88;width:25px}
-.works-code-group[id="school-docs"]>header h2::before,.works-project-list article[id="school"]>h2::before{background-image:url("https://doaor.com/d/img/project.png")}
-.works-code-group[id="inheritance-docs"]>header h2::before,.works-code-group[id="gui-docs"]>header h2::before,.works-project-list article[id="inheritance"]>h2::before,.works-project-list article[id="mathlab"]>h2::before{background-image:url("https://doaor.com/d/img/code.png")}
-.works-code-group[id="mysql-docs"]>header h2::before,.works-project-list article[id="mysql"]>h2::before{background-image:url("https://doaor.com/d/img/server.png")}
-.works-code-group[id="pcap-docs"]>header h2::before,.works-code-group[id="pcep-docs"]>header h2::before{background-image:url("https://doaor.com/d/img/award.png")}
-.works-project-list article[id="bonus"]>h2::before{background-image:url("https://doaor.com/d/img/more.png")}
-.works-project-list article[id="browser-suite"]>h2::before{background-image:url("https://doaor.com/d/img/features.png")}
+.works-code-group[id="school-docs"]>header h2::before,.works-project-list article[id="school"]>h2::before{background-image:url("https://doaor.com/old/img/project.png")}
+.works-code-group[id="inheritance-docs"]>header h2::before,.works-code-group[id="gui-docs"]>header h2::before,.works-project-list article[id="inheritance"]>h2::before,.works-project-list article[id="mathlab"]>h2::before{background-image:url("https://doaor.com/old/img/code.png")}
+.works-code-group[id="mysql-docs"]>header h2::before,.works-project-list article[id="mysql"]>h2::before{background-image:url("https://doaor.com/old/img/server.png")}
+.works-code-group[id="pcap-docs"]>header h2::before,.works-code-group[id="pcep-docs"]>header h2::before{background-image:url("https://doaor.com/old/img/award.png")}
+.works-project-list article[id="bonus"]>h2::before{background-image:url("https://doaor.com/old/img/more.png")}
+.works-project-list article[id="browser-suite"]>h2::before{background-image:url("https://doaor.com/old/img/features.png")}
 .works-code-widget { animation:worksCardIn .65s cubic-bezier(.16,1,.3,1) both;animation-delay:min(calc(var(--card-index)*35ms),.6s);background:linear-gradient(145deg,color-mix(in srgb,var(--site-panel) 88%,transparent),color-mix(in srgb,var(--site-bg) 95%,transparent));border:1px solid color-mix(in srgb,var(--site-fg) 14%,transparent);border-radius:15px;box-shadow:inset 0 1px rgba(255,255,255,.035),0 12px 35px rgba(0,0,0,.12);margin-top:.7rem;overflow:hidden;transition:background .3s ease,border-color .3s ease,box-shadow .35s ease; }
 .works-code-widget:hover,.works-code-widget[open] { border-color:color-mix(in srgb,var(--site-fg) 30%,transparent);box-shadow:inset 0 1px rgba(255,255,255,.055),0 18px 55px rgba(0,0,0,.22),0 0 22px color-mix(in srgb,var(--site-glow) 24%,transparent); }
 .works-code-widget summary { align-items:center;cursor:pointer;display:grid;gap:1rem;grid-template-columns:minmax(0,1fr) auto auto;list-style:none;padding:1rem 1.15rem; }.works-code-widget summary::-webkit-details-marker{display:none}
@@ -238,7 +238,8 @@
 .works-actions a:hover, .works-docs-actions a:hover { box-shadow: 0 0 20px var(--site-glow); }
 
 /* Portfolio home optical centering and light-theme Arabic contrast. */
-.works-home-hub { transform:translateY(-3.5vh); }
+.works-home-hub { transform:translateY(-5vh); }
+.works-legacy-link{color:var(--site-muted);font-size:.58rem;letter-spacing:.08em;margin-top:1.35rem;text-decoration:none;transition:color .28s ease,transform .35s cubic-bezier(.16,1,.3,1)}.works-legacy-link:hover,.works-legacy-link:focus-visible{color:var(--site-fg);outline:none;transform:translateX(4px)}
 .works-home-core .main-home-ayah-shine { color:var(--site-fg); }
 :root[data-theme="light"] .works-home-core .main-home-ayah-shine {
   color:#090806!important;

@@ -3,7 +3,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const source = await readFile(resolve(root, "d", "Docs.html"), "utf8");
+const source = await readFile(resolve(root, "old", "Docs.html"), "utf8");
 
 const decodeEntities = (value) => value
   .replace(/&#(\d+);/g, (_, number) => String.fromCodePoint(Number(number)))
@@ -30,5 +30,5 @@ while ((match = pattern.exec(source))) {
 
 const outputPath = resolve(root, "src", "generated", "worksData.js");
 await mkdir(dirname(outputPath), { recursive: true });
-await writeFile(outputPath, `// Generated from d/Docs.html. Do not edit by hand.\nexport const WORKS_CODE_SNIPPETS = ${JSON.stringify(snippets, null, 2)};\n`, "utf8");
+await writeFile(outputPath, `// Generated from old/Docs.html. Do not edit by hand.\nexport const WORKS_CODE_SNIPPETS = ${JSON.stringify(snippets, null, 2)};\n`, "utf8");
 console.log(`Generated ${snippets.length} portfolio code snippets.`);

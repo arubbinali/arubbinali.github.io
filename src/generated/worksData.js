@@ -1,4 +1,4 @@
-// Generated from d/Docs.html. Do not edit by hand.
+// Generated from old/Docs.html. Do not edit by hand.
 export const WORKS_CODE_SNIPPETS = [
   {
     "id": "code-1",

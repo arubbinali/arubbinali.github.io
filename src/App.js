@@ -1,8 +1,9 @@
 // test deploy
-import { BrowserRouter as Router, Navigate, Routes, Route, useLocation } from "react-router-dom";
-import { lazy, Suspense, useEffect } from "react";
+import { BrowserRouter as Router, Navigate, Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 import Main from "./pages/main";
+import Gateway from "./pages/gateway";
 import Resume from "./pages/resume";
 import Notes from "./pages/notes";
 import Light from "./pages/light";
@@ -12,12 +13,69 @@ import Works from "./pages/works";
 
 const TRLPage = lazy(() => import("./pages/trl"));
 
+function SitePageTransition() {
+  const navigate = useNavigate();
+  const navigateRef = useRef(navigate);
+  const [active, setActive] = useState(false);
+  const transitioning = useRef(false);
+  const navigationTimer = useRef(null);
+  const revealTimer = useRef(null);
+
+  useEffect(() => {
+    navigateRef.current = navigate;
+  }, [navigate]);
+
+  useEffect(() => {
+    const handleInternalLink = (event) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const anchor = event.target.closest?.("a[href]");
+      if (!anchor || anchor.hasAttribute("download") || (anchor.target && anchor.target !== "_self")) return;
+
+      const destination = new URL(anchor.href, window.location.href);
+      if (destination.origin !== window.location.origin) return;
+      if (destination.pathname === "/old" || destination.pathname.startsWith("/old/")) return;
+
+      const current = new URL(window.location.href);
+      const sameDocument = destination.pathname === current.pathname && destination.search === current.search;
+      if (sameDocument) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+      if (transitioning.current) return;
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        navigateRef.current(`${destination.pathname}${destination.search}${destination.hash}`, { state: { skipIntro: true } });
+        return;
+      }
+
+      transitioning.current = true;
+      setActive(true);
+      navigationTimer.current = window.setTimeout(() => {
+        navigateRef.current(`${destination.pathname}${destination.search}${destination.hash}`, { state: { skipIntro: true } });
+        revealTimer.current = window.setTimeout(() => {
+          setActive(false);
+          transitioning.current = false;
+        }, 70);
+      }, 560);
+    };
+
+    document.addEventListener("click", handleInternalLink, true);
+    return () => {
+      document.removeEventListener("click", handleInternalLink, true);
+      window.clearTimeout(navigationTimer.current);
+      window.clearTimeout(revealTimer.current);
+    };
+  }, []);
+
+  return <div className={`site-page-transition ${active ? "is-active" : ""}`} aria-hidden="true" />;
+}
+
 function AnimatedRoutes() {
   const location = useLocation();
   return (
     <div className="route-stage" key={location.pathname}>
       <Routes location={location}>
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Gateway />} />
         <Route path="/main" element={<Main />} />
         <Route path="/resume" element={<Resume />} />
         <Route path="/notes" element={<Notes />} />
@@ -27,7 +85,7 @@ function AnimatedRoutes() {
         <Route path="/works/*" element={<Works />} />
         <Route path="/d/*" element={<Navigate to="/works/" replace />} />
         <Route path="/trl" element={<Suspense fallback={<div style={{ background: "#000", color: "#8a9099", display: "grid", fontFamily: "Montserrat, sans-serif", minHeight: "100vh", placeItems: "center" }}>Loading TRL…</div>}><TRLPage /></Suspense>} />
-        <Route path="*" element={<Main />} />
+        <Route path="*" element={<Gateway />} />
       </Routes>
     </div>
   );
@@ -66,6 +124,7 @@ function App() {
 
   return (
     <Router>
+      <SitePageTransition />
       <AnimatedRoutes />
     </Router>
   );

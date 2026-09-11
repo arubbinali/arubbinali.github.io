@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { ThemeParticleRain } from "./ThemeParticleRain";
 import "./intro.css";
 
 const IntroAnimation = ({ onFinish }) => {
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    // animation delays for letters
-    const letters = document.querySelectorAll(".intro-text span");
-    letters.forEach((letter, index) => {
-      letter.style.animationDelay = `${index * 0.3}s`;
-    });
-
     // Play animation fully, then fade out
     const showTime = 3500; // how long the animation shows before fade out
     const fadeDuration = 1000; // fade-out duration
@@ -27,12 +22,9 @@ const IntroAnimation = ({ onFinish }) => {
 
   return (
     <div className={`intro-container ${fadeOut ? "fade-out" : ""}`}>
+      <ThemeParticleRain />
       <div className="intro-text">
-        <span>d</span>
-        <span>o</span>
-        <span>a</span>
-        <span>o</span>
-        <span>r</span>
+        {[..."doaor"].map((letter, index) => <span key={`${letter}-${index}`} style={{ "--intro-letter-delay": `${index * 0.3}s`, "--intro-glow-delay": `${1.5 + index * 0.3}s` }}>{letter}</span>)}
       </div>
       <div className="intro-subtext"></div>
 
