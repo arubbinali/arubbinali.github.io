@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import IntroAnimation from "../components/intro";
+import MetalWordmark from "../components/MetalWordmark";
 import ShinyText from "../components/ShinyText";
 import "./gateway.css";
 
 const DESTINATIONS = [
   { eyebrow: "Daʿwah", title: "Light", path: "/main", video: "/media/gateway-light.mp4" },
   { eyebrow: "Digital portfolio", title: "My Works", path: "/works/", video: "/media/gateway-works.mp4" },
+  { eyebrow: "Desktop workspace", title: "Software", path: "/software", video: "/media/gateway-reel.mp4" },
 ];
 
 export default function Gateway() {
@@ -29,7 +31,7 @@ export default function Gateway() {
     <div className="gateway-shade" aria-hidden="true" />
     <div className="gateway-grain" aria-hidden="true" />
     <div className={`gateway-content ${showContent ? "is-visible" : ""}`}>
-      <header className="gateway-header"><a className="gateway-wordmark" href="/" aria-label="Replay the doaor intro" onClick={replayIntro}>doaor</a></header>
+      <header className="gateway-header"><a className="gateway-wordmark" href="/" aria-label="Replay the doaor intro" onClick={replayIntro}><MetalWordmark font={'700 clamp(1.2rem, 1.6vw, 1.5rem)/1 "Montserrat Alternates", "Century Gothic", sans-serif'} /></a></header>
       <section className="gateway-intro" aria-labelledby="gateway-title">
         <h1 id="gateway-title" className="gateway-name-arabic" lang="ar" dir="rtl" aria-label="Arub">
           <ShinyText text="ارب" speed={4} />

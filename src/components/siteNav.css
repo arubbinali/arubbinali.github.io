@@ -86,6 +86,8 @@
 .site-nav-sections {
   align-content: start;
   display: grid;
+  /* Rows must hug their content - never stretch into the leftover panel height */
+  grid-auto-rows: min-content;
   gap: .35rem;
   margin-top: .7rem;
   min-height: 0;

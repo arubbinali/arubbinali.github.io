@@ -12,6 +12,7 @@ import History from "./pages/history";
 import Works from "./pages/works";
 
 const TRLPage = lazy(() => import("./pages/trl"));
+const SoftwarePage = lazy(() => import("./pages/software"));
 
 function SitePageTransition() {
   const navigate = useNavigate();
@@ -82,6 +83,7 @@ function AnimatedRoutes() {
         <Route path="/light/*" element={<Light />} />
         <Route path="/about" element={<About />} />
         <Route path="/history" element={<History />} />
+        <Route path="/software" element={<Suspense fallback={<div style={{ minHeight: "100vh", background: "#080a0b", color: "#a7afa9", padding: "10vw" }}>Loading software…</div>}><SoftwarePage /></Suspense>} />
         <Route path="/works/*" element={<Works />} />
         <Route path="/d/*" element={<Navigate to="/works/" replace />} />
         <Route path="/trl" element={<Suspense fallback={<div style={{ background: "#000", color: "#8a9099", display: "grid", fontFamily: "Montserrat, sans-serif", minHeight: "100vh", placeItems: "center" }}>Loading TRL…</div>}><TRLPage /></Suspense>} />

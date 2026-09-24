@@ -1,0 +1,17 @@
+/* Wrapper keeps the logo's layout identical to the plain text it replaces. */
+.metal-wordmark {
+  align-items: center;
+  display: inline-flex;
+  line-height: 1;
+  position: relative;
+  vertical-align: middle;
+}
+
+.metal-wordmark-plain {
+  display: none;
+  white-space: nowrap;
+}
+
+/* Stand-in lettering, shown only while the shader has not painted. */
+.metal-wordmark.is-plain .metal-fx-root { display: none; }
+.metal-wordmark.is-plain .metal-wordmark-plain { display: inline-block; }

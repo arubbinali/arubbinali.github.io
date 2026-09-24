@@ -7,6 +7,7 @@ const MAIN_LINKS = [
   { key: "light", title: "Directory", path: "/light" },
   { key: "history", title: "Commit history", path: "/history" },
   { key: "about", title: "About", path: "/about" },
+  { key: "software", title: "Software", path: "/software" },
 ];
 
 const PORTFOLIO_LINKS = [
@@ -27,7 +28,11 @@ export default function SiteNav({ site = "main", currentKey = "", onNavigate }) 
   const toggleRef = useRef(null);
   const navRef = useRef(null);
   const [open, setOpen] = useState(false);
-  const [expanded, setExpanded] = useState({ main:false, portfolio:false });
+  const defaultSection = site === "works" ? "portfolio" : "main";
+  const [expanded, setExpanded] = useState(() => ({
+    main: defaultSection === "main",
+    portfolio: defaultSection === "portfolio",
+  }));
   const hoverTimers = useRef({});
   useEffect(() => () => Object.values(hoverTimers.current).forEach(clearTimeout), []);
 
@@ -82,11 +87,17 @@ export default function SiteNav({ site = "main", currentKey = "", onNavigate }) 
 
   const expandSection = (section) => {
     clearTimeout(hoverTimers.current[section]);
-    setExpanded((prev) => ({ ...prev, [section]: true }));
+    // Opening a category must never close the one above it: collapsing the
+    // section above would shift this one up out from under the cursor, which
+    // made the panel flicker open and shut while the pointer never moved.
+    setExpanded((prev) => (prev[section] ? prev : { ...prev, [section]: true }));
   };
   const collapseSection = (section) => {
     clearTimeout(hoverTimers.current[section]);
-    hoverTimers.current[section] = setTimeout(() => setExpanded((prev) => ({ ...prev, [section]:false })), 180);
+    hoverTimers.current[section] = setTimeout(
+      () => setExpanded((prev) => (prev[section] ? { ...prev, [section]: false } : prev)),
+      180,
+    );
   };
   const sectionEvents = (section) => ({
     onMouseEnter: () => expandSection(section),
@@ -159,7 +170,8 @@ export default function SiteNav({ site = "main", currentKey = "", onNavigate }) 
             <button
               type="button"
               className="site-nav-section-header"
-              onPointerDown={(event) => { if (event.pointerType === "mouse") event.preventDefault(); else expandSection("main"); }}
+              onPointerDown={(event) => { if (event.pointerType === "mouse") event.preventDefault(); }}
+              onClick={() => expandSection("main")}
               aria-expanded={expanded.main}
               aria-controls={`${navId}-main`}
             >
@@ -175,7 +187,8 @@ export default function SiteNav({ site = "main", currentKey = "", onNavigate }) 
             <button
               type="button"
               className="site-nav-section-header"
-              onPointerDown={(event) => { if (event.pointerType === "mouse") event.preventDefault(); else expandSection("portfolio"); }}
+              onPointerDown={(event) => { if (event.pointerType === "mouse") event.preventDefault(); }}
+              onClick={() => expandSection("portfolio")}
               aria-expanded={expanded.portfolio}
               aria-controls={`${navId}-portfolio`}
             >

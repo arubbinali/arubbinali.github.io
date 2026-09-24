@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { ThemeParticleRain } from "./ThemeParticleRain";
 import "./intro.css";
 
+const WORD = "doaor";
+
 const IntroAnimation = ({ onFinish }) => {
   const [fadeOut, setFadeOut] = useState(false);
 
@@ -23,10 +25,16 @@ const IntroAnimation = ({ onFinish }) => {
   return (
     <div className={`intro-container ${fadeOut ? "fade-out" : ""}`}>
       <ThemeParticleRain />
-      <div className="intro-text">
-        {[..."doaor"].map((letter, index) => <span key={`${letter}-${index}`} style={{ "--intro-letter-delay": `${index * 0.3}s`, "--intro-glow-delay": `${1.5 + index * 0.3}s` }}>{letter}</span>)}
+      <div className="intro-text" role="img" aria-label={WORD}>
+        {[...WORD].map((letter, index) => (
+          <span
+            key={`${letter}-${index}`}
+            style={{ "--intro-letter-delay": `${index * 0.3}s` }}
+          >
+            {letter}
+          </span>
+        ))}
       </div>
-      <div className="intro-subtext"></div>
 
       <audio autoPlay loop>
         <source src="/Mark.mp3" type="audio/mpeg" />
