@@ -1,7 +1,7 @@
 import React from "react";
 import "./metalWordmark.css";
 
-/** Plain white site wordmark, sized by the page that contains it. */
+/** Site wordmark, sized by the page that contains it. */
 export default function MetalWordmark({
   children = "doaor",
   className = "",
@@ -12,10 +12,10 @@ export default function MetalWordmark({
     <span
       className={`metal-wordmark is-plain ${className}`.trim()}
       role="img"
-      aria-label={children}
+      aria-label={`${children}el`}
     >
       <span className="metal-wordmark-plain" style={{ font, color }} aria-hidden="true">
-        {children}
+        {children}el
       </span>
     </span>
   );

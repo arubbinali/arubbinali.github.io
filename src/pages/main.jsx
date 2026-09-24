@@ -31,7 +31,7 @@ function Main() {
 
   return (
     <div className="App" style={{ position: "relative", overflow: "hidden", backgroundColor: "var(--site-bg)", minHeight: "100vh" }}>
-      {!showContent && <IntroAnimation onFinish={() => setShowContent(true)} />}
+      {!showContent && <IntroAnimation presentation="doaor" onFinish={() => setShowContent(true)} />}
       <div className={`main-content ${showContent ? "fade-in" : "hidden"} ${leaving ? "is-leaving" : ""} ${leavingTarget === "/light" ? "is-entering-light" : ""}`} style={{ position: "relative", width: "100%", minHeight: "100vh" }}>
         <SiteChrome sections={DIRECTORY} currentView="home" buttonLabel="Home" buttonTarget="/" onNavigate={enterRoute} showStructure={false} />
         <SiteNav site="main" currentKey="home" onNavigate={enterRoute} />

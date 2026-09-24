@@ -64,6 +64,7 @@
 
 .gateway-header,
 .gateway-footer { align-items: center; display: flex; justify-content: space-between; }
+.gateway-header-spacer { min-height: clamp(1.2rem,1.6vw,1.5rem); }
 
 .gateway-wordmark {
   color:#fff;

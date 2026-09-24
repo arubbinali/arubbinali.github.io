@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import IntroAnimation from "../components/intro";
-import MetalWordmark from "../components/MetalWordmark";
 import ShinyText from "../components/ShinyText";
 import "./gateway.css";
 
@@ -16,14 +15,8 @@ export default function Gateway() {
   const [showContent, setShowContent] = useState(() => Boolean(location.state?.skipIntro));
   const [videoReady, setVideoReady] = useState(false);
 
-  const replayIntro = (event) => {
-    event.preventDefault();
-    window.history.replaceState(null, "", "/");
-    window.location.reload();
-  };
-
   return <main className="gateway-page">
-    {!showContent && <IntroAnimation onFinish={() => setShowContent(true)} />}
+    {!showContent && <IntroAnimation presentation="doaor" onFinish={() => setShowContent(true)} />}
     <video className={`gateway-video ${videoReady ? "is-ready" : ""}`} autoPlay muted loop playsInline preload="auto" aria-hidden="true" onCanPlay={() => setVideoReady(true)}>
       <source src="/media/gateway-reel-mobile.mp4?v=4" type="video/mp4" media="(max-width: 720px)" />
       <source src="/media/gateway-reel.mp4?v=4" type="video/mp4" />
@@ -31,10 +24,10 @@ export default function Gateway() {
     <div className="gateway-shade" aria-hidden="true" />
     <div className="gateway-grain" aria-hidden="true" />
     <div className={`gateway-content ${showContent ? "is-visible" : ""}`}>
-      <header className="gateway-header"><a className="gateway-wordmark" href="/" aria-label="Replay the doaor intro" onClick={replayIntro}><MetalWordmark font={'700 clamp(1.2rem, 1.6vw, 1.5rem)/1 "Montserrat Alternates", "Century Gothic", sans-serif'} /></a></header>
+      <header className="gateway-header gateway-header-spacer" aria-hidden="true" />
       <section className="gateway-intro" aria-labelledby="gateway-title">
-        <h1 id="gateway-title" className="gateway-name-arabic" lang="ar" dir="rtl" aria-label="Arub">
-          <ShinyText text="ارب" speed={4} />
+        <h1 id="gateway-title" className="gateway-name-arabic" aria-label="doaorel">
+          <ShinyText text="doaorel" speed={4} />
         </h1>
       </section>
       <nav className="gateway-destinations" aria-label="Main sections">

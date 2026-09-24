@@ -624,7 +624,7 @@ export default function Light() {
 
   return (
     <main ref={lightPageRef} data-lenis-prevent className={`light-page reading-mode-${readingMode} ${view === "directory" ? "is-directory" : "is-reader"} ${viewTransitioning ? "is-view-transitioning" : ""} ${pickerHovered || searchFocused ? "is-considering" : ""} ${searchFocused ? "is-searching" : ""} ${reader ? "has-reader" : ""} ${view === "reader" && !isIntroduction ? "is-standard-writeup" : ""} ${controlsHidden ? "controls-hidden" : ""}`}>
-      {!showContent && <IntroAnimation onFinish={() => setShowContent(true)} />}
+      {!showContent && <IntroAnimation presentation="doaor" onFinish={() => setShowContent(true)} />}
 
       <div className={`light-shell ${showContent ? "is-visible" : ""}`}>
         <SiteChrome

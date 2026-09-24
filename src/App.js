@@ -10,6 +10,7 @@ import Light from "./pages/light";
 import About from "./pages/about";
 import History from "./pages/history";
 import Works from "./pages/works";
+import IntroAnimation from "./components/intro";
 
 const TRLPage = lazy(() => import("./pages/trl"));
 const SoftwarePage = lazy(() => import("./pages/software"));
@@ -93,6 +94,19 @@ function AnimatedRoutes() {
   );
 }
 
+function FirstVisitIntro() {
+  const location = useLocation();
+  const [playing, setPlaying] = useState(() => {
+    if (location.pathname === "/old" || location.pathname.startsWith("/old/")) return false;
+    if (window.sessionStorage.getItem("doaor-intro-seen") === "true") return false;
+    window.sessionStorage.setItem("doaor-intro-seen", "true");
+    return true;
+  });
+
+  const isRoot = location.pathname === "/";
+  return playing ? <IntroAnimation force presentation={isRoot ? "root" : "doaor"} holdDuration={isRoot ? 4200 : 3500} letterStagger={isRoot ? 0.18 : 0.3} tagline={isRoot ? "return home, my friend." : ""} onFinish={() => setPlaying(false)} /> : null;
+}
+
 function App() {
   useEffect(() => {
     const lenis = new Lenis({
@@ -127,6 +141,7 @@ function App() {
   return (
     <Router>
       <SitePageTransition />
+      <FirstVisitIntro />
       <AnimatedRoutes />
     </Router>
   );

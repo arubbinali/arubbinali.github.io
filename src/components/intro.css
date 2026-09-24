@@ -36,6 +36,57 @@
   z-index: 1;
 }
 
+/* The gateway and Light landing pages intentionally share one fixed intro palette. */
+.intro-container.intro-doaor {
+  --particle-color: rgba(255,246,218,.9);
+  --particle-glow: rgba(255,242,202,.78);
+}
+
+/* Match the lighter doaor wordmark used by the gateway, regardless of route. */
+.intro-container.intro-doaor .intro-text {
+  font-family: "Montserrat Alternates", "Century Gothic", sans-serif;
+  font-weight: 300;
+}
+
+/* Root-only preview: match the Works Projects heading, with a softer reveal. */
+.intro-container.intro-root .intro-text {
+  font-family: "Montserrat", "Segoe UI", sans-serif;
+  font-weight: 500;
+}
+
+.intro-container.intro-root .intro-text > span {
+  animation-name: introRootReveal;
+  animation-duration: 1.05s;
+  animation-delay: calc(var(--intro-letter-delay) + .4s);
+  animation-timing-function: cubic-bezier(.16, 1, .3, 1);
+  text-shadow:
+    0 5px 16px rgba(0,0,0,.72),
+    0 0 14px rgba(255,255,255,.9),
+    0 0 34px rgba(255,255,255,.62),
+    0 0 72px rgba(255,255,255,.34),
+    0 0 120px rgba(255,255,255,.16);
+  transform: translateY(18px) scale(.985);
+}
+
+.intro-tagline {
+  color: rgba(255,255,255,.72);
+  font-family: "Montserrat", "Segoe UI", sans-serif;
+  font-size: clamp(.75rem,1.3vw,1rem);
+  font-weight: 500;
+  letter-spacing: .12em;
+  margin: 18px 0 0;
+  position: relative;
+  text-transform: lowercase;
+  z-index: 1;
+}
+
+.intro-tagline span {
+  animation: introRootReveal .72s cubic-bezier(.16,1,.3,1) var(--intro-tagline-delay) both;
+  display: inline-block;
+  filter: blur(3px);
+  transform: translateY(10px) scale(.985);
+}
+
 .intro-text > span {
   animation: introVideoReveal 1s ease-in-out var(--intro-letter-delay) forwards;
   display: block;
@@ -50,8 +101,27 @@
   transform: translateY(10px) scale(.97);
 }
 
+.intro-text > span.intro-accent {
+  color: #e33b3b;
+  text-shadow: 0 0 16px rgba(225,46,46,.42);
+}
+
+.intro-container.intro-root .intro-text > span.intro-accent {
+  text-shadow: 0 0 16px rgba(225,46,46,.42);
+}
+
 @keyframes introVideoReveal {
   to { opacity:1; transform:none; }
+}
+
+@keyframes introRootReveal {
+  0% { filter: blur(5px); opacity: 0; transform: translateY(18px) scale(.985); }
+  100% { filter: none; opacity: 1; transform: none; }
+}
+
+@keyframes introTaglineReveal {
+  from { filter: blur(4px); opacity:0; transform:translateY(9px); }
+  to { filter:none; opacity:1; transform:none; }
 }
 
 @keyframes fadeIn {
