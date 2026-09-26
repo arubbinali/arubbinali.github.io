@@ -13,7 +13,6 @@ const MENU_ITEMS = [
 
 const SOCIAL_ITEMS = [
   { label: "GitHub", link: "https://github.com/arubbinali" },
-  { label: "LinkedIn", link: "https://www.linkedin.com/in/arubbinali" },
   { label: "Discord", link: "https://discord.gg/MhAPygZpQQ" },
 ];
 

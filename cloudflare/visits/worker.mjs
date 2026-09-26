@@ -48,23 +48,31 @@ export default {
 
     try {
       let visits;
+      let pageLoads;
       const hasSession = sessionCookie(request);
-      if (request.method === "POST" && !hasSession) {
+      if (request.method === "POST") {
         const updated = await env.DB.prepare(
-          "UPDATE visit_counter SET total = total + 1 WHERE id = 1 RETURNING total",
+          `UPDATE visit_counter SET total = total + ${hasSession ? "0" : "1"},
+            page_loads = page_loads + 1 WHERE id = 1 RETURNING total, page_loads`,
         ).run();
         visits = updated.results[0]?.total;
-        const id = crypto.randomUUID();
-        headers.append(
-          "Set-Cookie",
-          `${COOKIE_NAME}=${id}; Path=/; Secure; HttpOnly; SameSite=Lax`,
-        );
+        pageLoads = updated.results[0]?.page_loads;
+        if (!hasSession) {
+          const id = crypto.randomUUID();
+          headers.append(
+            "Set-Cookie",
+            `${COOKIE_NAME}=${id}; Path=/; Secure; HttpOnly; SameSite=Lax`,
+          );
+        }
       } else {
-        const row = await env.DB.prepare("SELECT total FROM visit_counter WHERE id = 1").first();
+        const row = await env.DB.prepare("SELECT total, page_loads FROM visit_counter WHERE id = 1").first();
         visits = row?.total;
+        pageLoads = row?.page_loads;
       }
-      if (!Number.isSafeInteger(visits)) throw new Error("Visit counter is not initialized");
-      return new Response(JSON.stringify({ visits }), { headers });
+      if (!Number.isSafeInteger(visits) || !Number.isSafeInteger(pageLoads)) {
+        throw new Error("Visit counter is not initialized");
+      }
+      return new Response(JSON.stringify({ visits, pageLoads }), { headers });
     } catch {
       return new Response(JSON.stringify({ error: "Counter unavailable" }), { status: 503, headers });
     }

@@ -51,6 +51,11 @@ export const LIGHT_CONTENT = {
 };
 export const SITE_COMMITS = [
   {
+    "hash": "4159bc4",
+    "date": "2026-09-26T18:09:56+08:00",
+    "message": "Add persistent homepage visits counter"
+  },
+  {
     "hash": "c137adc",
     "date": "2026-09-26T17:31:06+08:00",
     "message": "Deploy refreshed homepage and software page"
@@ -104,10 +109,5 @@ export const SITE_COMMITS = [
     "hash": "e2aa53f",
     "date": "2026-09-02T00:45:14+08:00",
     "message": "Add Quranic context to the Creator proof"
-  },
-  {
-    "hash": "f97566b",
-    "date": "2026-09-02T00:37:44+08:00",
-    "message": "Created the commit history page & misc."
   }
 ];

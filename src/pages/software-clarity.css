@@ -72,6 +72,8 @@
 .software-demo aside span { transition: background .42s ease, color .42s ease; }
 .software-demo aside .is-current { background: #00ffee22; color: var(--accent); }
 .software-demo article { opacity: 1; transform: translateY(0); transition: opacity .26s ease, transform .26s ease; }
+.software-demo-body { overflow: hidden; transition: height .5s cubic-bezier(.22, 1, .36, 1); }
+.software-demo article { align-self: start; }
 .software-demo article.is-exiting { opacity: 0; transform: translateY(-10px); }
 .software-demo article > strong { color: #e4e4e4; }
 .software-demo-row { border-color: #ffffff38; color: #f0f0f0; }
@@ -79,7 +81,46 @@
 .software-demo-row small { color: #d6d6d6; }
 .software-notice section { background: #171717; border-color: #00ffee66; }
 .software-notice section > p:not(.software-kicker) { color: #e1e1e1; }
+.software-hero-actions { flex-wrap: wrap; }
+.software-discord-link {
+  align-items: center;
+  border: 1px solid #ffffff85;
+  border-radius: 99px;
+  color: #f7faf7;
+  display: inline-flex;
+  font-size: .95rem;
+  font-weight: 600;
+  gap: 24px;
+  padding: 14px 19px 14px 22px;
+  text-decoration: none;
+  transition: border-color .25s ease, color .25s ease, transform .3s ease;
+}
+.software-discord-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+.software-closing-actions { align-items: center; display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+.software-hero-actions > button,
+.software-hero-actions > .software-discord-link,
+.software-closing-actions > button,
+.software-closing-actions > .software-discord-link {
+  align-items: center;
+  display: inline-flex;
+  font-size: .95rem;
+  gap: 14px;
+  justify-content: center;
+  min-height: 52px;
+  padding: 14px 20px;
+  width: min(100%, 252px);
+}
+.software-hero-actions button span,
+.software-closing button span { margin-left: 0; }
+.software-discord-note {
+  color: #c8ceca !important;
+  font-size: .86rem !important;
+  line-height: 1.65 !important;
+  margin: 17px 0 0;
+  max-width: 520px;
+}
 @media (max-width: 780px) {
+  .software-closing-actions { justify-content: flex-start; }
   .software-capability-grid article, .software-capability-grid article:first-child { min-height: 245px; }
   .software-capability-grid article:nth-child(odd) { border-left: 0; padding-left: 0; }
 }

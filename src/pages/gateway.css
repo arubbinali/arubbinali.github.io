@@ -64,7 +64,9 @@
 .gateway-menu .staggered-menu-header,
 .gateway-menu .staggered-menu-panel { font-family:"Montserrat","Helvetica Neue",Arial,sans-serif !important; }
 .gateway-menu .staggered-menu-header { font-family:"Montserrat","Helvetica Neue",Arial,sans-serif; }
-.gateway-page .gateway-menu .sm-toggle { animation:gatewayMenuButtonIn 2.8s cubic-bezier(.16,1,.3,1) 3s both; font-size:1.35rem; }
+.gateway-page .gateway-menu .sm-toggle,
+.gateway-page .gateway-visit-counters { animation:gatewayMenuButtonIn 2.8s cubic-bezier(.16,1,.3,1) 3s both; }
+.gateway-page .gateway-menu .sm-toggle { font-size:1rem; font-weight:500; letter-spacing:-.025em; }
 .gateway-menu .staggered-menu-panel { background:transparent !important; border-left:1px solid rgba(255,255,255,.14); box-shadow:-24px 0 70px rgba(0,0,0,.16); color:#fff; font-family:"Montserrat","Helvetica Neue",Arial,sans-serif; -webkit-backdrop-filter:blur(18px) saturate(115%); backdrop-filter:blur(18px) saturate(115%); }
 .gateway-menu .staggered-menu-panel,
 .gateway-menu .staggered-menu-panel a,
