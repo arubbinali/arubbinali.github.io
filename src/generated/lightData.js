@@ -51,6 +51,11 @@ export const LIGHT_CONTENT = {
 };
 export const SITE_COMMITS = [
   {
+    "hash": "c137adc",
+    "date": "2026-09-26T17:31:06+08:00",
+    "message": "Deploy refreshed homepage and software page"
+  },
+  {
     "hash": "2dd2d0e",
     "date": "2026-09-25T05:38:41+08:00",
     "message": "feat: refine site intro and gateway"
@@ -104,10 +109,5 @@ export const SITE_COMMITS = [
     "hash": "f97566b",
     "date": "2026-09-02T00:37:44+08:00",
     "message": "Created the commit history page & misc."
-  },
-  {
-    "hash": "64ab824",
-    "date": "2026-08-30T17:30:17+08:00",
-    "message": "Add Microsoft Clarity analytics and deploy"
   }
 ];

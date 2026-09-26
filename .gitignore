@@ -10,6 +10,7 @@
 
 # production
 /build
+/cloudflare/visits/.wrangler/
 /public/media/
 /public/old/
 

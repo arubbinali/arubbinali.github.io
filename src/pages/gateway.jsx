@@ -1,6 +1,7 @@
 import React from "react";
 import PrimaryBackground from "../components/PrimaryBackground";
 import StaggeredMenu from "../@/components/StaggeredMenu";
+import VisitCounter from "../components/VisitCounter";
 import "./gateway.css";
 
 const MENU_ITEMS = [
@@ -37,6 +38,7 @@ export default function Gateway() {
     <div className="gateway-content is-visible">
       <header className="gateway-header gateway-header-spacer" aria-hidden="true" />
       <section className="gateway-intro" aria-hidden="true" />
+      <VisitCounter />
     </div>
   </main>;
 }

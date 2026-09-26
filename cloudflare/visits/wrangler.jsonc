@@ -1,0 +1,16 @@
+{
+  "name": "doaor-visits",
+  "main": "./worker.mjs",
+  "compatibility_date": "2026-09-26",
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "visits.doaor.com", "custom_domain": true }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "doaor-visits",
+      "database_id": "c9c860d8-3e07-4df4-ba26-159e50a33b61"
+    }
+  ]
+}
