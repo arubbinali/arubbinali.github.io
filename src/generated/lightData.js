@@ -51,6 +51,11 @@ export const LIGHT_CONTENT = {
 };
 export const SITE_COMMITS = [
   {
+    "hash": "94eb2be",
+    "date": "2026-09-26T22:07:21+08:00",
+    "message": "update visit counter"
+  },
+  {
     "hash": "9fa5ecb",
     "date": "2026-09-26T22:00:31+08:00",
     "message": "update site"
@@ -104,10 +109,5 @@ export const SITE_COMMITS = [
     "hash": "eee8908",
     "date": "2026-09-02T17:12:38+08:00",
     "message": "Fix deployment to target the active Pages source"
-  },
-  {
-    "hash": "28902ed",
-    "date": "2026-09-02T17:09:35+08:00",
-    "message": "Deploy the current Light site from the configured Pages source"
   }
 ];

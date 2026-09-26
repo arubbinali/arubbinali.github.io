@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Lenis from "lenis";
 import "../App.css";
 import "./works.css";
-import IntroAnimation from "../components/intro";
 import SiteNav from "../components/SiteNav";
 import SearchResults from "../components/SearchResults";
 import AnimatedDetails, { DetailsRevealed } from "../components/AnimatedDetails";
@@ -283,11 +282,11 @@ export default function Works() {
   const navigate = useNavigate();
   const key = pageKey(location.pathname);
   const isHome = key === "home";
-  const [showContent, setShowContent] = useState(() => !isHome || Boolean(location.state?.skipIntro));
+  const [showContent, setShowContent] = useState(true);
   const [leaving, setLeaving] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
   const timerRef = useRef(null);
-  useEffect(() => { setLeaving(false); setShowContent(!isHome || Boolean(location.state?.skipIntro)); window.scrollTo({ top: 0, behavior: "auto" }); if(location.hash){window.setTimeout(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView({behavior:"smooth",block:"start"}),80);} }, [isHome, location.pathname, location.hash, location.state]);
+  useEffect(() => { setLeaving(false); setShowContent(true); window.scrollTo({ top: 0, behavior: "auto" }); if(location.hash){window.setTimeout(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView({behavior:"smooth",block:"start"}),80);} }, [location.pathname, location.hash]);
   useEffect(() => () => window.clearTimeout(timerRef.current), []);
   useEffect(() => {
     if (!showContent || isHome) return undefined;
@@ -314,7 +313,6 @@ export default function Works() {
   const pinnedLight = { id: "works-light", group: "Beyond the portfolio", label: "Light", hint: "Writing and da'wah library", run: () => enterRoute("/light") };
   const page = key === "about" ? <AboutPage onNavigate={enterRoute}/> : key === "certifications" ? <CertificationsPage onNavigate={enterRoute}/> : key === "learningsources" ? <LearningPage/> : key === "docs" ? <DocsPage onNavigate={enterRoute}/> : key === "projects" ? <ProjectsPage onNavigate={enterRoute}/> : <WorksHome onNavigate={enterRoute}/>;
   return <div className={`App works-site ${isHome ? "works-home" : "works-subpage"}`} style={{ position: "relative", overflow: isHome ? "hidden" : "visible", backgroundColor: "var(--site-bg)", minHeight: "100vh", height: isHome ? "100vh" : "auto" }}>
-    {isHome && !showContent && <IntroAnimation onFinish={() => setShowContent(true)}/>}
     {showContent && <>
       <SiteChrome sections={WORKS_DIRECTORY} currentEntryId={isHome ? null : `${key}.html`} currentView={isHome ? "works-home" : "works-page"} buttonLabel="Home" buttonTarget={isHome ? "/" : "/works/"} onNavigate={enterRoute} showStructure={false} directoryPath="/works/" entryBasePath="/works" structureRootLabel="Home" structureFeature={{ symbol: "∞", label: "Light", hint: "Main site", path: "/light" }} navigationCommands={navigationCommands} pinnedCommand={pinnedLight} includeReadingModes={false}/>
       <SiteNav site="works" currentKey={key} onNavigate={enterRoute}/><PortfolioTerminal onNavigate={enterRoute}/>
