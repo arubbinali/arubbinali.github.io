@@ -51,6 +51,11 @@ export const LIGHT_CONTENT = {
 };
 export const SITE_COMMITS = [
   {
+    "hash": "9fa5ecb",
+    "date": "2026-09-26T22:00:31+08:00",
+    "message": "update site"
+  },
+  {
     "hash": "8252364",
     "date": "2026-09-26T21:38:45+08:00",
     "message": "Fix stale SPA route caching"
@@ -104,10 +109,5 @@ export const SITE_COMMITS = [
     "hash": "28902ed",
     "date": "2026-09-02T17:09:35+08:00",
     "message": "Deploy the current Light site from the configured Pages source"
-  },
-  {
-    "hash": "be9f0b7",
-    "date": "2026-09-02T16:55:09+08:00",
-    "message": "Refine the Creator proof and reading experience"
   }
 ];
