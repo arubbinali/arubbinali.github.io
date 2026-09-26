@@ -51,6 +51,16 @@ export const LIGHT_CONTENT = {
 };
 export const SITE_COMMITS = [
   {
+    "hash": "1ffdafa",
+    "date": "2026-09-27T05:04:23+08:00",
+    "message": "Refresh cached site routes"
+  },
+  {
+    "hash": "e07948a",
+    "date": "2026-09-27T04:59:01+08:00",
+    "message": "Fix Works intro handoff"
+  },
+  {
     "hash": "94eb2be",
     "date": "2026-09-26T22:07:21+08:00",
     "message": "update visit counter"
@@ -99,15 +109,5 @@ export const SITE_COMMITS = [
     "hash": "f73da40",
     "date": "2026-09-11T14:28:08+08:00",
     "message": "Redesign gateway and reorganize portfolio routes"
-  },
-  {
-    "hash": "1c6708e",
-    "date": "2026-09-06T02:30:45+08:00",
-    "message": "Unify site search and refine the portfolio experience"
-  },
-  {
-    "hash": "eee8908",
-    "date": "2026-09-02T17:12:38+08:00",
-    "message": "Fix deployment to target the active Pages source"
   }
 ];

@@ -1,4 +1,4 @@
-const CACHE = "doaor-library-v4";
+const CACHE = "doaor-library-v5";
 const CORE = [
   "/", "/manifest.json", "/logo.png",
   "/light/content/en/introduction/signs/muslim.md",
