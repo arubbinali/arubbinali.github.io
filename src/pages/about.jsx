@@ -84,7 +84,7 @@ export default function About() {
           </h1>
 
           <p className="about-intro">
-            I&apos;m an engineering student, and this site is my personal space for da&apos;wah—bringing together careful arguments, useful reflections, and sincere invitations to look at faith with an open mind.
+            I&apos;m an engineering student, and this site is my personal space for da&apos;wah. It brings together careful arguments, useful reflections, and sincere invitations to look at faith with an open mind.
           </p>
 
           <p className="about-portfolio">

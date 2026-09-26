@@ -51,6 +51,21 @@ export const LIGHT_CONTENT = {
 };
 export const SITE_COMMITS = [
   {
+    "hash": "2dd2d0e",
+    "date": "2026-09-25T05:38:41+08:00",
+    "message": "feat: refine site intro and gateway"
+  },
+  {
+    "hash": "97f4efa",
+    "date": "2026-09-25T04:20:57+08:00",
+    "message": "feat: redesign software landing page"
+  },
+  {
+    "hash": "1b1e689",
+    "date": "2026-09-25T02:44:00+08:00",
+    "message": "Restore white wordmark and deploy site updates"
+  },
+  {
     "hash": "f73da40",
     "date": "2026-09-11T14:28:08+08:00",
     "message": "Redesign gateway and reorganize portfolio routes"
@@ -94,20 +109,5 @@ export const SITE_COMMITS = [
     "hash": "64ab824",
     "date": "2026-08-30T17:30:17+08:00",
     "message": "Add Microsoft Clarity analytics and deploy"
-  },
-  {
-    "hash": "7ec52fa",
-    "date": "2026-08-30T05:20:42+08:00",
-    "message": "deploy: publish latest site build"
-  },
-  {
-    "hash": "4c4282f",
-    "date": "2026-08-30T05:07:56+08:00",
-    "message": "Refine the Light library with smoother navigation and richer reading tools"
-  },
-  {
-    "hash": "6cf7ed9",
-    "date": "2026-08-30T00:31:27+08:00",
-    "message": "deploy: publish latest site build"
   }
 ];

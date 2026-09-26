@@ -97,6 +97,7 @@ function AnimatedRoutes() {
 function FirstVisitIntro() {
   const location = useLocation();
   const [playing, setPlaying] = useState(() => {
+    if (location.pathname === "/") return false;
     if (location.pathname === "/old" || location.pathname.startsWith("/old/")) return false;
     if (window.sessionStorage.getItem("doaor-intro-seen") === "true") return false;
     window.sessionStorage.setItem("doaor-intro-seen", "true");

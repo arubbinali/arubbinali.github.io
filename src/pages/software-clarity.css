@@ -1,0 +1,92 @@
+/* Bright typography over the animated secondary background, without copy panels. */
+.software-page { --ink: #f7faf7; --muted: #e0e9e1; --faint: #ffffff35; }
+.software-page { --green: #00ffee; --accent: #00ffee; }
+.software-page, .software-page button,
+.software-hero h1, .software-showcase h2, .software-section-heading h2,
+.software-flow h2, .software-closing h2, .software-demo h3,
+.software-notice h2 { font-family: Montserrat, "Segoe UI", sans-serif; }
+.software-header > span, .software-kicker { color: #d0ead3; font-size: .7rem; font-weight: 600; }
+.software-hero-copy, .software-showcase-copy, .software-section-heading,
+.software-flow > div, .software-flow ol, .software-closing {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  text-shadow: 0 2px 10px #000, 0 0 25px #000;
+}
+.software-hero h1 span { color: #b8ddbd; }
+.software-hero-copy > p:not(.software-kicker),
+.software-showcase-copy > p:not(.software-kicker) { color: var(--muted); font-size: clamp(1rem, 1.35vw, 1.16rem); line-height: 1.7; }
+.software-hero-actions small { color: #e3ebe4; font-size: .78rem; }
+.software-view-tabs { flex-wrap: wrap; }
+.software-view-tabs button { color: #e2eee4; border-color: #ffffff5c; font-size: .78rem; font-weight: 600; }
+.software-view-tabs button[aria-selected="true"] { color: #0d1b10; }
+.software-demo { background: #08110c; border-color: #d9f3da65; }
+.software-demo-bar { color: #e4eee6; font-size: .72rem; }
+.software-demo aside { color: #cbd9cd; font-size: .75rem; }
+.software-demo aside small { color: #dbeadf; font-size: .64rem; }
+.software-demo article > p { color: #c9e8ce; font-size: .68rem; font-weight: 600; }
+.software-demo article > strong { color: #e4ede5; display: block; font-size: .9rem; line-height: 1.65; }
+.software-demo-row { align-items: center; border-top: 1px solid #ffffff38; color: #f0f6f0; display: flex; gap: 12px; padding: 14px 0; }
+.software-demo-row > b { align-items: center; background: #c8e0ca33; border-radius: 5px; color: #e2f4e3; display: flex; flex: 0 0 29px; font-size: .75rem; height: 29px; justify-content: center; }
+.software-demo-row > span { font-size: .84rem; font-weight: 600; }
+.software-demo-row small { color: #d0dfd2; display: block; font-size: .75rem; font-weight: 400; line-height: 1.45; margin-top: 4px; }
+.software-capability-grid { gap: 0; }
+.software-capability-grid article {
+  background: transparent; border: 0; border-left: 1px solid #ffffff52;
+  border-radius: 0; min-height: 270px; padding: 0 25px;
+  text-shadow: 0 2px 10px #000, 0 0 25px #000;
+}
+.software-capability-grid article:first-child { background: transparent; border: 0; padding: 0 25px 0 0; }
+.software-capability-grid span, .software-flow li > span { color: #c9e6cc; font-size: .76rem; font-weight: 600; }
+.software-capability-grid h3 { font-size: 1.12rem; font-weight: 600; margin-top: 25px; }
+.software-capability-grid p { color: var(--muted); font-size: .9rem; line-height: 1.7; }
+.software-capability-grid i { bottom: 22px; }
+.software-flow li { border-color: #ffffff4a; gap: 25px; padding: 28px 0; }
+.software-flow li:first-child { border-top: 0; padding-top: 0; }
+.software-flow li:last-child { padding-bottom: 0; }
+.software-flow h3 { color: #fff; font-size: 1.15rem; font-weight: 600; line-height: 1.4; }
+.software-flow li p { color: #e4ede5; font-size: 1rem; line-height: 1.75; max-width: 470px; }
+.software-closing { padding: clamp(90px, 12vw, 170px) 0 clamp(130px, 17vw, 220px); }
+.software-notice section > p:not(.software-kicker) { color: #e1ece2; font-size: .95rem; }
+
+/* A neutral palette that follows the black-and-grey motion background. */
+.software-header > span, .software-kicker,
+.software-demo article > p, .software-capability-grid span,
+.software-flow li > span { color: var(--accent); }
+.software-hero h1 span { color: var(--accent); }
+.software-hero-actions button, .software-closing button,
+.software-notice section > button { background: var(--accent); color: #071414; }
+.software-hero-actions button:hover, .software-closing button:hover,
+.software-notice section > button:hover { background: #fff; }
+.software-orbit i, .software-orbit i:nth-child(2),
+.software-orbit i:nth-child(3) { background: var(--accent); }
+.software-orbit b { border-color: var(--accent); color: var(--accent); }
+.software-view-tabs button { border-color: #ffffff69; color: #ededed; transition: background .42s ease, color .42s ease, border-color .42s ease, transform .42s ease; }
+.software-view-tabs button:hover { border-color: var(--accent); transform: translateY(-2px); }
+.software-view-tabs button[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #071414; }
+.software-demo { background: #101010; border-color: #ffffff65; }
+.software-demo-bar { background: #ffffff0a; color: #eee; }
+.software-demo-bar > span, .software-demo-bar > span:nth-child(2),
+.software-demo-bar > span:nth-child(3) { background: var(--accent); }
+.software-demo aside, .software-demo aside small { color: #d6d6d6; }
+.software-demo aside span { transition: background .42s ease, color .42s ease; }
+.software-demo aside .is-current { background: #00ffee22; color: var(--accent); }
+.software-demo article { opacity: 1; transform: translateY(0); transition: opacity .26s ease, transform .26s ease; }
+.software-demo article.is-exiting { opacity: 0; transform: translateY(-10px); }
+.software-demo article > strong { color: #e4e4e4; }
+.software-demo-row { border-color: #ffffff38; color: #f0f0f0; }
+.software-demo-row > b { background: #00ffee22; color: var(--accent); }
+.software-demo-row small { color: #d6d6d6; }
+.software-notice section { background: #171717; border-color: #00ffee66; }
+.software-notice section > p:not(.software-kicker) { color: #e1e1e1; }
+@media (max-width: 780px) {
+  .software-capability-grid article, .software-capability-grid article:first-child { min-height: 245px; }
+  .software-capability-grid article:nth-child(odd) { border-left: 0; padding-left: 0; }
+}
+@media (max-width: 460px) {
+  .software-capability-grid article, .software-capability-grid article:first-child { min-height: 0; padding: 24px 0; border: 0; border-top: 1px solid #ffffff52; }
+  .software-capability-grid i { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .software-demo article { transition: none; }
+}
