@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-window",
+  "description": "Local workspace window and native file picker. Process and database access use validated Rust commands.",
+  "windows": ["main"],
+  "permissions": ["core:default", "dialog:allow-open", "dialog:allow-save", "core:window:allow-minimize", "core:window:allow-maximize", "core:window:allow-toggle-maximize", "core:window:allow-set-fullscreen", "core:window:allow-close", "core:window:allow-start-dragging"]
+}

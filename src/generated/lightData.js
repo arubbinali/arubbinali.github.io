@@ -51,6 +51,16 @@ export const LIGHT_CONTENT = {
 };
 export const SITE_COMMITS = [
   {
+    "hash": "8252364",
+    "date": "2026-09-26T21:38:45+08:00",
+    "message": "Fix stale SPA route caching"
+  },
+  {
+    "hash": "834bf2e",
+    "date": "2026-09-26T21:30:34+08:00",
+    "message": "Refine homepage stats and publish software updates"
+  },
+  {
     "hash": "4159bc4",
     "date": "2026-09-26T18:09:56+08:00",
     "message": "Add persistent homepage visits counter"
@@ -99,15 +109,5 @@ export const SITE_COMMITS = [
     "hash": "be9f0b7",
     "date": "2026-09-02T16:55:09+08:00",
     "message": "Refine the Creator proof and reading experience"
-  },
-  {
-    "hash": "32ace37",
-    "date": "2026-09-02T00:48:20+08:00",
-    "message": "Deleted repeated text from quran.md"
-  },
-  {
-    "hash": "e2aa53f",
-    "date": "2026-09-02T00:45:14+08:00",
-    "message": "Add Quranic context to the Creator proof"
   }
 ];

@@ -1,0 +1,30 @@
+/* Explicit cascade order, independent of TypeScript import organization. */
+@import "./styles.css";
+@import "./experience.css";
+@import "./refinements.css";
+@import "./interactive-controls.css";
+/* Keep production startup failures visible instead of leaving an empty window. */
+.fatal-startup {
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.85rem;
+  padding: 2rem;
+  color: #f5f1f2;
+  background: #070405;
+  text-align: center;
+}
+
+.fatal-startup strong {
+  font-size: 1.35rem;
+}
+
+.fatal-startup span {
+  max-width: 44rem;
+  color: #bdaeb2;
+}
+
+.fatal-startup button {
+  margin-top: 0.5rem;
+}

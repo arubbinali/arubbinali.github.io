@@ -21,7 +21,7 @@ reportWebVitals();
 
 if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/sw.js").catch(() => {
+    navigator.serviceWorker.register("/sw.js?v=4").catch(() => {
       // The site remains fully usable online if installation is unavailable.
     });
   });

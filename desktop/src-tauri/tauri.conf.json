@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "doaorel",
+  "version": "0.1.0",
+  "identifier": "com.doaor.workspace",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://127.0.0.1:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "doaorel",
+        "center": true,
+        "decorations": false,
+        "width": 1280,
+        "height": 820,
+        "minWidth": 880,
+        "minHeight": 620,
+        "backgroundColor": "#141619"
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; connect-src ipc: http://ipc.localhost; img-src 'self' asset: http://asset.localhost data:; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; frame-src 'none'"
+    }
+  },
+  "bundle": { "active": false }
+}
