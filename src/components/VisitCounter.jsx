@@ -42,6 +42,7 @@ function RollingCount({ value }) {
 export default function VisitCounter() {
   const [counts, setCounts] = useState(cachedCounts);
   const [statsOpen, setStatsOpen] = useState(false);
+  const counterRef = useRef(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -77,7 +78,23 @@ export default function VisitCounter() {
     return () => controller.abort();
   }, []);
 
-  return <div className={`gateway-visit-counters ${statsOpen ? "is-stats-open" : ""}`} aria-live="polite">
+  useEffect(() => {
+    if (!statsOpen) return undefined;
+    const closeOutside = (event) => {
+      if (!counterRef.current?.contains(event.target)) setStatsOpen(false);
+    };
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") setStatsOpen(false);
+    };
+    document.addEventListener("pointerdown", closeOutside);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOutside);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [statsOpen]);
+
+  return <div ref={counterRef} className={`gateway-visit-counters ${statsOpen ? "is-stats-open" : ""}`} aria-live="polite">
     <div className={`gateway-stats ${statsOpen ? "is-open" : ""}`}>
       <button type="button" className="gateway-stats-toggle" aria-expanded={statsOpen} aria-controls="gateway-stats-panel" onClick={() => setStatsOpen((open) => !open)}>
         <span>Stats</span>
@@ -85,14 +102,14 @@ export default function VisitCounter() {
       </button>
       <div id="gateway-stats-panel" className="gateway-stats-panel" aria-hidden={!statsOpen}>
         <div className="gateway-counter-values">
-          <div className="gateway-visit-counter" aria-label={counts ? `${formatCount(counts.visits)} visits` : "Visits unavailable"}>
+          <a href="/stats?metric=visits" className="gateway-visit-counter" aria-label={counts ? `${formatCount(counts.visits)} visits; open statistics` : "Visits unavailable; open statistics"}>
             <span>Visits</span>
             <RollingCount value={counts?.visits ?? null} />
-          </div>
-          <div className="gateway-visit-counter" aria-label={counts ? `${formatCount(counts.pageLoads)} views` : "Views unavailable"}>
+          </a>
+          <a href="/stats?metric=views" className="gateway-visit-counter" aria-label={counts ? `${formatCount(counts.pageLoads)} views; open statistics` : "Views unavailable; open statistics"}>
             <span>Views</span>
             <RollingCount value={counts?.pageLoads ?? null} />
-          </div>
+          </a>
         </div>
       </div>
     </div>

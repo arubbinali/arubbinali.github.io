@@ -1,0 +1,19 @@
+.about-primary-links {
+  align-items: flex-start;
+}
+
+.about-primary-copy {
+  align-self: center;
+  margin-top: 0;
+}
+
+.about-primary-links > a {
+  flex: 0 0 252px;
+  height: 58px;
+}
+
+@media (max-width: 760px) {
+  .about-primary-links > a {
+    flex-basis: 58px;
+  }
+}

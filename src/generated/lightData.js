@@ -51,6 +51,11 @@ export const LIGHT_CONTENT = {
 };
 export const SITE_COMMITS = [
   {
+    "hash": "6b26ca6",
+    "date": "2026-09-27T05:09:52+08:00",
+    "message": "Force service worker refresh"
+  },
+  {
     "hash": "1ffdafa",
     "date": "2026-09-27T05:04:23+08:00",
     "message": "Refresh cached site routes"
@@ -104,10 +109,5 @@ export const SITE_COMMITS = [
     "hash": "1b1e689",
     "date": "2026-09-25T02:44:00+08:00",
     "message": "Restore white wordmark and deploy site updates"
-  },
-  {
-    "hash": "f73da40",
-    "date": "2026-09-11T14:28:08+08:00",
-    "message": "Redesign gateway and reorganize portfolio routes"
   }
 ];

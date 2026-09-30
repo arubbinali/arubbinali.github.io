@@ -5,22 +5,36 @@ import worker from "./worker.mjs";
 function database(initial = 0, initialPageLoads = 0) {
   let total = initial;
   let pageLoads = initialPageLoads;
+  const buckets = new Map();
   return {
     get total() { return total; },
     get pageLoads() { return pageLoads; },
+    async batch(statements) { return Promise.all(statements.map((statement) => statement.run())); },
     prepare(query) {
-      return {
+      let values = [];
+      const statement = {
+        bind(...next) { values = next; return statement; },
         async run() {
-          assert.match(query, /^UPDATE visit_counter/);
-          total += /total = total \+ 1/.test(query) ? 1 : 0;
-          pageLoads += 1;
-          return { results: [{ total, page_loads: pageLoads }] };
+          if (/^UPDATE visit_counter/.test(query)) {
+            total += /total = total \+ 1/.test(query) ? 1 : 0;
+            pageLoads += 1;
+            return { results: [{ total, page_loads: pageLoads }] };
+          }
+          assert.match(query, /^INSERT INTO traffic_buckets/);
+          const [bucket] = values;
+          buckets.set(bucket, { visits: total, views: pageLoads });
+          return { results: [] };
         },
         async first() {
           assert.match(query, /^SELECT total/);
           return { total, page_loads: pageLoads };
         },
+        async all() {
+          assert.match(query, /^SELECT CAST\(bucket/);
+          return { results: [...buckets].map(([at, point]) => ({ at, ...point })) };
+        },
       };
+      return statement;
     },
   };
 }
@@ -74,4 +88,15 @@ test("rejects other origins", async () => {
   assert.equal(response.status, 403);
   assert.equal(DB.total, 0);
   assert.equal(DB.pageLoads, 0);
+});
+
+test("returns stored traffic buckets for chart ranges", async () => {
+  const DB = database(12, 40);
+  await worker.fetch(request("POST"), { DB });
+  const response = await worker.fetch(new Request("https://visits.doaor.com/?range=24h", { headers: { Origin: "https://doaor.com" } }), { DB });
+  const data = await response.json();
+  assert.equal(data.visits, 13);
+  assert.equal(data.pageLoads, 41);
+  assert.equal(data.series.length, 1);
+  assert.deepEqual({ visits: data.series[0].visits, views: data.series[0].views }, { visits: 13, views: 41 });
 });

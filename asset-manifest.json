@@ -1,27 +1,31 @@
 {
   "files": {
-    "main.css": "/static/css/main.9308cdea.css",
-    "main.js": "/static/js/main.94a007b5.js",
+    "main.css": "/static/css/main.484a08fb.css",
+    "main.js": "/static/js/main.0787b9ae.js",
     "static/css/567.286038ad.chunk.css": "/static/css/567.286038ad.chunk.css",
     "static/js/567.28e942da.chunk.js": "/static/js/567.28e942da.chunk.js",
-    "static/css/787.4407e867.chunk.css": "/static/css/787.4407e867.chunk.css",
-    "static/js/787.76d760ff.chunk.js": "/static/js/787.76d760ff.chunk.js",
+    "static/css/561.1e43ef1a.chunk.css": "/static/css/561.1e43ef1a.chunk.css",
+    "static/js/561.030c8551.chunk.js": "/static/js/561.030c8551.chunk.js",
+    "static/css/294.01b168d7.chunk.css": "/static/css/294.01b168d7.chunk.css",
+    "static/js/294.3a1810a1.chunk.js": "/static/js/294.3a1810a1.chunk.js",
     "static/js/453.4c8d9c65.chunk.js": "/static/js/453.4c8d9c65.chunk.js",
     "static/js/695.d413277c.chunk.js": "/static/js/695.d413277c.chunk.js",
     "static/media/montserrat-alternates-latin-900-normal.woff2": "/static/media/montserrat-alternates-latin-900-normal.dbdec5c0877c57fc4ede.woff2",
     "index.html": "/index.html",
     "static/media/python.svg": "/static/media/python.1bb315b8d61117662118.svg",
-    "main.9308cdea.css.map": "/static/css/main.9308cdea.css.map",
-    "main.94a007b5.js.map": "/static/js/main.94a007b5.js.map",
+    "main.484a08fb.css.map": "/static/css/main.484a08fb.css.map",
+    "main.0787b9ae.js.map": "/static/js/main.0787b9ae.js.map",
     "567.286038ad.chunk.css.map": "/static/css/567.286038ad.chunk.css.map",
     "567.28e942da.chunk.js.map": "/static/js/567.28e942da.chunk.js.map",
-    "787.4407e867.chunk.css.map": "/static/css/787.4407e867.chunk.css.map",
-    "787.76d760ff.chunk.js.map": "/static/js/787.76d760ff.chunk.js.map",
+    "561.1e43ef1a.chunk.css.map": "/static/css/561.1e43ef1a.chunk.css.map",
+    "561.030c8551.chunk.js.map": "/static/js/561.030c8551.chunk.js.map",
+    "294.01b168d7.chunk.css.map": "/static/css/294.01b168d7.chunk.css.map",
+    "294.3a1810a1.chunk.js.map": "/static/js/294.3a1810a1.chunk.js.map",
     "453.4c8d9c65.chunk.js.map": "/static/js/453.4c8d9c65.chunk.js.map",
     "695.d413277c.chunk.js.map": "/static/js/695.d413277c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9308cdea.css",
-    "static/js/main.94a007b5.js"
+    "static/css/main.484a08fb.css",
+    "static/js/main.0787b9ae.js"
   ]
 }

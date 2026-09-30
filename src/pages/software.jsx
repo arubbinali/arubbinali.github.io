@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import SiteNav from "../components/SiteNav";
-import MetalWordmark from "../components/MetalWordmark";
+import PrimaryMenu from "../components/PrimaryMenu";
+import PrimaryHomeLink from "../components/PrimaryHomeLink";
 import SecondaryBackground from "../components/SecondaryBackground";
 import "./gateway.css";
 import "./software.css";
@@ -70,8 +70,8 @@ export default function Software() {
   };
   return <main className="software-page">
     <div className="software-secondary-background" aria-hidden="true"><SecondaryBackground /></div>
-    <SiteNav currentKey="software" />
-    <header className="software-header"><a href="/" aria-label="doaor home" className="software-wordmark"><MetalWordmark font={'700 1.45rem/1 Montserrat, sans-serif'} /></a></header>
+    <PrimaryHomeLink />
+    <PrimaryMenu current="software" />
     <section className="software-hero"><div className="software-hero-copy"><p className="software-kicker">DOAOREL SOFTWARE</p><h1>Less restarting.<br /><span>More returning.</span></h1><p>Ask for the tool you need. Save where you left off. Come back to your projects with the context and the next step already waiting.</p><div className="software-hero-actions"><button type="button" onClick={openNotice}>Get early access <span>→</span></button><a className="software-discord-link" href="https://discord.gg/MhAPygZpQQ" target="_blank" rel="noopener noreferrer">Join Discord <span>↗</span></a><small>Windows first<br />Private preview in progress</small></div><p className="software-discord-note">Join the Discord server for launch dates, early-access updates, and a look at what’s coming next.</p></div><div className="software-orbit" aria-hidden="true"><i /><i /><i /><b>↗</b></div></section>
     <section className="software-showcase" aria-labelledby="workspace-title"><div className="software-showcase-copy"><p className="software-kicker">INSIDE DOAOREL</p><h2 id="workspace-title">A workspace that remembers.</h2><p>These previews reflect workflows in the running desktop app: asking it to open something, saving project context, and setting up your return.</p><div className="software-view-tabs" role="tablist" aria-label="Workspace previews">{Object.keys(WORKSPACE_VIEWS).map((name) => <button type="button" role="tab" aria-selected={view === name} key={name} onClick={() => setView(name)}>{name}</button>)}</div></div><div className="software-demo" aria-live="polite"><div className="software-demo-bar"><span /><span /><span /><b>doaorel desktop · feature preview</b></div><div className="software-demo-body" ref={demoBodyRef} style={demoHeight === null ? undefined : { height: demoHeight }}><aside><small>WORKSPACE</small>{Object.keys(WORKSPACE_VIEWS).map((name) => <span className={view === name ? "is-current" : ""} key={name}>{name}</span>)}<hr /><small>MORE TO EXPLORE</small><span>Projects</span><span>Activity</span></aside><article ref={demoArticleRef} className={viewExiting ? "is-exiting" : ""}><p>{selected.label}</p><h3>{selected.title.split("\n").map((line) => <React.Fragment key={line}>{line}<br /></React.Fragment>)}</h3><strong>{selected.description}</strong><div className="software-demo-list">{selected.rows.map(([name, detail]) => <div className="software-demo-row" key={name}><b>{name.slice(0, 1)}</b><span>{name}<small>{detail}</small></span></div>)}</div></article></div></div></section>
     <section className="software-capabilities" aria-labelledby="capabilities-title"><div className="software-section-heading"><p className="software-kicker">THE WORKSPACE, IN PRACTICE</p><h2 id="capabilities-title">A little less friction<br />every time you return.</h2></div><div className="software-capability-grid">{CAPABILITIES.map(([number, title, body]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{body}</p></article>)}</div></section>

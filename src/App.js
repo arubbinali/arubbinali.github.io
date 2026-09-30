@@ -14,6 +14,7 @@ import IntroAnimation from "./components/intro";
 
 const TRLPage = lazy(() => import("./pages/trl"));
 const SoftwarePage = lazy(() => import("./pages/software"));
+const StatsPage = lazy(() => import("./pages/stats"));
 
 function SitePageTransition() {
   const navigate = useNavigate();
@@ -85,6 +86,7 @@ function AnimatedRoutes() {
         <Route path="/about" element={<About />} />
         <Route path="/history" element={<History />} />
         <Route path="/software" element={<Suspense fallback={<div style={{ minHeight: "100vh", background: "#080a0b", color: "#a7afa9", padding: "10vw" }}>Loading software…</div>}><SoftwarePage /></Suspense>} />
+        <Route path="/stats" element={<Suspense fallback={<div style={{ minHeight: "100vh", background: "#000", color: "#fff", padding: "10vw" }}>Loading statistics…</div>}><StatsPage /></Suspense>} />
         <Route path="/works/*" element={<Works />} />
         <Route path="/d/*" element={<Navigate to="/works/" replace />} />
         <Route path="/trl" element={<Suspense fallback={<div style={{ background: "#000", color: "#8a9099", display: "grid", fontFamily: "Montserrat, sans-serif", minHeight: "100vh", placeItems: "center" }}>Loading TRL…</div>}><TRLPage /></Suspense>} />
@@ -97,7 +99,7 @@ function AnimatedRoutes() {
 function FirstVisitIntro() {
   const location = useLocation();
   const [playing, setPlaying] = useState(() => {
-    if (location.pathname === "/") return false;
+    if (["/", "/software", "/stats"].includes(location.pathname)) return false;
     if (location.pathname === "/old" || location.pathname.startsWith("/old/")) return false;
     if (window.sessionStorage.getItem("doaor-intro-seen") === "true") return false;
     window.sessionStorage.setItem("doaor-intro-seen", "true");
