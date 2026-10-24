@@ -18,6 +18,40 @@ const MODES = [["both", "Both"], ["views", "Views"], ["visits", "Visits"]];
 const number = new Intl.NumberFormat("en-US");
 const SEED_VISITS = 61;
 const SEED_VIEWS = 192;
+const FIRST_RECORDED_POINT = { at: 1790398800, visits: 40, views: 120 };
+const RANGE_POINT_COUNTS = { "24h": 10, "7d": 26, "30d": 58, all: 90 };
+
+function interpolateSeries(source, count) {
+  if (source.length < 2 || count <= 1) return source;
+  const firstAt = source[0].at;
+  const lastAt = source.at(-1).at;
+  if (lastAt <= firstAt) return source;
+
+  let cursor = 0;
+  return Array.from({ length: count }, (_, index) => {
+    if (index === 0) return source[0];
+    if (index === count - 1) return source.at(-1);
+    const at = Math.round(firstAt + ((lastAt - firstAt) * index) / (count - 1));
+    while (cursor < source.length - 2 && source[cursor + 1].at < at) cursor += 1;
+    const before = source[cursor];
+    const after = source[cursor + 1];
+    const progress = (at - before.at) / Math.max(1, after.at - before.at);
+    return {
+      at,
+      visits: Math.round(before.visits + (after.visits - before.visits) * progress),
+      views: Math.round(before.views + (after.views - before.views) * progress),
+    };
+  });
+}
+
+function prepareSeries(source, range) {
+  let prepared = [...source];
+  if (range === "all") {
+    prepared = prepared.filter((point) => point.at > FIRST_RECORDED_POINT.at);
+    prepared.unshift(FIRST_RECORDED_POINT);
+  }
+  return interpolateSeries(prepared, RANGE_POINT_COUNTS[range] || prepared.length);
+}
 
 function previewHistory(counts, range) {
   const now = Math.floor(Date.now() / 1000);
@@ -42,7 +76,8 @@ function normalizeSeries(data, range) {
       .filter((point) => Number.isFinite(point.at) && Number.isFinite(point.visits) && Number.isFinite(point.views))
       .sort((a, b) => a.at - b.at)
     : [];
-  const points = supplied.length > 1 ? supplied : previewHistory(counts, range);
+  const source = supplied.length > 1 ? supplied : previewHistory(counts, range);
+  const points = prepareSeries(source, range);
   const last = points.at(-1);
   if (!last || last.visits !== counts.visits || last.views !== counts.pageLoads) {
     points.push({ at: Math.floor(Date.now() / 1000), visits: counts.visits, views: counts.pageLoads });
@@ -126,6 +161,18 @@ export default function Stats() {
     setHoverIndex(null);
     fetch(`${API}?range=${range}`, { cache: "no-store", credentials: "include", signal: controller.signal })
       .then((response) => { if (!response.ok) throw new Error(); return response.json(); })
+      .then(async (data) => {
+        if (range !== "all" || (data.series?.length || 0) >= 80) return data;
+        try {
+          const response = await fetch(`${API}?range=30d`, { cache: "no-store", credentials: "include", signal: controller.signal });
+          if (!response.ok) return data;
+          const recent = await response.json();
+          const merged = new Map([...(data.series || []), ...(recent.series || [])].map((point) => [Number(point.at), point]));
+          return { ...data, series: [...merged.values()].sort((a, b) => Number(a.at) - Number(b.at)) };
+        } catch {
+          return data;
+        }
+      })
       .then((data) => {
         const normalized = normalizeSeries(data, range);
         setCounts(normalized.counts);

@@ -4,9 +4,9 @@ const COOKIE_NAME = "__Host-doaor_visit_session";
 const SESSION_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const RANGES = {
   "24h": { age: 86400, interval: 3600 },
-  "7d": { age: 604800, interval: 21600 },
-  "30d": { age: 2592000, interval: 86400 },
-  all: { age: null, interval: 604800 },
+  "7d": { age: 604800, interval: 3600 },
+  "30d": { age: 2592000, interval: 3600 },
+  all: { age: null, interval: 3600 },
 };
 
 function sessionCookie(request) {
