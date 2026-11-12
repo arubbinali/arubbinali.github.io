@@ -51,6 +51,16 @@ export const LIGHT_CONTENT = {
 };
 export const SITE_COMMITS = [
   {
+    "hash": "b16756b",
+    "date": "2026-10-25T04:15:37+08:00",
+    "message": "Fix stats history resolution"
+  },
+  {
+    "hash": "fd8bf08",
+    "date": "2026-09-30T14:00:59+08:00",
+    "message": "Refresh primary site experience and traffic stats"
+  },
+  {
     "hash": "6b26ca6",
     "date": "2026-09-27T05:09:52+08:00",
     "message": "Force service worker refresh"
@@ -99,15 +109,5 @@ export const SITE_COMMITS = [
     "hash": "2dd2d0e",
     "date": "2026-09-25T05:38:41+08:00",
     "message": "feat: refine site intro and gateway"
-  },
-  {
-    "hash": "97f4efa",
-    "date": "2026-09-25T04:20:57+08:00",
-    "message": "feat: redesign software landing page"
-  },
-  {
-    "hash": "1b1e689",
-    "date": "2026-09-25T02:44:00+08:00",
-    "message": "Restore white wordmark and deploy site updates"
   }
 ];

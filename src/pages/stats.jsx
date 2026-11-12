@@ -1,273 +1,110 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import PrimaryMenu from "../components/PrimaryMenu";
 import PrimaryHomeLink from "../components/PrimaryHomeLink";
-import SecondaryBackground from "../components/SecondaryBackground";
+import PrimaryBackground from "../components/PrimaryBackground";
+import MagicBento from "../@/components/MagicBento";
+import TrafficChart, { AnimatedNumber } from "../components/TrafficChart";
+import { fetchTraffic, normalizeTraffic, TRAFFIC_RANGES } from "../data/traffic";
 import "./gateway.css";
 import "./stats.css";
 import "./stats-overrides.css";
+import "./stats-experiment.css";
 
-const API = "https://visits.doaor.com/";
-const RANGES = [
-  ["24h", "24 hours", 86400],
-  ["7d", "7 days", 604800],
-  ["30d", "30 days", 2592000],
-  ["all", "All time", Infinity],
-];
-const MODES = [["both", "Both"], ["views", "Views"], ["visits", "Visits"]];
-const number = new Intl.NumberFormat("en-US");
-const SEED_VISITS = 61;
-const SEED_VIEWS = 192;
-const FIRST_RECORDED_POINT = { at: 1790398800, visits: 40, views: 120 };
-const RANGE_POINT_COUNTS = { "24h": 10, "7d": 26, "30d": 58, all: 90 };
-
-function interpolateSeries(source, count) {
-  if (source.length < 2 || count <= 1) return source;
-  const firstAt = source[0].at;
-  const lastAt = source.at(-1).at;
-  if (lastAt <= firstAt) return source;
-
-  let cursor = 0;
-  return Array.from({ length: count }, (_, index) => {
-    if (index === 0) return source[0];
-    if (index === count - 1) return source.at(-1);
-    const at = Math.round(firstAt + ((lastAt - firstAt) * index) / (count - 1));
-    while (cursor < source.length - 2 && source[cursor + 1].at < at) cursor += 1;
-    const before = source[cursor];
-    const after = source[cursor + 1];
-    const progress = (at - before.at) / Math.max(1, after.at - before.at);
-    return {
-      at,
-      visits: Math.round(before.visits + (after.visits - before.visits) * progress),
-      views: Math.round(before.views + (after.views - before.views) * progress),
+const RANGES = TRAFFIC_RANGES;
+function StatsMagicBento({ counts, points, range, period, loading, mode, error, updated }) {
+  const [accent, setAccent] = useState("#8ea1ff");
+  const latest = useRef(accent);
+  const timer = useRef(0);
+  useEffect(() => {
+    const receive = (event) => {
+      latest.current = event.detail;
+      if (timer.current) return;
+      timer.current = window.setTimeout(() => {
+        timer.current = 0;
+        setAccent(latest.current);
+      }, 70);
     };
-  });
-}
-
-function prepareSeries(source, range) {
-  let prepared = [...source];
-  if (range === "all") {
-    prepared = prepared.filter((point) => point.at > FIRST_RECORDED_POINT.at);
-    prepared.unshift(FIRST_RECORDED_POINT);
-  }
-  return interpolateSeries(prepared, RANGE_POINT_COUNTS[range] || prepared.length);
-}
-
-function previewHistory(counts, range) {
-  const now = Math.floor(Date.now() / 1000);
-  const visits = Math.max(SEED_VISITS, Number(counts?.visits) || 0);
-  const views = Math.max(SEED_VIEWS, Number(counts?.pageLoads) || 0);
-  const progress = [
-    [96, 40, 120], [84, 42, 126], [72, 45, 137], [60, 47, 146],
-    [48, 50, 158], [36, 53, 167], [24, 56, 176], [12, 59, 185], [0, visits, views],
-  ].map(([hours, pointVisits, pointViews]) => ({ at: now - hours * 3600, visits: pointVisits, views: pointViews }));
-  const seconds = RANGES.find(([key]) => key === range)?.[2] ?? Infinity;
-  return progress.filter((point) => seconds === Infinity || point.at >= now - seconds);
-}
-
-function normalizeSeries(data, range) {
-  const counts = {
-    visits: Math.max(SEED_VISITS, Number(data?.visits) || 0),
-    pageLoads: Math.max(SEED_VIEWS, Number(data?.pageLoads) || 0),
-  };
-  const supplied = Array.isArray(data?.series)
-    ? data.series
-      .map((point) => ({ at: Number(point.at), visits: Number(point.visits), views: Number(point.views) }))
-      .filter((point) => Number.isFinite(point.at) && Number.isFinite(point.visits) && Number.isFinite(point.views))
-      .sort((a, b) => a.at - b.at)
-    : [];
-  const source = supplied.length > 1 ? supplied : previewHistory(counts, range);
-  const points = prepareSeries(source, range);
-  const last = points.at(-1);
-  if (!last || last.visits !== counts.visits || last.views !== counts.pageLoads) {
-    points.push({ at: Math.floor(Date.now() / 1000), visits: counts.visits, views: counts.pageLoads });
-  }
-  return { counts, points };
-}
-
-function smoothPath(points) {
-  if (!points.length) return "";
-  if (points.length === 1) return `M${points[0].x},${points[0].y}`;
-  let path = `M${points[0].x.toFixed(2)},${points[0].y.toFixed(2)}`;
-  for (let index = 0; index < points.length - 1; index += 1) {
-    const previous = points[index - 1] || points[index];
-    const current = points[index];
-    const next = points[index + 1];
-    const after = points[index + 2] || next;
-    const controlOne = { x: current.x + (next.x - previous.x) / 6, y: current.y + (next.y - previous.y) / 6 };
-    const controlTwo = { x: next.x - (after.x - current.x) / 6, y: next.y - (after.y - current.y) / 6 };
-    path += ` C${controlOne.x.toFixed(2)},${controlOne.y.toFixed(2)} ${controlTwo.x.toFixed(2)},${controlTwo.y.toFixed(2)} ${next.x.toFixed(2)},${next.y.toFixed(2)}`;
-  }
-  return path;
-}
-
-function tickValues(minimum, maximum, count = 5) {
-  return Array.from({ length: count }, (_, index) => Math.round(minimum + ((maximum - minimum) * index) / (count - 1)));
-}
-
-function chartGeometry(points, mode, range) {
-  const bounds = { left: 106, right: 1350, top: 112, bottom: 528 };
-  if (!points.length) return { paths: {}, axes: { values: [], dates: [] }, points: {}, bounds };
-  const firstAt = points[0].at;
-  const lastAt = points.at(-1).at === firstAt ? firstAt + 1 : points.at(-1).at;
-  const shownValues = points.flatMap((point) => mode === "both" ? [point.views, point.visits] : [point[mode]]);
-  const rawMin = Math.min(...shownValues);
-  const rawMax = Math.max(...shownValues);
-  const spread = rawMax - rawMin;
-  const minimum = mode === "both" ? 0 : Math.max(0, Math.floor(rawMin - Math.max(2, spread * .16)));
-  const maximum = Math.ceil(rawMax + Math.max(3, spread * .14));
-  const x = (at) => bounds.left + ((at - firstAt) / (lastAt - firstAt)) * (bounds.right - bounds.left);
-  const y = (value) => bounds.bottom - ((value - minimum) / Math.max(1, maximum - minimum)) * (bounds.bottom - bounds.top);
-  const viewPoints = points.map((point, index) => ({ x: x(point.at), y: y(point.views), value: point.views, index }));
-  const visitPoints = points.map((point, index) => ({ x: x(point.at), y: y(point.visits), value: point.visits, index }));
-  const dateFormatter = new Intl.DateTimeFormat("en-US", range === "24h" ? { hour: "numeric" } : { month: "short", day: "numeric" });
-  const dates = Array.from({ length: 5 }, (_, index) => {
-    const at = firstAt + ((lastAt - firstAt) * index) / 4;
-    return { x: x(at), label: dateFormatter.format(new Date(at * 1000)) };
-  });
-  return {
-    bounds,
-    paths: { views: smoothPath(viewPoints), visits: smoothPath(visitPoints) },
-    points: { views: viewPoints, visits: visitPoints },
-    axes: {
-      values: tickValues(minimum, maximum).map((value) => ({ value, y: y(value) })),
-      dates,
-    },
-  };
-}
-
-function fullDate(at, range) {
-  return new Intl.DateTimeFormat("en-US", range === "24h"
-    ? { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }
-    : { month: "long", day: "numeric", year: "numeric", hour: "numeric" }).format(new Date(at * 1000));
+    window.addEventListener("doaor:pillar-accent", receive);
+    return () => {
+      window.removeEventListener("doaor:pillar-accent", receive);
+      window.clearTimeout(timer.current);
+    };
+  }, []);
+  const items = [
+    { content: <div className="stats-bento-summary"><span>Total views</span><strong><AnimatedNumber value={counts.pageLoads} /></strong><small>Every page load, including returns.</small></div> },
+    { content: <div className="stats-bento-summary"><span>Total visits</span><strong><AnimatedNumber value={counts.visits} /></strong><small>One visit per browser session.</small></div> },
+    { content: <TrafficChart label="Views" value={counts.pageLoads} points={points} metric="views" mode={mode} range={range} loading={loading} transitionKey={updated?.getTime()} />, colSpan: 2, rowSpan: 2 },
+    { content: <TrafficChart label="Visits" value={counts.visits} points={points} metric="visits" mode={mode} range={range} loading={loading} transitionKey={updated?.getTime()} />, colSpan: 2, rowSpan: 2 },
+    { content: <div className="stats-bento-summary"><span>During this window</span><strong><AnimatedNumber value={points.length > 1 ? Math.max(0, points.at(-1).views - points[0].views) : null} prefix="+" /></strong><small>Views between the first and last record.<br />{period}</small></div> },
+    { content: <div className="stats-bento-summary"><span className="traffic-status"><i />{loading ? "Updating" : error ? "Connection unavailable" : "Connected"}</span><strong><AnimatedNumber value={points.length} /></strong><small>Recorded points{updated && <><br />Updated {updated.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"})}</>}</small></div> },
+  ];
+  return <section className="stats-magic-bento" aria-label="Traffic statistics">
+    <MagicBento items={items} columns={4} rowHeight={200} gap={12} radius={20}
+      glowColor={accent} enableBorderGlow enableSpotlight spotlightRadius={300} clickEffect intro />
+  </section>;
 }
 
 export default function Stats() {
-  const [params] = useSearchParams();
-  const requestedMetric = params.get("metric");
-  const [mode, setMode] = useState(["views", "visits"].includes(requestedMetric) ? requestedMetric : "both");
-  const [range, setRange] = useState("30d");
-  const [counts, setCounts] = useState({ visits: SEED_VISITS, pageLoads: SEED_VIEWS });
-  const [points, setPoints] = useState(() => previewHistory(counts, "30d"));
+  const [range, setRange] = useState("all");
+  const [counts, setCounts] = useState({ visits: null, pageLoads: null });
+  const [points, setPoints] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [revision, setRevision] = useState(0);
-  const [hoverIndex, setHoverIndex] = useState(null);
-  const chartRef = useRef(null);
+  const [mode, setMode] = useState("area");
+  const [refresh, setRefresh] = useState(0);
+  const [error, setError] = useState(false);
+  const [updated, setUpdated] = useState(null);
+  const [displayRange, setDisplayRange] = useState('all');
+  const hasData = useRef(false);
+  const broadcastAccent = useCallback((color) => {
+    window.dispatchEvent(new CustomEvent("doaor:pillar-accent", { detail: color }));
+  }, []);
 
   useEffect(() => { document.title = "Stats | doaor"; }, []);
   useEffect(() => {
     const controller = new AbortController();
     setLoading(true);
-    setHoverIndex(null);
-    fetch(`${API}?range=${range}`, { cache: "no-store", credentials: "include", signal: controller.signal })
-      .then((response) => { if (!response.ok) throw new Error(); return response.json(); })
-      .then(async (data) => {
-        if (range !== "all" || (data.series?.length || 0) >= 80) return data;
-        try {
-          const response = await fetch(`${API}?range=30d`, { cache: "no-store", credentials: "include", signal: controller.signal });
-          if (!response.ok) return data;
-          const recent = await response.json();
-          const merged = new Map([...(data.series || []), ...(recent.series || [])].map((point) => [Number(point.at), point]));
-          return { ...data, series: [...merged.values()].sort((a, b) => Number(a.at) - Number(b.at)) };
-        } catch {
-          return data;
-        }
-      })
-      .then((data) => {
-        const normalized = normalizeSeries(data, range);
+    setError(false);
+    fetchTraffic(range, controller.signal)
+      .then((normalized) => {
+        if (controller.signal.aborted) return;
         setCounts(normalized.counts);
         setPoints(normalized.points);
-        setRevision((value) => value + 1);
+        setDisplayRange(range);
+        hasData.current = true;
+        setUpdated(new Date());
       })
       .catch(() => {
-        let cached = { visits: SEED_VISITS, pageLoads: SEED_VIEWS };
+        if (controller.signal.aborted) return;
+        setError(true);
+        let cached = null;
         try {
           const stored = JSON.parse(sessionStorage.getItem("doaor-counter-preview"));
           if (Number.isSafeInteger(stored?.visits) && Number.isSafeInteger(stored?.pageLoads)) cached = stored;
-        } catch { /* Keep the seeded preview when the counter is unavailable. */ }
-        const normalized = normalizeSeries(cached, range);
-        setCounts(normalized.counts);
-        setPoints(normalized.points);
-        setRevision((value) => value + 1);
+        } catch { /* No cached live total is available. */ }
+        if (cached && !hasData.current) setCounts(normalizeTraffic(cached).counts);
       })
-      .finally(() => setLoading(false));
+      .finally(() => { if (!controller.signal.aborted) setLoading(false); });
     return () => controller.abort();
-  }, [range]);
+  }, [range, refresh]);
 
-  const geometry = useMemo(() => chartGeometry(points, mode, range), [points, mode, range]);
-  const period = RANGES.find(([key]) => key === range)?.[1];
-  const hovered = hoverIndex === null ? null : points[hoverIndex];
-  const hoverX = hoverIndex === null ? null : geometry.points.views?.[hoverIndex]?.x;
-  const hoverY = hoverIndex === null ? null : Math.min(
-    mode === "visits" ? Infinity : geometry.points.views?.[hoverIndex]?.y ?? Infinity,
-    mode === "views" ? Infinity : geometry.points.visits?.[hoverIndex]?.y ?? Infinity,
-  );
-  const isVisible = (metric) => mode === "both" || mode === metric;
-  const selectMode = (nextMode) => { setMode(nextMode); setHoverIndex(null); setRevision((value) => value + 1); };
-  const handlePointerMove = (event) => {
-    const rect = chartRef.current?.getBoundingClientRect();
-    if (!rect || !points.length) return;
-    const viewX = ((event.clientX - rect.left) / rect.width) * 1440;
-    let nearest = 0;
-    let distance = Infinity;
-    geometry.points.views.forEach((point, index) => {
-      const nextDistance = Math.abs(point.x - viewX);
-      if (nextDistance < distance) { distance = nextDistance; nearest = index; }
-    });
-    setHoverIndex(nearest);
-  };
-
+  const period = RANGES.find(([key]) => key === displayRange)?.[1];
   return <main className="stats-page">
-    <div className="stats-background" aria-hidden="true"><SecondaryBackground /></div>
+    <div className="stats-background" aria-hidden="true"><PrimaryBackground preset="beam" onAccentChange={broadcastAccent} /></div>
     <PrimaryHomeLink />
     <PrimaryMenu current="stats" />
     <section className="stats-shell">
       <div className="stats-heading">
-        <p>DOAOR.COM / STATISTICS</p>
         <h1>A quiet look at<br /><span>who passed through.</span></h1>
+        <div className="stats-heading-note">The small signals of a living space. Explore how the story unfolds.</div>
       </div>
-      <div className="stats-controls">
-        <div className="stats-metrics" aria-label="Current totals">
-          <button type="button" className={mode === "views" ? "is-focused" : ""} onClick={() => selectMode("views")}><small><i className="stats-key stats-key-views" />Views</small><strong>{number.format(counts.pageLoads)}</strong></button>
-          <button type="button" className={mode === "visits" ? "is-focused" : ""} onClick={() => selectMode("visits")}><small><i className="stats-key stats-key-visits" />Visits</small><strong>{number.format(counts.visits)}</strong></button>
-        </div>
-        <div className="stats-ranges" aria-label="Chart time range">
-          {RANGES.map(([key, label]) => <button type="button" key={key} aria-pressed={range === key} onClick={() => setRange(key)}>{label}</button>)}
-        </div>
+      <div className="traffic-toolbar">
+        <div className="traffic-segment" role="group" aria-label="Traffic period">{RANGES.map(([key,label]) => <button type="button" key={key} aria-pressed={range === key} onClick={() => setRange(key)}>{label}</button>)}</div>
+        <div className="traffic-segment" role="group" aria-label="Graph representation">{[["line","Line"],["area","Area"],["bars","Intervals"]].map(([key,label]) => <button type="button" key={key} aria-pressed={mode === key} onClick={() => setMode(key)}>{label}</button>)}</div>
+        <button type="button" className="traffic-refresh" disabled={loading} onClick={() => setRefresh(value => value + 1)}>{loading ? "Updating…" : "↻ Refresh"}</button>
       </div>
-      <figure ref={chartRef} className={`stats-chart ${loading ? "is-loading" : ""}`} aria-label={`${mode} traffic over ${period}`} onPointerMove={handlePointerMove} onPointerLeave={() => setHoverIndex(null)}>
-        <div className="stats-chart-head">
-          <div><span>Cumulative Traffic</span><strong>{period}</strong></div>
-          <div className="stats-chart-modes" aria-label="Graph type">{MODES.map(([key, label]) => <button type="button" key={key} aria-pressed={mode === key} onClick={() => selectMode(key)}>{label}</button>)}</div>
-        </div>
-        <div className="stats-chart-stage" key={`${mode}-${range}-${revision}`}>
-          <svg viewBox="0 0 1440 620" preserveAspectRatio="none" role="img">
-            <defs>
-              <filter id="stats-view-glow"><feGaussianBlur stdDeviation="7" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-              <filter id="stats-visit-glow"><feGaussianBlur stdDeviation="6" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-            </defs>
-            <line className="stats-axis" x1={geometry.bounds.left} x2={geometry.bounds.left} y1={geometry.bounds.top} y2={geometry.bounds.bottom}/>
-            <line className="stats-axis" x1={geometry.bounds.left} x2={geometry.bounds.right} y1={geometry.bounds.bottom} y2={geometry.bounds.bottom}/>
-            {geometry.axes.values.map((tick) => <text className="stats-axis-label" key={tick.value} x="88" y={tick.y + 5}>{number.format(tick.value)}</text>)}
-            {geometry.axes.dates.map((tick) => <g key={`${tick.x}-${tick.label}`}><line className="stats-axis-tick" x1={tick.x} x2={tick.x} y1={geometry.bounds.bottom} y2={geometry.bounds.bottom + 8}/><text className="stats-date-label" x={tick.x} y={geometry.bounds.bottom + 38}>{tick.label}</text></g>)}
-            {isVisible("views") && geometry.paths.views && <><path className="stats-curve-glow stats-curve-glow-views" d={geometry.paths.views}/><path className="stats-curve stats-curve-views" d={geometry.paths.views}/></>}
-            {isVisible("visits") && geometry.paths.visits && <><path className="stats-curve-glow stats-curve-glow-visits" d={geometry.paths.visits}/><path className="stats-curve stats-curve-visits" d={geometry.paths.visits}/></>}
-            {hovered && <>
-              <line className="stats-hover-line" x1="0" x2="0" y1={geometry.bounds.top} y2={geometry.bounds.bottom} style={{ transform: `translateX(${hoverX}px)` }}/>
-              {isVisible("views") && (
-                <circle className="stats-hover-dot stats-hover-dot-views" cx="0" cy="0" r="7" style={{ transform: `translate(${hoverX}px, ${geometry.points.views[hoverIndex].y}px)` }}/>
-              )}
-              {isVisible("visits") && (
-                <circle className="stats-hover-dot stats-hover-dot-visits" cx="0" cy="0" r="7" style={{ transform: `translate(${hoverX}px, ${geometry.points.visits[hoverIndex].y}px)` }}/>
-              )}
-            </>}
-          </svg>
-        </div>
-        <div className={`stats-tooltip ${hovered ? "is-visible" : ""} ${hoverX > 1130 ? "is-right" : ""}`} style={hovered ? { left: `${(hoverX / 1440) * 100}%`, top: `${(Math.max(120, hoverY) / 620) * 100}%` } : undefined} aria-hidden={!hovered}>
-          {hovered && <><time>{fullDate(hovered.at, range)}</time>{isVisible("views") && <span><i className="stats-key stats-key-views" />Views <strong>{number.format(hovered.views)}</strong></span>}{isVisible("visits") && <span><i className="stats-key stats-key-visits" />Visits <strong>{number.format(hovered.visits)}</strong></span>}</>}
-        </div>
-        <figcaption>{isVisible("views") && <span><i className="stats-key stats-key-views" />Views</span>}{isVisible("visits") && <span><i className="stats-key stats-key-visits" />Visits</span>}</figcaption>
-      </figure>
+      {error && <p className="traffic-error" role="status">Could not update this period. {hasData.current ? `Showing the last available ${period.toLowerCase()} history.` : 'Any totals shown are the last available values.'} Try Refresh to reconnect.</p>}
+      <StatsMagicBento counts={counts} points={points} range={displayRange} period={period} loading={loading}
+        mode={mode} error={error} updated={updated} />
     </section>
   </main>;
 }

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ThinkingOrb } from "thinking-orbs";
-import ThoughtLine from "../@/components/ThoughtLine";
 import "./visitCounter.css";
 
 const VISITS_API = "https://visits.doaor.com/";
@@ -35,7 +34,7 @@ function RollingCount({ value }) {
 
   return <strong className={`gateway-rolling-count ${previous !== null ? "is-rolling" : ""}`}>
     {previous !== null && <span className="gateway-count-previous">{formatCount(previous)}</span>}
-    <span className="gateway-count-current" key={shown ?? "loading"}>{shown === null ? "--" : formatCount(shown)}</span>
+    <span className="gateway-count-current" key={shown ?? "loading"}>{shown === null ? "…" : formatCount(shown)}</span>
   </strong>;
 }
 
@@ -94,13 +93,14 @@ export default function VisitCounter() {
     };
   }, [statsOpen]);
 
-  return <div ref={counterRef} className={`gateway-visit-counters ${statsOpen ? "is-stats-open" : ""}`} aria-live="polite">
+  const countWidth = Math.max(3, formatCount(Math.max(counts?.visits || 0, counts?.pageLoads || 0)).length);
+  return <div data-wheel-ignore ref={counterRef} className={`gateway-visit-counters ${statsOpen ? "is-stats-open" : ""}`} style={{'--counter-width':`${countWidth}ch`}} aria-live="polite">
     <div className={`gateway-stats ${statsOpen ? "is-open" : ""}`}>
       <button type="button" className="gateway-stats-toggle" aria-expanded={statsOpen} aria-controls="gateway-stats-panel" onClick={() => setStatsOpen((open) => !open)}>
         <span>Stats</span>
         <svg aria-hidden="true" viewBox="0 0 12 12" fill="none"><path d="m4 2 4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </button>
-      <div id="gateway-stats-panel" className="gateway-stats-panel" aria-hidden={!statsOpen}>
+      <div id="gateway-stats-panel" className="gateway-stats-panel" aria-hidden={!statsOpen} inert={!statsOpen}>
         <div className="gateway-counter-values">
           <a href="/stats?metric=visits" className="gateway-visit-counter" aria-label={counts ? `${formatCount(counts.visits)} visits; open statistics` : "Visits unavailable; open statistics"}>
             <span>Visits</span>
@@ -115,7 +115,7 @@ export default function VisitCounter() {
     </div>
     <div className="gateway-breathing">
       <span className="gateway-thinking-orb" aria-hidden="true"><ThinkingOrb state="composing" size={20} theme="dark" /></span>
-      <ThoughtLine label="Breathing" doneLabel="Breathing" working glyph="none" steps={[]} collapsible={false} showTimer={false} color="#f7f8f9" shimmer shimmerDuration={2.8} breathPeriod={1.6} breathDepth={0.45} fontSize={18} className="gateway-thought-line" />
+      <span className="gateway-breathing-label">Breathing</span>
     </div>
   </div>;
 }

@@ -1,0 +1,25 @@
+.about-primary-page { --primary-accent:#67e8f9; background:#030608; overflow-x:clip; }
+.about-primary-shell { grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); align-content:center; column-gap:clamp(36px,7vw,120px); max-width:1500px; min-height:100svh; padding:150px 0 max(72px,env(safe-area-inset-bottom)); }
+.about-primary-kicker { font-size:11px; letter-spacing:.16em; color:#8cdee7; margin-bottom:36px; }
+.about-primary-shell h1 { font-size:clamp(4.2rem,8.5vw,9.5rem); letter-spacing:-.075em; line-height:.94; }
+.about-primary-shell h1 span { color:#aebcc2; }
+.about-primary-copy { align-self:center; margin:0; padding:20px 0 20px clamp(20px,3vw,44px); border-color:#ffffff25; }
+.about-primary-copy p { font-size:clamp(1rem,1.3vw,1.2rem); color:#d1d9df; line-height:1.85; max-width:46ch; }
+.about-primary-copy>a { align-items:center; justify-content:center; gap:12px; min-height:52px; padding:12px 22px; border:1px solid #ffffff45; border-radius:999px; font-size:14px; margin-top:28px; }
+.about-primary-copy>a:hover { background:#67e8f910; border-color:#67e8f999; transform:translateY(-2px); }
+.about-primary-links { display:flex; flex-wrap:wrap; align-items:flex-start; gap:14px; margin-top:clamp(56px,8vw,110px); padding-top:32px; border-top:1px solid #ffffff20; }
+.about-primary-links>a,.about-primary-links>a:first-child,.about-primary-links>a:last-child { flex:0 0 252px; width:252px; grid-template-columns:24px minmax(0,1fr) 14px; gap:14px; min-height:58px; padding:12px 18px; border:1px solid #ffffff30; border-radius:999px; color:#e9eef2; }
+.about-primary-links>a:hover { border-color:#67e8f977; background:#67e8f908; }
+.about-primary-links i,.about-primary-links svg { width:22px; height:22px; }
+.about-primary-links span { gap:3px; min-width:0; }
+.about-primary-links small { font-size:11px; color:#a5b3bc; }
+.about-primary-links strong { font-size:14px; font-weight:500; }
+@media(max-width:760px) {
+  .about-primary-page { padding-inline:24px; }
+  .about-primary-shell { grid-template-columns:minmax(0,1fr); padding-top:125px; }
+  .about-primary-shell h1 { font-size:clamp(3.8rem,16vw,6.8rem); }
+  .about-primary-kicker { margin-bottom:28px; }
+  .about-primary-copy { margin-top:36px; padding:28px 0 0; border-left:0; border-top:1px solid #ffffff25; }
+  .about-primary-links { flex-direction:column; gap:12px; margin-top:44px; padding-top:26px; }
+  .about-primary-links>a { width:100%; max-width:440px; }
+}

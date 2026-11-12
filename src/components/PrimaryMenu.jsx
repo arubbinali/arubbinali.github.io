@@ -26,7 +26,7 @@ export default function PrimaryMenu({ current = "" }) {
     openMenuButtonColor="#fff"
     changeMenuColorOnOpen
     colors={["transparent", "transparent"]}
-    logoUrl="/logo.png"
+    logoUrl=""
     accentColor="#00ffee"
     isFixed
     className="gateway-menu primary-menu"

@@ -1,0 +1,90 @@
+.stats-page .stats-shell { max-width:1240px; padding-top:140px; }
+.stats-page .stats-heading { padding-left:12px; }
+.stats-page .stats-heading h1 { font-size:clamp(2.4rem,4.6vw,4.2rem); line-height:1.07; letter-spacing:-.055em; margin-bottom:32px; }
+.stats-heading-note { color:#a5a5b6; font-size:12px; margin:0 0 34px; line-height:1.7; }
+.traffic-toolbar { display:flex; justify-content:space-between; align-items:center; gap:16px; margin:0 auto 18px; max-width:1120px; flex-wrap:wrap; }
+.traffic-segment { display:flex; gap:3px; padding:4px; border:1px solid #ffffff14; background:#090b1480; border-radius:999px; }
+.traffic-segment button,.traffic-refresh { border:0; background:transparent; border-radius:999px; padding:9px 14px; color:#a4a8b7; font-size:11px; cursor:pointer; transition:color .25s,background .25s,box-shadow .25s; }
+.traffic-segment button[aria-pressed=true] { background:#ffffff12; color:#f1f1ff; box-shadow:inset 0 1px #ffffff15; }
+.traffic-segment button:hover,.traffic-refresh:hover { color:#fff; background:#ffffff09; }
+.traffic-segment button:focus-visible,.traffic-refresh:focus-visible,.traffic-plot:focus-visible { outline:1px solid #b7c2ff; outline-offset:3px; }
+.traffic-refresh:disabled { opacity:.5; cursor:wait; }
+.traffic-chart { display:flex; flex:1; flex-direction:column; min-height:0; width:100%; }
+.traffic-chart-frame,.traffic-date-labels,.traffic-chart-foot { transition:opacity .3s ease; }
+.traffic-chart.is-updating .traffic-chart-frame,.traffic-chart.is-updating .traffic-date-labels,.traffic-chart.is-updating .traffic-chart-foot { opacity:.35; pointer-events:none; }
+.traffic-chart-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+.traffic-chart-heading>div { color:#e4e6ef; font-size:14px; }
+.traffic-chart-heading small { color:#9698aa; display:block; font-size:10px; margin-top:8px; }
+.traffic-chart-heading strong { font-size:clamp(2.35rem,3.4vw,3.75rem); font-weight:400; letter-spacing:-.055em; line-height:.9; font-variant-numeric:tabular-nums; }
+.traffic-key { display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--chart-color); margin-right:9px; }
+.traffic-chart-frame { display:flex; flex:1; min-height:130px; margin-top:22px; animation:trafficViewIn .5s ease both; }
+.traffic-scale { flex:0 0 42px; display:flex; flex-direction:column; justify-content:space-between; padding:5% 0 4%; font-size:9px; color:#8e90a3; font-variant-numeric:tabular-nums; }
+.traffic-plot { position:relative; flex:1; min-width:0; border-left:1px solid #ffffff10; border-bottom:1px solid #ffffff10; }
+.traffic-plot svg { position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+.traffic-line { animation:trafficLineIn .85s cubic-bezier(.16,1,.3,1) both; stroke:var(--chart-color); stroke-width:2.3px; vector-effect:non-scaling-stroke; fill:none; stroke-linecap:round; }
+.traffic-plot svg path[fill^="url"] { animation:trafficAreaIn .7s ease both; }
+.traffic-plot svg rect { animation:trafficBarIn .6s cubic-bezier(.16,1,.3,1) both; transform-box:fill-box; transform-origin:center bottom; }
+.traffic-crosshair { position:absolute; top:0; bottom:0; border-left:1px dashed #ffffff35; transition:left .16s ease,opacity .2s; pointer-events:none; }
+.traffic-point { position:absolute; width:9px; height:9px; border:2px solid var(--chart-color); background:#10111b; border-radius:50%; translate:-50% -50%; transition:left .16s ease,top .16s ease,opacity .2s; pointer-events:none; }
+.traffic-inspector { position:absolute; top:0; width:min(204px,100%); box-sizing:border-box; background:#10111ce8; backdrop-filter:blur(16px); border:1px solid #ffffff18; border-radius:12px; padding:10px 13px; pointer-events:none; transition:left .22s cubic-bezier(.16,1,.3,1),opacity .22s; box-shadow:0 10px 30px #0002; }
+.traffic-inspector time { display:block; color:#b5b6c5; font-size:10px; }
+.traffic-inspector strong { display:block; font-weight:500; font-size:14px; margin-top:5px; font-variant-numeric:tabular-nums; }
+.traffic-inspector strong span { color:#999bab; font-size:10px; font-weight:400; }
+.traffic-date-labels,.traffic-chart-foot { display:flex; justify-content:space-between; gap:8px; color:#8e90a3; font-size:9px; margin-top:12px; }
+.traffic-date-labels { padding-left:42px; }
+.traffic-chart-foot { border-top:1px solid #ffffff0b; padding-top:12px; }
+.stats-page .stats-bento-summary small { line-height:1.6; color:#a0a1af; }
+.traffic-status { display:flex; align-items:center; gap:7px; font-size:11px; color:#acaebe; }
+.traffic-status i { width:5px; height:5px; border-radius:50%; background:#b7c2ff; }
+.traffic-error { max-width:1120px; margin:0 auto 16px; color:#e3b8ab; font-size:12px; }
+@keyframes trafficViewIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+@keyframes trafficLineIn { from { opacity:0; stroke-dasharray:1; stroke-dashoffset:1; } to { opacity:1; stroke-dasharray:1; stroke-dashoffset:0; } }
+@keyframes trafficAreaIn { from { opacity:0; } to { opacity:1; } }
+@keyframes trafficBarIn { from { opacity:0; transform:scaleY(.08); } }
+@media(max-width:680px) { .stats-page { padding:0 8px; } .stats-page .stats-shell { padding-top:110px; } .traffic-toolbar { gap:10px; } .traffic-segment button { padding:9px 10px; } .traffic-chart-heading strong { font-size:24px; } .traffic-scale { flex-basis:32px; } .traffic-date-labels { padding-left:32px; } }
+@media(prefers-reduced-motion:reduce) { .traffic-chart-frame { animation:none; } }
+
+/* Responsive traffic presentation, independent of SVG plot scaling. */
+.stats-page .stats-shell { padding-inline:0; }
+.stats-page .stats-heading { padding-inline:12px; max-width:960px; margin-bottom:40px; }
+.stats-heading-note { font-size:15px; max-width:48ch; color:#b8bac7; }
+.traffic-toolbar { gap:14px; margin-bottom:24px; }
+.traffic-segment { max-width:100%; overflow-x:auto; scrollbar-width:none; }
+.traffic-segment button,.traffic-refresh { min-height:44px; white-space:nowrap; font-size:14px; }
+.traffic-chart-heading>div { font-size:18px; }
+.traffic-chart-heading small { font-size:12px; line-height:1.5; }
+.traffic-scale,.traffic-date-labels,.traffic-chart-foot { font-size:11px; line-height:1.6; color:#afb2c1; }
+.traffic-scale { flex-basis:48px; }
+.traffic-date-labels { padding-left:48px; }
+.traffic-chart-foot { flex-wrap:wrap; }
+.traffic-plot { touch-action:pan-y; }
+.traffic-plot svg { pointer-events:none; }
+.traffic-line { animation:none; }
+.traffic-inspector time { font-size:11px; }
+.traffic-inspector strong { font-size:18px; }
+.traffic-inspector strong span { font-size:12px; }
+.stats-page .stats-bento-summary > span { font-size:14px; }
+.stats-page .stats-bento-summary strong { display:block; width:100%; min-width:0; font-variant-numeric:tabular-nums; }
+.stats-page .stats-bento-summary strong { font-size:clamp(2.25rem,3.1vw,3.5rem); }
+.stats-page .traffic-chart-heading > strong { font-size:clamp(2rem,2.8vw,3.15rem); }
+.stats-page .stats-bento-summary small { font-size:13px; }
+.stats-page .traffic-number { display:inline-block; font-size:inherit; font-weight:inherit; letter-spacing:inherit; line-height:inherit; color:inherit; white-space:nowrap; }
+.traffic-chart-heading > strong { min-width:0; max-width:58%; }
+@media(max-width:680px) {
+  .stats-page { padding:0 16px; }
+  .stats-page .stats-heading { padding:0 4px; margin-bottom:28px; }
+  .stats-page .stats-heading h1 { font-size:clamp(2.2rem,8.6vw,3.6rem); margin-bottom:20px; }
+  .stats-heading-note { font-size:14px; margin-bottom:20px; }
+  .traffic-toolbar { gap:10px; }
+  .traffic-toolbar > .traffic-segment:first-child { width:100%; justify-content:space-between; }
+  .traffic-segment button { font-size:13px; padding:9px 12px; }
+  .traffic-chart-heading strong { font-size:2.15rem; }
+  .stats-page .stats-bento-summary strong { font-size:clamp(2.25rem,11vw,3.25rem); }
+  .traffic-chart-frame { min-height:220px; }
+  .traffic-scale { flex-basis:38px; font-size:10px; }
+  .traffic-date-labels { padding-left:38px; font-size:10px; }
+  .traffic-date-labels span { max-width:48%; }
+  .traffic-date-labels span:last-child { text-align:right; }
+  .traffic-chart-foot { font-size:10px; }
+  .traffic-refresh { padding-inline:8px; }
+}

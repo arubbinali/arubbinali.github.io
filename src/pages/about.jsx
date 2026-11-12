@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import PrimaryHomeLink from "../components/PrimaryHomeLink";
 import PrimaryMenu from "../components/PrimaryMenu";
-import SecondaryBackground from "../components/SecondaryBackground";
+import PrimaryBackground from "../components/PrimaryBackground";
 import "./gateway.css";
 import "./about.css";
-import "./about-links.css";
-import "./about-button-overrides.css";
+import "./about-refinement.css";
 
 function DiscordIcon() {
   return <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19.5 5.34A17.3 17.3 0 0 0 15.25 4l-.52 1.05a15.7 15.7 0 0 0-5.45 0L8.75 4A17.3 17.3 0 0 0 4.5 5.34C1.81 9.32 1.08 13.2 1.45 17a17.1 17.1 0 0 0 5.2 2.63l1.27-1.74a10.7 10.7 0 0 1-2-1c.17-.13.33-.26.49-.4 3.86 1.79 8.06 1.79 11.87 0 .16.14.32.27.49.4a10.7 10.7 0 0 1-2 1l1.27 1.74A17.1 17.1 0 0 0 23.24 17c.43-4.4-.73-8.24-3.74-11.66ZM8.43 14.65c-1.16 0-2.11-1.07-2.11-2.38s.93-2.38 2.11-2.38 2.13 1.08 2.11 2.38c0 1.31-.93 2.38-2.11 2.38Zm7.14 0c-1.16 0-2.11-1.07-2.11-2.38s.93-2.38 2.11-2.38 2.13 1.08 2.11 2.38c0 1.31-.93 2.38-2.11 2.38Z" /></svg>;
@@ -23,7 +22,7 @@ export default function About() {
   useEffect(() => { const previous = document.title; document.title = "About | doaor"; return () => { document.title = previous; }; }, []);
 
   return <main className="about-primary-page">
-    <div className="about-primary-background" aria-hidden="true"><SecondaryBackground /></div>
+    <div className="about-primary-background" aria-hidden="true"><PrimaryBackground preset="ice" /></div>
     <PrimaryHomeLink />
     <PrimaryMenu current="about" />
     <section className="about-primary-shell">

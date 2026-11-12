@@ -122,6 +122,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     itemEntranceTweenRef.current?.kill();
 
     const itemEls = Array.from(panel.querySelectorAll('.sm-panel-itemLabel')) as HTMLElement[];
+    const itemWrapEls = Array.from(panel.querySelectorAll('.sm-panel-itemWrap')) as HTMLElement[];
     const numberEls = Array.from(
       panel.querySelectorAll('.sm-panel-list[data-numbering] .sm-panel-item')
     ) as HTMLElement[];
@@ -131,6 +132,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     const offscreen = position === 'left' ? -100 : 100;
     const layerStates = layers.map(el => ({ el, start: offscreen }));
     const panelStart = offscreen;
+
+    if (itemWrapEls.length) gsap.set(itemWrapEls, { overflow: 'hidden' });
 
     if (!wasClosing) {
       if (itemEls.length) gsap.set(itemEls, { yPercent: 140, rotate: 10 });
@@ -214,9 +217,14 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     const tl = buildOpenTimeline();
     if (tl) {
       tl.eventCallback('onComplete', () => {
+        const panel = panelRef.current;
+        if (panel) {
+          const itemWrapEls = Array.from(panel.querySelectorAll('.sm-panel-itemWrap')) as HTMLElement[];
+          if (itemWrapEls.length) gsap.set(itemWrapEls, { overflow: 'visible' });
+        }
         busyRef.current = false;
       });
-      tl.play(0);
+      tl.timeScale(window.matchMedia('(prefers-reduced-motion:reduce)').matches ? 1000 : 1).play(0);
     } else {
       busyRef.current = false;
     }
@@ -234,6 +242,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     closeTweenRef.current?.kill();
     const offscreen = position === 'left' ? -100 : 100;
     const itemEls = Array.from(panel.querySelectorAll('.sm-panel-itemLabel')) as HTMLElement[];
+    const itemWrapEls = Array.from(panel.querySelectorAll('.sm-panel-itemWrap')) as HTMLElement[];
     const numberEls = Array.from(
       panel.querySelectorAll('.sm-panel-list[data-numbering] .sm-panel-item')
     ) as HTMLElement[];
@@ -241,6 +250,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     const socialLinks = Array.from(panel.querySelectorAll('.sm-socials-link')) as HTMLElement[];
 
     busyRef.current = true;
+    if (itemWrapEls.length) gsap.set(itemWrapEls, { overflow: 'hidden' });
     const tl = gsap.timeline({
       onComplete: () => {
         busyRef.current = false;
@@ -287,6 +297,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       }, index * 0.07);
     });
     closeTweenRef.current = tl;
+    if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) tl.timeScale(1000);
   }, [position]);
 
   const animateIcon = useCallback((opening: boolean) => {
@@ -402,6 +413,34 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   }, [playClose, animateIcon, animateColor, animateText, onMenuClose]);
 
   React.useEffect(() => {
+    if (!open) return;
+    const panel = panelRef.current;
+    const toggle = toggleBtnRef.current;
+    const scope = toggle?.closest('.sm-scope');
+    const parent = scope?.parentElement;
+    const siblings = parent ? Array.from(parent.children).filter(el => el !== scope) as HTMLElement[] : [];
+    const previous = siblings.map(el => el.inert);
+    siblings.forEach(el => { el.inert = true; });
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const keyboard = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') { event.preventDefault(); closeMenu(); toggle?.focus({preventScroll:true}); }
+      if (event.key === 'Tab' && panel && toggle) {
+        const controls = [toggle, ...Array.from(panel.querySelectorAll('a[href],button')) as HTMLElement[]];
+        const index = controls.indexOf(document.activeElement as HTMLElement);
+        event.preventDefault();
+        controls[(index+(event.shiftKey ? controls.length-1 : 1))%controls.length]?.focus({preventScroll:true});
+      }
+    };
+    document.addEventListener('keydown',keyboard);
+    return () => {
+      siblings.forEach((el,index) => { el.inert = previous[index]; });
+      document.body.style.overflow = overflow;
+      document.removeEventListener('keydown',keyboard);
+    };
+  }, [open,closeMenu]);
+
+  React.useEffect(() => {
     if (!closeOnClickAway || !open) return;
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -459,16 +498,18 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           className="staggered-menu-header absolute top-0 left-0 w-full flex items-center justify-between p-[2em] bg-transparent pointer-events-none z-20"
           aria-label="Main navigation header"
         >
-          <div className="sm-logo flex items-center select-none pointer-events-auto" aria-label="Logo">
-            <img
-              src={logoUrl || '/src/assets/logos/reactbits-gh-white.svg'}
-              alt="Logo"
-              className="sm-logo-img block h-8 w-auto object-contain"
-              draggable={false}
-              width={110}
-              height={24}
-            />
-          </div>
+          {logoUrl ? (
+            <div className="sm-logo flex items-center select-none pointer-events-auto" aria-label="Logo">
+              <img
+                src={logoUrl}
+                alt="Logo"
+                className="sm-logo-img block h-8 w-auto object-contain"
+                draggable={false}
+                width={110}
+                height={24}
+              />
+            </div>
+          ) : <span aria-hidden="true" />}
 
           <button
             ref={toggleBtnRef}
@@ -518,11 +559,11 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           className="staggered-menu-panel absolute top-0 right-0 h-full bg-white flex flex-col p-[6em_2em_2em_2em] overflow-y-auto z-10 backdrop-blur-[12px] pointer-events-auto"
           style={{ WebkitBackdropFilter: 'blur(12px)' }}
           aria-hidden={!open}
+          inert={!open}
         >
           <div className="sm-panel-inner flex-1 flex flex-col gap-5">
             <ul
               className="sm-panel-list list-none m-0 p-0 flex flex-col gap-2"
-              role="list"
               data-numbering={displayItemNumbering || undefined}
             >
               {items && items.length ? (
@@ -556,7 +597,6 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 <h3 className="sm-socials-title m-0 text-base font-medium [color:var(--sm-accent,#ff0000)]">Socials</h3>
                 <ul
                   className="sm-socials-list list-none m-0 p-0 flex flex-row items-center gap-4 flex-wrap"
-                  role="list"
                 >
                   {socialItems.map((s, i) => (
                     <li key={s.label + i} className="sm-socials-item">
