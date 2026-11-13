@@ -18,7 +18,10 @@ export default function GatewayFeatureExplorer({ onSelectionChange }) {
   const [wheelSelection, setWheelSelection] = useState(0);
   const [selected, setSelected] = useState(0);
   const [selectionPulse, setSelectionPulse] = useState(0);
+  const [cardFlipped, setCardFlipped] = useState(false);
   const scenario = OPTIONS[selected];
+
+  useEffect(() => { setCardFlipped(false); }, [selected]);
 
   useEffect(() => {
     const settle = window.setTimeout(() => {
@@ -47,7 +50,7 @@ export default function GatewayFeatureExplorer({ onSelectionChange }) {
           animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
           exit={{ opacity: 0, x: reduced ? 0 : -18, filter: reduced ? "none" : "blur(6px)" }}
           transition={{ duration: reduced ? 0.12 : 0.52, ease: [0.16, 1, 0.3, 1] }}>
-          <div className="gateway-card-glow gateway-card-matched-crop" key={selectionPulse} style={{ "--card-glow-a": scenario.glow[0], "--card-glow-b": scenario.glow[1], "--card-glow-c": scenario.glow[2] }}>
+          <div className="gateway-card-glow gateway-card-matched-crop" key={selectionPulse} style={{ "--card-glow-a": scenario.glow[0], "--card-glow-b": scenario.glow[1], "--card-glow-c": scenario.glow[2] }} onPointerDownCapture={(event) => { if (!cardFlipped || event.button !== 0) return; const bounds = event.currentTarget.getBoundingClientRect(); const inExploreArea = event.clientX >= bounds.left + bounds.width * 0.48 && event.clientY >= bounds.top + bounds.height * 0.52; if (inExploreArea) { event.preventDefault(); event.stopPropagation(); window.location.assign(scenario.route); } }}>
           <TiltedCard
             imageSrc={scenario.frontImage}
             altText={`${scenario.label} preview`}
@@ -61,7 +64,8 @@ export default function GatewayFeatureExplorer({ onSelectionChange }) {
             glare={0}
             shadow={0}
             reverse
-            backContent={<div className="gateway-card-back"><img src={scenario.backImage} alt="" decoding="async" loading="lazy" /><div><h3>{scenario.label}</h3><p>{scenario.back}</p></div><a className="gateway-card-back-link" href={scenario.route} onClick={(event) => event.stopPropagation()}>Explore <span aria-hidden="true">↗</span></a></div>}
+            onFlip={setCardFlipped}
+            backContent={<div className="gateway-card-back"><img src={scenario.backImage} alt="" decoding="async" loading="lazy" /><div><h3>{scenario.label}</h3><p>{scenario.back}</p></div><a className="gateway-card-back-link" href={scenario.route} onPointerDown={(event) => { event.stopPropagation(); if (event.button === 0) { event.preventDefault(); window.location.assign(event.currentTarget.href); } }} onClick={(event) => event.stopPropagation()}>Explore <span aria-hidden="true">↗</span></a></div>}
           >
             <TiltedCardLayer depth={30}>
               <div style={{ position: "absolute", left: 20, right: 20, bottom: 16, color: "#fff" }}>

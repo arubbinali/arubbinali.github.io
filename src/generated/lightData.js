@@ -51,6 +51,16 @@ export const LIGHT_CONTENT = {
 };
 export const SITE_COMMITS = [
   {
+    "hash": "2e022ee",
+    "date": "2026-11-12T21:45:57+08:00",
+    "message": "deploy: publish refreshed website"
+  },
+  {
+    "hash": "3b9460c",
+    "date": "2026-11-12T21:43:48+08:00",
+    "message": "feat: refresh primary website experience"
+  },
+  {
     "hash": "b16756b",
     "date": "2026-10-25T04:15:37+08:00",
     "message": "Fix stats history resolution"
@@ -99,15 +109,5 @@ export const SITE_COMMITS = [
     "hash": "4159bc4",
     "date": "2026-09-26T18:09:56+08:00",
     "message": "Add persistent homepage visits counter"
-  },
-  {
-    "hash": "c137adc",
-    "date": "2026-09-26T17:31:06+08:00",
-    "message": "Deploy refreshed homepage and software page"
-  },
-  {
-    "hash": "2dd2d0e",
-    "date": "2026-09-25T05:38:41+08:00",
-    "message": "feat: refine site intro and gateway"
   }
 ];

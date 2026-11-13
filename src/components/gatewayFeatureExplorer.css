@@ -126,6 +126,7 @@
 }
 
 @media (max-width:1100px) {
+  .gateway-feature-explorer { --gateway-option-wheel-inset:clamp(24px,5vw,80px); }
   .gateway-option-wheel { width:36vw; }
   .gateway-bento-stage { right:24px; width:56vw; }
 }
@@ -143,6 +144,10 @@
   .gateway-feature-explorer { --gateway-card-size:240px; min-height:440px; padding:90px 40px 110px; grid-template-columns:1fr 1fr; gap:24px; }
   .gateway-option-wheel { height:240px; }
   .gateway-page .gateway-content { position:absolute; inset:0; }
+}
+
+@media(max-width:360px) {
+  .gateway-feature-explorer { padding-inline:16px; --gateway-card-size:calc(100vw - 48px); }
 }
 
 @media (prefers-reduced-motion:reduce) {

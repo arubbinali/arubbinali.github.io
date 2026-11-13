@@ -401,6 +401,14 @@ const LightPillar = ({
     const colorCache = new Map<string, number[]>();
     const toRgb = (value: string): number[] => {
       if (colorCache.has(value)) return colorCache.get(value) as number[];
+      // Preset transitions use hex colors; avoid a synchronous canvas readback.
+      const hex = /^#([\da-f]{6})$/i.exec(value);
+      if (hex) {
+        const rgb = [0, 2, 4].map(offset => parseInt(hex[1].slice(offset, offset + 2), 16) / 255);
+        if (colorCache.size >= 512) colorCache.clear();
+        colorCache.set(value, rgb);
+        return rgb;
+      }
       let rgb = [1, 1, 1];
       if (probe) {
         probe.clearRect(0, 0, 1, 1);
@@ -613,6 +621,7 @@ const LightPillar = ({
       const width = Math.max(1, container.clientWidth);
       const height = Math.max(1, container.clientHeight);
       const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      if (view.width === width && view.height === height && view.ratio === ratio && canvas.width === Math.round(width * ratio)) return;
       view.width = width;
       view.height = height;
       view.ratio = ratio;
@@ -630,6 +639,7 @@ const LightPillar = ({
     };
 
     const onPointerMove = (event: PointerEvent) => {
+      if (!settingsRef.current.interactive) return;
       const point = locate(event);
       pointer.x = point.x;
       pointer.y = point.y;
@@ -662,6 +672,7 @@ const LightPillar = ({
 
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(container);
+    window.addEventListener('resize', resize, { passive: true });
     const intersection = new IntersectionObserver(entries => {
       visible = entries.some(entry => entry.isIntersecting);
       if (visible) {
@@ -677,7 +688,6 @@ const LightPillar = ({
     resize();
 
     wakeRef.current = () => {
-      if (!raf) render();
       wake();
     };
 
@@ -687,6 +697,7 @@ const LightPillar = ({
       canvas.removeEventListener('webglcontextlost', onContextLost);
       canvas.removeEventListener('webglcontextrestored', onContextRestored);
       resizeObserver.disconnect();
+      window.removeEventListener('resize', resize);
       intersection.disconnect();
       window.removeEventListener('pointermove', onPointerMove);
       window.removeEventListener('pointerdown', onMouseUp);
